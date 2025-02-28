@@ -10,18 +10,20 @@
     <link rel="stylesheet" th:href="@{/css/find.css}">
     <style>
         .container {
-            background: gainsboro;
+            background: #DFE7FD;
             display: block;
             width: 450px;
             border-radius: 7px;
             margin: 190px auto;
             height: 320px;
+            box-shadow: 5px 5px 25px rgb(172, 172, 172);
 
             .foundId {
                 padding-top: 80px;
 
                 p {
                     text-align: center;
+                    color: rgb(102, 102, 102);
 
                 }
 
@@ -50,10 +52,25 @@
             }
 
             #loginBtn{
-                background-color: red;
+                background-color: #afc4ff;
             }
+
+            #loginBtn:hover{
+                background-color: #94b0ff;
+
+            }
+
             #pwBtn{
-                background-color: blue;
+                background-color: #94b0ff;
+            }
+
+            #pwBtn:hover{
+                background-color: #7599ff;;
+            }
+
+            a{
+                text-decoration: none;
+                color: white;
             }
     </style>
 </head>
@@ -61,17 +78,17 @@
 <body class="text-center">
     <div class="container">
         <div class="foundId">
-            <p>아이디 찾기를 완료하였습니다.</p>
+            <b><p>아이디 찾기를 완료하였습니다.</p></b>
             <p id="foundId">alfks8***</p>
         </div>
         <div class="link">
             <a th:href="@{/login}">
-                <div id="loginBtn">
-                    로그인
+                <div id="loginBtn"><b>
+                    로그인</b>
                 </div>
             </a>
             <div id="pwBtn">
-                <a th:href="@{/find/password}">비밀번호 찾기</a>
+                <a th:href="@{/find/password}"><b>비밀번호 찾기</b></a>
             </div>
         </div>
     </div>

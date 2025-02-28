@@ -9,6 +9,16 @@
     <title>로그인</title>
     <link rel="stylesheet" href="/css/login.css">
     <style>
+
+        a{
+            text-decoration: none;
+            color: rgb(102, 102, 102);
+        }
+
+        input:focus {
+            box-shadow: 5px 5px 15px #CDDAFD;
+        }
+
         .oauth2 {
             display: flex;
             justify-content: center;
@@ -28,13 +38,13 @@
 
 
         .container {
-            background: gainsboro;
+            background: #DFE7FD;
             display: block;
-            max-width: 680px;
-            width: 600px;
+            width: 450px;
             border-radius: 7px;
-            margin: 120px auto;
-            height: 570px;
+            margin: 100px auto;
+            height: 650px;
+            box-shadow: 5px 5px 25px rgb(172, 172, 172);
         }
 
         h1 {
@@ -139,7 +149,7 @@
             }
 
             .btn {
-                background: blue;
+                background: #afc4ff;
                 color: white;
                 display: block;
                 width: 92.5%;
@@ -151,19 +161,18 @@
                 cursor: pointer;
                 font-size: 14px;
                 font-family: 'Montserrat', sans-serif;
-                box-shadow: 0 15px 30px rgba(#e91e63, .36);
                 transition: .2s linear;
+            }
 
-                &:hover {
-                    box-shadow: 0 0 0 rgba(#e91e63, .0);
-                }
+            .btn:hover {
+                background-color: #95b1ff;
             }
 
         }
 
         .separator {
             display: block;
-            margin: 30px auto 10px;
+            margin: 50px auto 10px;
             text-align: center;
             height: 40px;
             position: relative;
@@ -199,16 +208,18 @@
             flex-direction: column;
         }
 
-        .find{
+        .find {
             display: flex;
             justify-content: center;
         }
 
-        .find{
-            a:hover{
-               font-weight: 600; 
+        .find {
+            padding-top: 10px;
+            a:hover {
+                font-weight: 600;
             }
-            span{
+
+            span {
                 margin-left: 5px;
                 margin-right: 5px;
             }
@@ -250,7 +261,7 @@
             </div>
             <!-- sign in button -->
             <button class="btn">
-                Sign in
+                <b>로그인</b>
             </button>
         </form>
         <div class="find">

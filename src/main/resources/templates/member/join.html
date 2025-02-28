@@ -9,18 +9,23 @@
     <title>회원가입</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
+        input:focus {
+            box-shadow: 5px 5px 15px #CDDAFD;
+            outline: none;
+        }
+
         .error {
             color: red;
         }
 
         .container {
-            background: gainsboro;
+            background: #DFE7FD;
             display: block;
-            max-width: 680px;
-            width: 600px;
+            width: 450px;
             border-radius: 7px;
-            margin: 120px auto;
+            margin: 30px auto;
             height: 830px;
+            box-shadow: 5px 5px 25px rgb(172, 172, 172);
         }
 
         h1 {
@@ -338,14 +343,14 @@
 
         })
 
-        let bol2=true;
-        function bol_2(){
-            bol2=!bol2;
+        let bol2 = true;
+        function bol_2() {
+            bol2 = !bol2;
         }
 
-        let bol3 =true;
-        function bol_3(){
-            bol3=!bol3;
+        let bol3 = true;
+        function bol_3() {
+            bol3 = !bol3;
         }
 
         check02.addEventListener("click", () => {

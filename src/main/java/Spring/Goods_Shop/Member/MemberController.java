@@ -29,4 +29,19 @@ public class MemberController {
     String findId(){
         return "member/find/id";
     }
+
+    @GetMapping("/find/password")
+    String findPassword(){
+        return "member/find/password";
+    }
+
+    @GetMapping("/feedback/password")
+    String feedbackPassword(){
+        return "member/find/feedbackPassword";
+    }
+
+    @GetMapping("/feedback/id")
+    String feedbackId(){
+        return "member/find/feedbackId";
+    }
 }
