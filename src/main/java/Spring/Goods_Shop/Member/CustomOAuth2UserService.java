@@ -55,7 +55,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .userId(loginId)
                     .provider(provider)
                     .providerId(providerId)
-                    .profileImage("images/profileImage.png")
                     .role(MemberRole.USER)
                     .phoneNumber(phoneNumber)
                     .privacyAgreement(true)

@@ -22,10 +22,6 @@ public class Member {
     @Comment(value = "회원PK")
     private Long id;
 
-    @Column(nullable = true)
-    @Comment(value = "프로필사진 경로")
-    private String profileImage;
-
     @Column(nullable = false)
     @Comment(value = "회원 아이디")
     private String userId;
