@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자 헤더</title>
+
+</head>
+
+<body>
+    <header th:fragment="masterHeader" class="masterHeader">
+        <div class="headerLogoArea" style="cursor:pointer" onclick="openNav()">
+            <img th:src="@{/images/일러스트4.png}" class="headerLogoImage">
+        </div>
+        <div class="headerTitle">
+            <p>구름별 공방 Adiministrator</p>
+        </div>
+        <div class="homePage">
+            <i class="fa-solid fa-house"></i>
+            <a th:href="@{/}" class="homepageLink">홈페이지</a>
+        </div>
+        <div class="logout">
+            <a th:href="@{/logout}" class="logoutLink">로그아웃</a>
+        </div>
+    </header>
+</body>
+
+</html>
