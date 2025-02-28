@@ -1,4 +1,9 @@
 
+.logoArea{
+  display: flex;
+  justify-content: center;
+}
+
 .logoImage{
     width: 100px;
     height: 100px;
@@ -18,12 +23,13 @@
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px;
   text-decoration: none;
   font-size: 25px;
   color: #363636;
   display: block;
   transition: 0.3s;
+  text-align: center;
 }
 
 .sidenav a:hover {

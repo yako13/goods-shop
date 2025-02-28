@@ -11,9 +11,8 @@
   <link href="/css/masterNavigation.css" rel="stylesheet">
   <link href="/css/masterHeader.css" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/find.css}">
+  <script src="https://kit.fontawesome.com/f3f72a2177.js" crossorigin="anonymous"></script>
   <style>
-    @import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
-
     body {
       margin: 0;
     }
@@ -24,6 +23,7 @@
 
     .rwd-table {
       margin: auto;
+      width: 100%;
       min-width: 300px;
       max-width: 100%;
       border-collapse: collapse;
@@ -125,32 +125,58 @@
       text-align: center;
     }
 
-    h3 {
-      display: inline-block;
-      position: relative;
-      text-align: center;
-      font-size: 1.5em;
-      color: #cecece;
-    }
-
-    h3:before {
-      content: "\25C0";
-      position: absolute;
-      left: -50px;
-      -webkit-animation: leftRight 2s linear infinite;
-      animation: leftRight 2s linear infinite;
-    }
-
-    h3:after {
-      content: "\25b6";
-      position: absolute;
-      right: -50px;
-      -webkit-animation: leftRight 2s linear infinite reverse;
-      animation: leftRight 2s linear infinite reverse;
-    }
-
-    .totalPrice{
+    .totalPrice {
       color: red;
+    }
+
+    h2 {
+      text-align: left;
+    }
+
+    .orderList {
+      height: 70px;
+      text-align: left;
+
+      p {
+        padding-top: 30px;
+      }
+    }
+
+    #red {
+      color: red;
+    }
+
+    ul{
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    a{
+      text-decoration: none;
+    }
+
+    .active{
+      width: 30px;
+      background-color: #b2d5f1;
+      border: #bfbfbf solid 1px;
+      border-left: none;
+      border-right: none;
+      a{color: white;}
+    }
+
+    .disabled{
+      width: 30px;
+      background-color: #e2e2e2;
+      border: #bfbfbf solid 1px;
+
+
+      a{
+        color: #bfbfbf;
+        cursor: not-allowed;
+      }
+    
     }
   </style>
 </head>
@@ -161,6 +187,11 @@
 
   <main id="main">
     <div class="container">
+      <h2>전체 주문 목록</h2>
+      <hr>
+      <div class="orderList">
+        <p><b>주문 내역</b> : <b id="red">2</b>건</p>
+      </div>
 
       <table class="rwd-table">
         <tbody>
@@ -180,22 +211,22 @@
           <tr>
             <!-- 테이블 행 전체에 주문상세 링크걸기 -->
             <a>
-            <td>
-              20250228080808_0001
-            </td>
-            <td>김춘식</td>
-            <td>김춘식</td>
-            <td>멋있는 스티커 5장</td>
-            <td>1</td>
-            <td>5,000원</td>
-            <td class="totalPrice"><b>18,000원</b>
-            </td>
-            <td>카드</td>
-            <td>주문완료</td>
-            <td>배송완료</td>
-            <td>2025.02.28 08:08:08</td>
+              <td>
+                20250228080808_0001
+              </td>
+              <td>김춘식</td>
+              <td>김춘식</td>
+              <td>멋있는 스티커 5장</td>
+              <td>1</td>
+              <td>5,000원</td>
+              <td class="totalPrice"><b>18,000원</b>
+              </td>
+              <td>카드</td>
+              <td>주문완료</td>
+              <td>배송완료</td>
+              <td>2025.02.28 08:08:08</td>
           </tr>
-        </a>
+          </a>
           <tr>
             <td>
               20250228080808_0001
@@ -215,6 +246,11 @@
         </tbody>
       </table>
     </div>
+    <ul class="pagination">
+      <li class="disabled"><a href="#"><i class="ace-icon fa fa-angle-double-left"></i></a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li class="disabled"><a href="#"><i class="ace-icon fa fa-angle-double-right"></i></a></li>
+    </ul>
 
   </main>
   <script th:src="@{/js/masterNavigation.js}"></script>

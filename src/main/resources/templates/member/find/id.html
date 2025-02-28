@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/find.css}">
 <style>
     .container {
-    background: gainsboro;
+    background: #DFE7FD;
     display: block;
     width: 450px;
     border-radius: 7px;
@@ -57,7 +57,6 @@
     }
 }
 
-
 form {
     width: 100%;
     max-width: 680px;
@@ -85,6 +84,10 @@ form {
             }
         }
 
+
+        input:focus{
+            box-shadow: 5px 5px 5px #CDDAFD ;
+        }
 
         input {
             display: block;
@@ -116,7 +119,7 @@ form {
     }
 
     .btn {
-        background: blue;
+        background: #CDDAFD;
         color: white;
         display: block;
         width: 92.5%;
@@ -128,12 +131,10 @@ form {
         cursor: pointer;
         font-size: 14px;
         font-family: 'Montserrat', sans-serif;
-        box-shadow: 0 15px 30px rgba(#e91e63, .36);
         transition: .2s linear;
-
-        &:hover {
-            box-shadow: 0 0 0 rgba(#e91e63, .0);
-        }
+    }
+    .btn:hover{
+        background-color: #afc4ff;
     }
 
 }
