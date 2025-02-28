@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="css/mainPage.css">
+</head>
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+
+}
+
+/* 헤더 css 시작 */
+
+.HanHeaderBody {
+  width: 100%;
+  background-color: #fff8f8;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.HanHeaderBody p {
+  display: inline-block;
+}
+
+.HanMainTitleP {
+  font-size: 25px;
+  margin: 50px 0;
+
+}
+
+.HanHeaderTop {
+  padding-top: 5px;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.HanHeaderLogo {
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+
+.HanHeaderLogoP {
+  margin: 0;
+  font-size: 13px;
+}
+
+.HanHeaderButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px
+}
+
+.HanHeaderButton a {
+  padding: 5px 8px;
+  text-decoration-line: none;
+  color: #3a3a3a;
+  transition: all 0.5s;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.HanHeaderButton a:Hover {
+  color: #000000;
+  background-color: #fff9a9;
+}
+
+.HanHeaderBottom {
+  height: 60px;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.HanHeaderBottomP {
+  font-size: 15px;
+  margin: 6px 0;
+
+}
+
+.HanHeaderHr {
+  margin-bottom: 0;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #e6dddd;
+
+}
+
+
+
+
+.HanLoginForm {
+  position: relative;
+}
+
+
+.HanLoginForm input {
+  box-sizing: border-box;
+  width: 240px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 12px;
+}
+
+.HanLoginForm input:focus {
+  outline: none;
+}
+
+.HanLoginForm img {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  z-index: 10;
+
+}
+
+/* 헤더 css 끝 */
+
+/* 네비 css 시작 */
+
+.HanNaviMain {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.HanNaviLogoDiv p {
+  display: inline-block;
+  font-size: 55px;
+  margin: 20px;
+
+}
+
+.HanNaviBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+
+}
+
+.HanNaviBar a {
+  text-decoration-line: none;
+  color: #000000;
+  transition: all 0.5s;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 15px 0;
+
+}
+
+.HanNaviBarImage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+
+}
+
+.HanNaviBarImage img {
+  max-width: 1600px;
+  height: 400px;
+}
+
+/* 네비 css끝 */
+
+
+
+/* 메인 css 시작 */
+
+.HanMainBody {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.HanMainNewDiv {
+  padding: 20px 0;
+  width: 1800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* background-color: antiquewhite; */
+
+}
+
+.HanMainNewDivCard {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 430px;
+  height: 510px;
+
+}
+
+.HanMainNewDivCardImg {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.HanMainNewDivCardImg img {
+  max-width: 400px;
+  max-height: 400px;
+
+}
+
+.HanMainNewDivCardPDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 5px;
+  padding-bottom: 10px;
+
+}
+
+
+.HanMainNewDivCardPDivName {
+  margin: 5px 0;
+  font-size: 25px;
+}
+
+.HanMainNewDivCardPDivPrice {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* 메인 css 끝 */
+
+
+
+/* 푸터 css 시작 */
+
+.HanFooterBody {
+
+  background-color: #ffffeb;
+  padding: 20px 200px;
+  font-size: 12px;
+  color: #727271;
+}
+
+.THlinks {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.THlinks a {
+  text-decoration: none;
+  color: #666;
+  position: relative;
+  padding: 0 10px;
+}
+
+.THlinks a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 12px;
+  background-color: #ddd;
+}
+
+.THlinks a:first-child::before {
+  display: none;
+}
+
+.THlinks a:hover {
+  text-decoration: underline;
+}
+
+.THinfo {
+  padding-left: 7px;
+}
+
+.THinfo p {
+  margin: 3px;
+}
+
+.THinfo a {
+  text-decoration: none;
+  color: #666;
+  position: relative;
+
+}
+
+.THinfo a:hover {
+  text-decoration: underline;
+}
+
+.THfooterLogo {
+  background: url(/images/logo1.png) no-repeat center center;
+  background-size: 100%;
+  width: 125px;
+  height: 125px;
+}
+
+.THfooterDiv1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+
+}
+
+.THinfo strong {
+  font-weight: bold;
+}
+
+.THcustomer-center {
+  margin-top: 20px;
+}
+
+.THcustomer-center span {
+  display: block;
+}
+
+.THdisclaimer {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #999;
+}
+
+.HanFooterGit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.HanFooterGit img {
+
+  width: 18px;
+  height: 18px;
+}
+</style>
+
+<body>
+
+  <!-- 헤더 시작 -->
+  <div class="HanHeaderBody">
+
+    <div class="HanHeaderTop">
+
+      <div class="HanHeaderLogo">
+        <p class="HanHeaderLogoP">CloudStar Workshop</p>
+      </div>
+
+      <div class="HanHeaderButton">
+        <a href="">로그인</a>
+        <a href="">회원가입</a>
+      </div>
+
+    </div>
+
+    <hr class="HanHeaderHr">
+
+    <div class="HanHeaderBottom">
+
+      <p class="HanHeaderBottomP">포근한 구름속 반짝이는 별처럼 반짝이는 굿즈를 만들어요</p>
+
+      <div class="HanLoginForm">
+
+        <form action="/product/search/index" method="get" role="search" id="SerachForm">
+
+          <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
+
+          <img src="images/search.svg">
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 헤더 끝 -->
+
+
+
+  <!-- 네비 시작 -->
+
+  <div class="HanNaviMain">
+
+    <div class="HanNaviLogoDiv">
+      <p>구름별 공방</p>
+
+
+    </div>
+
+    <hr class="HanHeaderHr">
+
+    <div class="HanNaviBar">
+
+      <a href="">전체상품</a>
+      <a href="">카테고리1</a>
+      <a href="">카테고리2</a>
+      <a href="">카테고리3</a>
+
+    </div>
+
+    <div class="HanNaviBarImage">
+      <img src="images/naviImage3.png" alt="네비 배너 이미지">
+    </div>
+
+
+  </div>
+
+  <!-- 네비 끝 -->
+
+
+
+
+  <!-- 메인 시작 -->
+
+  <div class="HanMainBody">
+
+    <p class="HanMainTitleP">신상품</p>
+
+    <div class="HanMainNewDiv">
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product1.png" alt="상품이미지">
+          s
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">동화 일러스트 키캡 4종</p>
+          <p class="HanMainNewDivCardPDivPrice">20,000원</p>
+
+        </div>
+
+      </div>
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product2.png" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">동물 캐릭터 안경닦이</p>
+          <p class="HanMainNewDivCardPDivPrice">10,000원</p>
+
+        </div>
+
+      </div>
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product3.png" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">고양이 장패드</p>
+          <p class="HanMainNewDivCardPDivPrice">30,000원</p>
+
+        </div>
+
+
+      </div>
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product4.png" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">동물 캐릭터 메모지</p>
+          <p class="HanMainNewDivCardPDivPrice">25,000원</p>
+
+        </div>
+
+
+
+      </div>
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product5.png" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">멍뭉이 안경닦이 4종</p>
+          <p class="HanMainNewDivCardPDivPrice">45,000원</p>
+
+        </div>
+
+      </div>
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product6.png" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">맛난 감튀 캐릭터 안경닦이</p>
+          <p class="HanMainNewDivCardPDivPrice">15,000원</p>
+
+        </div>
+
+      </div>
+
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product7.jpg" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">토끼 키캡</p>
+          <p class="HanMainNewDivCardPDivPrice">25,000원</p>
+
+        </div>
+
+      </div>
+
+
+      <div class="HanMainNewDivCard">
+
+        <div class="HanMainNewDivCardImg">
+
+          <img src="images/product8.jpg" alt="상품이미지">
+
+        </div>
+
+        <div class="HanMainNewDivCardPDiv">
+
+          <p class="HanMainNewDivCardPDivName">허허허허 키캡</p>
+          <p class="HanMainNewDivCardPDivPrice">55,000원</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+  <!-- 메인 끝 -->
+
+
+  <!-- 푸터 시작 -->
+
+  <div class="HanFooterBody">
+
+    <div class="THfooter">
+      <div class="THlinks">
+        <a href="#">회사소개</a>
+        <a href="#">이용약관</a>
+        <a href="#">전자금융거래 이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">청소년보호정책</a>
+        <a href="#">전자금융거래약관</a>
+        <a href="#">고객센터</a>
+      </div>
+      <div class="THfooterDiv1">
+
+        <!-- 로고 이미지 -->
+
+        <!-- <div>
+          <div class="THfooterLogo"></div>
+        </div> -->
+
+        <div class="THinfo">
+          <p>상호명 : 구름별 공방</p>
+          <p>site : http://localhost:8080/</p>
+          <p>주소 : 부산 부산진구 중앙대로 631 선문빌딩 9F</p>
+
+          <div class="HanFooterGit">
+
+            <img src="images/git.svg" alt="">
+            <p>@yako13 @Ranme95 @kimhansol-code</p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+  <!-- 푸터 끝 -->
+
+
+
+</body>
+
+</html>
