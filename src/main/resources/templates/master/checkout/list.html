@@ -190,33 +190,67 @@
       <h2>전체 주문 목록</h2>
       <hr>
       <div class="orderList">
-        <p>주문번호 : 20250228080808_0001</p>
+        <p><b>주문 내역</b> : <b id="red">2</b>건</p>
       </div>
-      <form th:action="@{/master/checkout/edit}" th:method="post">
+
       <table class="rwd-table">
         <tbody>
           <tr>
-            <th>주문 상태 변경</th>
-            <td><select>
-              <option>주문 완료</option>
-              <option>주문 보류</option>
-              <option>주문 취소</option>
-            </select></td>
+            <th>주문번호</th>
+            <th>주문자</th>
+            <th>받는이</th>
+            <th>주문 상품</th>
+            <th>구매수량</th>
+            <th>상품 금액</th>
+            <th>총 결제 금액</th>
+            <th>결제수단</th>
+            <th>주문 상태</th>
+            <th>배송 상태</th>
+            <th>주문 날짜</th>
           </tr>
           <tr>
-            <th>배송 업체</th>
-            <td><select>
-              <option>대한통운</option>
-              <option>우체국택배</option>
-              <option>한진택배</option>
-            </select></td>
-            <td><input type="text" placeholder="운송장번호" name="shipmentNumber"></td>
+            <!-- 테이블 행 전체에 주문상세 링크걸기 -->
+            <a>
+              <td>
+                20250228080808_0001
+              </td>
+              <td>김춘식</td>
+              <td>김춘식</td>
+              <td>멋있는 스티커 5장</td>
+              <td>1</td>
+              <td>5,000원</td>
+              <td class="totalPrice"><b>18,000원</b>
+              </td>
+              <td>카드</td>
+              <td>주문완료</td>
+              <td>배송완료</td>
+              <td>2025.02.28 08:08:08</td>
           </tr>
-             
+          </a>
+          <tr>
+            <td>
+              20250228080808_0001
+            </td>
+            <td>김춘식</td>
+            <td>김춘식</td>
+            <td>예쁜 스티커</td>
+            <td>2</td>
+            <td>5,000원</td>
+            <td class="totalPrice"><b>18,000원</b>
+            </td>
+            <td>카드</td>
+            <td>주문완료</td>
+            <td>배송완료</td>
+            <td>2025.02.28 08:08:08</td>
+          </tr>
         </tbody>
       </table>
     </div>
-  </form>
+    <ul class="pagination">
+      <li class="disabled"><a href="#"><i class="ace-icon fa fa-angle-double-left"></i></a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li class="disabled"><a href="#"><i class="ace-icon fa fa-angle-double-right"></i></a></li>
+    </ul>
 
   </main>
   <script th:src="@{/js/masterNavigation.js}"></script>

@@ -31,7 +31,6 @@
             margin-right: 20px;
             margin-left: 20px;
         }
-
         .google {
             background-color: #F2F2F2;
         }
@@ -48,7 +47,7 @@
         }
 
         h1 {
-            color: black;
+            color: white;
             font-size: 48px;
             letter-spacing: -3px;
             text-align: center;
@@ -82,7 +81,7 @@
 
                 a {
                     text-decoration: none;
-                    color: #0f132a;
+                    color: white;
                     font-weight: bolder;
                     text-align: center;
                     cursor: pointer;
@@ -121,7 +120,7 @@
 
                 input {
                     display: block;
-                    width: 90%;
+                    width: 420px;
                     max-width: 680px;
                     height: 50px;
                     margin: 0 auto;
@@ -131,7 +130,7 @@
                     color: black;
                     padding: 0 0 0 15px;
                     font-size: 14px;
-                    font-family: 'Montserrat', sans-serif;
+                    
 
                     &:focus,
                     &:active {
@@ -140,11 +139,7 @@
                         color: rgba(#0f132a, 1);
                     }
 
-                    &.repeat__password {
-                        opacity: 0;
-                        display: none;
-                        transition: .2s linear;
-                    }
+    
                 }
             }
 
@@ -160,7 +155,6 @@
                 border: none;
                 cursor: pointer;
                 font-size: 14px;
-                font-family: 'Montserrat', sans-serif;
                 transition: .2s linear;
             }
 
@@ -172,12 +166,12 @@
 
         .separator {
             display: block;
-            margin: 50px auto 10px;
+            margin: 30px auto 10px;
             text-align: center;
-            height: 40px;
+            height: 20px;
             position: relative;
             background: transparent;
-            color: black;
+            color: rgb(111, 111, 111);
             font-size: 13px;
             width: 90%;
             max-width: 680px;
@@ -187,7 +181,7 @@
                 position: absolute;
                 top: 8px;
                 left: 0;
-                background: black;
+                background: rgb(111, 111, 111);
                 height: 1px;
                 width: 45%;
             }
@@ -197,7 +191,7 @@
                 position: absolute;
                 top: 8px;
                 right: 0;
-                background: black;
+                background: rgb(111, 111, 111);
                 height: 1px;
                 width: 45%;
             }
@@ -222,6 +216,15 @@
             span {
                 margin-left: 5px;
                 margin-right: 5px;
+            }
+        }
+
+        .easyLogin{
+            p{
+                text-align: center;
+                margin-bottom: 30px;
+                font-weight: 600;
+            
             }
         }
     </style>
@@ -254,11 +257,6 @@
             <div class="input__block">
                 <input type="password" placeholder="Password" class="input" id="password" />
             </div>
-            <!-- repeat password input -->
-            <div class="input__block">
-                <input type="password" placeholder="Repeat password" class="input repeat__password"
-                    id="repeat__password" />
-            </div>
             <!-- sign in button -->
             <button class="btn">
                 <b>로그인</b>
@@ -270,6 +268,9 @@
         <!-- separator -->
         <div class="separator">
             <p>OR</p>
+        </div>
+        <div class="easyLogin">
+            <p>소셜로 간편 로그인</p>
         </div>
         <div class="oauth2">
             <a href="/oauth2/authorization/google"><img th:src="@{/images/google.png}" class="oauth2Image"></a>

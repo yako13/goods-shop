@@ -23,38 +23,21 @@
             display: block;
             width: 450px;
             border-radius: 7px;
-            margin: 30px auto;
-            height: 830px;
+            margin: 100px auto;
+            height: 870px;
             box-shadow: 5px 5px 25px rgb(172, 172, 172);
         }
 
         h1 {
-            color: black;
+            color: white;
             font-size: 48px;
             letter-spacing: -3px;
             text-align: center;
             transition: .2s linear;
         }
 
-
-        input {
-            display: block;
-            width: 536px;
-            max-width: 680px;
-            height: 50px;
-            margin: 0 auto;
-            border-radius: 8px;
-            border: none;
-            background: white;
-            color: black;
-            padding: 0 0 0 15px;
-            font-size: 14px;
-
-        }
-
         .links {
             list-style-type: none;
-            margin-left: 20px;
 
             li {
                 display: inline-block;
@@ -69,17 +52,42 @@
                     }
                 }
 
+                &:nth-child(3) {
+                    opacity: .6;
+                    float: right;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
                 a {
                     text-decoration: none;
-                    color: #0f132a;
+                    color: white;
                     font-weight: bolder;
                     text-align: center;
                     cursor: pointer;
                 }
             }
         }
+        form {
+            width: 100%;
+            max-width: 680px;
+            input {
+            display: block;
+            width: 420px !important;
+            height: 50px;
+            margin: 20px 7.5px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: black;
+            padding: 0 0 0 15px;
+            font-size: 14px;
 
+        }
 
+        }
 
         .form-control {
             margin-bottom: 20px;
@@ -96,7 +104,7 @@
             height: 20px;
             position: relative;
             background: transparent;
-            color: black;
+            color: rgb(111, 111, 111);
             font-size: 13px;
             width: 90%;
             max-width: 680px;
@@ -106,9 +114,9 @@
                 position: absolute;
                 top: 8px;
                 left: 0;
-                background: black;
+                background: rgb(111, 111, 111);
                 height: 1px;
-                width: 45%;
+                width: 40%;
             }
 
             &::after {
@@ -116,16 +124,19 @@
                 position: absolute;
                 top: 8px;
                 right: 0;
-                background: black;
+                background: rgb(111, 111, 111);
                 height: 1px;
-                width: 45%;
+                width: 40%;
             }
         }
 
         .agreeAll {
-            padding-left: 65px;
+            padding-left: 20px;
             display: flex;
             line-height: 30px;
+            li{
+                color: rgb(111, 111, 111);
+            }
 
             img {
                 width: 30px;
@@ -138,8 +149,8 @@
         }
 
         textarea {
-            margin-left: 70px;
-            width: 545px;
+            margin-left: 20px;
+            width: 405px;
             height: 50px;
         }
 
@@ -147,7 +158,7 @@
             color: red;
         }
 
-        #custom_textarea {
+        .custom_textarea {
             resize: none;
             color: black;
             border: none;
@@ -156,29 +167,27 @@
         }
 
         .btn {
-            background: blue;
+            background: #afc4ff;
             color: white;
             display: block;
-            width: 555px;
+            width: 410px;
             height: 50px;
             border-radius: 8px;
             margin: 0 auto;
             border: none;
             cursor: pointer;
             font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 15px 30px rgba(#e91e63, .36);
             transition: .2s linear;
-
-            &:hover {
-                box-shadow: 0 0 0 rgba(#e91e63, .0);
-            }
         }
+        
+        .btn:hover {
+                background-color: #95b1ff;
+            }
 
         #check01,
         #check02,
         #check03 {
-            width: 30px;
+            width: 20px;
             height: 30px;
         }
 
@@ -187,27 +196,30 @@
         }
 
         .namePhone {
-            margin-left: 55px;
-            width: 573px;
+            width: 450px;
             display: flex;
 
             input {
-                width: 250px;
+                width: 135px;
+                margin-top: 0px;
             }
         }
 
         .title {
-            height: 100px;
+         
             display: flex;
             flex-direction: column;
+        }
+
+        .fa-circle-check{
+            color: #95b1ff;
         }
     </style>
 
 </head>
 
-<body>
-    <div class="">
-        <div class="container" style="width: 720px;">
+<body class="text-center">
+        <div class="container">
             <div class="title">
                 <h1>Sign-up</h1>
             </div>
@@ -220,12 +232,11 @@
                 </li>
             </ul>
             <form th:action="@{/join}" th:method="post" enctype="multipart/form-data">
-                <div>
-                    <div>
-                        <input type="text" class="form-control" id="userId" name="userId" th:value="${userId}"
-                            placeholder="아이디" required>
+               
+                    <div class="first-input input__block first-input__block">
+                        <input type="text" placeholder="아이디" class="input" name="userId" />
                     </div>
-                </div>
+                
                 <div>
                     <span class="error" th:text="${valid_userId}"></span>
                     <span class="error" th:text="${duplicateId}"></span>
@@ -257,25 +268,25 @@
                     <ul class="join_box">
                         <li class="checkBox check01">
                             <ul class="agreeAll">
-                                <li><img th:src="@{/images/check_white.png}" id="check01"></li>
+                                <li><i class="fa-regular fa-circle-check" id="check01"></i></li>
                                 <li>전체 동의
                                 </li>
                             </ul>
                         </li>
                         <li class="checkBox check02">
                             <ul class="agreeAll">
-                                <li><img th:src="@{/images/check_white.png}" id="check02"></li>
+                                <li><i class="fa-regular fa-circle-check" id="check02"></i></li>
                                 <li>이용약관 동의<span class="essential">[필수]</span></li>
                                 <li class="checkBtn">
                                     <input type="hidden" name="termsAgreement" id="termsAgreement">
                                 </li>
                             </ul>
-                            <textarea id="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 구름별 공방 서비스의 이용과 관련하여 구름별 공방 서비스를제공하는 구름별 공방과 이를 이용하는 구름별 공방 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 구름별 공방 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                            <textarea class="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 구름별 공방 서비스의 이용과 관련하여 구름별 공방 서비스를제공하는 구름별 공방과 이를 이용하는 구름별 공방 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 구름별 공방 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
         </textarea>
                         </li>
                         <li class="checkBox check03">
                             <ul class="agreeAll">
-                                <li><img th:src="@{/images/check_white.png}" id="check03"></li>
+                                <li><i class="fa-regular fa-circle-check" id="check03"></i></li>
                                 <li>개인정보 수집 및 이용에 대한 안내<span class="essential">[필수]</span></li>
                                 <li class="checkBtn">
                                     <input type="hidden" name="privacyAgreement" id="privacyAgreement">
@@ -283,19 +294,18 @@
                             </ul>
 
                             <textarea
-                                id="custom_textarea">개인정보보호법에 따라 구름별 공방에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
+                            class="custom_textarea">개인정보보호법에 따라 구름별 공방에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
                                 1. 수집하는 개인정보이용자가 회원제 서비스를 이용하기 위해 회원가입을 할 경우, 구름별 공방은 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.회원가입 시점에 네이버가 이용자로부터 수집하는 개인정보는 아래와 같습니다.
-                            - 회원 가입 시 필수항목으로 아이디, 비밀번호, 이름, 휴대전화번호를 수집합니다. 
-                            - 회원정보 또는 개별 서비스에서 프로필 정보(프로필 사진)를 설정할 수 있습니다. 
-                            2. 수집한 개인정보의 이용
-                            구름별 공방 서비스의 회원관리, 서비스 개발・제공 및 향상, 안전한 인터넷 이용환경 구축 등 아래의 목적으로만 개인정보를 이용합니다.
-                            - 회원 가입 의사의 확인,이용자 식별, 회원탈퇴 의사의 확인 등 회원관리를 위하여 개인정보를 이용합니다.
-                            - 유료 서비스 제공에 따르는 구매 및 결제, 상품 및 서비스의 배송을 위하여 개인정보를 이용합니다.
-                            - 보안, 프라이버시, 안전 측면에서 이용자가 안심하고 이용할 수 있는 서비스 이용환경 구축을 위해 개인정보를 이용합니다.
-                            3. 개인정보의 보관기간
-                            회사는 이용자의 개인정보를 회원 탈퇴 시 6개월 간 보관하고 있습니다.
-                            4. 개인정보 수집 및 이용 동의를 거부할 권리
-                            이용자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있습니다. 회원가입 시 수집하는 최소한의 개인정보, 즉, 필수 항목에 대한 수집 및 이용 동의를 거부하실 경우, 회원가입이 어려울 수 있습니다.</textarea>
+ - 회원 가입 시 필수항목으로 아이디, 비밀번호, 이름, 휴대전화번호를 수집합니다. - 회원정보 또는 개별 서비스에서 프로필 정보(프로필 사진)를 설정할 수 있습니다. 
+2. 수집한 개인정보의 이용
+구름별 공방 서비스의 회원관리, 서비스 개발・제공 및 향상, 안전한 인터넷 이용환경 구축 등 아래의 목적으로만 개인정보를 이용합니다.
+- 회원 가입 의사의 확인,이용자 식별, 회원탈퇴 의사의 확인 등 회원관리를 위하여 개인정보를 이용합니다.
+- 유료 서비스 제공에 따르는 구매 및 결제, 상품 및 서비스의 배송을 위하여 개인정보를 이용합니다.
+ - 보안, 프라이버시, 안전 측면에서 이용자가 안심하고 이용할 수 있는 서비스 이용환경 구축을 위해 개인정보를 이용합니다.
+ 3. 개인정보의 보관기간
+회사는 이용자의 개인정보를 회원 탈퇴 시 6개월 간 보관하고 있습니다.
+4. 개인정보 수집 및 이용 동의를 거부할 권리
+이용자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있습니다. 회원가입 시 수집하는 최소한의 개인정보, 즉, 필수 항목에 대한 수집 및 이용 동의를 거부하실 경우, 회원가입이 어려울 수 있습니다.</textarea>
 
                         </li>
                     </ul>
@@ -306,7 +316,6 @@
                 </div>
             </form>
         </div>
-    </div>
     <!--    <script src="/static/js/join.js"></script>-->
     <script>
         let bol = true;
@@ -324,17 +333,17 @@
 
         check01.addEventListener("click", () => {
             if (bol) {
-                check01.src = "/images/check_black.png";
-                check02.src = "/images/check_black.png";
-                check03.src = "/images/check_black.png";
+                check01.className = "fa-solid fa-circle-check";
+                check02.className = "fa-solid fa-circle-check";
+                check03.className = "fa-solid fa-circle-check";
                 check();
                 termsAgreement.value = true;
                 privacyAgreement.value = true;
             }
             else {
-                check01.src = "/images/check_white.png";
-                check02.src = "/images/check_white.png";
-                check03.src = "/images/check_white.png";
+                check01.className =  "fa-regular fa-circle-check";
+                check02.className =  "fa-regular fa-circle-check";
+                check03.className =  "fa-regular fa-circle-check";
                 check();
                 termsAgreement.value = false;
                 privacyAgreement.value = false;
@@ -355,12 +364,12 @@
 
         check02.addEventListener("click", () => {
             if (bol2) {
-                check02.src = "/images/check_black.png";
+                check02.className = "fa-solid fa-circle-check";
                 bol_2();
                 termsAgreement.value = true;
             }
             else {
-                check02.src = "/images/check_white.png";
+                check02.className = "fa-regular fa-circle-check";
                 bol_2();
                 termsAgreement.value = false;
             }
@@ -368,12 +377,12 @@
 
         check03.addEventListener("click", () => {
             if (bol3) {
-                check03.src = "/images/check_black.png";
+                check03.className = "fa-solid fa-circle-check";
                 bol_3();
                 privacyAgreement.value = true;
             }
             else {
-                check03.src = "/images/check_white.png";
+                check03.className = "fa-regular fa-circle-check";
                 bol_3();
                 privacyAgreement.value = false;
             }
