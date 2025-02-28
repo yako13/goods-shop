@@ -1,19 +1,15 @@
 package Spring.Goods_Shop.config;
 
-import Spring.Goods_Shop.common.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 
 @RequiredArgsConstructor
 @Configuration
@@ -26,6 +22,10 @@ public class SecurityConfig {
         //csrf 사용 안함
         http.csrf(AbstractHttpConfigurer::disable);
 
+        //H2콘솔 연결 위함
+        //H2 콘솔은 iframe 을 통해 화면 구성 -> 브라우저는 요청 응답에 있는 X-Frame-Options 헤더의 내용에 따라 iframe 에서의 요청을 허용할지 안할지 판단
+        //Spring Security의 X-Frame-Options 기본 설정 : Deny
+        http.headers(headers->headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         //접근 권한 설정
         http.authorizeHttpRequests((auth) -> auth

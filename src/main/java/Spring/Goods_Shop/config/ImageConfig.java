@@ -1,10 +1,7 @@
 package Spring.Goods_Shop.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,12 +15,13 @@ public class ImageConfig implements WebMvcConfigurer {
     private String imagePathDirectory;
 
     /**
-     * 이미지 경로 외부로 설정
+     * 이미지 경로 외부로 설정,js,css파일 설정
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler(imagePathDirectory+"**").addResourceLocations("file:///"+imagePath);
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
     }
-
-
 }
