@@ -52,4 +52,9 @@ public class MemberController {
     String feedbackId(){
         return "member/find/feedbackId";
     }
+
+    @GetMapping("/init/myPage")
+    String initMyPage(){
+        return "member/initMyPage";
+    }
 }
