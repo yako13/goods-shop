@@ -1,0 +1,45 @@
+    .masterHeader {
+        background-color: #E8E8E4;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        line-height: 50px;
+        position: fixed;
+        width:100%;
+    }
+
+    .headerLogoImage {
+        width: 50px;
+        height: 50px;
+    }
+
+    .headerTitle {
+        width: 80%;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .homepageLink,.logoutLink {
+        color: black;
+        text-decoration: none;
+        
+    }
+
+    .logout,.homePage {
+        width: 100px;
+        white-space: nowrap;
+    }
+
+
+    .homepageLink:hover,
+    .logoutLink:hover {
+        font-weight: 600;
+    }
+
+    .headerLogoArea {
+        display: flex;
+        justify-content: end;
+        width: 90px;
+    }

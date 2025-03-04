@@ -1,0 +1,57 @@
+    .container {
+      background:  #DFE7FD;
+      display: block;
+      width: 450px;
+      border-radius: 7px;
+      margin: 250px auto;
+      height: 200px;
+      box-shadow: 5px 5px 25px rgb(172, 172, 172);
+  }
+
+    .mainForm{
+        padding-top: 40px;
+          input:focus{
+            box-shadow: 5px 5px 15px #CDDAFD ;
+        }
+
+
+        input {
+            display: block;
+            width: 90%;
+            max-width: 680px;
+            height: 50px;
+            margin: 0 auto;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: black;
+            padding: 0 0 0 15px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+
+            &:focus,
+            &:active {
+                outline: none;
+                border: none;
+                color: rgba(#0f132a, 1);
+            }
+
+    }
+
+    .btn {
+        background: #afc4ff;
+        color: white;
+        display: block;
+        width: 92.5%;
+        max-width: 680px;
+        height: 50px;
+        border-radius: 8px;
+        margin: 20px auto;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        transition: .2s linear};
+
+    .btn:hover{
+            background-color: #95b1ff;
+        }

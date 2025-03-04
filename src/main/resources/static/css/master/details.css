@@ -1,0 +1,283 @@
+   body {
+      margin: 0;
+    }
+
+    table {
+      font-size: 14px;
+    }
+
+    .rwd-table,
+    .orderTable {
+      margin: auto;
+      width: 100%;
+      min-width: 300px;
+      max-width: 100%;
+      border-collapse: collapse;
+      color: #333;
+      overflow: hidden;
+
+    }
+
+    .rwd-table {
+      border-radius: .4em;
+
+    }
+
+
+    th {
+      border-top: none;
+      background: DFE7FD;
+      color: #fff;
+      background-color: #b2d5f1;
+    }
+
+    .rwd-table tr {
+      border: 1px solid #ddd;
+      background-color: #ffffff;
+    }
+
+    .rwd-table tr:nth-child(odd):not(:first-child) {
+      background-color: #ffffff;
+    }
+
+    .rwd-table th {
+      display: none;
+      width: 110px;
+    }
+
+    .rwd-table td {
+      display: block;
+      border-right: 1px solid #ddd;
+    }
+
+    .rwd-table td:first-child {
+      margin-top: .5em;
+    }
+
+    .rwd-table td:last-child {
+      margin-bottom: .5em;
+    }
+
+    .rwd-table th,
+    .rwd-table td {
+      text-align: left;
+    }
+
+
+
+    .rwd-table tr {
+      border-color: #bfbfbf;
+    }
+
+    .rwd-table th,
+    .rwd-table td {
+      padding: .5em 1em;
+    }
+
+    @media screen and (max-width: 601px) {
+      .rwd-table tr:nth-child(2) {
+        border-top: none;
+      }
+    }
+
+    @media screen and (min-width: 600px) {
+      .rwd-table td:hover {
+        background-color: #d8e7f3;
+      }
+
+      .rwd-table td:before {
+        display: none;
+      }
+
+      .rwd-table th,
+      .rwd-table td {
+        display: table-cell;
+        padding: .25em .5em;
+      }
+
+      .rwd-table th:first-child,
+      .rwd-table td:first-child {
+        padding-left: 0;
+      }
+
+      .rwd-table th:last-child,
+      .rwd-table td:last-child {
+        padding-right: 0;
+      }
+
+      .rwd-table th,
+      .rwd-table td {
+        padding: 1em !important;
+      }
+    }
+
+
+    .container {
+      display: block;
+      text-align: center;
+    }
+
+    .totalPrice {
+      color: red;
+    }
+
+    h2 {
+      margin-top: 80px;
+      text-align: left;
+    }
+
+    .tableTitle {
+      height: 70px;
+      text-align: left;
+
+      p {
+        padding-top: 30px;
+        font-size: 20px;
+      }
+    }
+
+    .red {
+      color: red;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .parentsTable {
+      border: 1px solid #ddd;
+      width: 50%;
+    }
+
+    .parentsTableHead {
+      color: rgb(117, 117, 117);
+      height: 20px;
+      font-size: 15px;
+      background-color: #ddd;
+    }
+
+    .tableArea {
+      display: flex;
+    }
+
+    .productInfo {
+
+      th,
+      td {
+        text-align: center !important;
+      }
+    }
+
+    .buttonArea {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+
+      button,
+      a {
+        width: 100px;
+        height: 40px;
+        border-radius: 7px;
+        border: none;
+        color: white;
+        line-height: 40px;
+      }
+    }
+
+    .editButtonArea {
+      margin: 10px;
+      display: flex;
+      justify-content: end;
+    }
+
+    .editBtn {
+      width: 100px;
+      height: 40px;
+      border-radius: 7px;
+      font-size: 16px;
+      border: none;
+      color: white;
+      line-height: 40px;
+      background-color: #b8c0ff;
+
+      &:hover {
+        background-color: #a3adfc;
+      }
+    }
+
+
+
+    .listBtn {
+      background-color: #bfbfbf;
+      text-align: center;
+
+    }
+
+    .listBtn:hover {
+      background-color: #b0b0b0;
+
+    }
+
+    .deleteForm {
+      button {
+        background-color: #ff8d79;
+        font-size: 16px;
+        margin-left: 20px;
+      }
+
+      button:hover {
+        background-color: #fe765e;
+      }
+    }
+
+    .selectBox {
+      width: 100px;
+      height: 30px;
+      border-radius: 7px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      color: #6b6b6b;
+
+      &:focus {
+        border: 1px solid red;
+        outline: none;
+      }
+    }
+
+    #waybillNumber {
+      height: 27px;
+      border-radius: 7px;
+      border: 1px solid #ddd;
+      color: #6b6b6b;
+
+      &:focus {
+        border: 1px solid red;
+        outline: none;
+      }
+    }
+
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      /* 기본적으로 버튼 숨김 */
+    }
+
+    #topBtn:hover {
+      background-color: #0056b3;
+    }
