@@ -24,7 +24,7 @@ public class Checkout extends BaseTime {
     private Long id;
 
     @JoinColumn(name = "member_id", nullable = false)
-    @OneToMany
+    @ManyToOne
     private Member member;
 
     @Comment("주문자 명")

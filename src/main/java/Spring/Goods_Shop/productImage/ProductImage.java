@@ -21,7 +21,7 @@ public class ProductImage {
     private Long id;
 
     @JoinColumn(name = "product_id")
-    @OneToMany
+    @ManyToOne
     private Product product;
 
     @Enumerated(EnumType.STRING)

@@ -20,7 +20,7 @@ public class Pay {
     private Long id;
 
     @JoinColumn(name = "member_id")
-    @OneToMany
+    @ManyToOne
     private Member member;
 
     @Column(nullable = true)

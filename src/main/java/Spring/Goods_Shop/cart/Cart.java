@@ -21,11 +21,11 @@ public class Cart {
     private Long id;
 
     @JoinColumn(name = "member_id", nullable = false)
-    @OneToMany
+    @ManyToOne
     private Member member;
 
     @JoinColumn(name = "product_id", nullable = false)
-    @OneToMany
+    @ManyToOne
     private Product product;
 
     @Column(name = "cart_cnt", nullable = false)

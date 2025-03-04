@@ -21,7 +21,7 @@ public class Delivery extends BaseTime {
     private Long id;
 
     @JoinColumn(name = "member_id")
-    @OneToMany
+    @ManyToOne
     private Member member;
 
     @Column(nullable = true)
