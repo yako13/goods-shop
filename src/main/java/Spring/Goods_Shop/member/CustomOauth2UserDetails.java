@@ -1,4 +1,4 @@
-package Spring.Goods_Shop.Member;
+package Spring.Goods_Shop.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

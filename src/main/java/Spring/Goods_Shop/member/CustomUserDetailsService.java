@@ -1,4 +1,4 @@
-package Spring.Goods_Shop.Member;
+package Spring.Goods_Shop.member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

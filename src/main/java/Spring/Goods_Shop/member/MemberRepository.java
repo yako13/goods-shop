@@ -1,4 +1,4 @@
-package Spring.Goods_Shop.Member;
+package Spring.Goods_Shop.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

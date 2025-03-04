@@ -1,13 +1,15 @@
-package Spring.Goods_Shop.Member;
+package Spring.Goods_Shop.member;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberJoinDto {
+@Builder
+public class MemberResponseDto {
 
     private String userId;
 
@@ -20,5 +22,4 @@ public class MemberJoinDto {
     private boolean termsAgreement;
 
     private boolean privacyAgreement;
-
 }

@@ -1,12 +1,10 @@
-package Spring.Goods_Shop.Member;
+package Spring.Goods_Shop.member;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
