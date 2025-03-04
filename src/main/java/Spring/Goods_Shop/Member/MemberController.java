@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
+    @GetMapping("/")
+    String HomePage(){ return "mainPage";}
+
     @GetMapping("/login")
     String loginPage(){
         return "member/login";

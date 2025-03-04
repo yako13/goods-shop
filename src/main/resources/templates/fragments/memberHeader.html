@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원 헤더</title>
+</head>
+<body>
+<!-- 헤더 시작 -->
+<header th:fragment="memberHeader">
+    <div class="HanHeaderBody">
+
+        <div class="HanHeaderTop">
+
+            <div class="HanHeaderLogo">
+                <p class="HanHeaderLogoP">CloudStar Workshop</p>
+            </div>
+
+            <div class="HanHeaderButton">
+                <a th:href="@{/login}">로그인</a>
+                <a th:href="@{/join}">회원가입</a>
+            </div>
+
+        </div>
+
+        <hr class="HanHeaderHr">
+
+        <div class="HanHeaderBottom">
+
+            <p class="HanHeaderBottomP">포근한 구름속 반짝이는 별처럼 반짝이는 굿즈를 만들어요</p>
+
+            <div class="HanLoginForm">
+
+                <form th:action="@{/product/search/index}" method="get" role="search" id="SerachForm">
+
+                    <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
+
+                    <img src="/images/search.svg">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 헤더 끝 -->
+</header>
+
+
+
+</body>
+</html>
