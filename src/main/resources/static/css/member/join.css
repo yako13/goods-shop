@@ -16,7 +16,7 @@
             width: 450px;
             border-radius: 7px;
             margin: 100px auto;
-            height: 870px;
+            height: 820px;
             box-shadow: 5px 5px 25px rgb(172, 172, 172);
         }
 
@@ -212,8 +212,8 @@
             }
 
         .edit{
-              height:480px;
+              height:440px;
               button{
-              width:430px
+              width:415px
               }
               }
