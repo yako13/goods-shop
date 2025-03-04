@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
+    @GetMapping("/")
+    String HomePage(){ return "mainPage";}
+
     @GetMapping("/login")
     String loginPage(){
         return "member/login";
@@ -23,6 +26,11 @@ public class MemberController {
     @PostMapping("/join")
     String join(MemberJoinDto memberJoinDto, Model model){
         return "redirect:/";
+    }
+
+    @GetMapping("/member/edit")
+    String memberEdit(){
+        return "member/edit";
     }
 
     @GetMapping("/find/id")
@@ -43,5 +51,10 @@ public class MemberController {
     @GetMapping("/feedback/id")
     String feedbackId(){
         return "member/find/feedbackId";
+    }
+
+    @GetMapping("/init/myPage")
+    String initMyPage(){
+        return "member/initMyPage";
     }
 }

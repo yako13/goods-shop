@@ -1,0 +1,219 @@
+       .joinForm{
+                input:focus {
+            box-shadow: 5px 5px 15px #CDDAFD;
+            outline: none;
+        }
+        }
+
+
+        .error {
+            color: red;
+        }
+
+        .container {
+            background: #DFE7FD;
+            display: block;
+            width: 450px;
+            border-radius: 7px;
+            margin: 100px auto;
+            height: 870px;
+            box-shadow: 5px 5px 25px rgb(172, 172, 172);
+        }
+
+        h1 {
+            color: white;
+            font-size: 30px;
+            letter-spacing: -3px;
+            text-align: center;
+            transition: .2s linear;
+        }
+
+        .links {
+            list-style-type: none;
+
+            li {
+                display: inline-block;
+                margin: 0 20px 0 0;
+                transition: .2s linear;
+
+                &:nth-child(1) {
+                    opacity: .6;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                &:nth-child(3) {
+                    opacity: .6;
+                    float: right;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    color: white;
+                    font-weight: bolder;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            }
+        }
+        .joinForm {
+            width: 100%;
+            max-width: 680px;
+            input {
+            display: block;
+            width: 420px !important;
+            height: 50px;
+            margin: 20px 7.5px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: black;
+            padding: 0 0 0 15px;
+            font-size: 14px;
+
+        }
+
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .separator {
+            display: block;
+            margin: 30px auto 10px;
+            text-align: center;
+            height: 20px;
+            position: relative;
+            background: transparent;
+            color: rgb(111, 111, 111);
+            font-size: 13px;
+            width: 90%;
+            max-width: 680px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 8px;
+                left: 0;
+                background: rgb(111, 111, 111);
+                height: 1px;
+                width: 40%;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 8px;
+                right: 0;
+                background: rgb(111, 111, 111);
+                height: 1px;
+                width: 40%;
+            }
+        }
+
+        .agreeAll {
+            padding-left: 20px;
+            display: flex;
+            line-height: 30px;
+            li{
+                color: rgb(111, 111, 111);
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        .join_box {
+            padding: 0px;
+        }
+
+        textarea {
+            margin-left: 20px;
+            width: 405px;
+            height: 50px;
+        }
+
+        .essential {
+            color: red;
+        }
+
+        .custom_textarea {
+            resize: none;
+            color: black;
+            border: none;
+            border-bottom: 2px solid #0000007e;
+            outline: none;
+        }
+
+        .btn {
+            background: #afc4ff;
+            color: white;
+            display: block;
+            width: 410px;
+            height: 50px;
+            border-radius: 8px;
+            margin: 0 auto;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: .2s linear;
+        }
+
+        .btn:hover {
+                background-color: #95b1ff;
+            }
+
+        #check01,
+        #check02,
+        #check03 {
+            width: 20px;
+            height: 30px;
+        }
+
+        .btnArea {
+            height: 70px;
+        }
+
+        .namePhone {
+            width: 450px;
+            display: flex;
+
+            input {
+                width: 135px;
+                margin-top: 0px;
+            }
+        }
+
+        .title {
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fa-circle-check{
+            color: #95b1ff;
+        }
+
+            .userId{
+                padding-left:10px;
+            }
+
+        .edit{
+              height:480px;
+              button{
+              width:430px
+              }
+              }

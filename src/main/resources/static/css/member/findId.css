@@ -1,0 +1,121 @@
+   .container {
+            background: #DFE7FD;
+            display: block;
+            width: 450px;
+            border-radius: 7px;
+            margin: 190px auto;
+            height: 340px;
+            box-shadow: 5px 5px 25px rgb(172, 172, 172);
+        }
+
+
+        .links {
+            line-height: 80px;
+            height: 70px;
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+
+            li {
+
+                transition: .2s linear;
+
+                &:nth-child(2) {
+                    opacity: .6;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                &:nth-child(3) {
+                    opacity: .6;
+                    float: right;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+
+
+                a {
+                    margin-right: 20px;
+                    font-size: 20px;
+                    text-decoration: none;
+                    color: white;
+                    font-weight: bolder;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+        .findForm {
+            width: 100%;
+            max-width: 680px;
+            margin: 40px auto 10px;
+
+            .input__block {
+                margin: 20px auto;
+                display: block;
+                position: relative;
+
+                }
+
+                input:focus {
+                    box-shadow: 5px 5px 15px #CDDAFD;
+                }
+
+                input {
+                    display: block;
+                    width: 90%;
+                    max-width: 680px;
+                    height: 50px;
+                    margin: 0 auto;
+                    border-radius: 8px;
+                    border: none;
+                    background: white;
+                    color: black;
+                    padding: 0 0 0 15px;
+                    font-size: 14px;
+
+                    &:focus,
+                    &:active {
+                        outline: none;
+                        border: none;
+                        color: rgba(#0f132a, 1);
+                    }
+
+
+                }
+            }
+
+            .btn {
+                background: #afc4ff;
+                color: white;
+                display: block;
+                width: 92.5%;
+                max-width: 680px;
+                height: 50px;
+                border-radius: 8px;
+                margin: 0 auto;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: 'Montserrat', sans-serif;
+                transition: .2s linear;
+            }
+
+            .btn:hover {
+                background-color: #95b1ff;
+            }
+
+
+
+        .title {
+            display: flex;
+            flex-direction: column;
+            height: 50px;
+        }
