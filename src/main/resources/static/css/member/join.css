@@ -22,7 +22,7 @@
 
         h1 {
             color: white;
-            font-size: 48px;
+            font-size: 30px;
             letter-spacing: -3px;
             text-align: center;
             transition: .2s linear;
@@ -206,3 +206,14 @@
         .fa-circle-check{
             color: #95b1ff;
         }
+
+            .userId{
+                padding-left:10px;
+            }
+
+        .edit{
+              height:480px;
+              button{
+              width:430px
+              }
+              }

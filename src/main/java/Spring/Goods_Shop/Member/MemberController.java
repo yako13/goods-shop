@@ -28,6 +28,11 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/member/edit")
+    String memberEdit(){
+        return "member/edit";
+    }
+
     @GetMapping("/find/id")
     String findId(){
         return "member/find/id";

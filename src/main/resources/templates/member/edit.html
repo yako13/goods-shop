@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/memberHeader.css">
+    <link rel="stylesheet" href="/css/memberFooter.css">
+    <link rel="stylesheet" href="/css/member/join.css">
+
+</head>
+
+<body class="text-center">
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+<div class="container edit">
+    <div class="title">
+        <h1>계정 수정</h1>
+    </div>
+    <form th:action="@{/member/edit}" th:method="post" enctype="multipart/form-data" class="joinForm">
+
+        <div class="first-input input__block first-input__block">
+            <p class="userId">아이디 : <b>chunsik12</b></p>
+        </div>
+        <div>
+            <div>
+                <input type="password" class="form-control" id="userPassword" name="userPassword"
+                       placeholder="비밀번호" required value="chun!12345">
+            </div>
+            <div>
+                <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required value="chun!12345">
+            </div>
+        </div>
+        <div>
+            <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
+        </div>
+        <div>
+            <span class="error" th:text="${valid_userPassword}"></span>
+        </div>
+        <div class="namePhone">
+            <input type="text" class="form-control " id="name" name="name" placeholder="이름" th:value="김춘식">
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처" value="01011112222">
+        </div>
+
+        <div class="btnArea">
+            <button class="btn" type="button" id="button">수정하기</button>
+        </div>
+    </form>
+</div>
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+<script th:src="@{/js/member/join.js}"></script>
+<script>
+
+</script>
+</body>
+
+</html>
