@@ -20,13 +20,13 @@ public class Cart {
     @Column(name = "cart_id")
     private Long id;
 
-//    @JoinColumn(name = "member_id", nullable = false)
-//    @OneToMany
-//    private Member member;
+    @JoinColumn(name = "member_id", nullable = false)
+    @OneToMany
+    private Member member;
 
-//    @JoinColumn(name = "product_id", nullable = false)
-//    @OneToMany
-//    private Product product;
+    @JoinColumn(name = "product_id", nullable = false)
+    @OneToMany
+    private Product product;
 
     @Column(name = "cart_cnt", nullable = false)
     @Comment("구매수량")

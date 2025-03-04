@@ -31,9 +31,9 @@ public class CheckoutDetails {
     @ManyToOne
     private Checkout checkout;
 
-//    @JoinColumn(name = "member_id", nullable = false)
-//    @ManyToOne
-//    private Member member;
+    @JoinColumn(name = "member_id", nullable = false)
+    @ManyToOne
+    private Member member;
 
     @Comment("상품 가격")
     @Column(name = "checkout_detail_price", nullable = false)

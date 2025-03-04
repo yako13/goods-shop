@@ -19,9 +19,9 @@ public class Pay {
     @Column(name = "pay_id")
     private Long id;
 
-//    @JoinColumn(name = "member_id")
-//    @OneToMany
-//    private Member member;
+    @JoinColumn(name = "member_id")
+    @OneToMany
+    private Member member;
 
     @Column(nullable = true)
     @Comment("카드 별침")

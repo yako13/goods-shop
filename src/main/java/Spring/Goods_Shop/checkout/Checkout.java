@@ -23,9 +23,9 @@ public class Checkout extends BaseTime {
     @Column(name = "checkout_id")
     private Long id;
 
-//    @JoinColumn(name = "member_id", nullable = false)
-//    @OneToMany
-//    private Member member;
+    @JoinColumn(name = "member_id", nullable = false)
+    @OneToMany
+    private Member member;
 
     @Comment("주문자 명")
     @Column(name = "checkout_name", nullable = false)

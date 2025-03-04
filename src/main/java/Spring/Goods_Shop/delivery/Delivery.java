@@ -20,9 +20,9 @@ public class Delivery extends BaseTime {
     @Column(name = "delivery_name")
     private Long id;
 
-//    @JoinColumn(name = "member_id")
-//    @OneToMany
-//    private Member member;
+    @JoinColumn(name = "member_id")
+    @OneToMany
+    private Member member;
 
     @Column(nullable = true)
     @Comment("배송지명")

@@ -20,9 +20,9 @@ public class ProductImage {
     @Column(name = "product_image_id")
     private Long id;
 
-//    @JoinColumn(name = "product_id")
-//    @OneToMany
-//    private Product product;
+    @JoinColumn(name = "product_id")
+    @OneToMany
+    private Product product;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "image_type", nullable = false)
