@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .container {
+        justify-self: center;
+      }
+      .container__main {
+        max-width: 100%;
+        width: 67.5rem;
+        margin-top: 2rem;
+      }
+      .container__flex {
+        border: 1px solid #aaaaaa;
+        display: flex;
+        justify-content: space-between;
+      }
+      .image__main {
+        max-width: 100%;
+        width: 33rem;
+      }
+      .image__sub {
+        width: 5rem;
+        height: 5rem;
+      }
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .flex__sub-image {
+        display: flex;
+        justify-content: center;
+      }
+      .image__sub {
+        margin: 1rem;
+      }
+      .product-info {
+        margin: 3rem;
+        width: 28rem;
+        max-width: 100%;
+      }
+      .product-info__name {
+        font-size: 2rem;
+        margin-top: 0px;
+        word-break: break-all;
+      }
+      .product-info__price {
+        text-align: right;
+        color: #da2828;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .product-info__count {
+        color: #686868;
+      }
+      .product-info__p {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        align-items: center;
+      }
+      .product-info__totalPrice {
+        color: #da2828;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: right;
+      }
+      .btn__order {
+        font-size: 1rem;
+        width: 20rem;
+        height: 3rem;
+      }
+      .btn__cart {
+        font-size: 1rem;
+        width: 7rem;
+        height: 3rem;
+        background-color: #ffffff;
+        border: 1px solid #bee1e6;
+        color: #bee1e6;
+      }
+      .btn__cart:hover {
+        color: #ffffff;
+        background-color: #bee1e6;
+        cursor: pointer;
+      }
+      .flex__btn {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+      .button__top {
+        position: fixed;
+        right: 2rem;
+        bottom: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <h1>Product Detail</h1>
+    <h1>Header</h1>
+    <hr />
+    <!-- /Header -->
+    <main class="container container__main">
+      <div class="container__flex">
+        <div class="flex">
+          <span>
+            <img
+              class="image__main"
+              src="/src/main/resources/static/img/productimage.jpg" />
+            <div class="flex__sub-image">
+              <img
+                class="image__sub"
+                src="/src/main/resources/static/img/productimage.jpg" />
+              <img class="image__sub" src="#" />
+              <img class="image__sub" src="#" />
+              <img class="image__sub" src="#" />
+            </div>
+          </span>
+          <div class="product-info">
+            <form action="#" method="#">
+              <p class="product-info__name">코지캣 쉬폰</p>
+              <p class="product-info__count">nn 개 남음</p>
+              <p class="product-info__price">30,000원</p>
+              <p class="product-info__post">택배 배송 | 3,000원</p>
+              <p class="product-info__orderCount">수량</p>
+              <input type="number" min="0" />
+              <div class="product-info__p">
+                <span>총 상품 금액</span>
+                <span class="product-info__totalPrice">30,000원</span>
+              </div>
+              <hr />
+              <div class="flex__btn">
+                <button class="btn btn__order" type="submit">주문하기</button>
+                <button class="btn btn__cart" type="submit">장바구니</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="text-align: center; margin-top: 3rem">
+          <img
+            src="/src/main/resources/static/img/productimage.jpg"
+            style="width: 55rem" />
+        </div>
+      </div>
+    </main>
+    <aside>
+      <button class="button__top" type="button" onclick="window.scrollTo(0,0);">
+        TOP
+      </button>
+    </aside>
+  </body>
+</html>
