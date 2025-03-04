@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
+    private final MemberService memberService;
+
     @GetMapping("/")
     String HomePage(){ return "mainPage";}
 
@@ -25,7 +27,10 @@ public class MemberController {
 
     @PostMapping("/join")
     String join(MemberJoinDto memberJoinDto, Model model){
-        return "redirect:/";
+        if(!memberService.join(memberJoinDto)) {
+            model.addAttribute("duplicateId","아이디가 중복되었습니다.");
+            return "member/join";}
+        return "redirect:/login";
     }
 
     @GetMapping("/member/edit")

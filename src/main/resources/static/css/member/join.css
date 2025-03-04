@@ -16,7 +16,7 @@
             width: 450px;
             border-radius: 7px;
             margin: 100px auto;
-            height: 820px;
+
             box-shadow: 5px 5px 25px rgb(172, 172, 172);
         }
 
@@ -217,3 +217,8 @@
               width:415px
               }
               }
+
+#passwordError{
+    padding-left:5px;
+    margin-bottom:10px;
+}

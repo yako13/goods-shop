@@ -3,10 +3,7 @@ package Spring.Goods_Shop.member;
 import Spring.Goods_Shop.base.BaseTime;
 import Spring.Goods_Shop.common.MemberRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
@@ -16,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(callSuper = true)
 public class Member extends BaseTime {
 
     @Id
