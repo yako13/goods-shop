@@ -4,36 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+<!--    <link rel="stylesheet" href="/css/memberHeader.css" />-->
+<!--    <link rel="stylesheet" href="/css/memberFooter.css" />-->
+    <link rel="stylesheet" href="/css/mainPage.css">
 
     <style>
       a {
         text-decoration: none;
         color: #111111;
       }
+
       .container {
         justify-self: center;
       }
       .container__main {
-        width: 1080px;
+        width: 1400px;
         margin-top: 2rem;
       }
       .p-text__right {
         text-align: right;
       }
+      .p__small {
+        font-size: 0.8rem;
+      }
       .container__product-image {
         display: flex;
         flex-wrap: wrap;
-        justify-content: baseline;
-        gap: 1.5rem;
+        justify-content: space-between;
+        padding: 1rem;
       }
       .card__product-image {
-        width: 12rem;
-        height: 19rem;
-        border: 1px solid #aaaaaa;
+        width: 15rem;
+        height: 21rem;
       }
       .product-image {
-        width: 12rem;
-        height: 12rem;
+        width: 15rem;
+        height: 15rem;
       }
       .button__top {
         position: fixed;
@@ -43,11 +49,8 @@
     </style>
   </head>
   <body>
-    <!-- Header -->
-    <h1>Product List</h1>
-    <h1>Header</h1>
-    <hr />
-    <!-- /Header -->
+    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>
     <main class="container container__main">
       <p class="p-text">{search-name}</p>
       <hr />
@@ -55,102 +58,97 @@
 
       <!-- product card -->
       <div class="container__product-image">
-        <a href="#"
+        <a href="/product/detail"
           ><div class="card__product-image">
-            <img
-              class="product-image"
-              src="/src/main/resources/static/img/productimage.jpg" />
+            <img class="product-image" src="/images/product1.png" />
             <p>코지캣 쉬폰 포스터</p>
-            <p>30,000 원</p>
+            <p class="p__small">30,000 원</p>
           </div>
         </a>
 
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>코지캣 쉬폰 포스터</p>
-          <p>30,000 원</p>
+          <p class="p__small">30,000 원</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
+          <p>코지캣 쉬폰 포스터</p>
+          <p class="p__small">30,000 원</p>
+        </div>
+        <div class="card__product-image">
+          <img class="product-image" src="/images/product1.png" />
+          <p>코지캣 쉬폰 포스터</p>
+          <p class="p__small">30,000 원</p>
+        </div>
+        <div class="card__product-image">
+          <img class="product-image" src="/images/product1.png" />
+          <p>코지캣 쉬폰 포스터</p>
+          <p class="p__small">30,000 원</p>
+        </div>
+        <div class="card__product-image">
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
         <div class="card__product-image">
-          <img class="product-image" src="#" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="#" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="#" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="#" />
+          <img class="product-image" src="/images/product1.png" />
           <p>product name</p>
           <p>product price</p>
         </div>
       </div>
       <!-- /product card -->
     </main>
-    <footer>
-      <hr />
-      <h1>Footer</h1>
-    </footer>
     <aside>
       <button class="button__top" type="button" onclick="window.scrollTo(0,0);">
         TOP
       </button>
     </aside>
+    <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
 </html>

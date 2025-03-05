@@ -10,18 +10,80 @@
 <body>
 <!-- 헤더 시작 -->
 <header th:fragment="memberHeader">
+
     <div class="HanHeaderBody">
 
         <div class="HanHeaderTop">
 
             <div class="HanHeaderLogo">
+                <img src="/images/logostar.svg" alt="" width="20px" style="padding-right: 10px;">
+
                 <p class="HanHeaderLogoP">CloudStar Workshop</p>
+
             </div>
 
             <div class="HanHeaderButton">
-                <a th:href="@{/login}">로그인</a>
-                <a th:href="@{/join}">회원가입</a>
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
             </div>
+
+            <div class="HanHeaderButton">
+                <!-- 마이페이지 -->
+                <div class="Handropdown">
+
+
+                    <a href="#" class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'mypageDropdown')">
+                        <img src="/images/user1.svg" alt="" width="18px" height="auto">
+                        <!-- <img src="/images/dropbox.svg" width="14px" height="auto" style="padding-left: 3px;"></a> -->
+
+                        <div class="HandropdownBox" id="mypageDropdown">
+                            <a href="/profile">계정 관리</a>
+                            <a href="/settings">배송지 관리</a>
+                            <a href="/logout">결제 관리</a>
+                        </div>
+
+                </div>
+
+                <a href="" class="HanHeaderButtonA"><img src="/images/cart4.svg" width="20px" height="auto"></a>
+
+                <!-- 홍길동 -->
+                <div class="Handropdown ">
+                    <a href="#" class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'userDropdown')">홍길동
+                        <img src="/images/dropbox.svg" width="14px" height="auto" style="padding-left: 3px;"></a>
+
+
+                    <div class="HanDrodBoxName" id="userDropdown">
+
+                        <div class="HanDrodBoxNameBox">
+
+                            <img src="/images/user1.svg" alt="">
+
+                            <div class="HanDrodBoxNameDiv">
+
+                                <div>
+                                    <p class="HanHeaderUserName">홍길동님</p>
+                                    <a href="/logout">로그아웃</a>
+                                </div>
+
+                                <p class="HanHeaderUserId">id@gmail.com</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
 
         </div>
 
@@ -29,15 +91,19 @@
 
         <div class="HanHeaderBottom">
 
-            <p class="HanHeaderBottomP">포근한 구름속 반짝이는 별처럼 반짝이는 굿즈를 만들어요</p>
+            <div class="HanHeaderBottomLeft">
 
+                <img src="/images/logoSmall.png" alt="" width="80px" height="auto">
+                <p class="HanHeaderBottomP">포근한 구름처럼 부드럽고 별처럼 반짝이는 굿즈를 만들어요</p>
+
+            </div>
             <div class="HanLoginForm">
 
-                <form th:action="@{/product/search/index}" method="get" role="search" id="SerachForm">
+                <form action="/product/search/index" method="get" role="search" id="SerachForm">
 
                     <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
 
-                    <button type="submit" class="searchBtn"><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
+                    <img src="/images/search.svg">
 
                 </form>
 
@@ -46,8 +112,6 @@
         </div>
 
     </div>
-
-    <!-- 헤더 끝 -->
 </header>
 
 

@@ -1,172 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구름별 공방 : 홈</title>
+    <link rel="stylesheet" href="/css/memberHeader.css" />
+    <link rel="stylesheet" href="/css/memberFooter.css" />
+    <link rel="stylesheet" href="/css/mainPage.css" />
+  </head>
+  <body>
+    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+    <!-- 메인 시작 -->
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>구름별 공방 : 홈</title>
-  <link rel="stylesheet" href="/css/memberHeader.css">
-  <link rel="stylesheet" href="/css/memberFooter.css">
-  <link rel="stylesheet" href="/css/mainPage.css">
-</head>
-<body>
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
-  <!-- 메인 시작 -->
+    <div class="HanMainBody">
+      <p class="HanMainTitleP">신상품</p>
 
-  <div class="HanMainBody">
+      <div class="HanMainNewDiv">
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product1.png" alt="상품이미지" />
+          </div>
 
-    <p class="HanMainTitleP">신상품</p>
-
-    <div class="HanMainNewDiv">
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product1.png" alt="상품이미지">
-
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">동화 일러스트 키캡 4종</p>
+            <p class="HanMainNewDivCardPDivPrice">20,000원</p>
+          </div>
         </div>
 
-        <div class="HanMainNewDivCardPDiv">
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product2.png" alt="상품이미지" />
+          </div>
 
-          <p class="HanMainNewDivCardPDivName">동화 일러스트 키캡 4종</p>
-          <p class="HanMainNewDivCardPDivPrice">20,000원</p>
-
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">동물 캐릭터 안경닦이</p>
+            <p class="HanMainNewDivCardPDivPrice">10,000원</p>
+          </div>
         </div>
 
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product3.png" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">고양이 장패드</p>
+            <p class="HanMainNewDivCardPDivPrice">30,000원</p>
+          </div>
+        </div>
+
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product4.png" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">동물 캐릭터 메모지</p>
+            <p class="HanMainNewDivCardPDivPrice">25,000원</p>
+          </div>
+        </div>
+
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product5.png" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">멍뭉이 안경닦이 4종</p>
+            <p class="HanMainNewDivCardPDivPrice">45,000원</p>
+          </div>
+        </div>
+
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product6.png" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">맛난 감튀 캐릭터 안경닦이</p>
+            <p class="HanMainNewDivCardPDivPrice">15,000원</p>
+          </div>
+        </div>
+
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product7.jpg" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">토끼 키캡</p>
+            <p class="HanMainNewDivCardPDivPrice">25,000원</p>
+          </div>
+        </div>
+
+        <div class="HanMainNewDivCard">
+          <div class="HanMainNewDivCardImg">
+            <img src="/images/product8.jpg" alt="상품이미지" />
+          </div>
+
+          <div class="HanMainNewDivCardPDiv">
+            <p class="HanMainNewDivCardPDivName">허허허허 키캡</p>
+            <p class="HanMainNewDivCardPDivPrice">55,000원</p>
+          </div>
+        </div>
       </div>
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product2.png" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">동물 캐릭터 안경닦이</p>
-          <p class="HanMainNewDivCardPDivPrice">10,000원</p>
-
-        </div>
-
-      </div>
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product3.png" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">고양이 장패드</p>
-          <p class="HanMainNewDivCardPDivPrice">30,000원</p>
-
-        </div>
-
-
-      </div>
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product4.png" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">동물 캐릭터 메모지</p>
-          <p class="HanMainNewDivCardPDivPrice">25,000원</p>
-
-        </div>
-
-
-
-      </div>
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product5.png" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">멍뭉이 안경닦이 4종</p>
-          <p class="HanMainNewDivCardPDivPrice">45,000원</p>
-
-        </div>
-
-      </div>
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product6.png" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">맛난 감튀 캐릭터 안경닦이</p>
-          <p class="HanMainNewDivCardPDivPrice">15,000원</p>
-
-        </div>
-
-      </div>
-
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product7.jpg" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">토끼 키캡</p>
-          <p class="HanMainNewDivCardPDivPrice">25,000원</p>
-
-        </div>
-
-      </div>
-
-
-      <div class="HanMainNewDivCard">
-
-        <div class="HanMainNewDivCardImg">
-
-          <img src="images/product8.jpg" alt="상품이미지">
-
-        </div>
-
-        <div class="HanMainNewDivCardPDiv">
-
-          <p class="HanMainNewDivCardPDivName">허허허허 키캡</p>
-          <p class="HanMainNewDivCardPDivPrice">55,000원</p>
-
-        </div>
-
-      </div>
-
     </div>
 
-  </div>
-
-  <!-- 메인 끝 -->
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-
-</body>
-
+    <!-- 메인 끝 -->
+    <footer th:replace="~{/fragments/memberFooter::memberFooter}"></footer>
+  </body>
 </html>

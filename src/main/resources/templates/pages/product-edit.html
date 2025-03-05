@@ -4,40 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="/css/master/masterHeader.css" />
+    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
+      body {
+        margin: 0px;
+      }
       a {
         text-decoration: none;
         color: #000000;
       }
-      .master-nav {
-        width: 15rem;
-        height: 90vh;
-        background-color: aliceblue;
-        border: 1px solid #000000;
-        position: fixed;
-      }
-      .nav__img {
-        text-align: center;
-        margin-top: 3rem;
-      }
-      .nav__img--logo {
-        width: 8rem;
-        height: 8rem;
-      }
-      .nav__text {
-        font-size: 1.5rem;
-        text-align: center;
-        margin-top: 4rem;
-      }
-      .nav__logout {
-        position: relative;
-        top: 28rem;
-      }
-      .master__product {
-        margin-left: 16rem;
-        width: 80rem;
-        height: 90vh;
-        border: 1px solid #000000;
+      .container__main {
+        justify-self: center;
       }
       .container__input {
         display: flex;
@@ -52,7 +30,6 @@
         padding: 3rem;
         margin-top: 5rem;
         width: 25rem;
-        justify-self: center;
         border-radius: 7px;
       }
       input[type="file"] {
@@ -90,22 +67,10 @@
     </style>
   </head>
   <body>
-    <h1>Product Edit</h1>
-    <main class="master__container--flex">
-      <!-- nav 메뉴 -->
-      <nav class="master-nav">
-        <div class="nav__img">
-          <img
-            class="nav__img--logo"
-            src="/src/main/resources/static/img/star-cloud-removebg-preview.png" />
-        </div>
-        <a href="#"><p class="nav__text">상품 관리</p></a>
-        <a href="#"><p class="nav__text">주문 관리</p></a>
-        <a href="#"><p class="nav__text nav__logout">로그아웃</p></a>
-      </nav>
-      <!-- /nav 메뉴 -->
-
-      <section class="master__product">
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+    <main class="container__main" id="main">
+      <i class="master__product">
         <div class="container__form">
           <!-- form -->
           <form action="#" method="post">
@@ -153,6 +118,17 @@
             </div>
             <!-- /재고 수량 -->
 
+            <!-- 상품 설명 -->
+            <div class="container__input">
+              <label for="description">상품 설명</label>
+              <textarea
+                cols="47"
+                rows="5"
+                id="description"
+                name="description"></textarea>
+            </div>
+            <!-- /상품 설명 -->
+
             <!-- 이미지 -->
             <div class="container__input">
               <label
@@ -177,9 +153,10 @@
           </form>
           <!-- /form -->
         </div>
-      </section>
+      </i>
     </main>
   </body>
+  <script th:src="@{/js/master/masterNavigation.js}"></script>
   <script>
     // 이미지 업로드
     function handleImageUpload(input, previewContainer, maxCount) {

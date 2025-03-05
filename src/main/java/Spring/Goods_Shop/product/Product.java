@@ -1,8 +1,9 @@
 package Spring.Goods_Shop.product;
 
 import Spring.Goods_Shop.base.BaseTime;
+import Spring.Goods_Shop.enums.ProductCategory;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -12,7 +13,6 @@ import java.math.BigDecimal;
 @Table(name = "product")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product extends BaseTime {
 
@@ -36,4 +36,18 @@ public class Product extends BaseTime {
     @Column(name = "product_description", nullable = true)
     @Comment("상품에 관한 설명")
     private String productDescription;
+
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "file_category", columnDefinition = "VARCHAR(50)", nullable = false)
+//    @Comment("파일 분류")
+//    private ProductCategory category;
+
+    @Builder
+    public Product(String name, BigDecimal price, int count, String productDescription, ProductCategory category) {
+        this.name = name;
+        this.price = price;
+        this.count = count;
+//        this.category = category;
+        this.productDescription = productDescription;
+    }
 }
