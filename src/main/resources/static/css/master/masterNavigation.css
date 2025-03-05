@@ -1,12 +1,14 @@
+/* 네비 시작 */
 
-.logoArea{
+.logoArea {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
-.logoImage{
-    width: 100px;
-    height: 100px;
+.logoImage {
+  width: 160px;
+  height: 100px;
 }
 
 .sidenav {
@@ -16,7 +18,7 @@
   z-index: 1;
   top: 50px;
   left: 0;
-  background-color: #FCEDAA;
+  background-color: #FBF8CC;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -28,12 +30,13 @@
   font-size: 25px;
   color: #363636;
   display: block;
+  margin-bottom: 10px;
   transition: 0.3s;
   text-align: center;
 }
 
 .sidenav a:hover {
-  color: #A9CFE2;
+  font-weight: 600;
 }
 
 .sidenav .closebtn {
@@ -50,6 +53,13 @@ main {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
 }
+
+/* 네비끝 */

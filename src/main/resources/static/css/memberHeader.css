@@ -1,21 +1,15 @@
-body {
+ody {
   margin: 0;
   padding: 0;
 
 }
 
 /* 헤더 css 시작 */
-.searchBtn{
-border:none;
-background:none;
-    i:hover{
-    color:gray;
-    }
-}
 
 .HanHeaderBody {
-  width: 100%;
+  width: auto;
   background-color: #fff8f8;
+  /* background-color: #fffab6; */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -34,6 +28,7 @@ background:none;
 .HanHeaderTop {
   padding-top: 5px;
   width: 70%;
+  min-width: 600px;
   display: flex;
   justify-content: space-between;
 
@@ -54,7 +49,8 @@ background:none;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px
+  gap: 5px;
+  position: relative;
 }
 
 .HanHeaderButton a {
@@ -65,30 +61,54 @@ background:none;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
+  border: 0px solid #ccc;
 }
 
-.HanHeaderButton a:Hover {
-  color: #000000;
-  background-color: #fff9a9;
-}
+/* .HanHeaderButton .HanHeaderButtonA:hover{
+
+
+} */
+
+
+
 
 .HanHeaderBottom {
   height: 60px;
   width: 70%;
+  min-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
 }
 
+.HanHeaderBottomLeft {
+  display: flex;
+  align-items: center;
+
+}
+
+
 .HanHeaderBottomP {
-  font-size: 15px;
+  font-size: 16px;
   margin: 6px 0;
+  padding-left: 10px;
+  color: #503737;
 
 }
 
 .HanHeaderHr {
-  margin-bottom: 0;
+  margin: 0;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #e9d2d2;
+  /* border-bottom: 1px solid #eee676;
+  border-bottom: 1px solid #ccc; */
+}
+
+.HanHeaderHr2 {
+  margin: 0;
+
   border: none;
   width: 100%;
   border-bottom: 1px solid #e6dddd;
@@ -135,7 +155,15 @@ background:none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+}
 
+.HanNaviLogoDiv {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #FFD2E3;
 }
 
 .HanNaviLogoDiv p {
@@ -177,4 +205,108 @@ background:none;
   height: 400px;
 }
 
+
 /* 네비 css끝 */
+
+
+
+/* 로그인 상태 헤더 css */
+
+.Handropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.HandropdownBox {
+  display: none;
+  position: absolute;
+  top: 29px;
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 120px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.HanHeaderButtonA {
+  position: relative;
+
+}
+
+.HandropdownBox a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.HandropdownBox a:hover {
+  background-color: #f0f0f0;
+}
+
+.HanDrodBoxName {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 29px;
+  right: -2px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.HanDrodBoxNameBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+}
+
+.HanDrodBoxNameBox img {
+  width: 52px;
+  height: 52px;
+
+}
+
+.HanDrodBoxNameDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+}
+
+.HanHeaderUserName {
+  margin: 0;
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.HanHeaderUserId {
+  margin: 0;
+  font-size: 13px;
+
+}
+
+.HanDrodBoxName a {
+  padding: 2px 6px;
+  background-color: #FFADAD;
+  border-radius: 5px;
+
+}
+
+.HanDrodBoxName a:hover {
+  background-color: #ee8686;
+
+}
+
+
+.HanHeadershow {
+  display: block;
+}

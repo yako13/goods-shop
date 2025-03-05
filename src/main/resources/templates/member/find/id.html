@@ -4,47 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>아이디찾기</title>
     <link rel="stylesheet" th:href="@{/css/member/findId.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/memberHeader.css">
     <link rel="stylesheet" href="/css/memberFooter.css">
+    <style>
+
+    </style>
 </head>
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
-    <div class="container">
-        <ul class="links">
-            <li>
-                <a th:href="@{/find/id}">아이디찾기</a>
-            </li>
-            <li>
-                <a th:href="@{/find/password}">비밀번호 찾기</a>
-            </li>
-        </ul>
+<div class="container">
+    <ul class="links">
+        <li>
+            <a th:href="@{/find/id}">아이디찾기</a>
+        </li>
+        <li>
+            <a th:href="@{/find/password}">비밀번호 찾기</a>
+        </li>
+    </ul>
 
 
-        <!-- Form -->
-        <form th:action="@{/find/id}" method="post" class="findForm">
-            <div class="first-input input__block first-input__block">
-                <input type="text" placeholder="이름" class="input" name="name" />
-            </div>
+    <!-- Form -->
+    <form th:action="@{/find/id}" method="post" class="findForm">
+        <div class="first-input input__block first-input__block">
+            <input type="text" placeholder="이름" class="input" name="name" />
+        </div>
 
-            <div class="input__block">
-                <input type="text" placeholder="휴대전화번호" class="input" id="phoneNumber" />
-            </div>
+        <div class="input__block">
+            <input type="text" placeholder="휴대전화번호" class="input" id="phoneNumber" />
+        </div>
 
-            <button type="submit" class="btn"><b>
-                    아이디 찾기
-                </b>
-            </button>
-        </form>
+        <button type="submit" class="btn"><b>
+            아이디 찾기
+        </b>
+        </button>
+    </form>
 
-    </div>
+</div>
 
-    </main>
+</main>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 </body>
 

@@ -4,71 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인</title>
     <link rel="stylesheet" href="/css/member/login.css">
     <link rel="stylesheet" href="/css/memberHeader.css">
     <link rel="stylesheet" href="/css/memberFooter.css">
+    <style>
+
+    </style>
 </head>
 <body class="text-center">
 
-    <header th:replace="/fragments/memberHeader::memberHeader"></header>
-    <div th:if="${param.error}" class="alert">
-        <div>
-            <p class="errorText"><b>아이디나 비밀번호가 잘못되었습니다.</b></p>
-        </div>
-        <div>
-            <p class="closeBtn">X</p>
-        </div>
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+<!-- <div th:if="${param.error}" class="alert">
+    <div>
+        <p class="errorText"><b>아이디나 비밀번호가 잘못되었습니다.</b></p>
     </div>
-    <div class="container">
-        <div class="title">
-            <h1>로그인</h1>
-        </div>
-        <ul class="links">
-            <li>
-                <a th:href="@{/login}" id="signin">로그인</a>
-            </li>
-            <li>
-                <a th:href="@{/join}" id="signup">회원가입</a>
-            </li>
-        </ul>
-
-        <!-- Form -->
-        <form th:action="@{/login}" method="post" class="loginForm">
-            <!-- id input -->
-            <div class="first-input input__block first-input__block">
-                <input type="text" placeholder="아이디" class="input" name="userId" />
-            </div>
-            <!-- password input -->
-            <div class="input__block">
-                <input type="password" placeholder="비밀번호" class="input" id="password" name="userPassword" />
-            </div>
-            <!-- sign in button -->
-            <button class="btn">
-                <b>로그인</b>
-            </button>
-        </form>
-        <div class="find">
-            <a th:href="@{/find/id}">아이디 찾기</a><span>|</span><a th:href="@{/find/password}">비밀번호 찾기</a>
-        </div>
-        <!-- separator -->
-        <div class="separator">
-            <p>OR</p>
-        </div>
-        <div class="easyLogin">
-            <p>SNS 간편 로그인</p>
-        </div>
-        <div class="oauth2">
-            <a href="/oauth2/authorization/google"><img th:src="@{/images/google.png}" class="oauth2Image"></a>
-            <a href="/oauth2/authorization/naver"><img th:src="@{/images/naver.png}" class="oauth2Image"></a>
-        </div>
+    <div>
+        <p class="closeBtn">X</p>
     </div>
+</div> -->
+<div class="container">
+    <div class="title">
+        <h1>로그인</h1>
+    </div>
+    <ul class="links">
+        <li>
+            <a th:href="@{/login}" id="signin">로그인</a>
+        </li>
+        <li>
+            <a th:href="@{/join}" id="signup">회원가입</a>
+        </li>
+    </ul>
 
-    </main>
-    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-    <script src="/js/member/alert.js"></script>
+    <!-- Form -->
+    <form th:action="@{/login}" method="post" class="loginForm">
+        <!-- id input -->
+        <div class="first-input input__block first-input__block">
+            <input type="text" placeholder="아이디" class="input" name="userId" />
+        </div>
+        <!-- password input -->
+        <div class="input__block">
+            <input type="password" placeholder="비밀번호" class="input" id="password" name="userPassword" />
+        </div>
+        <!-- sign in button -->
+        <button class="btn">
+            로그인
+        </button>
+    </form>
+
+    <div class="find">
+        <a th:href="@{/find/id}">아이디 찾기</a><span>|</span><a th:href="@{/find/password}">비밀번호 찾기</a>
+    </div>
+    <!-- separator -->
+    <div class="separator">
+        <p>OR</p>
+    </div>
+    <div class="easyLogin">
+        <p>SNS 간편 로그인</p>
+    </div>
+    <div class="oauth2">
+        <a href="/oauth2/authorization/google"><img th:src="@{/images/google.png}" class="oauth2Image"></a>
+        <a href="/oauth2/authorization/naver"><img th:src="@{/images/naver.png}" class="oauth2Image"></a>
+    </div>
+</div>
+
+</main>
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+<script src="/js/member/alert.js"></script>
 
 </body>
 

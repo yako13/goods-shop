@@ -19,8 +19,7 @@
     }
 
     .rwd-table {
-      border-radius: .4em;
-
+      border-radius: 7px;
     }
 
 
@@ -32,7 +31,7 @@
     }
 
     .rwd-table tr {
-      border: 1px solid #ddd;
+      border: 1px solid #808080;
       background-color: #ffffff;
     }
 
@@ -47,7 +46,7 @@
 
     .rwd-table td {
       display: block;
-      border-right: 1px solid #ddd;
+      border-right: 1px solid #808080;
     }
 
     .rwd-table td:first-child {
@@ -66,7 +65,7 @@
 
 
     .rwd-table tr {
-      border-color: #bfbfbf;
+      border-color: #808080;
     }
 
     .rwd-table th,
@@ -152,7 +151,7 @@
     }
 
     .parentsTable {
-      border: 1px solid #ddd;
+      border: 1px solid #808080;
       width: 50%;
     }
 
