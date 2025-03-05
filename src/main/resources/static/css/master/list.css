@@ -1,166 +1,183 @@
-    body {
-      margin: 0;
-    }
+ @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-    table{
-      font-size: 12px;
-    }
+  * {
+    font-family: 'NanumSquareRound';
+  }
 
-    .rwd-table {
-      margin: auto;
-      width: 100%;
-      min-width: 300px;
-      max-width: 100%;
-      border-collapse: collapse;
-    }
 
-    .rwd-table tr:first-child {
+  body {
+    margin: 0;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .rwd-table {
+    border: 1px #a39485 solid;
+    font-size: 0.9em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .rwd-table tr:first-child {
+    border-top: none;
+    color: #fff;
+    background-color: #cddafd;
+  }
+
+  .rwd-table tr {
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    background-color: #ffffff;
+  }
+
+  .rwd-table tr:nth-child(odd):not(:first-child) {
+    background-color: #ffffff;
+  }
+
+  .rwd-table th {
+    display: none;
+  }
+
+  .rwd-table td {
+    display: block;
+  }
+
+  .rwd-table td:first-child {
+    margin-top: .5em;
+  }
+
+  .rwd-table td:last-child {
+    margin-bottom: .5em;
+  }
+
+  .rwd-table th,
+  .rwd-table td {
+    text-align: center;
+  }
+
+  .rwd-table {
+    color: #333;
+    border-radius: .4em;
+    overflow: hidden;
+  }
+
+  .rwd-table tr {
+    border-color: #808080;
+  }
+
+  .rwd-table th,
+  .rwd-table td {
+    padding: .5em 1em;
+  }
+
+  @media screen and (max-width: 601px) {
+    .rwd-table tr:nth-child(2) {
       border-top: none;
-      background: DFE7FD;
-      color: #fff;
-      background-color: #b2d5f1;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .rwd-table tr:hover:not(:first-child) {
+      background-color: #bbcdff;
     }
 
-    .rwd-table tr {
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
-      background-color: #ffffff;
-    }
-
-    .rwd-table tr:nth-child(odd):not(:first-child) {
-      background-color: #ffffff;
-    }
-
-    .rwd-table th {
+    .rwd-table td:before {
       display: none;
     }
 
+    .rwd-table th,
     .rwd-table td {
-      display: block;
+      display: table-cell;
+      padding: .25em .5em;
     }
 
+    .rwd-table th:first-child,
     .rwd-table td:first-child {
-      margin-top: .5em;
+      padding-left: 0;
     }
 
+    .rwd-table th:last-child,
     .rwd-table td:last-child {
-      margin-bottom: .5em;
+      padding-right: 0;
     }
 
     .rwd-table th,
     .rwd-table td {
-      text-align: center;
+      padding: 1em !important;
+    }
+  }
+
+
+  .container {
+    display: block;
+    text-align: center;
+  }
+
+  .totalPrice {
+    color: red;
+  }
+
+  h2 {
+    text-align: left;
+    margin-top: 80px;
+  }
+
+  .orderList {
+    height: 70px;
+    text-align: left;
+
+    p {
+      padding-top: 30px;
+    }
+  }
+
+  #red {
+    color: red;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .active {
+    width: 30px;
+    background-color: #cddafd;
+    border: #bfbfbf solid 1px;
+    border-left: none;
+    border-right: none;
+
+    a {
+      color: white;
+    }
+  }
+
+  .disabled {
+    width: 30px;
+    background-color: #e2e2e2;
+    border: #bfbfbf solid 1px;
+
+
+    a {
+      color: #bfbfbf;
+      cursor: not-allowed;
     }
 
-    .rwd-table {
-      color: #333;
-      border-radius: .4em;
-      overflow: hidden;
-    }
+  }
 
-    .rwd-table tr {
-      border-color: #bfbfbf;
-    }
-
-    .rwd-table th,
-    .rwd-table td {
-      padding: .5em 1em;
-    }
-
-    @media screen and (max-width: 601px) {
-      .rwd-table tr:nth-child(2) {
-        border-top: none;
-      }
-    }
-
-    @media screen and (min-width: 600px) {
-      .rwd-table tr:hover:not(:first-child) {
-        background-color: #d8e7f3;
-      }
-
-      .rwd-table td:before {
-        display: none;
-      }
-
-      .rwd-table th,
-      .rwd-table td {
-        display: table-cell;
-        padding: .25em .5em;
-      }
-
-      .rwd-table th:first-child,
-      .rwd-table td:first-child {
-        padding-left: 0;
-      }
-
-      .rwd-table th:last-child,
-      .rwd-table td:last-child {
-        padding-right: 0;
-      }
-
-      .rwd-table th,
-      .rwd-table td {
-        padding: 1em !important;
-      }
-    }
-
-
-    .container {
-      display: block;
-      text-align: center;
-    }
-
-    .totalPrice {
-      color: red;
-    }
-
-    h2 {
-      text-align: left;
-      margin-top: 80px;
-    }
-
-    .orderList {
-      height: 70px;
-      text-align: left;
-
-      p {
-        padding-top: 30px;
-      }
-    }
-
-    #red {
-      color: red;
-    }
-
-    ul{
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-    }
-
-    a{
-      text-decoration: none;
-    }
-
-    .active{
-      width: 30px;
-      background-color: #b2d5f1;
-      border: #bfbfbf solid 1px;
-      border-left: none;
-      border-right: none;
-      a{color: white;}
-    }
-
-    .disabled{
-      width: 30px;
-      background-color: #e2e2e2;
-      border: #bfbfbf solid 1px;
-
-
-      a{
-        color: #bfbfbf;
-        cursor: not-allowed;
-      }
-
-    }

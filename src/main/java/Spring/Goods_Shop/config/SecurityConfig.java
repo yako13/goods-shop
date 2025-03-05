@@ -38,11 +38,11 @@ public class SecurityConfig {
         //필터가 login 처리하므로 컨트롤러 따로 필요 X
         http.formLogin((auth)->auth
                 .loginPage("/login")
-                .loginProcessingUrl("/")
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
                 .usernameParameter("userId")
                 .passwordParameter("userPassword")
-                .defaultSuccessUrl("/my-page")
+                .defaultSuccessUrl("/")
                 .permitAll()
         );
 

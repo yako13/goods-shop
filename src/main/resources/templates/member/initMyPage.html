@@ -14,13 +14,18 @@
     <link rel="stylesheet" href="/css/member/initMyPage.css">
 
 </head>
+
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
 <div class="container">
+    <div class="textArea">
+        <h3>회원정보확인</h3>
+        <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해주세요.</p>
+    </div>
     <!-- Form -->
     <form th:action="@{/init/myPage}" method="post" class="mainForm">
         <div class="first-input input__block first-input__block">
-            <input type="password" placeholder="비밀번호를 입력해주세요." class="input" name="userId"/>
+            <input type="password" placeholder="비밀번호" class="input" name="userId" required/>
         </div>
 
         <button type="submit" class="btn"><b>
