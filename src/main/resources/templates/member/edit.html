@@ -49,10 +49,6 @@
             <button class="btn" type="button" id="button">수정하기</button>
         </div>
     </form>
-    <form th:action="@{/member/delete}" th:method="post" class="deleteArea">
-        <input type="hidden">
-        <button class="deleteBtn" type="submit">탈퇴하기</button>
-    </form>
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 <script th:src="@{/js/member/join.js}"></script>
