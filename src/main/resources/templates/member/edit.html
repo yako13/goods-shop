@@ -24,8 +24,8 @@
         <h1>계정 수정</h1>
     </div>
     <form th:action="@{/member/edit}" th:method="post" enctype="multipart/form-data" class="joinForm">
-        <input type="hidden" th:value="${id}" name="id">
         <div class="first-input input__block first-input__block">
+            <input type="hidden" th:value="${userId}" name="userId">
             <span class="userId">아이디 : <b>[[${userId}]]</b></span>
             <span th:if="${provider!=null}" id="blue">소셜 로그인 회원</span>
         </div>
