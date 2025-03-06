@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>계정 삭제</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/initMyPage.css">
@@ -15,6 +15,8 @@
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<div th:replace="/fragments/menuBar::menuBar"></div>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 
 <div class="container">
     <div class="textArea">
@@ -22,7 +24,7 @@
         <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해주세요.</p>
     </div>
     <!-- Form -->
-    <form th:action="@{/init/member}" method="post" class="mainForm">
+    <form th:action="@{/account/cancellation}" method="post" class="mainForm">
         <div class="first-input input__block first-input__block">
             <input type="password" placeholder="비밀번호" class="input" name="userPassword" required/>
         </div>
@@ -38,6 +40,7 @@
 
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+<script th:src="@{/js/member/alert.js}"></script>
 </body>
 
 </html>

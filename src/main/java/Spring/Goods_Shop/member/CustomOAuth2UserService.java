@@ -41,6 +41,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new NaverUserDetails(oAuth2User.getAttributes());
         }
 
+
         String providerId = oAuth2UserInfo.getProviderId();
         String loginId = oAuth2UserInfo.getEmail();
         String name = oAuth2UserInfo.getName();
@@ -65,6 +66,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         } else {
             member = findMember.get();
         }
+
+        if(member.getRole().equals(MemberRole.CANCELLATION)) throw new RuntimeException("탈퇴한 사용자");
 
         httpSession.setAttribute("memberId",member.getId());
 

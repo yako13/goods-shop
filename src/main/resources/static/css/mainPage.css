@@ -593,3 +593,108 @@ body {
 .dot.active {
   background-color: #ff7f7f;
 }
+
+     /* 메뉴바 */
+        .HanMenuBarBody {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          gap: 30px;
+
+          align-items: flex-start;
+        }
+
+
+
+
+        .HanMenuBarMain {
+
+          margin-top: 60px;
+          margin-left: 40px;
+          margin-right: -240px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          /* border: 1px solid #ccc; */
+          border-radius: 7px;
+          width: 250px;
+          height: 550px;
+          background-color: white;
+
+
+
+        }
+
+        .HanMenuBarMain p {
+          display: inline-block;
+
+        }
+
+
+
+        .HanMenuBarP1 {
+          font-size: 24px;
+          margin-top: 40px;
+          margin-bottom: 16px;
+        }
+
+        .HanMenuBarHr {
+          margin: 0;
+          border: none;
+          width: 80%;
+          border-bottom: 1px solid #e9d2d2;
+          margin-bottom: 10px;
+        }
+
+
+        .HanMenuBarDiv a {
+          text-align: center;
+          display: block;
+          width: 250px;
+          height: 30px;
+          padding: 10px 0;
+          font-size: 18px;
+          color: black;
+          transition: all 0.3s ease-in-out;
+          cursor: pointer;
+          text-decoration: none;
+
+        }
+
+        .HanMenuBarDiv a:hover {
+          background-color: #fff6a6;
+        }
+
+
+        .HanMenuBarA {
+          width: 80%;
+          height: auto;
+          display: flex;
+          justify-content: center;
+          margin-top: auto;
+          padding-bottom: 30px;
+        }
+
+        .HanMenuBarA a {
+          text-align: center;
+          width: 100%;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 18px;
+          transition: all 0.3s ease;
+          font-weight: bolder;
+          background-color: #FFADAD;
+          text-decoration: none;
+          color: #3f3f3f;
+        }
+
+
+
+        .HanMenuBarA a:hover {
+          background-color: #ee8686;
+          color: #3f3f3f;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }

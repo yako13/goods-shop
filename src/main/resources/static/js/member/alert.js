@@ -21,3 +21,13 @@ function dataAlertFunction() {
 
   }
 };
+
+let cancelBtn = document.querySelector(".HanMenuBarA")
+
+cancelBtn.addEventListener("click",()=>{
+  var answer = confirm("회원 탈퇴를 하시면, 복구가 어려운 점을 참고하시기 바랍니다. 정말 탈퇴를 원하시나요?");
+
+    if(answer ==true){
+      location = "/account/cancellation";
+    }
+})

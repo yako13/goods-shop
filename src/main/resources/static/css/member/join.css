@@ -238,6 +238,7 @@ textarea {
 
 .edit {
     height: auto;
+    margin: 180px auto;
 
     button {
         width: 390px;

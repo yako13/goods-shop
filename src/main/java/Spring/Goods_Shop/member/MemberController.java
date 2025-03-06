@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -130,6 +131,29 @@ public class MemberController {
     String editPassword(MemberAuthDto memberAuthDto){
         memberService.tryToEditPassword(memberAuthDto);
         return "redirect:/login";
+    }
+
+    @GetMapping("/account/cancellation")
+    String createAccountCancellationPage(HttpServletRequest request,RedirectAttributes rttr){
+       Member member =  memberService.getMemberEntity(request);
+
+       if(member.getProvider()==null){
+           return "member/accountCancellation";
+       }
+
+        memberService.tryToCancellationSNSAccount(request);
+        rttr.addFlashAttribute("alert","회원 탈퇴가 완료되었습니다.");
+        return "redirect:/";
+    }
+
+    @PostMapping("/account/cancellation")
+    String accountCancellation(MemberAuthDto memberAuthDto, HttpServletRequest request, RedirectAttributes rttr){
+        if(!memberService.tryToCancellationAccount(memberAuthDto,request)){
+            rttr.addFlashAttribute("alert","입력 정보가 잘못되었습니다.");
+            return "redirect:/account/cancellation";
+        }
+        rttr.addFlashAttribute("alert","회원 탈퇴가 완료되었습니다.");
+        return "redirect:/";
     }
 
 }

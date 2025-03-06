@@ -8,16 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/memberHeader.css">
-    <link rel="stylesheet" href="/css/memberFooter.css">
+    <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/join.css">
-<style>
-
-</style>
 </head>
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<div th:replace="/fragments/menuBar::menuBar"></div>
 <input type="hidden" th:value="${alert}" id="dataAlert">
 <div class="container edit">
     <div class="title">
@@ -57,6 +54,7 @@
             <button class="btn" type="submit" id="button">수정하기</button>
         </div>
     </form>
+</div>
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 <script th:src="@{/js/member/join.js}"></script>

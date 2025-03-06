@@ -12,6 +12,7 @@
 
 <!--헤더 네비-->
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 
 
 
@@ -209,7 +210,7 @@
 
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
-
+<script th:src="@{/js/member/alert.js}"></script>
 </body>
 
 </html>
