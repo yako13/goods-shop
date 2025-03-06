@@ -4,10 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 회원가입, 계정 수정 Dto
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberJoinDto {
+
+    private Long id;
 
     private String userId;
 
