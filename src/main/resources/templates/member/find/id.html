@@ -18,6 +18,7 @@
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 <div class="container">
     <ul class="links">
         <li>
@@ -36,7 +37,7 @@
         </div>
 
         <div class="input__block">
-            <input type="text" placeholder="휴대전화번호" class="input" id="phoneNumber" />
+            <input type="text" placeholder="휴대전화번호" class="input" id="phoneNumber" name="phoneNumber" />
         </div>
 
         <button type="submit" class="btn"><b>
@@ -47,8 +48,8 @@
 
 </div>
 
-</main>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+<script src="/js/member/alert.js"></script>
 </body>
 
 </html>

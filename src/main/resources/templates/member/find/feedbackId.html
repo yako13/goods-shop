@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="/css/memberHeader.css">
     <link rel="stylesheet" href="/css/memberFooter.css">
     <style>
-        #pwBtn {
-            background-color: #e7e7e7;
-           a{ color:#363636;}
-        }
+
     </style>
 </head>
 
@@ -26,7 +23,7 @@
         <b>
             <p>아이디 찾기를 완료하였습니다.</p>
         </b>
-        <p id="foundId">alfks8***</p>
+        <p id="foundId" th:text="${userId}"></p>
     </div>
     <div class="link">
         <a th:href="@{/login}">
