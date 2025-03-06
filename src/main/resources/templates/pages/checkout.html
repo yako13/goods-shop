@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudStar WorkShop</title>
+
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+  <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}">
+
+</head>
+
+<body>
+
+  <!-- 헤더 시작 -->
+
+  <header th:replace="/fragments/memberHeader::memberHeader"></header>
+
+  <!-- 헤더 끝 -->
+
+
+
+
+
+  <!-- 본문 -->
+
+  <div class="HanOrderMainBody">
+
+    <!--배송지 선택 모달창 시작-->
+
+
+    <div class="HanAddressPopMain" id="addressModal" style="display: none;">
+
+      <div class="HanAddressPopContainer">
+
+        <div class="HanAddressPopDiv">
+
+          <div class="">
+
+            <div class="HanCardNewLogoDiv">
+
+              <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+
+            </div>
+
+            <h1>CloudStar Workshop</h1>
+
+          </div>
+
+          <!-- <p class="HanAddressPopTitle">배송지 목록</p> -->
+
+          <!-- 배송지 목록 -->
+          <div class="HanAddressPopCardContainer">
+
+            <!-- 배송지 카드 -->
+
+            <div class="HanAddressPopCard">
+
+              <input type="radio" name="selectedAddress" id="selectedAddress1">
+
+              <label class="HanAddressPopRadio" for="selectedAddress1">
+
+
+                <div class="HanAddressPopCardTextDiv">
+
+                  <div class="HanAddressPopCardTextTagDiv">
+
+                    <p class="HanAddressPopCardTextTag">집</p>
+
+                    <p class="HanAddressPopCardTextP1">기본 배송지</p>
+
+                    <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                  </div>
+
+
+                  <div class="HanAddressPopCardTextDiv2">
+
+                    <p class="HanAddressPopCardTextP2">12345</p>
+                    <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv3">
+                    <p class="HanAddressPopCardTextName">홍길동</p>
+                    <p class="HanAddressPopCardTextName">010-1234-1234</p>
+                  </div>
+
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- 배송지 카드 끝 -->
+
+
+
+            <!-- 배송지 카드 시작 -->
+
+            <div class="HanAddressPopCard">
+
+              <input type="radio" name="selectedAddress" id="selectedAddress2">
+
+              <label class="HanAddressPopRadio" for="selectedAddress2">
+
+
+                <div class="HanAddressPopCardTextDiv">
+
+                  <div class="HanAddressPopCardTextTagDiv">
+
+                    <p class="HanAddressPopCardTextTag">회사</p>
+
+                    <p class="HanAddressPopCardTextP1">배송지</p>
+
+                    <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv2">
+
+                    <p class="HanAddressPopCardTextP2">12345</p>
+                    <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv3">
+                    <p class="HanAddressPopCardTextName">홍길동</p>
+                    <p class="HanAddressPopCardTextName">010-1234-1234</p>
+                  </div>
+
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- 배송지 카드 끝 -->
+
+
+
+
+            <!-- 배송지 카드 시작 -->
+
+            <div class="HanAddressPopCard">
+
+              <input type="radio" name="selectedAddress" id="selectedAddress3">
+
+              <label class="HanAddressPopRadio" for="selectedAddress3">
+
+
+
+                <div class="HanAddressPopCardTextDiv">
+
+                  <div class="HanAddressPopCardTextTagDiv">
+
+                    <p class="HanAddressPopCardTextTag">본가</p>
+
+                    <p class="HanAddressPopCardTextP1">배송지</p>
+
+                    <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv2">
+
+                    <p class="HanAddressPopCardTextP2">12345</p>
+                    <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv3">
+                    <p class="HanAddressPopCardTextName">홍길동</p>
+                    <p class="HanAddressPopCardTextName">010-1234-1234</p>
+                  </div>
+
+                </div>
+
+              </label>
+
+            </div>
+
+            <!-- 배송지 카드 끝 -->
+
+
+
+
+          </div>
+
+          <div>
+
+            <div class="HanAddressPopNewButton">
+
+              <img th:src="@{/images/plus.svg}" alt="">
+              <button id="openNewAddressModal" class="HanNew" type="button"> 배송지 신규 입력</button>
+
+            </div>
+
+            <div class="HanAddressPopListButton">
+
+              <button class="HanSubmit" id="selectAddressButton">확인</button>
+              <button class="HanClose" id="closeAddressModal">닫기</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!--배송지 선택 모달창 끝-->
+
+
+    <!--배송지 작성 모달창 시작-->
+
+    <div class="HanAddressPopMain" id="newAddressModal" style="display: none;">
+
+      <div class="HanAddressNewPopContainer">
+
+
+        <div class="HanSignUpBody">
+
+          <div class="HanSignUpDiv">
+
+            <div class="">
+
+              <div class="HanDeliveryPopNewLogoDiv">
+
+                <img th:src="@{/images/logoMain.png}" alt="" width="450px" height="auto">
+
+              </div>
+
+              <h1>CloudStar Workshop</h1>
+
+            </div>
+
+            <ul>
+
+              <form action="" method="post" id="HanSignUpForm">
+
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPw1">배송지 별칭</label>
+                  <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="배송지 별칭을 입력해주세요"
+                    class="HanSignUpInput">
+
+                  <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPw1">받는분 성함</label>
+                  <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="성함을 입력해주세요"
+                    class="HanSignUpInput">
+
+                  <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPw2">받는분 연락처</label>
+                  <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="연락처를 입력해주세요" required
+                    class="HanSignUpInput">
+
+                  <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpName">우편번호</label>
+                  <input type="text" id="HanSignUpName" name="cardName" placeholder="우편번호를 입력해주세요" required
+                    class="HanSignUpInput">
+
+                  <a><i class="HanAddressPopNewIcon"></i></a>
+
+                  <p class="HanSignUpInfo">이름을 입력해주세요</p>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpName">도로명 주소,지번 주소</label>
+                  <input type="text" id="HanSignUpName" name="cardName" placeholder="주소를 입력해주세요" required
+                    class="HanSignUpInput">
+
+                  <p class="HanSignUpInfo">이름을 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPhone">상세 주소</label>
+                  <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="상세 주소를 입력해주세요" required
+                    class="HanSignUpInput">
+
+                  <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPhone">배송 요청 사항</label>
+                  <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="배송 요청 사항을 입력해주세요" required
+                    class="HanSignUpInput">
+
+                  <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
+
+                  <div class="HanMemberDeliveryCheckDiv">
+
+                    <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
+                    <label for="HanCheckbox"></label>
+                    <p>기본 배송지로 등록</p>
+                  </div>
+                  <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
+
+                </li>
+
+
+
+              </form>
+
+            </ul>
+
+            <div class="HanSignUpButton">
+
+              <button class="HanCancel" type="button" id="closeNewAddressModal">취소</button>
+              <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--배송지 작성 모달창 끝-->
+
+
+
+
+
+    <!--  결제카드 등록 모달 창 시작 -->
+
+    <div class="HanAddressPopMain" id="cardNewModal" style="display: none;">
+
+      <div class="HanCardNewPopContainer" id="">
+
+        <div class="HanCardNewBody">
+
+          <div class="HanCardNewDiv">
+
+            <div class="">
+
+              <div class="HanCardNewLogoDiv">
+
+                <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+
+              </div>
+
+              <h1>CloudStar Workshop</h1>
+
+            </div>
+
+            <ul>
+              <form action="" method="post" id="HanSignUpForm">
+
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPw1">카드 별칭</label>
+                  <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="카드 별칭을 입력해주세요"
+                    class="HanSignUpInput">
+
+                  <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <label for="HanSignUpPw1">카드 번호</label>
+
+                  <div class="HanCard">
+
+                    <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000" class="HanSignUpInput">
+
+                    <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000" class="HanSignUpInput">
+
+                    <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000" class="HanSignUpInput">
+
+                    <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000" class="HanSignUpInput">
+
+                  </div>
+                  <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck">
+
+                  <div class="HanCardDateCvc">
+
+
+                    <div>
+
+                      <label for="HanSignUpPw2">유효기간</label>
+
+                      <div class="HanCardDate">
+                        <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="MM" required
+                          class="HanSignUpInput">
+
+                        <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="YY" required
+                          class="HanSignUpInput">
+
+                      </div>
+
+                    </div>
+
+                    <div>
+
+                      <label for="HanSignUpPw2">CVC</label>
+
+                      <div class="HanCVC">
+
+                        <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="카드 뒷면 3자리 숫자" required
+                          class="HanSignUpInput">
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
+                  <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
+
+                  <div class="HanCardCheckDiv">
+
+                    <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
+                    <label for="HanCheckbox"></label>
+                    <p>기본 결제 카드로 등록</p>
+                  </div>
+
+                  <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
+
+                </li>
+
+
+
+              </form>
+
+            </ul>
+
+            <div class="HanCardNewButton">
+              <button class="HanCancel" type="button" id="closeCreditModal">취소</button>
+              <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!--  결제카드 등록 모달 창 끝 -->
+
+
+
+    <!-- 결제카드 리스트 모달 창 시작-->
+
+    <div class="HanAddressPopMain" id="cardListModal" style="display: none;">
+
+      <div class="HanCardPopContainer" id="">
+
+        <div class="HanCardMain">
+
+          <div class="HanCardLogoMain">
+
+            <div class="HanCardLogoDiv">
+
+              <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+
+            </div>
+
+            <h1>CloudStar Workshop</h1>
+
+          </div>
+
+          <!-- 카드 목록 -->
+          <div class="HanCardContainer">
+
+
+            <!-- 카드 시작 -->
+
+            <div class="HanCard">
+
+              <div class="HanCardRadio">
+
+                <input type="radio" name="selectedCard" id="selectedCard1">
+
+                <label for="selectedCard1">
+
+                  <img th:src="@{/images/card6on.svg}" alt="" width="65px" height="65px">
+
+                  <div class="HanCardTextDiv">
+
+                    <div class="HanCardTextTagDiv">
+
+                      <p class="HanCardTextTag">국민카드</p>
+
+                      <p class="HanCardTextP1">기본 결제카드</p>
+
+                      <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                    </div>
+
+                    <div class="HanCardTextDiv2">
+
+
+                      <p class="HanCardTextP2">11111-2222-3333-4444</p>
+
+                    </div>
+
+                  </div>
+
+                </label>
+
+              </div>
+
+            </div>
+
+            <!-- 카드 끝 -->
+
+
+
+            <!-- 카드 시작 -->
+
+            <div class="HanCard">
+
+              <div class="HanCardRadio">
+
+                <input type="radio" name="selectedCard" id="selectedCard2">
+
+                <label for="selectedCard2">
+
+                  <img th:src="@{/images/card6off.svg}" alt="" width="65px" height="65px">
+
+                  <div class="HanCardTextDiv">
+
+                    <div class="HanCardTextTagDiv">
+
+                      <p class="HanCardTextTag">신한카드</p>
+
+                      <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                    </div>
+
+                    <div class="HanCardTextDiv2">
+
+
+                      <p class="HanCardTextP2">11111-2222-3333-4444</p>
+
+                    </div>
+
+                  </div>
+
+                </label>
+
+              </div>
+
+            </div>
+
+            <!-- 카드 끝 -->
+
+
+
+            <!-- 카드 시작 -->
+
+            <div class="HanCard">
+
+              <div class="HanCardRadio">
+
+                <input type="radio" name="selectedCard" id="selectedCard3">
+
+                <label for="selectedCard3">
+
+                  <img th:src="@{/images/card6off.svg}" alt="" width="65px" height="65px">
+
+                  <div class="HanCardTextDiv">
+
+                    <div class="HanCardTextTagDiv">
+
+                      <p class="HanCardTextTag">롯데카드</p>
+
+                      <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+
+                    </div>
+
+                    <div class="HanCardTextDiv2">
+
+
+                      <p class="HanCardTextP2">11111-2222-3333-4444</p>
+
+                    </div>
+
+                  </div>
+
+                </label>
+
+              </div>
+
+            </div>
+
+            <!-- 카드 끝 -->
+
+
+          </div>
+
+          <div>
+
+            <div class="HanNewButton">
+
+              <img th:src="@{/images/plus.svg}" alt="">
+              <button id="openNewAddressModal" class="HanNew" type="button">카드 등록하기</button>
+
+            </div>
+
+            <div class="HanCardButton">
+
+              <button class="HanSubmit" id="selectAddressButton">확인</button>
+              <button class="HanClose" id="closeCreditListModal">닫기</button>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- 결제카드 리스트 모달 창 끝-->
+
+
+
+
+    <!--모달 창 끝-->
+
+
+    <!-- 메인 시작 -->
+
+    <div class="HanOrderRightTopPDiv">
+      <p class="">장바구니</p>
+      <p class="">></p>
+      <p class="Bold">주문/결제</p>
+      <p class="">></p>
+      <p class="">완료</p>
+    </div>
+
+    <div class="HanOrderMain">
+
+
+
+
+      <!-- 주소지 주문목록 -->
+
+      <!-- 주소지 있을시 시작 -->
+
+      <div>
+        <div>
+          <div class="HanOrderTitleDeliveryDiv">
+            <img th:src="@{/images/DeliveryIcon.svg}" width="52px" height="auto">
+            <p style="font-size: 30px; color: black; font-weight: bold;">배송지</p>
+
+          </div>
+
+          <div class="HanOrderAddressCard">
+            <div class="HanOrderCardTextDiv">
+
+              <p class="HanOrderAddressName">홍길동 (집)</p>
+              <p class="HanOrderPhoneP">010-1234-1234</p>
+
+              <div class="HanOrderAddressTextValueDiv">
+                <span id="selectedAddressZip" class="HanOrderAddressNum">12345</span>
+                <span id="selectedAddressFull" class="HanOrderAddressP">부산시 금곡동 101호</span>
+              </div>
+            </div>
+
+            <div class="HanOrderChangeButtonContainer">
+              <button type="button" id="openAddressModal" class="HanOrderChangeButton">
+                변경
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 주소지 있을시 끝 -->
+
+        <!-- 주소지 없을시 시작 -->
+<!-- 
+        <div>
+          <div>
+            <div class="HanOrderTitleDeliveryDiv">
+              <img src="images/DeliveryIcon.svg" width="52px" height="auto">
+              <p style="font-size: 30px; color: black; font-weight: bold;">배송지</p>
+
+            </div>
+
+            <div class="HanOrderAddressCard">
+              <p class="HanOrderAddressName">새 배송지를 입력해주세요</p>
+      
+              </div>
+
+              <div class="HanOrderChangeButtonContainer">
+                <button type="button" id="openAddressModal" class="HanOrderChangeButton">
+                  등록
+                </button>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- 주소지 없을시 끝 -->
+
+          <!-- 주문 목록 -->
+
+          <div>
+            <div>
+              <div>
+
+                <div class="HanOrderCntProductTitle">
+                  <img th:src="@{/images/product_icon.svg}" width="40px" height="auto">
+                  <p class="HanOrderCntProductP">주문상품</p>
+
+                  <div class="HanOrderTitleDiv">
+                    <span class="HanOrderCntSpan1">총</span>
+
+                    <span class="HanOrderCntSpan1">2</span>
+                    <span class="HanOrderCntP">건</span>
+                  </div>
+                </div>
+
+
+              </div>
+
+
+              <!-- 주문 목록 카드 시작-->
+
+              <div class="HanOrderListCard">
+                <div class="HanOrderListCardImgDiv">
+                  <img th:src="@{/images/product1.png}" alt="">
+
+
+                </div>
+                <div class="HanOrderListCardTextDiv">
+                  <div class="HanOrderListCardTextDiv2">
+
+                    <p class="HanOrderListCardPrdNameP">동화 일러스트 키캡 4종</p>
+
+                  </div>
+
+                  <div class="HanOrderPrdPriceTextDiv">
+
+                    <div>
+                      <p class="HanOrderPrdCntP">3</p>
+                      <span class="HanOrderPrdCntSpan">개</span>
+                    </div>
+
+                    <div class="HanOrderPrdPriceDiv">
+                      <p class="HanOrderPrdPrice">80,000</p>
+                      <p class="HanOrderPrdPriceWan">원</p>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 주문 목록 카드 끝-->
+
+
+              <!-- 주문 목록 카드 시작-->
+
+              <div class="HanOrderListCard">
+                <div class="HanOrderListCardImgDiv">
+                  <img th:src="@{/images/product2.png}" alt="">
+
+
+                </div>
+                <div class="HanOrderListCardTextDiv">
+                  <div class="HanOrderListCardTextDiv2">
+
+                    <p class="HanOrderListCardPrdNameP">동물 캐릭터 안경닦이</p>
+
+                  </div>
+
+                  <div class="HanOrderPrdPriceTextDiv">
+
+                    <div>
+                      <p class="HanOrderPrdCntP">1</p>
+                      <span class="HanOrderPrdCntSpan">개</span>
+                    </div>
+
+                    <div class="HanOrderPrdPriceDiv">
+                      <p class="HanOrderPrdPrice">10,000</p>
+                      <p class="HanOrderPrdPriceWan">원</p>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 주문 목록 카드 끝-->
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 결제 카드 -->
+        <div class="HanOrderRight">
+          <div class="HanOrderRightTitle">
+            <img th:src="@{/images/card7.svg}" width="40px" height="auto">
+            <p style="font-size: 30px; color: black; font-weight: bold;">결제수단</p>
+          </div>
+          <div class="HanOrderCreditDiv">
+
+            <p class="HanOrderCreditNameT">카드명</p>
+            <p class="HanOrderCreditName">국민카드</p>
+            <p class="HanOrderCreditNumT">카드번호</p>
+            <p class="HanOrderCreditNum">1111-2222-****-****</p>
+
+            <div class="HanOrderButtonContainer">
+
+              <button id="openCardListModal" class="HanNew" type="button">결제 카드 변경</button>
+
+              <button id="openCreditModal" class="HanOrderButton" type="button">결제 카드 등록</button>
+
+
+            </div>
+
+          </div>
+
+          <div class="HanOrderDetail">
+            <p class="HanOrderDetailT">결제 상세</p>
+            <hr class="HanOrderHr1">
+
+            <div class="HanOrderTotalPrice">
+              <p class="HanOrderValue">정가 :</p>
+              <div>
+                <p class="HanOrderValueP1" id="HanOrderValueP1" style="margin-right: -10px;">90,000
+                </p>
+                <p class="HanOrderValueP">원</p>
+              </div>
+            </div>
+            <div class="HanOrderTotalPrice">
+              <p class="HanOrderDetailSale">배송비 :</p>
+              <div>
+                <p class="HanOrderDetailSalePlus">+</p>
+                <p class="HanOrderDetailSale1" id="HanOrderDetailSaleP1" style="margin-right: -10px;">3,000</p>
+                <p class="HanOrderDetailSale2">원</p>
+              </div>
+            </div>
+            <hr class="HanOrderHr1">
+
+
+            <div class="HanOrderTotalPrice HanOrderMargin1">
+              <p>총 결제 가격 :</p>
+              <div>
+                <p id="HanOrderTotalPriceP" style="margin-right: -10px;">93,000</p>
+                <p class="HanOrderMarginP1">원</p>
+              </div>
+            </div>
+
+
+          </div>
+
+          <form action="/order/payment" method="post" id="payment">
+
+            <input type="hidden" name="userKey" value="{{userKey}}">
+
+
+            <!--                주소지-->
+            <input type="hidden" name="zipCode" value="{{address.zipCode}}" id="paymentZipCode">
+            <input type="hidden" name="addCity" value="{{address.addCity}}" id="paymentAddCity">
+            <input type="hidden" name="addDetail" value="{{address.addDetail}}" id="paymentAddDetail">
+            <!--                카드 (추가해야함)-->
+
+            <input type="hidden" name="prodKey" value="{{prodKey}}">
+            <input type="hidden" name="ordProdCnt" value="{{prodStock}}">
+            <input type="hidden" name="prodBuyPrice" value="{{prodBuyPrice}}">
+
+
+          </form>
+
+          <div class="HanOrderPriceDiv">
+
+            <div class="HanOrderPriceSumDiv">
+
+              <p class="HanOrderPriceP">93,000</p>
+              <p class="HanOrderPriceWan">원</p>
+            </div>
+
+
+            <div class="HanOrderButtonContainer2">
+              <button class="HanOrderSubmitButton" type="submit" form="payment">
+                결제 하기
+              </button>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= scroll-top ========================= -->
+    <button id="scrollToTopBtn">
+      <img src="/images/arrowicon.svg" alt="" style="width: 28px; height: 28px;">
+    </button>
+
+
+
+
+    <!-- 메인 끝 -->
+
+
+    <!-- 푸터 시작 -->
+
+  <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+    <!-- 푸터 끝 -->
+
+
+</body>
+
+</html>
+
+
+
+<script>
+
+  // 스크롤 이벤트 감지
+  window.onscroll = function () {
+
+    // 버튼 요소 가져오기
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      scrollToTopBtn.style.display = "block";
+    } else {
+      scrollToTopBtn.style.display = "none";
+    }
+  };
+
+  // 버튼 클릭 시 맨 위로 스크롤
+  scrollToTopBtn.onclick = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+</script>
+
+<script>
+
+  // 천단위 쉼표를 추가하는 함수
+  function formatNumber() {
+
+
+    // 특정 클래스 및 ID를 가진 요소만 선택
+    const priceElements = document.querySelectorAll(
+      ".HanOrderPrdSalePrice, .HanOrderPrdPrice, " +
+      "#HanOrderValueP1, #HanOrderDetailSaleP1, .HanOrderPriceP, #HanOrderTotalPriceP"
+    );
+
+    priceElements.forEach(element => {
+      let priceValue = element.textContent.trim().replace(/[^0-9-]/g, ""); // 숫자만 추출, 음수 가능
+
+      if (priceValue.length === 0) return; // 빈 값 처리
+
+      let numericPrice = parseFloat(priceValue);
+
+      if (!isNaN(numericPrice)) {
+        element.textContent = numericPrice.toLocaleString('ko-KR'); // 천단위 쉼표 추가 후 적용
+      } else {
+        element.textContent = '가격 오류';
+      }
+    });
+  }
+
+  // 페이지 로드 시 자동 실행
+  window.onload = function () {
+    formatNumber();
+  };
+
+</script>
+<script>
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    //배송지 목록 모달
+    const addressModal = document.getElementById("addressModal");
+    const newAddressModal = document.getElementById("newAddressModal");
+    const openAddressModalButton = document.getElementById("openAddressModal");
+    const openNewAddressModalButton = document.getElementById("openNewAddressModal");
+    const closeAddressModalButton = document.getElementById("closeAddressModal");
+    const closeNewAddressModalButton = document.getElementById("closeNewAddressModal");
+    const selectAddressButton = document.getElementById("selectAddressButton");
+
+
+
+    //--결제 카드 등록 모달--
+
+    //결제 카드 등록 모달이 담긴 div
+    const creditModal = document.getElementById("cardNewModal");
+
+    //결제 카드 등록 버튼 (모달을 열기 위한 버튼)
+    const openCreditModalButton = document.getElementById("openCreditModal");
+    //모달 닫기 버튼
+    const closeCreditModalButton = document.getElementById("closeCreditModal");
+
+
+
+    //--결제 카드 리스트 모달--
+
+    //결제 카드 리스트의 모달이 담긴 div
+    const cardListModal = document.getElementById("cardListModal");
+
+    //결제 카드 변경 버튼 (모달을 열기 위한 버튼)
+    const openCreditEditModalButton = document.getElementById("openCardListModal");
+    //모달 닫기 버튼
+    const closeCreditEditModalButton = document.getElementById("closeCreditListModal");
+
+
+
+    // 결제 카드 등록 모달 열기
+    openCreditModalButton.addEventListener("click", function () {
+      creditModal.style.display = "flex";
+    });
+
+    // 결제 카드 등록 모달 닫기
+    closeCreditModalButton.addEventListener("click", function () {
+      creditModal.style.display = "none";
+    });
+
+
+
+    // 결제 카드 리스트 모달 열기
+    openCreditEditModalButton.addEventListener("click", function () {
+      cardListModal.style.display = "flex";
+    });
+
+    // 결제 카드 변경 모달 닫기
+    closeCreditEditModalButton.addEventListener("click", function () {
+      cardListModal.style.display = "none";
+    });
+
+
+
+
+    // 배송지 선택 모달 열기
+    openAddressModalButton.addEventListener("click", function () {
+      addressModal.style.display = "flex";
+    });
+
+    // 배송지 선택 모달 닫기
+    closeAddressModalButton.addEventListener("click", function () {
+      addressModal.style.display = "none";
+    });
+
+    // 배송지 작성 모달 열기
+    openNewAddressModalButton.addEventListener("click", function () {
+
+      // //배송지 목록이 5이상인지 확인하기 위한
+      // const addressListCheck = document.querySelectorAll(".HanAddressPopCard");
+
+      // if (addressListCheck.length > 4) {
+
+      //   alert('주소록은 5개까지만 등록 가능합니다');
+
+      //   return;
+
+      // } else {
+
+
+      addressModal.style.display = "none"; // 기존 모달 닫기
+      newAddressModal.style.display = "flex"; // 신규 입력 모달 열기
+      // }
+
+    });
+
+    // 배송지 작성  모달 닫기
+    closeNewAddressModalButton.addEventListener("click", function () {
+      newAddressModal.style.display = "none";
+    });
+
+    // 확인 버튼 클릭 시 선택한 배송지 값 처리
+    selectAddressButton.addEventListener("click", function () {
+      const selectedRadio = document.querySelector("input[name='selectedAddress']:checked");
+
+      if (!selectedRadio) {
+        alert("배송지를 선택해주세요!");
+        return;
+      }
+
+      const zipCode = selectedRadio.dataset.zipCode;
+      const addCity = selectedRadio.dataset.addCity;
+      const addDetail = selectedRadio.dataset.addDetail;
+
+      // 선택한 배송지 값을 화면에 표시
+      document.getElementById("selectedAddressZip").textContent = zipCode;
+      document.getElementById("selectedAddressFull").textContent = `${addCity} ${addDetail}`;
+
+
+      //결제 카드 등록 모달에도 전달
+      document.getElementById("CardModalZipCode").value = zipCode;
+      document.getElementById("CardModalAddCity").value = addCity;
+      document.getElementById("CardModalAddDetail").value = addDetail;
+
+      //결제 카드 변경 모달에도 전달
+      document.getElementById("CardModalEditZipCode").value = zipCode;
+      document.getElementById("CardModalEditAddCity").value = addCity;
+      document.getElementById("CardModalEditAddDetail").value = addDetail;
+
+      //결제시 보낼 데이터에도 전달
+      document.getElementById("paymentZipCode").value = zipCode;
+      document.getElementById("paymentAddCity").value = addCity;
+      document.getElementById("paymentAddDetail").value = addDetail;
+
+
+
+      // 모달 닫기
+      addressModal.style.display = "none";
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // 모든 배송지 카드를 선택
+    const addressCards = document.querySelectorAll(".HanAddressPopCard");
+
+    addressCards.forEach(function (card) {
+      // hidden input 요소 찾기
+      const defaultAddInput = card.querySelector("input[type='hidden']");
+
+      // p 태그 (class: HanAddressPopCardTextP1) 찾기
+      const textElement = card.querySelector(".HanAddressPopCardTextP1");
+
+      // hidden input의 값에 따라 텍스트 변경
+      if (defaultAddInput) {
+        if (defaultAddInput.value === "1") {
+          textElement.textContent = "기본배송지";
+        } else if (defaultAddInput.value === "0") {
+          textElement.textContent = "배송지";
+        }
+      }
+    });
+  });
+
+
+  // //결제 카드 등록 변경 버튼 활성화와 비활성화 로직
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   // 버튼 가져오기
+  //   const openCreditEditModalButton = document.getElementById("openCreditEditModal");
+  //   const openCreditModalButton = document.getElementById("openCreditModal");
+
+  //   // 카드 정보 변수 (서버에서 데이터 렌더링 후 값이 비어 있는지 확인)
+  //   const cardName = "{{card.cardName}}"; // 서버에서 전달되는 카드명
+  //   const cardNum = "{{card.cardNum}}";   // 서버에서 전달되는 카드번호
+
+  //   // 카드 정보에 따라 버튼 상태 설정
+  //   if (!cardName || !cardNum || cardName === "카드정보를 입력해주세요" || cardNum === "카드정보를 입력해주세요") {
+  //     // 카드 정보가 없거나 기본 안내 문구일 경우
+  //     openCreditEditModalButton.disabled = true; // 결제 카드 변경 버튼 비활성화
+  //     openCreditModalButton.disabled = false;   // 결제 카드 등록 버튼 활성화
+  //   } else {
+  //     // 카드 정보가 있을 경우
+  //     openCreditEditModalButton.disabled = false; // 결제 카드 변경 버튼 활성화
+  //     openCreditModalButton.disabled = true;      // 결제 카드 등록 버튼 비활성화
+  //   }
+  // });
+
+
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   // payment form을 선택합니다.
+  //   const paymentForm = document.getElementById("payment");
+
+  //   // payment form의 submit 이벤트를 감지합니다.
+  //   paymentForm.addEventListener("submit", function (e) {
+  //     // 카드 정보를 나타내는 요소를 선택합니다.
+  //     // 만약 여러 개가 있다면 적절히 선택자를 수정하세요.
+  //     const cardNameElement = document.querySelector(".HanOrderCreditName");
+  //     const cardNumElement = document.querySelector(".HanOrderCreditNum");
+
+  //     // 두 요소가 존재하는지 확인하고, 그 텍스트 값이 "카드정보를 입력해주세요" 인지 체크합니다.
+  //     if (cardNameElement && cardNumElement) {
+  //       const cardNameText = cardNameElement.textContent.trim();
+  //       const cardNumText = cardNumElement.textContent.trim();
+
+  //       if (cardNameText === "카드정보를 입력해주세요" && cardNumText === "카드정보를 입력해주세요") {
+  //         // 경고창 띄우고 폼 전송을 막습니다.
+  //         alert("결제 하실 카드를 입력해주세요");
+  //         e.preventDefault();
+  //         return;  // 추가적인 동작 방지
+  //       }
+  //     }
+  //   });
+  // });
+
+
+  //창 실행시 알람창 호출
+  window.addEventListener('load', dataAlertFunction());
+
+  //플래시 어트리뷰트로 가져온 값을 알람창으로 보여주는 함수
+  function dataAlertFunction() {
+    let alertElement = document.querySelector("#dataAlert");
+
+    if (alertElement && alertElement.value.trim() !== "") { // 데이터가 존재하고 빈값 ""이 아닐경우 실행
+      let message = alertElement.value;
+
+      alert(message); // 기본 알람창 띄우기
+
+      // FlashAttribute 값이 URL에 남지 않도록 초기화
+      history.replaceState({}, document.title, window.location.pathname);
+
+    }
+  };
+
+
+</script>
+
+<!-- 다음 우편번호 주소찾기 API연결 사이트.-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+
+  //우편번호 및 주소찾기, 다음 API이용
+  function sample6_execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var addr = ''; // 주소 변수
+        var extraAddr = ''; // 참고항목 변수
+
+        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+          addr = data.roadAddress;
+        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+          addr = data.jibunAddress;
+        }
+
+        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+        if (data.userSelectedType === 'R') {
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraAddr !== '') {
+            extraAddr = ' (' + extraAddr + ')';
+          }
+          // 조합된 참고항목을 해당 필드에 넣는다.
+          //document.getElementById("sample6_extraAddress").value = extraAddr;
+
+        } else {
+          // document.getElementById("sample6_extraAddress").value = '';
+        }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("zipcode").value = data.zonecode;
+        document.getElementById("address").value = addr;
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById("detail-address").focus();
+
+      }
+    }).open();
+  }
+</script>

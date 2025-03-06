@@ -30,7 +30,7 @@ public class SecurityConfig {
 
         //접근 권한 설정
         http.authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/init/member","/member/**").hasRole(MemberRole.USER.name())
+//                        .requestMatchers("/init/member","/member/**").hasRole(MemberRole.USER.name())
 //                .requestMatchers( "/my-page","/update", "/delete", "/logout").hasAnyRole(MemberRole.ADMIN.name())
                 .anyRequest().permitAll()
         );
