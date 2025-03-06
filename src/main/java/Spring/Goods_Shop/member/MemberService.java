@@ -119,7 +119,9 @@ public class MemberService {
 
         Member member = optionalMember.get();
 
-        member.setUserPassword(passwordEncoder.encode(memberJoinDto.getUserPassword()));
+        //소셜 로그인 회원의 경우 비밀번호 입력 X -> null
+        if(memberJoinDto.getUserPassword()!=null) member.setUserPassword(passwordEncoder.encode(memberJoinDto.getUserPassword()));
+
         member.setPhoneNumber(memberJoinDto.getPhoneNumber());
         member.setName(memberJoinDto.getName());
 

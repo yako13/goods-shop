@@ -18,14 +18,7 @@
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
-<div th:if="${alert!=null}" class="alert">
-    <div>
-        <p class="errorText" th:text="${alert}"></p>
-    </div>
-    <div>
-        <p class="closeBtn">X</p>
-    </div>
-</div>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 <div class="container edit">
     <div class="title">
         <h1>계정 수정</h1>
@@ -37,8 +30,8 @@
             <span th:if="${provider!=null}" id="blue">소셜 로그인 회원</span>
         </div>
         <div th:if="${provider==null}">
-            <div>
-                <label for="userPassword" class="label">비밀번호</label>
+            <div class="passwordArea">
+                <label for="userPassword" class="label">비밀번호</label><i class="fa-solid fa-eye" id="eye"></i>
                 <input type="password" class="form-control" id="userPassword" name="userPassword"
                        placeholder="비밀번호" required th:value="${userPassword}">
             </div>
