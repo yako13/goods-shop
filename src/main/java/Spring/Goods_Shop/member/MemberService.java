@@ -112,9 +112,18 @@ public class MemberService {
                 .build();
     }
 
+    public void tryMemberEdit(MemberJoinDto memberJoinDto){
+        Optional<Member> optionalMember = memberRepository.findById(memberJoinDto.getId());
 
+        if(optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
 
+        Member member = optionalMember.get();
 
+        member.setUserPassword(passwordEncoder.encode(memberJoinDto.getUserPassword()));
+        member.setPhoneNumber(memberJoinDto.getPhoneNumber());
+        member.setName(memberJoinDto.getName());
 
+        memberRepository.save(member);
 
+    }
 }
