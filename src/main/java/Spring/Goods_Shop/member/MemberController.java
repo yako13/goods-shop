@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,8 +27,8 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    String join(MemberJoinDto memberJoinDto, Model model){
-        if(!memberService.join(memberJoinDto)) {
+    String join(MemberAuthDto memberAuthDto, Model model){
+        if(!memberService.join(memberAuthDto)) {
             model.addAttribute("duplicateId","아이디가 중복되었습니다.");
             return "member/join";}
         return "redirect:/login";
@@ -71,13 +70,13 @@ public class MemberController {
     }
 
     @PostMapping("/member/edit")
-    String memberEdit(MemberJoinDto memberJoinDto, HttpServletRequest request, Model model){
-        memberService.tryMemberEdit(memberJoinDto);
+    String memberEdit(MemberAuthDto memberAuthDto, HttpServletRequest request, Model model){
+        memberService.tryToEditMember(memberAuthDto,request);
         MemberResponseDto memberResponseDto = memberService.getMemberResponseDto(request);
 
         model.addAttribute("id",memberResponseDto.getMemberPK());
         model.addAttribute("userId",memberResponseDto.getUserId());
-        model.addAttribute("userPassword",memberJoinDto.getUserPassword());
+        model.addAttribute("userPassword", memberAuthDto.getUserPassword());
         model.addAttribute("name",memberResponseDto.getName());
         model.addAttribute("provider",memberResponseDto.getProvider());
         model.addAttribute("phoneNumber",memberResponseDto.getPhoneNumber());
@@ -91,19 +90,40 @@ public class MemberController {
         return "member/find/id";
     }
 
+    @PostMapping("/find/id")
+    String findId(MemberDto memberDto,Model model){
+       MemberResponseDto memberResponseDto = memberService.tryToFindId(memberDto);
+       if(memberResponseDto==null) {
+           model.addAttribute("alert","해당 계정을 찾을 수 없습니다.");
+           return "member/find/id";
+       }
+
+       model.addAttribute("userId",memberResponseDto.getUserId());
+       return "member/find/feedbackId";
+    }
+
     @GetMapping("/find/password")
     String createFindPasswordPage(){
         return "member/find/password";
     }
 
-    @GetMapping("/feedback/password")
-    String createFeedbackPasswordPage(){
-        return "member/find/feedbackPassword";
+    @PostMapping("/find/password")
+    String findPassword(MemberDto memberDto,Model model){
+       MemberResponseDto memberResponseDto = memberService.tryToFindPassword(memberDto);
+
+       if(memberResponseDto == null){
+           model.addAttribute("alert","해당 계정을 찾을 수 없습니다.");
+           return "member/find/password";
+       }
+
+       model.addAttribute("userId",memberResponseDto.getUserId());
+       return "member/find/feedbackPassword";
     }
 
-    @GetMapping("/feedback/id")
-    String createFeedbackIdPage(){
-        return "member/find/feedbackId";
+    @PostMapping("/password/edit")
+    String editPassword(MemberAuthDto memberAuthDto){
+        memberService.tryToEditPassword(memberAuthDto);
+        return "redirect:/login";
     }
 
 }

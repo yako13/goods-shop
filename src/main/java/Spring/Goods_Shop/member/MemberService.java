@@ -23,18 +23,18 @@ public class MemberService {
     /**
      * 회원가입
      */
-    public boolean join(MemberJoinDto memberJoinDto){
-        String userId = memberJoinDto.getUserId();
+    public boolean join(MemberAuthDto memberAuthDto){
+        String userId = memberAuthDto.getUserId();
 
         //중복된 아이디일 경우
         Optional<Member> optionalMember = memberRepository.findByUserId(userId);
         if(optionalMember.isPresent()) return false;
 
         Member member = Member.builder()
-                .name(memberJoinDto.getName())
+                .name(memberAuthDto.getName())
                 .userId(userId)
-                .userPassword(passwordEncoder.encode(memberJoinDto.getUserPassword()))
-                .phoneNumber(memberJoinDto.getPhoneNumber())
+                .userPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()))
+                .phoneNumber(memberAuthDto.getPhoneNumber())
                 .role(MemberRole.USER)
                 .termsAgreement(true)
                 .privacyAgreement(true)
@@ -112,18 +112,86 @@ public class MemberService {
                 .build();
     }
 
-    public void tryMemberEdit(MemberJoinDto memberJoinDto){
-        Optional<Member> optionalMember = memberRepository.findById(memberJoinDto.getId());
+    /**
+     * 회원 정보 수정
+     */
+    public void tryToEditMember(MemberAuthDto memberAuthDto,HttpServletRequest request){
+        Optional<Member> optionalMember = memberRepository.findByUserId(memberAuthDto.getUserId());
 
         if(optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
 
         Member member = optionalMember.get();
 
-        member.setUserPassword(passwordEncoder.encode(memberJoinDto.getUserPassword()));
-        member.setPhoneNumber(memberJoinDto.getPhoneNumber());
-        member.setName(memberJoinDto.getName());
+        Member loginMember = getMemberEntity(request);
+        //로그인 한 회원과 업데이트 시도한 회원이 일치하지 않을 경우
+        if(!member.getUserId().equals(loginMember.getUserId())) throw new RuntimeException("비정상 접근입니다.");
+
+        //소셜 로그인 회원의 경우 비밀번호 입력 X -> null
+        if(memberAuthDto.getUserPassword()!=null) member.setUserPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()));
+
+        member.setPhoneNumber(memberAuthDto.getPhoneNumber());
+        member.setName(memberAuthDto.getName());
 
         memberRepository.save(member);
 
     }
+
+    /**
+     * 아이디 찾기
+     */
+    public MemberResponseDto tryToFindId(MemberDto memberDto){
+        String name = memberDto.getName();
+        String phoneNumber = memberDto.getPhoneNumber();
+
+        Optional<Member> optionalMember = memberRepository.findByNameAndPhoneNumber(name,phoneNumber);
+
+        if(optionalMember.isEmpty()) return null;
+
+        Member member = optionalMember.get();
+
+        int length = member.getUserId().length();
+
+        //아이디의 뒷 3자리는 *로 표시
+        String showId = member.getUserId().substring(0,length-3)+"***";
+
+        return MemberResponseDto.builder()
+                .userId(showId)
+                .build();
+
+    }
+
+    /**
+     * 비밀번호 찾기
+     */
+    public MemberResponseDto tryToFindPassword(MemberDto memberDto){
+        String userId = memberDto.getUserId();
+        String phoneNumber = memberDto.getPhoneNumber();
+
+        Optional<Member> optionalMember = memberRepository.findByUserIdAndPhoneNumber(userId,phoneNumber);
+
+        if(optionalMember.isEmpty()) return null;
+
+        Member member = optionalMember.get();
+
+        return MemberResponseDto.builder()
+                .userId(member.getUserId())
+                .build();
+    }
+
+    /**
+     * 비밀번호 재설정 
+     */
+    public void tryToEditPassword(MemberAuthDto memberAuthDto){
+        Optional<Member> optionalMember = memberRepository.findByUserId(memberAuthDto.getUserId());
+
+        if(optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
+
+        Member member = optionalMember.get();
+
+        member.setUserPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()));
+
+        memberRepository.save(member);
+
+    }
+
 }

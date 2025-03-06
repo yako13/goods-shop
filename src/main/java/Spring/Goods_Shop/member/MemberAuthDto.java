@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberJoinDto {
-
-    private Long id;
-
+public class MemberAuthDto {
     private String userId;
 
     private String userPassword;
