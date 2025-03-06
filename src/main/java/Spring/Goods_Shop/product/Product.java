@@ -39,15 +39,19 @@ public class Product extends BaseTime {
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name = "file_category", columnDefinition = "VARCHAR(50)", nullable = false)
-//    @Comment("파일 분류")
-//    private ProductCategory category;
+//    @Comment("제품 분류")
+//    private ProductCategory productCategory;
+
+    @Column(nullable = false)
+    @Comment("제품 분류")
+    private String productCategory;
 
     @Builder
-    public Product(String name, BigDecimal price, int count, String productDescription, ProductCategory category) {
+    public Product(String name, BigDecimal price, int count, String productDescription, String productCategory) {
         this.name = name;
         this.price = price;
         this.count = count;
-//        this.category = category;
+        this.productCategory = productCategory;
         this.productDescription = productDescription;
     }
 }

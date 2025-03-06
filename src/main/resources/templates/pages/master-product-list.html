@@ -95,6 +95,16 @@
         background-color: #fad2e1;
         color: #ffffff;
       }
+      .btn-green {
+        border: 2px solid #74cc6c;
+        border-radius: 7px;
+        color: #74cc6c;
+        background-color: #ffffff;
+      }
+      .btn-green:hover {
+        background-color: #74cc6c;
+        color: #ffffff;
+      }
     </style>
   </head>
   <body>
@@ -104,6 +114,9 @@
       <section class="master__product">
         <div class="table__product">
           <div>상품목록 (총 n개)</div>
+          <a href="/master/product/register"
+            ><button class="btn btn-green">등록하기</button></a
+          >
           <table>
             <thead>
               <th>순번</th>
@@ -133,7 +146,11 @@
                   <button class="btn btn-blue" type="button">수정하기</button>
                 </td>
                 <td>
-                  <button class="btn btn-red" type="button">삭제하기</button>
+                  <a href="/product/delete"
+                    ><button class="btn btn-red" type="button">
+                      삭제하기
+                    </button></a
+                  >
                 </td>
               </tr>
               <tr>

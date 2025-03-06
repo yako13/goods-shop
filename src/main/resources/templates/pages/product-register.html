@@ -74,13 +74,13 @@
       <section class="master__product">
         <div class="container__form">
           <!-- form -->
-          <form action="#" method="post">
+          <form action="/product/save" method="post">
             <!-- 상품명 -->
             <div class="container__input">
               <label for="product-name"
                 >상품명<span class="required-text">* 필수</span></label
               >
-              <input type="text" id="product-name" name="product-name" />
+              <input type="text" id="product-name" name="name" />
             </div>
             <!-- /상품명 -->
 
@@ -89,7 +89,7 @@
               <label for="category"
                 >카테고리<span class="required-text">* 필수</span></label
               >
-              <select id="category" name="category">
+              <select id="category" name="productCategory">
                 <option value="#" disabled="disabled" selected>
                   카테고리를 선택해주세요
                 </option>
@@ -126,7 +126,7 @@
                 cols="47"
                 rows="5"
                 id="description"
-                name="description"></textarea>
+                name="productDescription"></textarea>
             </div>
             <!-- /상품 설명 -->
 

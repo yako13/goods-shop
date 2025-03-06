@@ -79,7 +79,7 @@
               <label for="product-name"
                 >상품명<span class="required-text">* 필수</span></label
               >
-              <input type="text" id="product-name" name="product-name" />
+              <input type="text" id="product-name" name="name" />
             </div>
             <!-- /상품명 -->
 
@@ -125,7 +125,7 @@
                 cols="47"
                 rows="5"
                 id="description"
-                name="description"></textarea>
+                name="ProductDescription"></textarea>
             </div>
             <!-- /상품 설명 -->
 
@@ -136,7 +136,11 @@
                   >* 필수</span
                 ></label
               >
-              <input type="file" id="mainImage" accept="image/*" />
+              <input
+                type="file"
+                name="mainImage"
+                id="mainImage"
+                accept="image/*" />
               <div id="mainImagePreview" class="preview-container"></div>
               <label>상품 서브 이미지 (최대 3장)</label>
               <input type="file" id="subImage" accept="image/*" multiple />
