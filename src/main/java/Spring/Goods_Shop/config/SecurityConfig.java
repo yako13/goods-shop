@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.config;
 
+import Spring.Goods_Shop.common.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,8 @@ public class SecurityConfig {
 
         //접근 권한 설정
         http.authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/init/member","/member/**").hasRole(MemberRole.USER.name())
 //                .requestMatchers( "/my-page","/update", "/delete", "/logout").hasAnyRole(MemberRole.ADMIN.name())
-//                .requestMatchers("/member/list").hasRole(MemberRole.ADMIN.name())
                 .anyRequest().permitAll()
         );
 
@@ -38,11 +39,11 @@ public class SecurityConfig {
         //필터가 login 처리하므로 컨트롤러 따로 필요 X
         http.formLogin((auth)->auth
                 .loginPage("/login")
-                .loginProcessingUrl("/")
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
                 .usernameParameter("userId")
                 .passwordParameter("userPassword")
-                .defaultSuccessUrl("/my-page")
+                .defaultSuccessUrl("/")
                 .permitAll()
         );
 

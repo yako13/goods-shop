@@ -1,57 +1,90 @@
-    .container {
-      background:  #DFE7FD;
-      display: block;
-      width: 450px;
-      border-radius: 7px;
-      margin: 250px auto;
-      height: 200px;
-      box-shadow: 5px 5px 25px rgb(172, 172, 172);
-  }
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-    .mainForm{
-        padding-top: 40px;
-          input:focus{
-            box-shadow: 5px 5px 15px #CDDAFD ;
+* {
+    font-family: 'NanumSquareRound';
+}
+    body{
+    background-color: #f1f0f1;
+    margin:0;
+    }
+.textArea {
+
+    p,
+    h3 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+}
+
+.container {
+  margin-top:200px;
+    margin-bottom:200px;
+    background-color: white;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 20px;
+    display: block;
+    width: 410px;
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mainForm {
+
+
+    input:focus {
+        box-shadow: 5px 5px 15px #CDDAFD;
+    }
+
+
+    input {
+        display: block;
+        width: 90%;
+        max-width: 680px;
+        height: 50px;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: white;
+        color: black;
+        padding: 0 0 0 15px;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+
+        &:focus,
+        &:active {
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-
-        input {
-            display: block;
-            width: 90%;
-            max-width: 680px;
-            height: 50px;
-            margin: 0 auto;
-            border-radius: 8px;
-            border: none;
-            background: white;
-            color: black;
-            padding: 0 0 0 15px;
-            font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-
-            &:focus,
-            &:active {
-                outline: none;
-                border: none;
-                color: rgba(#0f132a, 1);
-            }
 
     }
 
     .btn {
-        background: #afc4ff;
-        color: white;
+        background-color: #fff6a6;
+        color: #363636;
+        font-size: 16px;
         display: block;
         width: 92.5%;
         max-width: 680px;
         height: 50px;
-        border-radius: 8px;
+        border-radius: 4px;
         margin: 20px auto;
         border: none;
         cursor: pointer;
-        font-size: 14px;
-        transition: .2s linear};
+        transition: .2s linear;
+    }
 
-    .btn:hover{
-            background-color: #95b1ff;
-        }
+
+
+    .btn:hover {
+        background-color: #fff27a;
+        color: #585858;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}

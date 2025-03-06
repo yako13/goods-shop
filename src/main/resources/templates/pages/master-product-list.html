@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+    <link rel="stylesheet" href="/css/master/masterHeader.css" />
+    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
+      body {
+        margin: 0px;
+      }
       a {
         text-decoration: none;
         color: #000000;
@@ -33,10 +38,7 @@
         top: 28rem;
       }
       .master__product {
-        margin-left: 16rem;
-        width: 80rem;
-        height: 90vh;
-        border: 1px solid #000000;
+        margin-top: 4rem;
       }
       .table__product {
         margin: 2rem;
@@ -96,26 +98,16 @@
     </style>
   </head>
   <body>
-    <h1>Master-Product-List</h1>
-    <main class="master__container--flex">
-      <!-- nav 메뉴 -->
-      <nav class="master-nav">
-        <div class="nav__img">
-          <img
-            class="nav__img--logo"
-            src="/src/main/resources/static/img/star-cloud-removebg-preview.png" />
-        </div>
-        <a href="#"><p class="nav__text">상품 관리</p></a>
-        <a href="#"><p class="nav__text">주문 관리</p></a>
-        <a href="#"><p class="nav__text nav__logout">로그아웃</p></a>
-      </nav>
-      <!-- /nav 메뉴 -->
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+    <main id="main">
       <section class="master__product">
         <div class="table__product">
           <div>상품목록 (총 n개)</div>
           <table>
             <thead>
               <th>순번</th>
+              <th>이미지</th>
               <th>상품명</th>
               <th>판매가격</th>
               <th>재고수량</th>
@@ -127,6 +119,11 @@
             <tbody>
               <tr>
                 <th>1</th>
+                <th>
+                  <img
+                    src="/images/product1.png"
+                    style="width: 4rem; height: 4rem" />
+                </th>
                 <td><a href="#">춘식캣 쉬폰</a></td>
                 <td>35,000 원</td>
                 <td>31 개</td>
@@ -141,6 +138,7 @@
               </tr>
               <tr>
                 <th>2</th>
+                <td>img</td>
                 <td><a href="#">코지캣 쉬폰</a></td>
                 <td>30,000 원</td>
                 <td>34 개</td>
@@ -159,5 +157,5 @@
       </section>
     </main>
   </body>
-  <script></script>
+  <script th:src="@{/js/master/masterNavigation.js}"></script>
 </html>

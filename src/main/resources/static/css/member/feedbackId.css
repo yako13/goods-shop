@@ -1,11 +1,27 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    background-color: #f1f0f1;
+}
+
+* {
+    font-family: 'NanumSquareRound';
+}
+
 .container {
-    background: #DFE7FD;
+    background: white;
     display: block;
     width: 450px;
     border-radius: 7px;
     margin: 190px auto;
     height: 320px;
-    box-shadow: 5px 5px 25px rgb(172, 172, 172);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
     .foundId {
         padding-top: 80px;
@@ -19,6 +35,7 @@
         #foundId {
             color: blue;
             font-weight: 600;
+            margin-top: 33px;
         }
     }
 
@@ -31,34 +48,40 @@
 
 }
 
-#loginBtn,#pwBtn {
-    font-size: 14px;
-    border-radius: 7px;
+#loginBtn,
+#pwBtn {
+    font-size: 16px;
+    border-radius: 4px;
     line-height: 40px;
-        width: 130px;
-        height: 40px;
-        margin: 0px 10px 0px 10px;
-      
-    }
+    width: 130px;
+    height: 40px;
+    margin: 0px 10px 0px 10px;
 
-    #loginBtn{
-        background-color: #afc4ff;
-    }
+}
 
-    #loginBtn:hover{
-        background-color: #94b0ff;
+#loginBtn {
+    background-color: #fff6a6;
+    color: #363636;
+}
 
-    }
+#loginBtn:hover {
+    background-color: #fff27a;
+    color: #585858;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    #pwBtn{
-        background-color: #94b0ff;
-    }
+}
 
-    #pwBtn:hover{
-        background-color: #7599ff;;
-    }
+#pwBtn {
+    background-color: #e7e7e7;
 
-    a{
-        text-decoration: none;
-        color: white;
-    }
+}
+
+#pwBtn:hover {
+    background-color: #c9c9c9;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    text-decoration: none;
+}

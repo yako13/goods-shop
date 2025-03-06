@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
+    <link rel="stylesheet" href="/css/mainPage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
     <style>
       .container {
         justify-self: center;
@@ -13,15 +20,17 @@
         max-width: 100%;
         width: 67.5rem;
         margin-top: 2rem;
+        justify-self: center;
       }
       .container__flex {
-        border: 1px solid #aaaaaa;
+        border: 1px solid #d2d2d2;
         display: flex;
         justify-content: space-between;
       }
       .image__main {
         max-width: 100%;
         width: 33rem;
+        height: 33rem;
       }
       .image__sub {
         width: 5rem;
@@ -73,19 +82,28 @@
         font-size: 1rem;
         width: 20rem;
         height: 3rem;
+        background-color: #fff6a6;
+        color: #363636;
+        border: 0px;
+        border-radius: 7px;
+      }
+      .btn__order:hover {
+        background-color: #fdef6f;
+        color: #585858;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
       .btn__cart {
         font-size: 1rem;
         width: 7rem;
         height: 3rem;
-        background-color: #ffffff;
-        border: 1px solid #bee1e6;
-        color: #bee1e6;
+        border: 0px;
+        border-radius: 7px;
+        background-color: #bee1e6;
+        
       }
       .btn__cart:hover {
-        color: #ffffff;
-        background-color: #bee1e6;
         cursor: pointer;
+        background-color: #8ecdd7;
       }
       .flex__btn {
         display: flex;
@@ -97,27 +115,97 @@
         right: 2rem;
         bottom: 3rem;
       }
+      .desc-image {
+        width: 57rem;
+        height: 57rem;
+      }
+      .div__image--desc {
+        text-align: center;
+        margin-top: 3rem;
+      }
+      .notice__product-cnt {
+        text-align: center;
+      }
+      .img__notice {
+        width: 28rem;
+      }
+      .HanProductCntDiv {
+        display: flex;
+        width: 28rem;
+        justify-content: space-between;
+      }
+
+      /* 수량버튼 css */
+      .HanProductSpinner {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        width: 120px;
+        height: 40px;
+        margin-top: 7px;
+      }
+
+      .HanProductSpinner button {
+        width: 35px;
+        height: 40px;
+        background-color: #f9f9f9;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .HanProductSpinner button:disabled {
+        cursor: not-allowed;
+        color: #eefcd7;
+      }
+
+      .HanProductSpinner button:hover:not(:disabled) {
+        background-color: #fffebf;
+      }
+
+      .HanProductSpinner input {
+        width: 50px;
+        text-align: center;
+        border: none;
+        outline: none;
+        font-size: 16px;
+      }
+
+      .HanProductPriceSum {
+        font-size: 35px;
+      }
+
+      .HanProductSumCnt {
+        color: #969696;
+        font-size: 18px;
+      }
+
+      .HanProductPriceSumCnt {
+        color: #969696;
+        font-size: 22px;
+      }
+      .text__black {
+        color: #333;
+        font-weight: 400;
+        font-size: 1rem;
+      }
     </style>
   </head>
   <body>
-    <!-- Header -->
-    <h1>Product Detail</h1>
-    <h1>Header</h1>
-    <hr />
-    <!-- /Header -->
-    <main class="container container__main">
+    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>
+
+    <main class="container__main">
       <div class="container__flex">
         <div class="flex">
           <span>
-            <img
-              class="image__main"
-              src="/src/main/resources/static/img/productimage.jpg" />
+            <img class="image__main" src="/images/product1.png" />
             <div class="flex__sub-image">
-              <img
-                class="image__sub"
-                src="/src/main/resources/static/img/productimage.jpg" />
-              <img class="image__sub" src="#" />
-              <img class="image__sub" src="#" />
+              <img class="image__sub" src="/images/product1.png" />
+              <img class="image__sub" src="/images/product1.png" />
+              <img class="image__sub" src="/images/product1.png" />
               <img class="image__sub" src="#" />
             </div>
           </span>
@@ -125,29 +213,71 @@
             <form action="#" method="#">
               <p class="product-info__name">코지캣 쉬폰</p>
               <p class="product-info__count">nn 개 남음</p>
-              <p class="product-info__price">30,000원</p>
+              <p class="product-info__price">
+                30,000<span class="text__black">원</span>
+              </p>
               <p class="product-info__post">택배 배송 | 3,000원</p>
-              <p class="product-info__orderCount">수량</p>
-              <input type="number" min="0" />
-              <div class="product-info__p">
-                <span>총 상품 금액</span>
-                <span class="product-info__totalPrice">30,000원</span>
+              <!--              <p class="product-info__orderCount">수량</p>-->
+              <!--              <input type="number" min="0" />-->
+              <!-- 상품 가격 (할인가) -->
+              <input
+                type="hidden"
+                id="HanProductPriceSaleValue"
+                value="30000" />
+
+              <div class="HanProductCntDiv">
+                <!-- 수량버튼 -->
+                <div class="HanProductSpinner">
+                  <button onclick="changeQuantity(-1)">-</button>
+                  <input type="text" id="HanProductValue" value="1" readonly />
+                  <button onclick="changeQuantity(1)">+</button>
+                </div>
+
+                <div>
+                  <span class="HanProductSumCnt" style="padding: 30px"
+                    >총 금액</span
+                  >
+                  <span class="HanProductPriceSumCnt"></span>
+
+                  <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
+                  <span class="HanProductPriceSum" id="HanProductPriceSum"
+                    >30000</span
+                  >
+                  <span class="HanProductSpan3">원</span>
+                </div>
               </div>
+
+              <!--              <div class="product-info__p">-->
+              <!--                <span>총 상품 금액</span>-->
+              <!--                <span class="product-info__totalPrice">30,000원</span>-->
+              <!--              </div>-->
               <hr />
+
+              <!-- button -->
+
               <div class="flex__btn">
                 <button class="btn btn__order" type="submit">주문하기</button>
-                <button class="btn btn__cart" type="submit">장바구니</button>
+                <button class="btn btn__cart" type="submit">
+                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c"></i>
+                    장바구니</i
+                  >
+                </button>
               </div>
+
+              <!-- sold out image -->
+
+              <!-- <div class="notice__product-cnt">
+                <img class="img__notice" src="/images/soldout.png" />
+              </div> -->
             </form>
           </div>
         </div>
       </div>
-      <div>
-        <div style="text-align: center; margin-top: 3rem">
-          <img
-            src="/src/main/resources/static/img/productimage.jpg"
-            style="width: 55rem" />
-        </div>
+      <div class="div__image--desc">
+        <img class="desc-image" src="/images/product1.png" />
+        <img class="desc-image" src="/images/product1.png" />
+        <img class="desc-image" src="/images/product1.png" />
+        <img class="desc-image" src="/images/product1.png" />
       </div>
     </main>
     <aside>
@@ -155,5 +285,47 @@
         TOP
       </button>
     </aside>
+    <footer th:replace="fragments/memberFooter::memberFooter"></footer>
   </body>
+  <script>
+    const unitPrice = document.getElementById("HanProductPriceSaleValue").value;
+    const quantityInput = document.getElementById("HanProductValue");
+    // const quantityInputHidden = document.getElementById('HanProductValueHidden');
+    // const quantityInputHidden2 = document.getElementById('HanProductValueHidden2');
+    const totalPriceElement = document.getElementById("HanProductPriceSum");
+    const soldOut = document.getElementById("soldOut");
+
+    function changeQuantity(change) {
+      let currentQuantity = parseInt(quantityInput.value);
+
+      //+-버튼에 따라 수량 증감을 보여준다
+      currentQuantity += change;
+
+      // 1보다 작아지지 않게
+      if (currentQuantity < 1) {
+        currentQuantity = 1;
+      }
+      //구매하기와 장바구니 둘다 input hidden에 넣어줌
+      quantityInput.value = currentQuantity;
+      // quantityInputHidden.value = currentQuantity;
+      // quantityInputHidden2.value = currentQuantity;
+
+      //수량에 따라 가격 변동해주는 함수 호출
+      updateTotalPrice(currentQuantity);
+    }
+
+    //수량에 따라 가격변동 함수
+    function updateTotalPrice(quantity) {
+      let priceSumTmp = parseInt(unitPrice);
+
+      if (isNaN(priceSumTmp) || !Number.isInteger(priceSumTmp)) {
+        document.getElementById("HanProductPriceSum").textContent = "가격오류";
+      } else {
+        const totalPrice = priceSumTmp * quantity;
+
+        const formatted3 = totalPrice.toLocaleString("ko-KR"); // 천 단위로 쉼표 추가
+        document.getElementById("HanProductPriceSum").textContent = formatted3;
+      }
+    }
+  </script>
 </html>

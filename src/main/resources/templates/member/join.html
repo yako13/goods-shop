@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="/css/memberHeader.css">
     <link rel="stylesheet" href="/css/memberFooter.css">
     <link rel="stylesheet" href="/css/member/join.css">
+<style>
 
+</style>
 </head>
 
 <body class="text-center">
@@ -27,23 +29,29 @@
         <li>
             <a th:href="@{/join}" id="signup">회원가입</a>
         </li>
+
+            <span id="star">*는 필수입니다.</span>
+
     </ul>
     <form th:action="@{/join}" th:method="post" enctype="multipart/form-data" class="joinForm">
 
-        <div class="first-input input__block first-input__block">
-            <input type="text" placeholder="아이디" class="input" name="userId"/>
+        <div>
+            <label for="userId" class="label">*아이디</label>
+            <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required/>
         </div>
 
-        <div>
-            <span class="error" th:text="${valid_userId}"></span>
+        <div class="errorArea">
+            <span class="error" th:if="${valid_userId}!=null" th:text="${valid_userId}"></span>
             <span class="error" th:text="${duplicateId}"></span>
         </div>
         <div>
             <div>
+                <label for="userPassword" class="label">*비밀번호</label>
                 <input type="password" class="form-control" id="userPassword" name="userPassword"
                        placeholder="비밀번호" required>
             </div>
             <div>
+                <label for="passwordCheck" class="label">*비밀번호 확인</label>
                 <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required>
             </div>
         </div>
@@ -53,9 +61,13 @@
         <div>
             <span class="error" th:text="${valid_userPassword}"></span>
         </div>
+        <div class="namePhoneLabel">
+            <label for="name" class="label">*이름</label>
+            <label for="phoneNumber" class="label">*연락처</label>
+        </div>
         <div class="namePhone">
             <input type="text" class="form-control " id="name" name="name" placeholder="이름">
-            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처">
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처" maxlength="11">
         </div>
         <!-- separator -->
         <div class="separator">
@@ -78,7 +90,7 @@
                             <input type="hidden" name="termsAgreement" id="termsAgreement">
                         </li>
                     </ul>
-                    <textarea class="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 구름별 공방 서비스의 이용과 관련하여 구름별 공방 서비스를제공하는 구름별 공방과 이를 이용하는 구름별 공방 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 구름별 공방 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                    <textarea class="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 구름별 공방 서비스의 이용과 관련하여 구름별 공방 서비스를 제공하는 구름별 공방과 이를 이용하는 구름별 공방 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 구름별 공방 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
         </textarea>
                 </li>
                 <li class="checkBox check03">
@@ -90,10 +102,9 @@
                         </li>
                     </ul>
 
-                    <textarea
-                            class="custom_textarea">개인정보보호법에 따라 구름별 공방에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
-                                1. 수집하는 개인정보이용자가 회원제 서비스를 이용하기 위해 회원가입을 할 경우, 구름별 공방은 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.회원가입 시점에 네이버가 이용자로부터 수집하는 개인정보는 아래와 같습니다.
- - 회원 가입 시 필수항목으로 아이디, 비밀번호, 이름, 휴대전화번호를 수집합니다. - 회원정보 또는 개별 서비스에서 프로필 정보(프로필 사진)를 설정할 수 있습니다. 
+                    <textarea class="custom_textarea">개인정보보호법에 따라 구름별 공방에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
+    1. 수집하는 개인정보이용자가 회원제 서비스를 이용하기 위해 회원가입을 할 경우, 구름별 공방은 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.회원가입 시점에 네이버가 이용자로부터 수집하는 개인정보는 아래와 같습니다.
+ - 회원 가입 시 필수항목으로 아이디, 비밀번호, 이름, 휴대전화번호를 수집합니다. - 회원정보 또는 개별 서비스에서 프로필 정보(프로필 사진)를 설정할 수 있습니다.
 2. 수집한 개인정보의 이용
 구름별 공방 서비스의 회원관리, 서비스 개발・제공 및 향상, 안전한 인터넷 이용환경 구축 등 아래의 목적으로만 개인정보를 이용합니다.
 - 회원 가입 의사의 확인,이용자 식별, 회원탈퇴 의사의 확인 등 회원관리를 위하여 개인정보를 이용합니다.
@@ -109,7 +120,7 @@
         </div>
 
         <div class="btnArea">
-            <button class="btn" type="button" id="button">가입하기</button>
+            <button class="btn" type="submit" id="button">가입하기</button>
         </div>
     </form>
 </div>

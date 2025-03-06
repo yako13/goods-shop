@@ -1,3 +1,35 @@
+     let userPassword = document.getElementById("userPassword");
+        let userPasswordCheck = document.getElementById("passwordCheck");
+        let passwordError = document.getElementById("passwordError");
+
+        function checkPassword(){
+            if(userPassword.value !== userPasswordCheck.value){
+                passwordError.style.display="block";
+            }
+            else{
+                passwordError.style.display="none";
+            }
+        }
+
+        userPassword.addEventListener("keydown",()=>{
+            checkPassword();
+        })
+
+        userPassword.addEventListener("keyup",()=>{
+            checkPassword();
+        })
+
+        userPasswordCheck.addEventListener("keydown",()=>{
+            checkPassword();
+        })
+
+        userPasswordCheck.addEventListener("keyup",()=>{
+            checkPassword();
+        })
+
+
+
+
      let bol = true;
         let check01 = document.getElementById("check01");
         let check02 = document.getElementById("check02");

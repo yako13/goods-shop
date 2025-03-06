@@ -1,11 +1,9 @@
 package Spring.Goods_Shop.member;
 
+import Spring.Goods_Shop.base.BaseTime;
 import Spring.Goods_Shop.common.MemberRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
@@ -15,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member {
+@EqualsAndHashCode(callSuper = true)
+public class Member extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,14 +57,6 @@ public class Member {
     @Column(nullable = false)
     @Comment(value = "개인정보 이용 동의 여부")
     private boolean privacyAgreement;
-
-    @Column(nullable = false)
-    @Comment(value = "가입날짜")
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    @Comment(value = "수정날짜")
-    private LocalDateTime updatedAt;
 
     @Column(nullable = true)
     @Comment(value = "탈퇴날짜")

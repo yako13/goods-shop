@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.member;
 
+import Spring.Goods_Shop.base.BaseTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class CustomOauth2UserDetails implements UserDetails, OAuth2User {
+public class CustomOauth2UserDetails extends BaseTime implements UserDetails, OAuth2User {
     private final Member member;
     private Map<String, Object> attributes;
 
