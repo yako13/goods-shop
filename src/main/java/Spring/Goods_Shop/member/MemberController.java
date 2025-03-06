@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.member;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +14,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    String HomePage(){ return "mainPage";}
+    String createHomePage(){ return "mainPage";}
 
     @GetMapping("/login")
-    String loginPage(){
+    String createLoginPage(){
         return "member/login";
     }
 
     @GetMapping("/join")
-    String joinPage(){
+    String createJoinPage(){
         return "member/join";
     }
 
@@ -33,33 +34,64 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    @GetMapping("/member/edit")
-    String memberEdit(){
+
+    @GetMapping("/init/member")
+    String createInitMyPage(HttpServletRequest request,Model model){
+
+        MemberResponseDto memberResponseDto = memberService.checkOauthLogin(request);
+
+        if(memberResponseDto==null) return "member/initMember";
+
+        model.addAttribute("id",memberResponseDto.getMemberPK());
+        model.addAttribute("userId",memberResponseDto.getUserId());
+        model.addAttribute("name",memberResponseDto.getName());
+        model.addAttribute("provider",memberResponseDto.getProvider());
+        model.addAttribute("phoneNumber",memberResponseDto.getPhoneNumber());
+        return "member/edit";
+
+    }
+
+    @PostMapping("/init/member")
+    String initMyPage(MemberDto memberDto,HttpServletRequest request,Model model){
+
+        MemberResponseDto memberResponseDto = memberService.initMyPage(memberDto,request);
+
+        if(memberResponseDto==null) {
+            model.addAttribute("error","비밀번호가 일치하지 않습니다.");
+            return "member/initMember";
+        }
+        model.addAttribute("id",memberResponseDto.getMemberPK());
+        model.addAttribute("userId",memberResponseDto.getUserId());
+        model.addAttribute("userPassword",memberDto.getUserPassword());
+        model.addAttribute("name",memberResponseDto.getName());
+        model.addAttribute("provider",memberResponseDto.getProvider());
+        model.addAttribute("phoneNumber",memberResponseDto.getPhoneNumber());
         return "member/edit";
     }
 
+    @PostMapping("/member/edit")
+    String memberEdit(MemberDto memberDto){
+        return "redirect:/edit";
+    }
+
     @GetMapping("/find/id")
-    String findId(){
+    String createFindIdPage(){
         return "member/find/id";
     }
 
     @GetMapping("/find/password")
-    String findPassword(){
+    String createFindPasswordPage(){
         return "member/find/password";
     }
 
     @GetMapping("/feedback/password")
-    String feedbackPassword(){
+    String createFeedbackPasswordPage(){
         return "member/find/feedbackPassword";
     }
 
     @GetMapping("/feedback/id")
-    String feedbackId(){
+    String createFeedbackIdPage(){
         return "member/find/feedbackId";
     }
 
-    @GetMapping("/init/myPage")
-    String initMyPage(){
-        return "member/initMyPage";
-    }
 }

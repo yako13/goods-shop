@@ -1,23 +1,27 @@
 package Spring.Goods_Shop.member;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 회원 정보 찾기, 피드백 Dto
+ */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class MemberResponseDto {
+@AllArgsConstructor
+public class MemberDto {
 
-    private Long memberPK;
+    private Long id;
 
     private String userId;
+
+    private String userPassword;
 
     private String name;
 
     private String phoneNumber;
 
     private String provider;
+
 }

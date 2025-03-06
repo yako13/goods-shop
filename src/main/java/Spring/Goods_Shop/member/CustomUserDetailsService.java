@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.member;
 
+import Spring.Goods_Shop.common.MemberRole;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Member> optionalMember = memberRepository.findByUserId(username);
+
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
+
+            //탈퇴한 회원인 경우
+            if(member.getRole().equals(MemberRole.WITHDRAWN)) return null;
 
             HttpSession session = httpServletRequest.getSession(true);
             session.setAttribute("memberId",member.getId());

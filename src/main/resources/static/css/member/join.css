@@ -21,11 +21,6 @@ body{
     }
 }
 
-
-.error {
-    color: red;
-}
-
 .container {
     display: block;
     width: 450px;
@@ -86,8 +81,8 @@ h1 {
         display: block;
         width: 370px;
         height: 50px;
-        margin: 20px 19px;
-        border-radius: 8px;
+        margin: 10px 19px 25px 23px;
+        border-radius: 4px;
         border: 1px solid #ccc;
         background: white;
         color: black;
@@ -99,7 +94,7 @@ h1 {
 }
 
 .form-control {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 ul {
@@ -207,7 +202,7 @@ textarea {
 }
 
 .namePhone {
-    width: 450px;
+    width: 390px;
     display: flex;
 
     input {
@@ -227,11 +222,22 @@ textarea {
 }
 
 .userId {
-    padding-left: 20px;
+    padding-left: 24px;
+    margin-bottom : 20px;
+}
+
+.input__block{
+width:395px;
+    display:flex;
+    justify-content:space-between;
+}
+
+#blue{
+    color:#808080;
 }
 
 .edit {
-    height: 530px;
+    height: auto;
 
     button {
         width: 390px;
@@ -239,7 +245,31 @@ textarea {
     }
 }
 
-#passwordError {
-    padding-left: 5px;
-    margin-bottom: 10px;
-}
+    #passwordError,.error {
+        padding-left: 23px;
+        color : red;
+    }
+
+    .errorArea{
+        margin-bottom :20px;
+    }
+
+    .label{
+    margin-left :24px;
+    color:#F21365;
+    }
+
+    .namePhoneLabel{
+    width:284px;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom :10px;
+    }
+
+    #star{
+    padding-left: 120px;
+    color:red;
+    &:hover{
+        color:red;
+    }
+    }
