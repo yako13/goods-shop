@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarCloud Workshop</title>
+
+    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/checkout/checkoutComplete.css}">
+
+</head>
+
+<body>
+
+<!-- 헤더 시작 -->
+
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+<!-- 헤더 끝 -->
+
+
+<!-- 메인 시작 -->
+
+<div class="HanCkSubmitMain">
+
+    <div class="HanCkSubmit">
+
+        <div class="HanCkSubmitTopPDiv">
+            <p class="">장바구니</p>
+            <p class="">></p>
+            <p class="">주문/결제</p>
+            <p class="">></p>
+            <p class="Bold">완료</p>
+        </div>
+
+        <div class="HanCkSubmitMid">
+
+            <div>
+                <img th:src="@{/images/checkmark_on.svg}" alt="" width="200px" height="200px">
+            </div>
+
+            <div class="HanCkSubmitMidTitle">
+
+                <p>주문이 정상적으로 완료 되었습니다</p>
+            </div>
+
+            <div>
+
+
+                <div class="HanCkSubmitMidText HanCheckoutNum">
+
+                    <p class="HanCkSubmitP1">주문번호 : </p>
+                    <p>2025030301</p>
+
+                </div>
+
+                <div class="HanCkSubmitMidText">
+                    <p class="HanCkSubmitP1">배송지정보 : </p>
+
+                    <div>
+
+                        <div>
+                            <p class="HanOrderAddressName">홍길동 (집)</p>
+                            <p class="HanOrderPhoneP">010-1234-1234</p>
+                        </div>
+
+                        <span class="HanCkSubmitMidSpan">12345</span>
+                        <span>부산시 금곡동 101호</span>
+
+                    </div>
+                </div>
+
+                <div class="HanCkSubmitMidText">
+
+                    <p class="HanCkSubmitP1">결제정보 : </p>
+
+                    <div>
+                        <p>국민카드</p>
+                        <p>1111-2222-****-****</p>
+                    </div>
+
+                </div>
+
+
+                <div class="HanCkSubmitA">
+
+                    <a class="HanCheckoutList" id="">구매내역 보기</a>
+                    <a class="HanHome" id="">홈으로 가기</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- 메인 끝 -->
+
+
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+<!-- 푸터 끝 -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudStar Workshop</title>
+
+    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/cart/cart.css}">
+
+</head>
+
+<body>
+<!-- 헤더 시작 -->
+
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+
+<!-- 헤더 끝 -->
+
+
+<!-- 메인 시작 -->
+
+<div class="HanCartBody">
+
+    <div class="HanCartMain">
+
+        <div class="HanCartTopPDiv">
+
+            <p class="Bold">장바구니</p>
+            <p class="">></p>
+            <p class="">주문/결제</p>
+            <p class="">></p>
+            <p>완료</p>
+
+        </div>
+
+        <div class="HanCartTop">
+
+            <div class="HanCartTopTitle HanCartCheckbox">
+
+                <div>
+                    <input type="checkbox">
+                </div>
+                <img th:src="@{/images/cart3.svg}" alt="쇼핑카트 아이콘" width="27px" height="27px">
+                <p class="HanCartTopTitleP">구름별 공방</p>
+
+
+            </div>
+
+            <div class="HanCartTopDeleteA">
+
+                <a href="">선택 삭제</a>
+                <a href="">전체 삭제</a>
+
+            </div>
+        </div>
+
+
+        <ul>
+
+            <hr class="HanCartHr">
+
+
+            <!-- 카트 아이템 시작 -->
+            <li>
+                <div class="HanCartCheckbox">
+                    <label for=""></label>
+                    <input type="checkbox">
+
+                </div>
+
+                <div class="HanCartInfo">
+
+                    <div class="HanCartImgDiv">
+
+                        <img th:src="@{/images/product1.png}" alt="">
+
+                    </div>
+
+                    <div class="HanCartProductName">
+                        <p>동화 일러스트 키캡 4종</p>
+                        <p>20,000원</p>
+
+                    </div>
+
+
+                </div>
+
+                <div>
+
+                    <div class="HanProductCntDiv">
+
+
+                        <span class="HanProductSumCnt">상품 금액</span>
+                        <span class="HanProductPriceSumCnt"></span>
+
+                        <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
+                        <div>
+
+                            <span class="HanProductPriceSum" id="HanProductPriceSum">20000</span>
+                            <span class="HanProductSpan3">원</span>
+
+                        </div>
+
+                        <!-- 수량버튼 -->
+                        <div class="HanProductSpinner">
+
+                            <button onclick="changeQuantity(-1)">-</button>
+                            <input type="text" id="HanProductValue" value="1" readonly/>
+                            <button onclick="changeQuantity(1)">+</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+            <!-- 카트 아이템 끝 -->
+
+
+            <!-- 카트 아이템 시작 -->
+            <li>
+                <div class="HanCartCheckbox">
+                    <label for=""></label>
+                    <input type="checkbox">
+
+                </div>
+
+                <div class="HanCartInfo">
+
+                    <div class="HanCartImgDiv">
+
+                        <img th:src="@{images/product2.png}" alt="">
+
+                    </div>
+
+                    <div class="HanCartProductName">
+                        <p>동물 캐릭터 안경닦이</p>
+                        <p>10,000원</p>
+
+                    </div>
+
+
+                </div>
+
+                <div>
+
+                    <div class="HanProductCntDiv">
+
+
+                        <span class="HanProductSumCnt">상품 금액</span>
+                        <span class="HanProductPriceSumCnt"></span>
+
+                        <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
+                        <div>
+
+                            <span class="HanProductPriceSum" id="HanProductPriceSum">20000</span>
+                            <span class="HanProductSpan3">원</span>
+
+                        </div>
+
+                        <!-- 수량버튼 -->
+                        <div class="HanProductSpinner">
+
+                            <button onclick="changeQuantity(-1)">-</button>
+                            <input type="text" id="HanProductValue" value="2" readonly/>
+                            <button onclick="changeQuantity(1)">+</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+            <!-- 카트 아이템 끝 -->
+
+
+            <hr class="HanCartHrBottom">
+            <div class="HanCartBottomPrice">
+
+                <div class="HanCartBottomPriceDiv">
+
+                    <p class="HanCartBottomPriceFont">선택상품 금액</p>
+                    <p class="HanCartBottomPriceNum">40,000원</p>
+
+                </div>
+                <p>+</p>
+                <div class="HanCartBottomPriceDiv">
+
+                    <p class="HanCartBottomPriceFont">배송비</p>
+                    <p class="HanCartBottomPriceNum">3,000원</p>
+
+                </div>
+                <p>=</p>
+                <div class="HanCartBottomPriceDiv">
+
+                    <p class="HanCartBottomPriceFont ">주문금액</p>
+                    <p class="HanCartBottomPriceNum HanCartSum">43,000원</p>
+
+                </div>
+
+                <div class="HanCartButtonContainer2">
+                    <button class="HanOrderSubmitButton" type="submit" form="payment">
+                        2건 결제 하기
+                    </button>
+
+                </div>
+
+            </div>
+
+        </ul>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- 메인 끝 -->
+
+
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+<!-- 푸터 끝 -->
+
+
+</body>
+
+</html>

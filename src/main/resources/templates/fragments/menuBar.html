@@ -1,0 +1,39 @@
+
+
+<!--마이페이지 메뉴바 시작 -->
+    <div th:fragment="menuBar" class="HanMenuBarBody">
+
+        <div class="HanMenuBarMain">
+
+            <div>
+
+                <p class="HanMenuBarP1">마이페이지</p>
+            </div>
+            <hr class="HanMenuBarHr">
+
+            <div class="HanMenuBarDiv">
+                <a href="#">주문 목록</a>
+
+                <a th:href="@{/init/member}">회원 수정</a>
+
+
+                <a href="#">배송지 관리</a>
+
+
+                <a href="#">결제 관리</a>
+
+
+            </div>
+
+            <div class="HanMenuBarA">
+
+                <a th:href="@{/account/cancellation}">회원 탈퇴</a>
+
+
+            </div>
+
+
+        </div>
+
+
+<!--마이페이지 메뉴바 끝 -->

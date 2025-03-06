@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             Member member = optionalMember.get();
 
             //탈퇴한 회원인 경우
-            if(member.getRole().equals(MemberRole.WITHDRAWN)) return null;
+            if(member.getRole().equals(MemberRole.CANCELLATION)) return null;
 
             HttpSession session = httpServletRequest.getSession(true);
             session.setAttribute("memberId",member.getId());

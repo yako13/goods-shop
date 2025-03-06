@@ -1,0 +1,213 @@
+.HanCkListBody {
+  width: 100%;
+  height: auto;
+  background-color: #f1f0f1;
+  display: flex;
+
+}
+
+.HanCkListMain {
+  margin: 0 auto;
+  width: 900px;
+}
+
+.HanCkListMain p {
+  display: inline-block;
+
+}
+
+.HanCkListTop {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
+.HanCkListTop p {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0;
+
+}
+
+.HanCkListMain ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+
+}
+
+.HanCkListMain ul li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  padding: 20px 40px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.HanCkListOrderNum {
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+
+}
+
+.HanCkListOrderNum p {
+  margin: 6px 0;
+}
+
+.HanCkListOrderNum a {
+  padding-left: 10px;
+  text-decoration: none;
+  color: black;
+
+}
+
+.HanCkListOrderNumCnt {
+  padding-right: 100px;
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.HanCkListOrderNumTextDiv p {
+  margin: 0;
+
+}
+
+.HanCkListInfoDiv{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+align-items: center;
+}
+
+.HanCkListInfo {
+  display: flex;
+  align-items: center;
+
+}
+
+
+.HanCkListImgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+
+}
+
+.HanCkListImgDiv img {
+  max-width: 130px;
+  max-height: 130px;
+
+}
+
+.HanCkListProductName {
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 130px;
+}
+
+
+.HanCkListProductDate {
+  font-size: 15px;
+  color: #939393;
+  margin: 9px 0;
+  margin-top: 0;
+}
+
+.HanCkListProductNameDiv {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HanCkListProductNameP {
+  font-size: 20px;
+  margin: 1px 0;
+
+}
+
+.HanCkListProductPriceP {
+  font-size: 18px;
+  margin: 1px 0;
+}
+
+.HanCkListDelivery{
+  margin-right: 5px;
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.HanCkListDelivery p {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #e4e4e4;
+  border-radius: 7px;
+  font-size: 18px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.HanCkSubmitA {
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.HanCkSubmitA a {
+  box-sizing: border-box;
+  padding: 15px 80px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  font-weight: bolder;
+  text-decoration: none;
+  text-align: center;
+}
+
+.HanCkSubmitA .HanCheckoutList {
+  width: 70%;
+  background-color: #fff6a6;
+  color: #363636;
+}
+
+
+.HanCkSubmitA .HanHome {
+  background-color: #dddddd;
+  color: #333;
+}
+
+
+.HanCkSubmitA .HanHome:hover {
+  background-color: #c9c9c9;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

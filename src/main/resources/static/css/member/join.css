@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'NanumSquareRound';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
@@ -6,13 +5,13 @@
     font-style: normal;
 }
 
-*{
+* {
     font-family: 'NanumSquareRound';
 }
 
-body{
+body {
     background-color: #f1f0f1;
-    margin:0;
+    margin: 0;
 }
 
 .joinForm {
@@ -224,62 +223,89 @@ textarea {
 
 .userId {
     padding-left: 24px;
-    margin-bottom : 20px;
+    margin-bottom: 20px;
 }
 
-.input__block{
-width:395px;
-    display:flex;
-    justify-content:space-between;
+.input__block {
+    width: 395px;
+    display: flex;
+    justify-content: space-between;
 }
 
-#blue{
-    color:#808080;
+#blue {
+    color: #808080;
 }
 
 .edit {
     height: auto;
+    margin: 180px auto;
 
     button {
         width: 390px;
-        border-radius:4px;
+        border-radius: 4px;
     }
 }
 
-    #passwordError,.error {
-        padding-left: 23px;
+#passwordError,
+.error {
+    padding-left: 23px;
 
-        color : red;
-    }
+    color: red;
+}
 
-    .errorArea{
-        margin-bottom :20px;
-    }
+.errorArea {
+    margin-bottom: 20px;
+}
 
-    .label{
-    margin-left :24px;
-    color:#F21365;
-    }
+.label {
+    margin-left: 24px;
+    color: #F21365;
+}
 
-    .namePhoneLabel{
-    width:284px;
-    display:flex;
-    justify-content:space-between;
-    margin-bottom :10px;
-    }
+.namePhoneLabel {
+    width: 284px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 
-    #star{
+#star {
     padding-left: 120px;
-    color:red;
-    &:hover{
-        color:red;
-    }
-    }
+    color: red;
 
-
-.passwordArea{
-i{
-margin-left: 300px;
-  color: #8a8a8a;
+    &:hover {
+        color: red;
+    }
 }
+
+
+.passwordArea {
+    i {
+        margin-left: 300px;
+        color: #8a8a8a;
+    }
+}
+
+.labelId {
+    display: block;
+}
+
+#userId {
+    width: 250px;
+    display: inline;
+}
+
+#duplicateId {
+    display: inline;
+    width: 95px;
+    height: 52px;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: #c9c9c9;
+        color: #333;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 }
