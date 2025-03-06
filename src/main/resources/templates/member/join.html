@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="/css/memberHeader.css">
     <link rel="stylesheet" href="/css/memberFooter.css">
     <link rel="stylesheet" href="/css/member/join.css">
-    <style>
-
-    </style>
 </head>
 
 <body class="text-center">
@@ -36,13 +33,13 @@
         <form th:action="@{/join}" th:method="post" enctype="multipart/form-data" class="joinForm">
 
             <div>
-                <label for="userId" class="label">*아이디</label>
+                <label for="userId" class="label labelId">*아이디</label>
                 <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required />
+                <button type="button" id="duplicateId">중복 확인</button>
             </div>
 
-            <div class="errorArea" th:if="${valid_userId!=null || duplicateId !=null}">
+            <div class="errorArea" th:if="${valid_userId!=null}">
                 <span class="error" th:text="${valid_userId}"></span>
-                <span class="error" th:text="${duplicateId}"></span>
             </div>
             <div>
                 <div class="passwordArea">
@@ -127,7 +124,9 @@
         </form>
     </div>
     <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script th:src="@{/js/member/join.js}"></script>
+
 </body>
 
 </html>

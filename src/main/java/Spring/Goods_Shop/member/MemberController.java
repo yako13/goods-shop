@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,10 +29,15 @@ public class MemberController {
 
     @PostMapping("/join")
     String join(MemberAuthDto memberAuthDto, Model model){
-        if(!memberService.join(memberAuthDto)) {
-            model.addAttribute("duplicateId","아이디가 중복되었습니다.");
-            return "member/join";}
+        memberService.join(memberAuthDto);
         return "redirect:/login";
+    }
+
+    @PostMapping("/check/id")
+    @ResponseBody
+    String checkId(MemberAuthDto memberAuthDto){
+
+        return memberService.checkId(memberAuthDto);
     }
 
 

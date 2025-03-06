@@ -24,15 +24,10 @@ public class MemberService {
      * 회원가입
      */
     public boolean join(MemberAuthDto memberAuthDto){
-        String userId = memberAuthDto.getUserId();
-
-        //중복된 아이디일 경우
-        Optional<Member> optionalMember = memberRepository.findByUserId(userId);
-        if(optionalMember.isPresent()) return false;
 
         Member member = Member.builder()
                 .name(memberAuthDto.getName())
-                .userId(userId)
+                .userId(memberAuthDto.getUserId())
                 .userPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()))
                 .phoneNumber(memberAuthDto.getPhoneNumber())
                 .role(MemberRole.USER)
@@ -42,6 +37,18 @@ public class MemberService {
 
         memberRepository.save(member);
         return true;
+    }
+
+    /**
+     * 중복 아이디 체크
+     */
+    public String checkId(MemberAuthDto memberAuthDto){
+        String userId = memberAuthDto.getUserId();
+        //중복된 아이디일 경우
+        Optional<Member> optionalMember = memberRepository.findByUserId(userId);
+        if(optionalMember.isPresent()) return null;
+
+        return userId;
     }
 
     /**
@@ -149,6 +156,9 @@ public class MemberService {
 
         Member member = optionalMember.get();
 
+        //소셜로그인 사용자의 경우
+        if(member.getProvider()!=null) return null;
+
         int length = member.getUserId().length();
 
         //아이디의 뒷 3자리는 *로 표시
@@ -172,6 +182,9 @@ public class MemberService {
         if(optionalMember.isEmpty()) return null;
 
         Member member = optionalMember.get();
+
+        //소셜로그인 사용자의 경우
+        if(member.getProvider()!=null) return null;
 
         return MemberResponseDto.builder()
                 .userId(member.getUserId())
