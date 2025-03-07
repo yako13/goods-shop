@@ -2,16 +2,20 @@ package Spring.Goods_Shop.product;
 
 import Spring.Goods_Shop.base.BaseTime;
 import Spring.Goods_Shop.enums.ProductCategory;
+import Spring.Goods_Shop.productImage.ProductImage;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Table(name = "product")
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Product extends BaseTime {
@@ -46,12 +50,22 @@ public class Product extends BaseTime {
     @Comment("제품 분류")
     private String productCategory;
 
+    @JoinColumn(name = "product_image")
+    @Comment("상품의 이미지")
+    @OneToOne
+    private ProductImage productImage;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> productImageList;
+
     @Builder
-    public Product(String name, BigDecimal price, int count, String productDescription, String productCategory) {
+    public Product(Long id, String name, BigDecimal price, int count, String productDescription, String productCategory, ProductImage productImage) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
         this.productCategory = productCategory;
         this.productDescription = productDescription;
+        this.productImage = productImage;
     }
 }

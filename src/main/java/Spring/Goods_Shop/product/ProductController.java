@@ -3,9 +3,10 @@ package Spring.Goods_Shop.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -13,7 +14,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    // 상품 등록
+    // 상품 등록 페이지 이동
     @GetMapping("/master/product/register")
     public String productRegister() {
         return "pages/product-register";
@@ -21,9 +22,9 @@ public class ProductController {
 
     // 상품 저장
     @PostMapping("/product/save")
-    public String saveProduct(ProductRequestDto requestDto, Model model) {
-        Product saveProduct = productService.save(requestDto);
-        model.addAttribute("product", saveProduct);
+    public String saveProduct(@ModelAttribute ProductRequestDto productRequestDto){
+
+        productService.save(productRequestDto);
         return "redirect:/master/product/list";
     }
 

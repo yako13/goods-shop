@@ -6,13 +6,11 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Spring.Goods_Shop.enums.ImageType.*;
-
 @Component
 @RequiredArgsConstructor
 public class ProductImageMapper {
 
-    private final ImageHandler imageHandler;
+    private final ProductImageManager productImageManager;
 
     public ProductImageUrlDto toProductImageUrlDto(List<ProductImage> productImages) {
         String productMainImageUrl = null;
@@ -21,12 +19,13 @@ public class ProductImageMapper {
 
         //이미지 타입에 따른 분류
         for (ProductImage productImage : productImages) {
+            String imageUrl = productImageManager.createImageUrl(productImage.getImageFullName());
             switch (productImage.getImageType()) {
-                case MAIN -> productMainImageUrl = imageHandler.createImageUrl(productImage.getImageFullName());
+                case MAIN -> productMainImageUrl = imageUrl;
                 case SUB ->
-                        productSubImageUrl.add(imageHandler.createImageUrl(productImage.getImageFullName()));
+                        productSubImageUrl.add(imageUrl);
                 case DESC ->
-                        productDescImageUrl.add(imageHandler.createImageUrl(productImage.getImageFullName()));
+                        productDescImageUrl.add(imageUrl);
             }
         }
 

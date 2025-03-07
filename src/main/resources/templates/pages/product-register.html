@@ -74,7 +74,10 @@
       <section class="master__product">
         <div class="container__form">
           <!-- form -->
-          <form action="/product/save" method="post">
+          <form
+            action="/product/save"
+            method="post"
+            enctype="multipart/form-data">
             <!-- 상품명 -->
             <div class="container__input">
               <label for="product-name"
@@ -137,14 +140,28 @@
                   >* 필수</span
                 ></label
               >
-              <input type="file" id="mainImage" accept="image/*" />
+              <input
+                type="file"
+                name="mainImage"
+                id="mainImage"
+                accept="image/*" />
               <div id="mainImagePreview" class="preview-container"></div>
               <label>상품 서브 이미지 (최대 3장)</label>
-              <input type="file" id="subImage" accept="image/*" multiple />
+              <input
+                type="file"
+                name="subImage"
+                id="subImage"
+                accept="image/*"
+                multiple />
               <div id="subImagePreview" class="preview-container"></div>
 
               <label>상품 설명 이미지 (최대 5장)</label>
-              <input type="file" id="descImage" accept="image/*" multiple />
+              <input
+                type="file"
+                name="descImage"
+                id="descImage"
+                accept="image/*"
+                multiple />
               <div id="descImagePreview" class="preview-container"></div>
             </div>
             <!-- /이미지 -->
@@ -164,7 +181,6 @@
       input.addEventListener("change", function () {
         if (this.files.length + previewContainer.children.length > maxCount) {
           alert(`최대 ${maxCount}장까지만 업로드할 수 있습니다.`);
-          this.value = "";
           return;
         }
 
@@ -190,14 +206,12 @@
           };
           reader.readAsDataURL(file);
         }
-        this.value = "";
       });
     }
 
     function handleSingleImageUpload(input, previewContainer) {
       input.addEventListener("change", function () {
         if (this.files.length > 1) {
-          this.value = "";
           return;
         }
 
@@ -223,7 +237,6 @@
           previewContainer.appendChild(previewItem);
         };
         reader.readAsDataURL(file);
-        this.value = "";
       });
     }
     // 업로드 이미지 개수 제한

@@ -5,6 +5,7 @@ import Spring.Goods_Shop.enums.ImageType;
 import Spring.Goods_Shop.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class ProductImage extends BaseTime {
 
     @Id
@@ -32,13 +34,13 @@ public class ProductImage extends BaseTime {
     @Comment("이미지 타입")
     private ImageType imageType;
 
-    @Column(name = "image_path", nullable = false)
-    @Comment("이미지 경로")
-    private String imagePath;
+//    @Column(name = "image_path", nullable = false)
+//    @Comment("이미지 경로")
+//    private String imagePath;
 
     @Column(name = "image_name", nullable = false)
     @Comment("이미지 원본명")
-    private String ImageName;
+    private String imageName;
 
     @Column(nullable = false)
     @Comment("이미지 uuid")
