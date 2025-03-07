@@ -21,6 +21,7 @@
         <h1>계정 수정</h1>
     </div>
     <form th:action="@{/member/edit}" th:method="post" enctype="multipart/form-data" class="joinForm">
+        <input type="hidden" name="provider" th:if="${provider!=null}" th:value="${provider}">
         <div class="first-input input__block first-input__block">
             <input type="hidden" th:value="${userId}" name="userId">
             <span class="userId">아이디 : <b>[[${userId}]]</b></span>
@@ -36,28 +37,34 @@
                 <label for="passwordCheck" class="label">비밀번호 확인</label>
                 <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required th:value="${userPassword}">
             </div>
-        </div>
-        <div>
-            <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
+            <div>
+                <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
+            </div>
+            <div th:if="${valid_userPassword !=null}">
+                <p class="error" th:text="${valid_userPassword}"></p>
+            </div>
         </div>
         <div class="namePhoneLabel">
-            <label for="name" class="label">이름</label>
+            <label for="userName" class="label">이름</label>
             <label for="phoneNumber" class="label">연락처</label>
         </div>
 
         <div class="namePhone">
-            <input type="text" class="form-control " id="name" name="name" placeholder="이름" th:value="${name}">
+            <input type="text" class="form-control " id="userName" name="name" placeholder="이름" th:value="${name}">
             <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처" th:value="${phoneNumber}" maxlength="11">
         </div>
-
+        <div th:if="${valid_name !=null || valid_phoneNumber !=null}">
+            <p class="error" th:text="${valid_name}"></p>
+            <p class="error" th:text="${valid_phoneNumber}"></p>
+        </div>
         <div class="btnArea">
-            <button class="btn" type="submit" id="button">수정하기</button>
+            <button class="btn" type="button" id="button">수정하기</button>
         </div>
     </form>
 </div>
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-<script th:src="@{/js/member/join.js}"></script>
+<!-- <script th:src="@{/js/member/edit.js}"></script> -->
 <script src="/js/member/alert.js"></script>
 </body>
 

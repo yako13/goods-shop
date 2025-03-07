@@ -1,9 +1,4 @@
-//let closeBtn = document.querySelector(".closeBtn");
-//let alert = document.querySelector(".alert");
-//
-//closeBtn.addEventListener("click",()=>{
-//    alert.style.display = "none";
-//})
+
    //창 실행시 알람창 호출
 window.addEventListener('load', dataAlertFunction());
 

@@ -25,7 +25,7 @@ body {
     display: block;
     width: 450px;
     border-radius: 7px;
-    margin: 100px auto;
+    margin: 60px auto;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -238,7 +238,6 @@ textarea {
 
 .edit {
     height: auto;
-    margin: 180px auto;
 
     button {
         width: 390px;
@@ -308,4 +307,9 @@ textarea {
         color: #333;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+}
+
+.error{
+
+    width: 380px;
 }

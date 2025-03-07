@@ -1,13 +1,18 @@
 package Spring.Goods_Shop.member;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,7 +34,24 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    String join(MemberAuthDto memberAuthDto, Model model){
+    String join(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model) throws IOException {
+
+        if (errors.hasErrors()) {
+
+            model.addAttribute("userId",memberAuthDto.getUserId());
+            model.addAttribute("name",memberAuthDto.getName());
+            model.addAttribute("phoneNumber",memberAuthDto.getPhoneNumber());
+
+            Map<String, String> validatorResult = memberService.validateHandling(errors);
+
+            for (String key : validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+            }
+
+            return "member/join";
+        }
+
+
         memberService.join(memberAuthDto);
         return "redirect:/login";
     }
@@ -77,13 +99,31 @@ public class MemberController {
     }
 
     @PostMapping("/member/edit")
-    String memberEdit(MemberAuthDto memberAuthDto, HttpServletRequest request, Model model){
-        memberService.tryToEditMember(memberAuthDto,request);
+    String memberEdit(@Valid MemberEditDto memberEditDto, Errors errors,HttpServletRequest request, Model model){
+
+        if (errors.hasErrors()) {
+
+            model.addAttribute("userId",memberEditDto.getUserId());
+            model.addAttribute("name",memberEditDto.getName());
+            model.addAttribute("provider",memberEditDto.getProvider());
+            model.addAttribute("phoneNumber",memberEditDto.getPhoneNumber());
+            model.addAttribute("userPassword",memberEditDto.getUserPassword());
+
+            Map<String, String> validatorResult = memberService.validateHandling(errors);
+
+            for (String key : validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+            }
+
+            return "member/edit";
+        }
+
+        memberService.tryToEditMember(memberEditDto,request);
         MemberResponseDto memberResponseDto = memberService.getMemberResponseDto(request);
 
         model.addAttribute("id",memberResponseDto.getMemberPK());
         model.addAttribute("userId",memberResponseDto.getUserId());
-        model.addAttribute("userPassword", memberAuthDto.getUserPassword());
+        model.addAttribute("userPassword", memberEditDto.getUserPassword());
         model.addAttribute("name",memberResponseDto.getName());
         model.addAttribute("provider",memberResponseDto.getProvider());
         model.addAttribute("phoneNumber",memberResponseDto.getPhoneNumber());

@@ -67,8 +67,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             member = findMember.get();
         }
 
-        if(member.getRole().equals(MemberRole.CANCELLATION)) throw new RuntimeException("탈퇴한 사용자");
-
         httpSession.setAttribute("memberId",member.getId());
 
         return new CustomOauth2UserDetails(member, oAuth2User.getAttributes());

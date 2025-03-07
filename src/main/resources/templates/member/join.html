@@ -33,12 +33,12 @@
 
             <div>
                 <label for="userId" class="label labelId">*아이디</label>
-                <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required />
+                <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required th:value="${userId}"/>
                 <button type="button" id="duplicateId">중복 확인</button>
             </div>
 
             <div class="errorArea" th:if="${valid_userId!=null}">
-                <span class="error" th:text="${valid_userId}"></span>
+                <p class="error" th:text="${valid_userId}"></p>
             </div>
             <div>
                 <div class="passwordArea">
@@ -55,16 +55,20 @@
                 <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
             </div>
             <div th:if="${valid_userPassword !=null}">
-                <span class="error" th:text="${valid_userPassword}"></span>
+                <p class="error" th:text="${valid_userPassword}"></p>
             </div>
             <div class="namePhoneLabel">
-                <label for="name" class="label">*이름</label>
+                <label for="userName" class="label">*이름</label>
                 <label for="phoneNumber" class="label">*연락처</label>
             </div>
             <div class="namePhone">
-                <input type="text" class="form-control " id="name" name="name" placeholder="이름">
-                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처"
+                <input type="text" class="form-control " id="userName" name="name" placeholder="이름" th:value="${name}">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처" th:value="${phoneNumber}"
                     maxlength="11">
+            </div>
+            <div th:if="${valid_name !=null || valid_phoneNumber !=null}">
+                <p class="error" th:text="${valid_name}"></p>
+                <p class="error" th:text="${valid_phoneNumber}"></p>
             </div>
             <!-- separator -->
             <div class="separator">
@@ -75,8 +79,7 @@
                     <li class="checkBox check01">
                         <ul class="agreeAll">
                             <li><i class="fa-regular fa-circle-check" id="check01"></i></li>
-                            <li>전체 동의
-                            </li>
+                            <li>전체 동의</li>
                         </ul>
                     </li>
                     <li class="checkBox check02">
@@ -118,14 +121,13 @@
             </div>
 
             <div class="btnArea">
-                <button class="btn" type="submit" id="button">가입하기</button>
+                <button class="btn" type="button" id="button">가입하기</button>
             </div>
         </form>
     </div>
     <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script th:src="@{/js/member/join.js}"></script>
-
 </body>
 
 </html>
