@@ -1,5 +1,5 @@
 package Spring.Goods_Shop.common;
 
 public enum MemberRole {
-    USER, ADMIN, WITHDRAWN
+    USER, ADMIN, CANCELLATION
 }
