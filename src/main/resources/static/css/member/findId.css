@@ -139,3 +139,68 @@ body {
     flex-direction: column;
     height: 50px;
 }
+
+/* 아이디 찾기 완료 */
+
+.foundId {
+    padding-top: 80px;
+
+    p {
+        text-align: center;
+        color: rgb(102, 102, 102);
+
+    }
+
+    #foundId {
+        color: blue;
+        font-weight: 600;
+        margin-top: 33px;
+    }
+}
+
+.link {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+
+#loginBtn,
+#pwBtn {
+font-size: 16px;
+border-radius: 4px;
+line-height: 40px;
+width: 130px;
+height: 40px;
+margin: 0px 10px 0px 10px;
+
+}
+
+#loginBtn {
+background-color: #fff6a6;
+color: #363636;
+}
+
+#loginBtn:hover {
+background-color: #fff27a;
+color: #585858;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+#pwBtn {
+background-color: #e7e7e7;
+a{ color:#363636;}
+}
+
+
+#pwBtn:hover {
+background-color: #c9c9c9;
+color: #333;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+a {
+text-decoration: none;
+}

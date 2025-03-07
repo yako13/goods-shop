@@ -43,9 +43,13 @@ public class Checkout extends BaseTime {
     @Column(name = "checkout_zip_code", nullable = false)
     private String checkoutZipCode;
 
-    @Comment("주문자 도로명 주소")
-    @Column(name = "checkout_add_city", nullable = false)
-    private String checkoutAddCity;
+    @Comment("주문자 도로명,지번 주소 + 상세주소")
+    @Column(name = "checkout_address", nullable = false)
+    private String checkoutAddress;
+
+    @Comment("주문자 배송 메모")
+    @Column(name = "checkout_delivery_memo", nullable = true)
+    private String checkoutDeliveryMemo;
 
     @Comment("결제한 카드명")
     @Column(name = "checkout_card_name", nullable = false)
@@ -58,6 +62,10 @@ public class Checkout extends BaseTime {
     @Comment("결제한 카드 cvc")
     @Column(name = "checkout_card_cvc", nullable = false)
     private String checkoutCardCvc;
+
+    @Comment("결제한 카드 유효기간")
+    @Column( nullable = false)
+    private String checkoutExpPeriod;
 
     @Comment("택배사 명")
     @Column(name = "checkout_post_name", nullable = false)
