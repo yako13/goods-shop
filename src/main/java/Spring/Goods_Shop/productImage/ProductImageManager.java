@@ -65,7 +65,7 @@ public class ProductImageManager {
 
 
     public String createImageUrl(String imageFileName) {
-        return resourceHandler + imageFileName;
+        return "/" + imageFileName;
     }
 
 

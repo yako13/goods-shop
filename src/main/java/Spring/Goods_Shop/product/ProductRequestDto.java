@@ -1,10 +1,5 @@
 package Spring.Goods_Shop.product;
 
-import Spring.Goods_Shop.enums.ImageType;
-import Spring.Goods_Shop.enums.ProductCategory;
-import Spring.Goods_Shop.productImage.ProductImage;
-import Spring.Goods_Shop.productImage.ProductImageRequestDto;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

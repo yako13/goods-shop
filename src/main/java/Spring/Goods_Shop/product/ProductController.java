@@ -25,6 +25,7 @@ public class ProductController {
     public String saveProduct(@ModelAttribute ProductRequestDto productRequestDto){
 
         productService.save(productRequestDto);
+
         return "redirect:/master/product/list";
     }
 
@@ -51,7 +52,9 @@ public class ProductController {
 
 
     @GetMapping("/master/product/list")
-    public String masterProductList() {
+    public String masterProductList(Product product, Model model) {
+        List<MasterProductListResponseDto> productList = productService.getMasterProductListDto(product);
+        model.addAttribute("productList", productList);
         return "pages/master-product-list";
     }
 }

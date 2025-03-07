@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -17,7 +20,7 @@ public class ProductService {
 
     private final ProductImageService productImageService;
 
-    private ProductMapper productMapper;
+    private final ProductMapper productMapper;
 
     @Transactional
     public void save(ProductRequestDto requestDto) {
@@ -26,6 +29,21 @@ public class ProductService {
         ProductImage mainProductImage = productImageService.create(requestDto, product);
 
         product.setProductImage(mainProductImage);
+    }
+
+    public Product getProduct(Long id) {
+        Optional<Product> optProduct = productRepository.findById(id);
+
+        if (optProduct.isEmpty()) throw new RuntimeException("해당 상품 없음");
+
+        return optProduct.get();
+    }
+
+    public List<MasterProductListResponseDto> getMasterProductListDto(Product product) {
+
+        List<Product> productList = productRepository.findAll();
+
+        return productList.stream().map(productMapper::toMasterProductListResponseDto).toList();
     }
 
     @Transactional
