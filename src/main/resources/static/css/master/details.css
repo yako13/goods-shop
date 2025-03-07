@@ -65,6 +65,35 @@
       text-align: left;
     }
 
+        .rwd-table {
+          border-radius: 0px;
+        }
+
+        .parentsTable td{
+          box-sizing: border-box;
+          padding: 10px;
+        }
+
+        .parentsTable{
+          border-spacing: 0px;
+        }
+
+        .selectBox,#waybillNumber{
+          border-radius: 3px;
+        }
+
+        .borderNone{
+         border-left:none;
+        }
+
+        .parentsTableHead{
+          padding: 5px 0px;
+          font-size: 18px;
+        }
+
+            .productTable th{
+        border: 1px solid #808080;
+        }
 
 
     .rwd-table tr {

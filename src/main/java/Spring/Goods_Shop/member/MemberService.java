@@ -8,7 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,6 +23,19 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    /**
+     * 오류가 발생한 필드와, 그 필드 오류 메세지를 출력하기 위해 리스트에 추가
+     */
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+        return validatorResult;
+    }
 
     /**
      * 회원가입
@@ -122,8 +139,8 @@ public class MemberService {
     /**
      * 회원 정보 수정
      */
-    public void tryToEditMember(MemberAuthDto memberAuthDto, HttpServletRequest request) {
-        Optional<Member> optionalMember = memberRepository.findByUserId(memberAuthDto.getUserId());
+    public void tryToEditMember(MemberEditDto memberEditDto, HttpServletRequest request) {
+        Optional<Member> optionalMember = memberRepository.findByUserId(memberEditDto.getUserId());
 
         if (optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
 
@@ -134,11 +151,11 @@ public class MemberService {
         if (!member.getUserId().equals(loginMember.getUserId())) throw new RuntimeException("비정상 접근입니다.");
 
         //소셜 로그인 회원의 경우 비밀번호 입력 X -> null
-        if (memberAuthDto.getUserPassword() != null)
-            member.setUserPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()));
+        if (memberEditDto.getUserPassword() != null)
+            member.setUserPassword(passwordEncoder.encode(memberEditDto.getUserPassword()));
 
-        member.setPhoneNumber(memberAuthDto.getPhoneNumber());
-        member.setName(memberAuthDto.getName());
+        member.setPhoneNumber(memberEditDto.getPhoneNumber());
+        member.setName(memberEditDto.getName());
 
         memberRepository.save(member);
 

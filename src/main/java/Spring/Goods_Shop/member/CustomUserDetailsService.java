@@ -28,10 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
-
-            //탈퇴한 회원인 경우
-            if(member.getRole().equals(MemberRole.CANCELLATION)) return null;
-
             HttpSession session = httpServletRequest.getSession(true);
             session.setAttribute("memberId",member.getId());
             return new CustomOauth2UserDetails(member);
