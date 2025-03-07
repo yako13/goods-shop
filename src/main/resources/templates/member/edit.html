@@ -37,7 +37,7 @@
                 <label for="passwordCheck" class="label">비밀번호 확인</label>
                 <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required th:value="${userPassword}">
             </div>
-            <div>
+            <div class="errorArea">
                 <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
             </div>
             <div th:if="${valid_userPassword !=null}">
@@ -64,7 +64,7 @@
 </div>
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-<!-- <script th:src="@{/js/member/edit.js}"></script> -->
+ <script th:src="@{/js/member/edit.js}"></script>
 <script src="/js/member/alert.js"></script>
 </body>
 
