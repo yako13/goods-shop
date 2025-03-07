@@ -56,6 +56,7 @@ public class ProductImageManager {
             System.out.println("파일 저장 성공: " + filePath);
 
             return uuid;
+
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new RuntimeException("상품 이미지 파일 저장 실패", ex);
@@ -65,7 +66,7 @@ public class ProductImageManager {
 
 
     public String createImageUrl(String imageFileName) {
-        return "/" + imageFileName;
+        return resourceHandler + imageFileName;
     }
 
 
