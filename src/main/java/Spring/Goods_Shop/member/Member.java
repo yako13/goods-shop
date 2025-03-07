@@ -1,12 +1,18 @@
 package Spring.Goods_Shop.member;
 
 import Spring.Goods_Shop.base.BaseTime;
+import Spring.Goods_Shop.cart.Cart;
+import Spring.Goods_Shop.checkout.Checkout;
 import Spring.Goods_Shop.common.MemberRole;
+import Spring.Goods_Shop.delivery.Delivery;
+import Spring.Goods_Shop.pay.Pay;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -62,8 +68,16 @@ public class Member extends BaseTime {
     @Comment(value = "탈퇴날짜")
     private LocalDateTime withdrawalAt;
 
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Checkout> checkoutList=new ArrayList<>();
 
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Pay> payList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Delivery> deliveryList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Cart> cartList=new ArrayList<>();
 
 }

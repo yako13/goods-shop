@@ -1,6 +1,7 @@
 package Spring.Goods_Shop.checkout;
 
 import Spring.Goods_Shop.base.BaseTime;
+import Spring.Goods_Shop.checkoutDetails.CheckoutDetails;
 import Spring.Goods_Shop.enums.CheckoutState;
 import Spring.Goods_Shop.enums.ShipmentState;
 import Spring.Goods_Shop.member.Member;
@@ -9,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Table(name = "checkout")
@@ -72,4 +76,7 @@ public class Checkout extends BaseTime {
     @Comment("총 결제 금액")
     @Column(name = "checkout_total_pay", nullable = false)
     private String checkoutTotalPay;
+
+    @OneToMany(mappedBy = "checkout",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<CheckoutDetails> checkoutDetailsList=new ArrayList<>();
 }
