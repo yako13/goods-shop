@@ -23,16 +23,19 @@ public class MemberController {
     @GetMapping("/")
     String createHomePage(){ return "mainPage";}
 
+    //로그인 화면
     @GetMapping("/login")
     String createLoginPage(){
         return "member/login";
     }
 
+    //회원가입 화면
     @GetMapping("/join")
     String createJoinPage(){
         return "member/join";
     }
 
+    //회원 가입
     @PostMapping("/join")
     String join(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model) throws IOException {
 
@@ -56,6 +59,7 @@ public class MemberController {
         return "redirect:/login";
     }
 
+    //아이디 중복 체크
     @PostMapping("/check/id")
     @ResponseBody
     String checkId(MemberAuthDto memberAuthDto){
@@ -63,7 +67,7 @@ public class MemberController {
         return memberService.checkId(memberAuthDto);
     }
 
-
+    //마이페이지 접속
     @GetMapping("/init/member")
     String createInitMyPage(HttpServletRequest request,Model model){
 
@@ -79,7 +83,8 @@ public class MemberController {
         return "member/edit";
 
     }
-
+    
+    //마이페이지 접속 시 비밀번호 일치 여부 확인
     @PostMapping("/init/member")
     String initMyPage(MemberDto memberDto,HttpServletRequest request,Model model){
 
@@ -98,6 +103,7 @@ public class MemberController {
         return "member/edit";
     }
 
+    //회원 수정
     @PostMapping("/member/edit")
     String memberEdit(@Valid MemberEditDto memberEditDto, Errors errors,HttpServletRequest request, Model model){
 
@@ -132,47 +138,40 @@ public class MemberController {
         return "member/edit";
     }
 
+    //아이디찾기
     @GetMapping("/find/id")
     String createFindIdPage(){
         return "member/find/id";
     }
 
+    //아이디 찾기
     @PostMapping("/find/id")
-    String findId(MemberDto memberDto,Model model){
-       MemberResponseDto memberResponseDto = memberService.tryToFindId(memberDto);
-       if(memberResponseDto==null) {
-           model.addAttribute("alert","해당 계정을 찾을 수 없습니다.");
-           return "member/find/id";
-       }
-
-       model.addAttribute("userId",memberResponseDto.getUserId());
-       return "member/find/feedbackId";
+    @ResponseBody
+    String findId(MemberDto memberDto){
+        return memberService.tryToFindId(memberDto);
     }
 
+    //비밀번호 찾기
     @GetMapping("/find/password")
     String createFindPasswordPage(){
         return "member/find/password";
     }
 
+    //비밀번호 찾기
     @PostMapping("/find/password")
+    @ResponseBody
     String findPassword(MemberDto memberDto,Model model){
-       MemberResponseDto memberResponseDto = memberService.tryToFindPassword(memberDto);
-
-       if(memberResponseDto == null){
-           model.addAttribute("alert","해당 계정을 찾을 수 없습니다.");
-           return "member/find/password";
-       }
-
-       model.addAttribute("userId",memberResponseDto.getUserId());
-       return "member/find/feedbackPassword";
+       return memberService.tryToFindPassword(memberDto);
     }
 
+    //비밀번호 수정
     @PostMapping("/password/edit")
     String editPassword(MemberAuthDto memberAuthDto){
         memberService.tryToEditPassword(memberAuthDto);
         return "redirect:/login";
     }
 
+    //계정 탈퇴
     @GetMapping("/account/cancellation")
     String createAccountCancellationPage(HttpServletRequest request,RedirectAttributes rttr){
        Member member =  memberService.getMemberEntity(request);
@@ -186,6 +185,7 @@ public class MemberController {
         return "redirect:/";
     }
 
+    //계정 탈퇴
     @PostMapping("/account/cancellation")
     String accountCancellation(MemberAuthDto memberAuthDto, HttpServletRequest request, RedirectAttributes rttr){
         if(!memberService.tryToCancellationAccount(memberAuthDto,request)){

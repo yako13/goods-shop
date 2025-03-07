@@ -164,7 +164,7 @@ public class MemberService {
     /**
      * 아이디 찾기
      */
-    public MemberResponseDto tryToFindId(MemberDto memberDto) {
+    public String tryToFindId(MemberDto memberDto) {
         String name = memberDto.getName();
         String phoneNumber = memberDto.getPhoneNumber();
 
@@ -180,18 +180,14 @@ public class MemberService {
         int length = member.getUserId().length();
 
         //아이디의 뒷 3자리는 *로 표시
-        String showId = member.getUserId().substring(0, length - 3) + "***";
-
-        return MemberResponseDto.builder()
-                .userId(showId)
-                .build();
+        return  member.getUserId().substring(0, length - 3) + "***";
 
     }
 
     /**
      * 비밀번호 찾기
      */
-    public MemberResponseDto tryToFindPassword(MemberDto memberDto) {
+    public String tryToFindPassword(MemberDto memberDto) {
         String userId = memberDto.getUserId();
         String phoneNumber = memberDto.getPhoneNumber();
 
@@ -204,9 +200,7 @@ public class MemberService {
         //소셜로그인 사용자의 경우
         if (member.getProvider() != null) return null;
 
-        return MemberResponseDto.builder()
-                .userId(member.getUserId())
-                .build();
+        return member.getUserId();
     }
 
     /**
