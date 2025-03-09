@@ -34,20 +34,30 @@
           <tr>
             <th>주문 상태 변경</th>
             <form th:action="@{/master/checkout/edit}" th:method="post">
-              <td><select class="selectBox">
-                  <option>주문완료</option>
-                  <option>주문대기</option>
-                  <option>주문취소</option>
+              <td><select class="selectBox" name="checkoutState">
+                  <option th:value="CONFIRM">주문완료</option>
+<!--                <option th:selected="${checkoutState}=='CONFIRM'" th:value="CONFIRM">주문완료</option>-->
+                  <option th:value="WAIT">주문보류</option>
+                  <option th:value="CANCEL">주문취소</option>
                 </select></td>
 
           </tr>
           <tr>
             <th>배송업체</th>
-            <td><select class="selectBox">
-                <option>대한통운</option>
-                <option>우체국택배</option>
-                <option>한진택배</option>
-              </select><input type="text" id="waybillNumber" name="waybillNumber" placeholder="운송장번호"></td>
+            <td><select class="selectBox" name="deliveryCompany">
+                <option th:value="CJ">대한통운</option>
+                <option th:value="POST">우체국택배</option>
+                <option th:value="HANJIN" >한진택배</option>
+              </select>
+              <input type="text" id="waybillNumber" name="waybillNumber" placeholder="운송장번호">
+              <select class="selectBox" name="shipmentState">
+                <option th:value="PENDING">배송준비중</option>
+                <option th:value="TRANSIT">배송중</option>
+                <option th:value="DELIVERED">배송완료</option>
+                <option th:value="CANCELED">배송취소</option>
+                <option th:value="RETURNED">반품</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <th>주문번호</th>

@@ -10,13 +10,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/master")
 public class MasterController {
 
-    @GetMapping("/checkout/list")
-    String masterCheckoutListPage(){
-        return "master/checkout/list";
-    }
-
-    @GetMapping("/checkout/details")
-    String masterCheckoutDetailsPage(){
-        return "master/checkout/details";
-    }
 }
