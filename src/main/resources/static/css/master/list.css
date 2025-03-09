@@ -168,7 +168,11 @@
  .page-item a {
    color: inherit;
    display: block;
-   text-decoration: none;
+
+ }
+
+ a{
+  text-decoration: none;
  }
 
  .active {
@@ -183,7 +187,10 @@
    background-color: #e2e2e2;
    cursor: not-allowed;
    /* pointer-events: none;  */
+    a{
+    cursor: not-allowed;}
  }
+
 
  .page-item .disabled a {
    color: #bfbfbf;

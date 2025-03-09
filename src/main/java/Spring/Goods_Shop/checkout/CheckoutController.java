@@ -2,12 +2,14 @@ package Spring.Goods_Shop.checkout;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,8 +25,9 @@ public class CheckoutController {
         return "master/checkout/list";
     }
 
-    @GetMapping("/master/checkout/details")
-    String masterCheckoutDetailsPage() {
+    @GetMapping("/master/checkout/details/{id}")
+    String masterCheckoutDetailsPage(@PathVariable Long id, Model model)
+    {
         return "master/checkout/details";
     }
 
