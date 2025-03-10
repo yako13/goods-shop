@@ -26,9 +26,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/")
-    String createHomePage(){ return "mainPage";}
-
     //로그인 화면
     @GetMapping("/login")
     String createLoginPage(){
@@ -147,7 +144,7 @@ public class MemberController {
     //아이디찾기
     @GetMapping("/find/id")
     String createFindIdPage(){
-        return "member/find/id";
+        return "member/findId";
     }
 
     //아이디 찾기
@@ -160,7 +157,7 @@ public class MemberController {
     //비밀번호 찾기
     @GetMapping("/find/password")
     String createFindPasswordPage(){
-        return "member/find/password";
+        return "member/findPassword";
     }
 
     //비밀번호 찾기

@@ -27,7 +27,7 @@ public class CheckoutController {
         Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(pageable);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
-        return "master/checkout/list";
+        return "checkout/masterList";
     }
 
     @GetMapping("/master/checkout/details/{id}")
@@ -37,7 +37,7 @@ public class CheckoutController {
         model.addAttribute("checkoutDetails",responseDto);
         model.addAttribute("productList",responseDto.getProductList());
 
-        return "master/checkout/details";
+        return "checkout/masterDetails";
     }
 
     @PostMapping("/master/checkout/edit")
