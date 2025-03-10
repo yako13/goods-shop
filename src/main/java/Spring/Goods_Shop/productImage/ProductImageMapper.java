@@ -32,7 +32,7 @@ public class ProductImageMapper {
         return ProductImageUrlDto.builder()
                 .mainImageUrl(productMainImageUrl)
                 .subImageUrl(productSubImageUrl)
-                .descriptionImageUrl(productDescImageUrl)
+                .descImageUrl(productDescImageUrl)
                 .build();
     }
 }

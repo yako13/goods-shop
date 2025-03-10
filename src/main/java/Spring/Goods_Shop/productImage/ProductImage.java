@@ -31,7 +31,7 @@ public class ProductImage extends BaseTime {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "image_type", nullable = false)
-    @Comment("이미지 타입")
+    @Comment("이미지 타입 (MAIN, SUB, DESC)")
     private ImageType imageType;
 
 //    @Column(name = "image_path", nullable = false)
@@ -43,7 +43,7 @@ public class ProductImage extends BaseTime {
     private String imageName;
 
     @Column(nullable = false)
-    @Comment("이미지 uuid")
+    @Comment("이미지 UUID")
     private UUID uuid;
 
     @Column(name = "file_extension")

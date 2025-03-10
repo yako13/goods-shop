@@ -20,31 +20,54 @@ public class ProductImageService {
 
     private final ProductImageManager productImageManager;
 
+    // 단일 이미지 저장
     public ProductImage save(MultipartFile imageFile, Product product, ImageType imageType) {
-        if (imageFile.isEmpty()) return null;
+        if (imageFile.isEmpty()) return null; // 빈 파일은 처리하지 않음
 
-        UUID presentImageUuid = productImageManager.save(imageFile);
+        // 이미지를 저장하고 UUID를 반환받음
+        UUID imageUuid = productImageManager.save(imageFile);
 
-        ProductImage mainProductImage = ProductImage.builder()
-                .uuid(presentImageUuid)
+        // ProductImage 객체 생성 후 저장
+        ProductImage productImage = ProductImage.builder()
+                .uuid(imageUuid)
                 .fileExtension(productImageManager.getExtensionOf(imageFile))
                 .imageType(imageType)
                 .imageName(imageFile.getOriginalFilename())
                 .product(product)
                 .build();
 
-        return imageRepository.save(mainProductImage);
+        return imageRepository.save(productImage); // 저장된 이미지 객체 반환
     }
 
-    private void save(List<MultipartFile> imageFiles, Product product, ImageType imageType) {
-        imageFiles.forEach((imageFile) -> {
-            save(imageFile, product, imageType);
-        });
+    // 여러 이미지를 저장하는 메서드
+    private void multiSave(List<MultipartFile> imageFiles, Product product, ImageType imageType) {
+        if (imageFiles == null || imageFiles.isEmpty()) return; // 빈 리스트는 처리하지 않음
+
+        imageFiles.forEach(imageFile -> save(imageFile, product, imageType)); // 각 이미지를 저장
     }
 
+    // 메인, 서브, 설명 이미지 처리
     public ProductImage create(ProductRequestDto requestDto, Product product) {
-        save(requestDto.getSubImage(), product, ImageType.SUB);
-        save(requestDto.getDescImage(), product, ImageType.DESC);
-        return save(requestDto.getMainImage(), product, ImageType.MAIN);
+        // 서브 이미지와 설명 이미지 처리
+        if (requestDto.getSubImage() != null && !requestDto.getSubImage().isEmpty()) {
+            multiSave(requestDto.getSubImage(), product, ImageType.SUB); // 서브 이미지 저장
+        }
+
+        if (requestDto.getDescImage() != null && !requestDto.getDescImage().isEmpty()) {
+            multiSave(requestDto.getDescImage(), product, ImageType.DESC); // 설명 이미지 저장
+        }
+
+        // 메인 이미지 처리
+        if (requestDto.getMainImage() != null && !requestDto.getMainImage().isEmpty()) {
+            return save(requestDto.getMainImage(), product, ImageType.MAIN); // 메인 이미지 저장 후 반환
+        }
+
+        return product.getProductImage(); // 메인 이미지가 없으면 기존 이미지 반환
+    }
+
+    // 이미지 URL을 반환하는 메서드
+    public ProductImageUrlDto getProductImageDto(Long id) {
+        List<ProductImage> productImageList = imageRepository.findByProductId(id);
+        return productImageMapper.toProductImageUrlDto(productImageList);
     }
 }

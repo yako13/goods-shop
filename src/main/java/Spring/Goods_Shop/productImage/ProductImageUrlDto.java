@@ -15,5 +15,5 @@ public class ProductImageUrlDto {
 
     private final List<String> subImageUrl;
 
-    private final List<String> descriptionImageUrl;
+    private final List<String> descImageUrl;
 }
