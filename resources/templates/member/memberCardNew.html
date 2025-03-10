@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudStar WorkShop</title>
+    <link rel="stylesheet" href="css/memberCardNew.css">
+    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/member/memberCardNew.css}">
+
+</head>
+
+<body>
+
+
+<!-- 헤더 시작 -->
+
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+
+<!-- 헤더 끝 -->
+
+
+<!-- 메인 시작 -->
+
+<div class="HanCardNewBodyDiv">
+
+    <!--메뉴바 시작-->
+
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+
+    <!--메뉴바 끝-->
+
+    <div class="HanCardNewBody">
+
+        <div class="HanCardNewDiv">
+
+            <div class="">
+
+                <div class="HanCardNewLogoDiv">
+
+                    <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+
+                </div>
+
+                <h1>CloudStar Workshop</h1>
+
+            </div>
+
+            <ul>
+                <form action="" method="post" id="HanSignUpForm">
+
+
+                    <li class="HanSignUpLi hanNone LiCheck">
+
+                        <label for="HanSignUpPw1">카드 별칭</label>
+                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="카드 별칭을 입력해주세요"
+                               class="HanSignUpInput">
+
+                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                    </li>
+
+                    <li class="HanSignUpLi hanNone LiCheck">
+
+                        <label for="HanSignUpPw1">카드 번호</label>
+
+                        <div class="HanCard">
+
+                            <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000"
+                                   class="HanSignUpInput">
+
+                            <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000"
+                                   class="HanSignUpInput">
+
+                            <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000"
+                                   class="HanSignUpInput">
+
+                            <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000"
+                                   class="HanSignUpInput">
+
+                        </div>
+                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
+                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                    </li>
+
+                    <li class="HanSignUpLi hanNone LiCheck">
+
+                        <div class="HanCardDateCvc">
+
+
+                            <div>
+
+                                <label for="HanSignUpPw2">유효기간</label>
+
+                                <div class="HanCardDate">
+                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="MM" required
+                                           class="HanSignUpInput">
+
+                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="YY" required
+                                           class="HanSignUpInput">
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <label for="HanSignUpPw2">CVC</label>
+
+                                <div class="HanCVC">
+
+                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="카드 뒷면 3자리 숫자"
+                                           required
+                                           class="HanSignUpInput">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
+                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
+
+                    </li>
+
+                    <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
+
+                        <div class="HanCardCheckDiv">
+
+                            <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
+                            <label for="HanCheckbox"></label>
+                            <p>기본 결제 카드로 등록</p>
+                        </div>
+
+                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
+
+                    </li>
+
+
+                </form>
+
+            </ul>
+
+            <div class="HanCardNewButton">
+                <button class="HanCancel" type="button">취소</button>
+                <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- 메인 끝 -->
+
+
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+<!-- 푸터 끝 -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>이페이지로 오는 url /test10</title>
+</head>
+<body>
+
+<p>이페이지로 오는 url /test10</p>
+<p>각 페이지를 빠르게 테스트하기위한 페이지</p>
+<p>장바구니</p>
+<a th:href="@{/cart}">장바구니</a>
+
+<p>주문/결제</p>
+<a th:href="@{/checkout}">주문/결제</a>
+
+<p>주문 완료</p>
+<a th:href="@{/checkout/complete}">주문 완료</a>
+
+<p>주문 목록</p>
+<a th:href="@{/member/checkout/list}">주문 목록</a>
+
+<p>주문 목록 상세</p>
+<a th:href="@{/member/checkout/details/}">주문 목록 상세</a>
+
+<p>카드 목록</p>
+<a th:href="@{/member/pay/list}">카드 목록</a>
+
+<p>카드 등록</p>
+<a th:href="@{/member/pay/create}">카드 등록</a>
+
+<p>배송지 목록</p>
+<a th:href="@{/member/delivery/list}">배송지 목록</a>
+
+
+<p>배송지 등록</p>
+<a th:href="@{/member/delivery/create}">배송지 등록</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

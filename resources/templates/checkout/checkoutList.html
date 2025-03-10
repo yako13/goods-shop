@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudStar Workshop</title>
+
+    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/checkout/checkoutList.css}">
+
+</head>
+
+<body>
+
+<!--헤더 네비-->
+
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+
+
+<!-- 메인 시작 -->
+
+<div class="HanCkListBody">
+
+    <!--메뉴바 시작-->
+
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+
+    <!--메뉴바 끝-->
+
+    <div class="HanCkListMain">
+
+        <div class="HanCkListTop">
+
+            <p>주문내역</p>
+
+        </div>
+
+        <ul>
+
+            <!-- 카트 아이템 시작 -->
+
+            <li>
+                <div class="HanCkListOrderNum">
+                    <div class="HanCkListOrderNumCnt">
+
+                        <span class="HanCkListBold">총</span>
+                        <span>2</span>
+                        <span>건</span>
+
+                    </div>
+
+                    <div class="HanCkListOrderNumTextDiv">
+
+                        <p>주문번호 : </p>
+                        <a href="#">2025030301</a>
+
+                    </div>
+                </div>
+
+                <!-- 카트 아이템 항목 시작 -->
+
+                <div class="HanCkListInfoDiv">
+
+                    <div class="HanCkListInfo">
+
+                        <div class="HanCkListImgDiv">
+
+                            <img th:src="@{/images/product1.png}" alt="">
+
+                        </div>
+
+                        <div class="HanCkListProductName">
+
+                            <p class="HanCkListProductDate">2025.03.04 06:00 결제</p>
+
+                            <div class="HanCkListProductNameDiv">
+
+                                <p class="HanCkListProductNameP">동화 일러스트 키캡 4종</p>
+                                <p class="HanCkListProductPriceP">20,000원</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="HanCkListDelivery">
+
+                        <p>배송중</p>
+
+                    </div>
+
+                </div>
+
+                <!-- 카트 아이템 항목 끝 -->
+
+
+                <!-- 카트 아이템 항목 시작 -->
+
+                <div class="HanCkListInfoDiv">
+
+                    <div class="HanCkListInfo">
+
+                        <div class="HanCkListImgDiv">
+
+                            <img th:src="@{/images/product1.png}" alt="">
+
+                        </div>
+
+                        <div class="HanCkListProductName">
+
+                            <p class="HanCkListProductDate">2025.03.04 06:00 결제</p>
+
+                            <div class="HanCkListProductNameDiv">
+
+                                <p class="HanCkListProductNameP">동화 일러스트 키캡 4종</p>
+                                <p class="HanCkListProductPriceP">20,000원</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="HanCkListDelivery">
+
+                        <p>배송중</p>
+
+                    </div>
+
+                </div>
+
+                <!-- 카트 아이템 항목 끝 -->
+
+                <div class="HanCkSubmitA">
+
+                    <a class="HanCheckoutList" id="">총 결제 가격: 20,000</a>
+                    <a class="HanHome" id="">상세보기</a>
+
+                </div>
+
+            </li>
+
+            <!-- 카트 아이템 끝 -->
+
+
+            <!-- 카트 아이템 시작 -->
+            <li>
+                <div class="HanCkListOrderNum">
+                    <div class="HanCkListOrderNumCnt">
+
+                        <span class="HanCkListBold">총</span>
+                        <span>1</span>
+                        <span>건</span>
+
+                    </div>
+
+                    <div class="HanCkListOrderNumTextDiv">
+
+                        <p>주문번호 : </p>
+                        <a href="#">2025030301</a>
+
+                    </div>
+                </div>
+
+                <!-- 카트 아이템 항목 시작 -->
+
+                <div class="HanCkListInfoDiv">
+
+                    <div class="HanCkListInfo">
+
+                        <div class="HanCkListImgDiv">
+
+                            <img th:src="@{/images/product1.png}" alt="">
+
+                        </div>
+
+                        <div class="HanCkListProductName">
+
+                            <p class="HanCkListProductDate">2025.03.04 06:00 결제</p>
+
+                            <div class="HanCkListProductNameDiv">
+
+                                <p class="HanCkListProductNameP">동화 일러스트 키캡 4종</p>
+                                <p class="HanCkListProductPriceP">20,000원</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="HanCkListDelivery">
+
+                        <p>배송중</p>
+
+                    </div>
+
+                </div>
+
+                <!-- 카트 아이템 항목 끝 -->
+
+                <div class="HanCkSubmitA">
+
+                    <a class="HanCheckoutList" id="">총 결제 가격: 20,000</a>
+                    <a class="HanHome" id="">상세보기</a>
+
+                </div>
+
+            </li>
+
+            <!-- 카트 아이템 끝 -->
+
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+<!-- 메인 끝 -->
+
+
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+<!-- 푸터 끝 -->
+
+
+</body>
+
+</html>

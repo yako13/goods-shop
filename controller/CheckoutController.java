@@ -27,7 +27,7 @@ public class CheckoutController {
         Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(pageable);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
-        return "checkout/masterList";
+        return "master/checkout/list";
     }
 
     @GetMapping("/master/checkout/details/{id}")
@@ -37,7 +37,7 @@ public class CheckoutController {
         model.addAttribute("checkoutDetails",responseDto);
         model.addAttribute("productList",responseDto.getProductList());
 
-        return "checkout/masterDetails";
+        return "master/checkout/details";
     }
 
     @PostMapping("/master/checkout/edit")
@@ -53,6 +53,12 @@ public class CheckoutController {
         rttr.addFlashAttribute("alert","삭제가 완료되었습니다.");
         return "redirect:/master/checkout/list";
     }
+
+
+
+
+
+    //-Han Part- 시작
 
     //    테스트 페이지 이동 컨트롤러
     @GetMapping("/test10")
@@ -93,5 +99,5 @@ public class CheckoutController {
         return "checkout/checkoutListDetail";
     }
 
-
+    //-Han Part- 끝
 }

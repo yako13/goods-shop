@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudStar Workshop</title>
+
+    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <link rel="stylesheet" th:href="@{/css/checkout/checkoutListDetail.css}">
+
+</head>
+
+<body>
+
+<!-- 헤더 시작 -->
+
+<header th:replace="/fragments/memberHeader::memberHeader"></header>
+
+<!-- 헤더 끝 -->
+
+
+<!-- 메인 시작 -->
+
+<div class="HanCkListDetailBody">
+
+    <!--메뉴바 시작-->
+
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+
+    <!--메뉴바 끝-->
+
+    <div class="HanCkListDetailMain">
+
+        <div class="HanCkListDetailMainTop">
+
+            <div class="HanCkListDetailMainTopDiv">
+                <img th:src="@{/images/list.svg}" alt="" width="30px" height="auto">
+
+                <p class="HanCkListDetailMainTopP">주문 상세 정보</p>
+
+            </div>
+
+            <div class="HanCkListDetailOrder">
+                <p class="HanCkListDetailOrderP2">주문번호 : 2025030301</p>
+                <p>주문 날짜 : 2025.03.04 06:00</p>
+
+            </div>
+        </div>
+
+        <ul>
+
+
+            <!-- 아이콘 추가 -->
+            <!-- 카트 아이템 시작 -->
+
+            <li>
+
+                <div class="HanCkListDetailTitleDiv">
+                    <img th:src="@{/images/product_icon.svg}" width="25px" height="25px">
+                    <p class="HanCkListDetailTitleP">주문상품</p>
+                </div>
+                <!-- 카트 아이템 항목 시작 -->
+
+                <div class="HanPadding">
+
+                    <div class="HanCkListDetailInfoDiv">
+
+                        <div class="HanCkListDetailInfo">
+
+                            <div class="HanCkListDetailImgDiv">
+
+                                <img th:src="@{/images/product1.png}" alt="">
+
+                            </div>
+
+                            <div class="HanCkListDetailProductName">
+
+                                <p class="HanCkListDetailProductDate">2025.03.04 06:00 결제</p>
+
+                                <div class="HanCkListDetailProductNameDiv">
+
+                                    <p class="HanCkListDetailProductNameP">동화 일러스트 키캡 4종</p>
+                                    <p class="HanCkListDetailProductPriceP">20,000원</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- 카트 아이템 항목 끝 -->
+
+                    <!-- 카트 아이템 항목 시작 -->
+
+                    <div class="HanCkListDetailInfoDiv">
+
+                        <div class="HanCkListDetailInfo">
+
+                            <div class="HanCkListDetailImgDiv">
+
+                                <img th:src="@{/images/product1.png}" alt="">
+
+                            </div>
+
+                            <div class="HanCkListDetailProductName">
+
+                                <p class="HanCkListDetailProductDate">2025.03.04 06:00 결제</p>
+
+                                <div class="HanCkListDetailProductNameDiv">
+
+                                    <p class="HanCkListDetailProductNameP">동화 일러스트 키캡 4종</p>
+                                    <p class="HanCkListDetailProductPriceP">20,000원</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- 카트 아이템 항목 끝 -->
+
+                </div>
+
+            </li>
+
+            <!-- 카트 아이템 끝 -->
+
+            <li>
+
+                <div class="HanCkListDetailTitleDiv">
+
+                    <img th:src="@{/images/DeliveryIcon.svg}" width="30px" height="30px">
+                    <p class="HanCkListDetailTitleP">배송지</p>
+
+                </div>
+
+                <div class="HanPadding">
+
+                    <div class="HanCkListDetailDelivery">
+                        <p class="HanCkListDetailDeliveryName">홍길동(집)</p>
+                        <p class="HanCkListDetailDeliveryPhone">010-1111-2222</p>
+
+                        <div class="HanCkListDetailDeliveryText">
+                            <p class="HanCkSubmitMidSpan">12345</p>
+                            <p>부산시 금곡동 101호</p>
+                        </div>
+                        <p class="">배송 요청 사항 : 천천히 와주셔도 됩니다</p>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+
+            <li>
+
+                <div class="HanCkListDetailTitleDiv">
+
+                    <img th:src="@{/images/card7.svg}" width="30px" height="30px">
+                    <p class="HanCkListDetailTitleP">결제정보</p>
+
+                </div>
+
+                <div class="HanCkListDetailCheckout">
+
+                    <div class="HanCkListDetailCheckoutDiv">
+
+                        <p>상품가격 : </p>
+                        <p>배송비 : </p>
+                        <p>결제카드 : </p>
+
+                        <div class="HanCkListDetailCheckoutP1">
+                            <p>총 결제 금액 : </p>
+                        </div>
+
+
+                    </div>
+
+                    <div class="HanCkListDetailCheckoutDiv">
+
+                        <p>40,000원</p>
+                        <p>3,000원</p>
+                        <p>국민카드</p>
+
+                        <div class="HanCkListDetailCheckoutP1">
+                            <p>43,000원</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+        </ul>
+
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+<!-- 메인 끝 -->
+
+
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+<!-- 푸터 끝 -->
+
+
+</body>
+
+</html>
