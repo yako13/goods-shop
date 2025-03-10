@@ -17,6 +17,7 @@
 <body>
   <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
   <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
+  <input type="hidden" th:value="${alert}" id="dataAlert">
 
   <main id="main">
 
@@ -34,43 +35,44 @@
           <tr>
             <th>주문 상태 변경</th>
             <form th:action="@{/master/checkout/edit}" th:method="post">
-              <td><select class="selectBox" name="checkoutState">
-                  <option th:value="CONFIRM">주문완료</option>
-<!--                <option th:selected="${checkoutState}=='CONFIRM'" th:value="CONFIRM">주문완료</option>-->
-                  <option th:value="WAIT">주문보류</option>
-                  <option th:value="CANCEL">주문취소</option>
+              <input type="hidden" th:value="${checkoutDetails.id}" name="id" id="id">
+              <td><select class="selectBox" name="checkoutState" id="checkoutState">
+                  <option th:selected="${checkoutDetails.checkoutState}=='주문완료'" value="CONFIRM">주문완료</option>
+                  <option th:selected="${checkoutDetails.checkoutState}=='주문보류'" value="WAIT">주문보류</option>
+                  <option th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">주문취소</option>
                 </select></td>
 
           </tr>
           <tr>
             <th>배송업체</th>
-            <td><select class="selectBox" name="deliveryCompany">
-                <option th:value="CJ">대한통운</option>
-                <option th:value="POST">우체국택배</option>
-                <option th:value="HANJIN" >한진택배</option>
+            <td><select class="selectBox" name="deliveryCompany" id="deliveryCompany">
+                <option th:selected="${checkoutDetails.deliveryCompany}=='대한통운'" value="CJ">대한통운</option>
+                <option th:selected="${checkoutDetails.deliveryCompany}=='우체국택배'" value="POST">우체국택배</option>
+                <option th:selected="${checkoutDetails.deliveryCompany}=='한진택배'" value="HANJIN">한진택배</option>
               </select>
-              <input type="text" id="waybillNumber" name="waybillNumber" placeholder="운송장번호">
-              <select class="selectBox" name="shipmentState">
-                <option th:value="PENDING">배송준비중</option>
-                <option th:value="TRANSIT">배송중</option>
-                <option th:value="DELIVERED">배송완료</option>
-                <option th:value="CANCELED">배송취소</option>
-                <option th:value="RETURNED">반품</option>
+              <input type="text" placeholder="운송장번호" name="deliveryCode" id="deliveryCode"
+                th:value="${checkoutDetails.deliveryCode}">
+              <select class="selectBox" name="deliveryState" id="deliveryState">
+                <option th:selected="${checkoutDetails.deliveryState}=='배송준비중'" value="PENDING">배송준비중</option>
+                <option th:selected="${checkoutDetails.deliveryState}=='배송중'" value="TRANSIT">배송중</option>
+                <option th:selected="${checkoutDetails.deliveryState}=='배송완료'" value="DELIVERED">배송완료</option>
+                <option th:selected="${checkoutDetails.deliveryState}=='배송취소'" value="CANCELED">배송취소</option>
+                <option th:selected="${checkoutDetails.deliveryState}=='반품'" value="RETURNED">반품</option>
               </select>
             </td>
           </tr>
           <tr>
             <th>주문번호</th>
-            <td><b>20250228080808_0001</b></td>
+            <td th:text="${checkoutDetails.checkoutCode}"><b></b></td>
           </tr>
           <tr>
             <th>주문일시</th>
-            <td>2025-02-28 08:08:08</td>
+            <td th:text="${checkoutDetails.checkoutDate}"></td>
           </tr>
         </tbody>
       </table>
       <div class="editButtonArea">
-        <button type="submit" class="editBtn"><i class="fa-solid fa-pen-to-square"></i>수정</button>
+        <button type="submit" class="editBtn" id="editBtn"><i class="fa-solid fa-pen-to-square"></i>수정</button>
       </div>
       </form>
 
@@ -78,7 +80,7 @@
     <!-- /주문정보 -->
     <!-- 결제정보 -->
     <div class="payInfo">
-      <div class="tableTitle">
+      <div class="tableTitle ">
         <p><b><i class="fa-regular fa-credit-card"></i> 결제 정보</b></p>
         <hr>
       </div>
@@ -93,16 +95,16 @@
                 <tbody>
                   <tr>
                     <th>총 결제 금액</th>
-                    <td class="red"><b>5,000원</b></td>
+                    <td class="red" th:text="${checkoutDetails.totalPay}"><b></b></td>
 
                   </tr>
                   <tr>
                     <th>총 상품 금액</th>
-                    <td>2,000원</td>
+                    <td th:text="${checkoutDetails.totalProductCost}">2,000원</td>
                   </tr>
                   <tr>
                     <th>배송비</th>
-                    <td>3,000원</b></td>
+                    <td th:text="${checkoutDetails.deliveryCost}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -115,7 +117,7 @@
           </tr>
           <tr>
             <td>
-              <table class="rwd-table" >
+              <table class="rwd-table">
                 <tbody>
                   <tr>
                     <th>결제 수단</th>
@@ -124,7 +126,7 @@
                   </tr>
                   <tr>
                     <th>카드 정보</th>
-                    <td>카드 번호 : 1111-2222-****-****</td>
+                    <td>카드 번호 : [[${checkoutDetails.cardCode}]]</td>
                   </tr>
                 </tbody>
               </table>
@@ -151,13 +153,13 @@
             <th>판매 가격</th>
             <th>총 구매 가격</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td><img th:src="@{/images/product1.png}" style="width:100px;"></td>
-            <td>예쁜 스티커</td>
-            <td>2</td>
-            <td>2,000원</td>
-            <td>4,000원</td>
+          <tr th:each="product,productList : ${productList}">
+            <td th:text="${productList.index}"></td>
+            <td><img th:src="@{C:/images/product3-D.png}" style="width:100px;"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.count}"></td>
+            <td th:text="${product.price}">2,000원</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -181,15 +183,15 @@
                 <tbody>
                   <tr>
                     <th>주문자명</th>
-                    <td>김춘식</td>
+                    <td th:text="${checkoutDetails.ordererName}"></td>
                   </tr>
                   <tr>
                     <th>아이디 또는<br>이메일주소</th>
-                    <td>chunsick99</td>
+                    <td th:text="${checkoutDetails.ordererId}"></td>
                   </tr>
                   <tr>
                     <th>연락처</th>
-                    <td>010-1111-2222</td>
+                    <td th:text="${checkoutDetails.ordererPhoneNumber}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -197,7 +199,7 @@
           </tr>
         </table>
         <table class="parentsTable borderNone">
-          <tr> 
+          <tr>
             <th class="parentsTableHead"><i class="fa-solid fa-truck"></i> 배송지 정보</th>
           </tr>
           <tr>
@@ -206,19 +208,19 @@
                 <tbody>
                   <tr>
                     <th>수취인명</th>
-                    <td>김춘식</td>
+                    <td th:text="${checkoutDetails.recipientName}"></td>
                   </tr>
                   <tr>
                     <th>연락처</th>
-                    <td>010-1111-2222</td>
+                    <td th:text="${checkoutDetails.recipientPhoneNumber}"></td>
                   </tr>
                   <tr>
                     <th>배송지 주소</th>
-                    <td>(11111) 부산광역시 춘식구 춘식로 9 춘식아파트 101동 101호</td>
+                    <td th:text="${checkoutDetails.address}"></td>
                   </tr>
                   <tr>
                     <th>배송 요청 사항</th>
-                    <td><b>천천히 와주셔도 됩니다.</b></td>
+                    <td th:text="${checkoutDetails.deliveryMemo}"><b></b></td>
                   </tr>
                 </tbody>
               </table>
@@ -230,31 +232,13 @@
     <!-- /주문자 및 배송지 정보  -->
     <!-- 버튼영역 -->
     <div class="buttonArea">
-      <a href="#" class="listBtn"><i class="fa-solid fa-rotate-left"></i> 목록</a>
-      <form class="deleteForm" th:action="@{/master/checkout/delete}" th:method="post">
-        <!-- <input type="hidden" th:value="${id}"> -->
-        <button type="submit" class="deleteBtn"><i class="fa-solid fa-trash-can"></i> 삭제</button>
-      </form>
+      <a href="@{/master/checkout/list}" class="listBtn"><i class="fa-solid fa-rotate-left"></i> 목록</a>
+      <button type="submit" class="deleteBtn" id="deleteBtn"><i class="fa-solid fa-trash-can"></i> 삭제</button>
     </div>
     <button id="topBtn" title="Go to top">▲</button>
   </main>
   <script th:src="@{/js/master/masterNavigation.js}"></script>
-  <script>
-    // 스크롤을 내리면 버튼을 보여주기
-    window.onscroll = function () {
-      let topButton = document.getElementById("topBtn");
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        topButton.style.display = "block";  // 스크롤이 50px 이상 내려가면 버튼 표시
-      } else {
-        topButton.style.display = "none";   // 50px 이하로 올라가면 버튼 숨김
-      }
-    };
-
-    // 버튼 클릭 시 페이지 맨 위로 스크롤
-    document.getElementById("topBtn").onclick = function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });  // 부드러운 스크롤로 맨 위로 이동
-    };
-  </script>
+  <script th:src="@{/js/master/checkout.js}"></script>
 </body>
 
 </html>

@@ -9,21 +9,43 @@
 </head>
 
 <body>
-    <header th:fragment="masterHeader" class="masterHeader">
-        <div class="headerLogoArea" style="cursor:pointer" onclick="openNav()">
-            <img th:src="@{/images/logo.png}" class="headerLogoImage">
-        </div>
+
+<header th:fragment="masterHeader">
+
+    <div class="masterHeader">
+
         <div class="headerTitle">
-            <p>구름별 공방 Adiministrator</p>
+
+            <div class="headerTitleMenu">
+                <a href="">
+                    <i class="fa-solid fa-user-tie"></i>
+                </a>
+            </div>
+
+            <div>
+                <p>구름별 공방</p>
+                <p>Adiministrator</p>
+            </div>
         </div>
-        <div class="homePage">
-            <i class="fa-solid fa-house"></i>
-            <a th:href="@{/}" class="homepageLink">홈페이지</a>
+
+        <div class="headerTitleADiv">
+
+            <div class="homePage">
+
+                <a href="@{/}" class=""><img th:src="@{/images/home3.svg}" alt="">홈페이지</a>
+            </div>
+
+            <div class="logout">
+                <a href="@{/logout}" class="">로그아웃</a>
+            </div>
+
         </div>
-        <div class="logout">
-            <a th:href="@{/logout}" class="logoutLink">로그아웃</a>
-        </div>
-    </header>
+    </div>
+
+</header>
+
+<!-- 헤더 끝 -->
+
 </body>
 
 </html>
