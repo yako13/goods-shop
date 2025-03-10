@@ -1,6 +1,5 @@
 package Spring.Goods_Shop.config;
 
-import Spring.Goods_Shop.common.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
