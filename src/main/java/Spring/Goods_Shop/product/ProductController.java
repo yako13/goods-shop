@@ -68,7 +68,9 @@ public class ProductController {
     }
 
     @GetMapping("/product/list")
-    public String productList() {
+    public String productList(Product product, Model model) {
+        List<ProductListResponseDto> productListResponseDtoList = productService.getProductListResponseDto(product);
+        model.addAttribute("productList", productListResponseDtoList);
         return "pages/product-list";
     }
 

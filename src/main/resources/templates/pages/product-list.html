@@ -30,8 +30,9 @@
       .container__product-image {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         padding: 1rem;
+        column-gap: 2.5rem;
       }
       .card__product-image {
         width: 15rem;
@@ -50,7 +51,7 @@
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>
+    <!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
     <main class="container container__main">
       <p class="p-text">{search-name}</p>
       <hr />
@@ -63,88 +64,16 @@
 
       <!-- product card -->
       <div class="container__product-image">
-        <a href="/product/detail"
-          ><div class="card__product-image">
-            <img class="product-image" src="/images/product1.png" />
-            <p>코지캣 쉬폰 포스터</p>
-            <p class="p__small">30,000 원</p>
-          </div>
-        </a>
-
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>코지캣 쉬폰 포스터</p>
-          <p class="p__small">30,000 원</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>코지캣 쉬폰 포스터</p>
-          <p class="p__small">30,000 원</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>코지캣 쉬폰 포스터</p>
-          <p class="p__small">30,000 원</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>코지캣 쉬폰 포스터</p>
-          <p class="p__small">30,000 원</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
-        </div>
-        <div class="card__product-image">
-          <img class="product-image" src="/images/product1.png" />
-          <p>product name</p>
-          <p>product price</p>
+        <div th:each="productList : ${productList}">
+          <a th:href="@{/product/detail/{id}(id=${productList.id})}">
+            <div class="card__product-image">
+              <img
+                class="product-image"
+                th:src="${productList.mainImagePath}" />
+              <p th:text="${productList.name}"></p>
+              <p class="p__small">30,000 원</p>
+            </div>
+          </a>
         </div>
       </div>
       <!-- /product card -->

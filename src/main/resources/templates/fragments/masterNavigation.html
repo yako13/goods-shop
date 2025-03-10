@@ -8,15 +8,47 @@
     <link href="/css/masterNavigation.css" rel="stylesheet">
 </head>
 <body>
-<nav th:fragment="masterNav" id="mySidenav"  class="sidenav">
-    <div class="logoArea">
-        <img th:src="@{/images/logo.png}" class="logoImage">
-    </div>
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">상품 관리</a>
-    <a href="#">주문 관리</a>
-    </div>
-</nav>
+
+    <!-- 네비 바 시작 -->
+
+    <nav th:fragment="masterNav">
+
+        <div class="SlideNavBody">
+
+            <div class="SlideNavOpenDiv ">
+
+                <img class="SlideOpen " th:src="@{/images/arrowRightSlide.svg}" onclick="openNav()">
+
+            </div>
+
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+
+            <div>
+
+                <div class="logoArea">
+                    <img th:src="@{/images/logoSmall.png}" class="logoImage">
+                </div>
+
+                <a href="#">상품 관리</a>
+                <a href="#">주문 관리</a>
+            </div>
+
+            <div class="SlideNavCloseDiv ">
+
+                <img class="SlideClose " th:src="@{/images/arrowLeftSlide.svg}" onclick="closeNav()">
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </nav>
+
+    <!-- 네비 바 끝 -->
+
 </body>
 
 </html>

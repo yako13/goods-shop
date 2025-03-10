@@ -1,193 +1,204 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
-    <link rel="stylesheet" href="/css/master/masterHeader.css" />
-    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
-    <style>
-      body {
-        margin: 0px;
-      }
-      a {
-        text-decoration: none;
-        color: #000000;
-      }
-      .container__main {
-        justify-self: center;
-      }
-      .container__input {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-      }
-      .container__input label {
-        margin-top: 0.5rem;
-      }
-      .container__form {
-        border: 1px solid #000000;
-        padding: 3rem;
-        margin-top: 5rem;
-        width: 25rem;
-        border-radius: 7px;
-      }
-      input[type="file"] {
-        margin-bottom: 0.5rem;
-      }
-      .preview-container {
-        display: flex;
-        gap: 10px;
-      }
-      .preview-container img {
-        width: 45px;
-        height: 45px;
-        object-fit: cover;
-        border-radius: 5px;
-      }
-      .preview-item {
-        position: relative;
-        display: inline-block;
-      }
-      .delete-btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: red;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 5px;
-      }
-      .required-text {
-        color: #ff0000;
-        font-size: 0.5rem;
-        margin-left: 0.5rem;
-      }
-    </style>
-  </head>
-  <body>
-    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
-    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
-    <main class="container__main" id="main">
-      <div class="master__product">
+    <link rel="stylesheet" href="/css/master/masterHeader.css"/>
+    <link rel="stylesheet" href="/css/master/masterNavigation.css"/>
+    <link rel="stylesheet" th:href="@{/css/product/productEdit.css}">
+
+    <!--    <style>-->
+    <!--      body {-->
+    <!--        margin: 0px;-->
+    <!--      }-->
+    <!--      a {-->
+    <!--        text-decoration: none;-->
+    <!--        color: #000000;-->
+    <!--      }-->
+    <!--      .container__main {-->
+    <!--        justify-self: center;-->
+    <!--      }-->
+    <!--      .container__input {-->
+    <!--        display: flex;-->
+    <!--        flex-direction: column;-->
+    <!--        margin-bottom: 2rem;-->
+    <!--      }-->
+    <!--      .container__input label {-->
+    <!--        margin-top: 0.5rem;-->
+    <!--      }-->
+    <!--      .container__form {-->
+    <!--        border: 1px solid #000000;-->
+    <!--        padding: 3rem;-->
+    <!--        margin-top: 5rem;-->
+    <!--        width: 25rem;-->
+    <!--        border-radius: 7px;-->
+    <!--      }-->
+    <!--      input[type="file"] {-->
+    <!--        margin-bottom: 0.5rem;-->
+    <!--      }-->
+    <!--      .preview-container {-->
+    <!--        display: flex;-->
+    <!--        gap: 10px;-->
+    <!--      }-->
+    <!--      .preview-container img {-->
+    <!--        width: 45px;-->
+    <!--        height: 45px;-->
+    <!--        object-fit: cover;-->
+    <!--        border-radius: 5px;-->
+    <!--      }-->
+    <!--      .preview-item {-->
+    <!--        position: relative;-->
+    <!--        display: inline-block;-->
+    <!--      }-->
+    <!--      .delete-btn {-->
+    <!--        position: absolute;-->
+    <!--        top: 0;-->
+    <!--        right: 0;-->
+    <!--        background: red;-->
+    <!--        color: white;-->
+    <!--        border: none;-->
+    <!--        cursor: pointer;-->
+    <!--        font-size: 5px;-->
+    <!--      }-->
+    <!--      .required-text {-->
+    <!--        color: #ff0000;-->
+    <!--        font-size: 0.5rem;-->
+    <!--        margin-left: 0.5rem;-->
+    <!--      }-->
+    <!--    </style>-->
+</head>
+<body>
+<header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+<nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+<main class="container__main" id="main">
+    <div class="master__product">
         <div th:each="product : ${product}" class="container__form">
-          <!-- form -->
-          <form
-            th:action="@{/master/product/edit/{id}(id=${product.id})}"
-            method="post"
-          enctype="multipart/form-data">
-            <!-- 상품명 -->
-            <div class="container__input">
-              <label for="product-name"
-                >상품명<span class="required-text">* 필수</span></label
-              >
-              <input
-                type="text"
-                id="product-name"
-                name="name"
-                th:value="${product.name}" />
-            </div>
-            <!-- /상품명 -->
-
-            <!-- 카테고리 -->
-            <div class="container__input">
-              <label for="category"
-                >카테고리<span class="required-text">* 필수</span></label
-              >
-              <select id="category" name="productCategory">
-                <option value="#" disabled="disabled">
-                  카테고리를 선택해주세요
-                </option>
-                <option value="포토카드" th:selected="${product.productCategory.name() == '포토카드'}">포토카드</option>
-                <option value="악세서리" th:selected="${product.productCategory.name() == '악세서리'}">악세서리</option>
-                <option value="컴퓨터용품" th:selected="${product.productCategory.name() == '컴퓨터용품'}">컴퓨터용품</option>
-                <option value="기타" th:selected="${product.productCategory.name() == '기타'}">기타</option>
-              </select>
-              <div th:text="${product.ProductCategory}"></div>
-            </div>
-            <!-- /카테고리 -->
-
-            <!-- 판매가격 -->
-            <div class="container__input">
-              <label for="price"
-                >판매 가격<span class="required-text">* 필수</span></label
-              >
-              <input
-                type="text"
-                id="price"
-                name="price"
-                th:value="${#numbers.formatInteger(product.price, 3)}" />
-            </div>
-            <!-- /판매가격 -->
-
-            <!-- 재고 수량 -->
-            <div class="container__input">
-              <label for="count"
-                >재고 수량<span class="required-text">* 필수</span></label
-              >
-              <input
-                type="number"
-                id="count"
-                name="count"
-                th:value="${product.count}" />
-            </div>
-            <!-- /재고 수량 -->
-
-            <!-- 상품 설명 -->
-            <div class="container__input">
-              <label for="description">상품 설명</label>
-              <textarea
-                cols="47"
-                rows="5"
-                id="description"
-                name="ProductDescription"
-                th:text="${product.productDescription}"></textarea>
-            </div>
-            <!-- /상품 설명 -->
-
-            <!-- 이미지 -->
-            <!-- 상품 메인 이미지 -->
-            <div class="container__input">
-              <label>상품 메인 이미지 (1장만 업로드 가능)<span class="required-text">* 필수</span></label>
-
-              <!-- 새 이미지 업로드 -->
-              <input type="file" name="mainImage" id="mainImage" accept="image/*" onchange="previewSingleImage(event, 'mainImagePreview')" />
-              <!-- 기존 이미지 미리보기 (있다면) -->
-              <div id="mainImagePreview" class="preview-container">
-                <img th:if="${product.productImage != null}" th:src="@{/product-images/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}" class="thumbnail" />
-              </div>
-            </div>
-
-            <!-- 상품 서브 이미지 (최대 3장) -->
-            <label>상품 서브 이미지 (최대 3장)</label>
-            <input type="file" id="subImage" name="subImage" accept="image/*" multiple onchange="previewMultipleImages(event, 'subImagePreview', 3)" />
-            <div id="subImagePreview" class="preview-container">
-              <div th:each="sub : ${subImage}">
-                  <img th:src="@{${sub}}" class="thumbnail" />
-              </div>
-            </div>
-
-
-            <label>상품 설명 이미지 (최대 5장)</label>
-              <input type="file" id="descImage" name="descImage" accept="image/*" multiple onchange="previewMultipleImages(event, 'descImagePreview', 5)" />
-              <div id="descImagePreview" class="preview-container">
-                <div th:each="desc : ${descImage}">
-                <img th:src="@{${desc}}" class="thumbnail">
+            <!-- form -->
+            <form
+                    th:action="@{/master/product/edit/{id}(id=${product.id})}"
+                    method="post"
+                    enctype="multipart/form-data">
+                <!-- 상품명 -->
+                <div class="container__input">
+                    <label for="product-name"
+                    >상품명<span class="required-text">* 필수</span></label
+                    >
+                    <input
+                            type="text"
+                            id="product-name"
+                            name="name"
+                            th:value="${product.name}"/>
                 </div>
-              </div>
-            <!-- /이미지 -->
+                <!-- /상품명 -->
 
-            <button><a href="/master/product/list">취소</a></button>
-            <button type="submit">등록</button>
-          </form>
-          <!-- /form -->
+                <!-- 카테고리 -->
+                <div class="container__input">
+                    <label for="category"
+                    >카테고리<span class="required-text">* 필수</span></label
+                    >
+                    <select id="category" name="productCategory">
+                        <option value="#" disabled="disabled">
+                            카테고리를 선택해주세요
+                        </option>
+                        <option value="포토카드" th:selected="${product.productCategory.name() == '포토카드'}">포토카드</option>
+                        <option value="악세서리" th:selected="${product.productCategory.name() == '악세서리'}">악세서리</option>
+                        <option value="컴퓨터용품" th:selected="${product.productCategory.name() == '컴퓨터용품'}">컴퓨터용품</option>
+                        <option value="기타" th:selected="${product.productCategory.name() == '기타'}">기타</option>
+                    </select>
+                </div>
+                <!-- /카테고리 -->
+
+                <!-- 판매가격 -->
+                <div class="container__input">
+                    <label for="price"
+                    >판매 가격<span class="required-text">* 필수</span></label
+                    >
+                    <input
+                            type="text"
+                            id="price"
+                            name="price"
+                            th:value="${#numbers.formatInteger(product.price, 3)}"/>
+                </div>
+                <!-- /판매가격 -->
+
+                <!-- 재고 수량 -->
+                <div class="container__input">
+                    <label for="count"
+                    >재고 수량<span class="required-text">* 필수</span></label
+                    >
+                    <input
+                            type="number"
+                            id="count"
+                            name="count"
+                            th:value="${product.count}"/>
+                </div>
+                <!-- /재고 수량 -->
+
+                <!-- 상품 설명 -->
+                <div class="container__input">
+                    <label for="description">상품 설명</label>
+                    <textarea
+                            cols="47"
+                            rows="5"
+                            id="description"
+                            name="ProductDescription"
+                            th:text="${product.productDescription}"></textarea>
+                </div>
+                <!-- /상품 설명 -->
+
+                <!-- 이미지 -->
+                <!-- 상품 메인 이미지 -->
+                <div class="container__input">
+                    <label>상품 메인 이미지 (1장만 업로드 가능)<span class="required-text">* 필수</span></label>
+
+                    <!-- 새 이미지 업로드 -->
+                    <input type="file" name="mainImage" id="mainImage" accept="image/*"
+                           onchange="previewSingleImage(event, 'mainImagePreview')"/>
+                    <!-- 기존 이미지 미리보기 (있다면) -->
+                    <div id="mainImagePreview" class="preview-container">
+                        <img th:if="${product.productImage != null}"
+                             th:src="@{/product-image/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}"
+                             class="thumbnail"/>
+                    </div>
+                </div>
+
+                <!-- 상품 서브 이미지 (최대 3장) -->
+                <div class="container__input">
+                    <label>상품 서브 이미지 (최대 3장)</label>
+                    <input type="file" id="subImage" name="subImage" accept="image/*" multiple
+                           onchange="previewMultipleImages(event, 'subImagePreview', 3)"/>
+                    <div id="subImagePreview" class="preview-container">
+                        <div th:each="sub : ${subImage}">
+                            <img th:src="@{${sub}}" class="thumbnail"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container__input">
+                    <label>상품 설명 이미지 (최대 5장)</label>
+                    <input type="file" id="descImage" name="descImage" accept="image/*" multiple
+                           onchange="previewMultipleImages(event, 'descImagePreview', 5)"/>
+                    <div id="descImagePreview" class="preview-container">
+                        <div th:each="desc : ${descImage}">
+                            <img th:src="@{${desc}}" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+                <!-- /이미지 -->
+                <div class="HanCardNewButton2">
+                    <button class="HanCancel" type="button" onclick="location.href='/master/product/list'">취소</button>
+                    <button class="HanSubmit" type="submit">수정</button>
+                </div>
+            </form>
+            <!-- /form -->
         </div>
-      </div>
-    </main>
-  </body>
-  <script th:src="@{/js/master/masterNavigation.js}"></script>
-  <script>
+    </div>
+</main>
+</body>
+<script th:src="@{/js/master/masterNavigation.js}"></script>
+<script>
     // 단일 이미지 미리보기
   function previewSingleImage(event, previewId) {
     const reader = new FileReader();
@@ -226,5 +237,5 @@
       reader.readAsDataURL(file);
     });
   }
-  </script>
+</script>
 </html>

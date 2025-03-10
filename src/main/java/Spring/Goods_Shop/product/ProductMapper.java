@@ -33,4 +33,19 @@ public class ProductMapper {
                 .modifiedAt(product.getModifiedAt())
                 .build();
     }
+    public ProductListResponseDto toProductListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+        return ProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
+                .mainImagePath(productMainImagePath)
+                .build();
+    }
 }

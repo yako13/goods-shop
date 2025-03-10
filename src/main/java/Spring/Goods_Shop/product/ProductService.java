@@ -84,4 +84,9 @@ public class ProductService {
         return productRepository.save(product); // 상품 정보 저장
     }
 
+    public List<ProductListResponseDto> getProductListResponseDto(Product product) {
+        List<Product> productList = productRepository.findAll();
+        return productList.stream().map(productMapper::toProductListResponseDto).toList();
+    }
+
 }

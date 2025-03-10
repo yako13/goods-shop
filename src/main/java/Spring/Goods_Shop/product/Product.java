@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "product")
@@ -52,7 +53,7 @@ public class Product extends BaseTime {
     private ProductImage productImage;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductImage> productImageList;
+    private List<ProductImage> productImageList = new ArrayList<>();
 
     @Builder
     public Product(Long id, String name, BigDecimal price, int count, String productDescription, ProductCategory productCategory, ProductImage productImage) {
