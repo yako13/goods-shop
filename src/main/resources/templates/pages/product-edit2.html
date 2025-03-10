@@ -14,6 +14,9 @@
         text-decoration: none;
         color: #000000;
       }
+      .container__main {
+        justify-self: center;
+      }
       .container__input {
         display: flex;
         flex-direction: column;
@@ -27,7 +30,6 @@
         padding: 3rem;
         margin-top: 5rem;
         width: 25rem;
-        justify-self: center;
         border-radius: 7px;
       }
       input[type="file"] {
@@ -62,28 +64,22 @@
         font-size: 0.5rem;
         margin-left: 0.5rem;
       }
-      .container__main {
-        justify-items: center;
-      }
     </style>
   </head>
   <body>
     <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
     <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
     <main class="container__main" id="main">
-      <section class="master__product">
+      <i class="master__product">
         <div class="container__form">
           <!-- form -->
-          <form
-            action="/product/save"
-            method="post"
-            enctype="multipart/form-data">
+          <form action="#" method="post">
             <!-- 상품명 -->
             <div class="container__input">
               <label for="product-name"
                 >상품명<span class="required-text">* 필수</span></label
               >
-              <input type="text" id="product-name" name="name" />
+              <input type="text" id="product-name" name="product-name" />
             </div>
             <!-- /상품명 -->
 
@@ -92,14 +88,14 @@
               <label for="category"
                 >카테고리<span class="required-text">* 필수</span></label
               >
-              <select id="category" name="productCategory">
+              <select id="category" name="category">
                 <option value="#" disabled="disabled" selected>
                   카테고리를 선택해주세요
                 </option>
-                <option value="포토카드">포토카드</option>
-                <option value="악세서리">악세서리</option>
-                <option value="컴퓨터용품">컴퓨터용품</option>
-                <option value="기타">기타</option>
+                <option value="photo-cart">포토카드</option>
+                <option value="accessories">악세서리</option>
+                <option value="computer-peripherals">컴퓨터용품</option>
+                <option value="etc">기타</option>
               </select>
             </div>
             <!-- /카테고리 -->
@@ -129,7 +125,7 @@
                 cols="47"
                 rows="5"
                 id="description"
-                name="productDescription"></textarea>
+                name="description"></textarea>
             </div>
             <!-- /상품 설명 -->
 
@@ -140,38 +136,24 @@
                   >* 필수</span
                 ></label
               >
-              <input
-                type="file"
-                name="mainImage"
-                id="mainImage"
-                accept="image/*" />
+              <input type="file" id="mainImage" accept="image/*" />
               <div id="mainImagePreview" class="preview-container"></div>
               <label>상품 서브 이미지 (최대 3장)</label>
-              <input
-                type="file"
-                name="subImage"
-                id="subImage"
-                accept="image/*"
-                multiple />
+              <input type="file" id="subImage" accept="image/*" multiple />
               <div id="subImagePreview" class="preview-container"></div>
 
               <label>상품 설명 이미지 (최대 5장)</label>
-              <input
-                type="file"
-                name="descImage"
-                id="descImage"
-                accept="image/*"
-                multiple />
+              <input type="file" id="descImage" accept="image/*" multiple />
               <div id="descImagePreview" class="preview-container"></div>
             </div>
             <!-- /이미지 -->
 
-            <button><a href="/master/product/list">취소</a></button>
+            <button>취소</button>
             <button type="submit">등록</button>
           </form>
           <!-- /form -->
         </div>
-      </section>
+      </i>
     </main>
   </body>
   <script th:src="@{/js/master/masterNavigation.js}"></script>
@@ -181,6 +163,7 @@
       input.addEventListener("change", function () {
         if (this.files.length + previewContainer.children.length > maxCount) {
           alert(`최대 ${maxCount}장까지만 업로드할 수 있습니다.`);
+          this.value = "";
           return;
         }
 
@@ -206,12 +189,14 @@
           };
           reader.readAsDataURL(file);
         }
+        this.value = "";
       });
     }
 
     function handleSingleImageUpload(input, previewContainer) {
       input.addEventListener("change", function () {
         if (this.files.length > 1) {
+          this.value = "";
           return;
         }
 
@@ -237,6 +222,7 @@
           previewContainer.appendChild(previewItem);
         };
         reader.readAsDataURL(file);
+        this.value = "";
       });
     }
     // 업로드 이미지 개수 제한

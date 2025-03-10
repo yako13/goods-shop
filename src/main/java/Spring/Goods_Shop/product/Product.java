@@ -1,24 +1,22 @@
 package Spring.Goods_Shop.product;
 
 import Spring.Goods_Shop.base.BaseTime;
-import Spring.Goods_Shop.cart.Cart;
-import Spring.Goods_Shop.checkout.Checkout;
-import Spring.Goods_Shop.checkoutDetails.CheckoutDetails;
+import Spring.Goods_Shop.enums.ProductCategory;
 import Spring.Goods_Shop.productImage.ProductImage;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "product")
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product extends BaseTime {
 
@@ -43,12 +41,35 @@ public class Product extends BaseTime {
     @Comment("상품에 관한 설명")
     private String productDescription;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ProductImage> productImageList=new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "file_category", columnDefinition = "VARCHAR(50)", nullable = false)
+    @Comment("제품 분류")
+    private ProductCategory productCategory;;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Cart> cartList=new ArrayList<>();
+    @JoinColumn(name = "product_image")
+    @Comment("상품의 대표 이미지")
+    @OneToOne
+    private ProductImage productImage;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<CheckoutDetails> checkoutDetailsList=new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> productImageList;
+
+    @Builder
+    public Product(Long id, String name, BigDecimal price, int count, String productDescription, ProductCategory productCategory, ProductImage productImage) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.count = count;
+        this.productCategory = productCategory;
+        this.productDescription = productDescription;
+        this.productImage = productImage;
+    }
+
+    public void update(ProductRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.price = requestDto.getPrice();
+        this.count = requestDto.getCount();
+        this.productCategory = requestDto.getProductCategory();
+        this.productDescription = requestDto.getProductDescription();
+    }
 }
