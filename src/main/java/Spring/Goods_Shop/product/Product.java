@@ -43,6 +43,10 @@ public class Product extends BaseTime {
     @Comment("상품에 관한 설명")
     private String productDescription;
 
+//    @Column
+//    @Comment("상품 대표 이미지")
+//    private ProductImage productImage;
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ProductImage> productImageList=new ArrayList<>();
 

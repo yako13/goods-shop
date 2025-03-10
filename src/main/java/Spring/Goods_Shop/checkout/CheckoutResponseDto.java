@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class CheckoutResponseDto {
 
     private Long id;
+
+    private String checkoutCode;
 
     private String checkoutProductName;
 
@@ -33,7 +37,7 @@ public class CheckoutResponseDto {
 
     private String checkoutExpPeriod;
 
-    private String checkoutPostName;
+    private String checkoutDeliveryCompany;
 
     private String checkoutPostStep;
 

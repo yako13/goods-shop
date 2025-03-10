@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
-@Table(name = "product_image")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
