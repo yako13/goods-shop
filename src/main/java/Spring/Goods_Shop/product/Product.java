@@ -43,7 +43,7 @@ public class Product extends BaseTime {
     private String productDescription;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "file_category", columnDefinition = "VARCHAR(50)", nullable = false)
+    @Column(name = "product_category", columnDefinition = "VARCHAR(50)", nullable = false)
     @Comment("제품 분류")
     private ProductCategory productCategory;;
 
