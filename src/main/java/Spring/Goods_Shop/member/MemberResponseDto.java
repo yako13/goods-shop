@@ -11,15 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberResponseDto {
 
-    private String userId;
+    private Long memberPK;
 
-    private String userPassword;
+    private String userId;
 
     private String name;
 
     private String phoneNumber;
 
-    private boolean termsAgreement;
-
-    private boolean privacyAgreement;
+    private String provider;
 }

@@ -41,6 +41,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new NaverUserDetails(oAuth2User.getAttributes());
         }
 
+
         String providerId = oAuth2UserInfo.getProviderId();
         String loginId = oAuth2UserInfo.getEmail();
         String name = oAuth2UserInfo.getName();
@@ -59,8 +60,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .phoneNumber(phoneNumber)
                     .privacyAgreement(true)
                     .termsAgreement(true)
-                    .createdAt(LocalDateTime.now())
-                    .updatedAt(LocalDateTime.now())
                     .build();
 
             memberRepository.save(member);

@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.pay;
 
+import Spring.Goods_Shop.base.BaseTime;
 import Spring.Goods_Shop.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.Comment;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Pay {
+public class Pay extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +39,8 @@ public class Pay {
     @Column(nullable = false)
     @Comment("카드 CVC 코드")
     private String cvc;
+
+    @Column(nullable = false)
+    @Comment("기본 결제 카드 여부")
+    private boolean defaultCard;
 }

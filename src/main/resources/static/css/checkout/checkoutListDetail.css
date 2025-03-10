@@ -1,0 +1,219 @@
+.HanCkListDetailBody {
+  width: 100%;
+  height: auto;
+  background-color: #f1f0f1;
+  /* background-color: white; */
+  display: flex;
+
+}
+
+.HanCkListDetailMain {
+  margin: 20px auto;
+  width: 900px;
+}
+
+.HanCkListDetailMain p {
+  display: inline-block;
+
+}
+
+.HanCkListDetailMainTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
+.HanCkListDetailMainTopDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.HanPadding {
+  padding: 0 35px;
+
+}
+
+.HanCkListDetailMainTopP {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 2px;
+
+}
+
+.HanCkListDetailMain ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+
+}
+
+.HanCkListDetailMain ul li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  background-color: white;
+  padding: 20px 40px;
+  margin-bottom: 20px;
+}
+
+.HanCkListDetailOrder p {
+  color: #939393;
+  margin: 3px 0;
+}
+
+.HanCkListDetailOrderP1 {
+  color: #939393;
+  font-size: 18px;
+  padding-right: 40px;
+
+}
+
+.HanCkListDetailOrderP2 {
+  padding-right: 20px;
+
+}
+
+.HanCkListDetailTitleDiv{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+
+.HanCkListDetailTitleP {
+  font-size: 20px;
+  font-weight: 600;
+  margin:0;
+  margin-top: 4px;
+
+}
+
+
+.HanCkListDetailInfoDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.HanCkListDetailInfo {
+  display: flex;
+  align-items: center;
+
+}
+
+
+.HanCkListDetailImgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+
+}
+
+.HanCkListDetailImgDiv img {
+  max-width: 130px;
+  max-height: 130px;
+
+}
+
+.HanCkListDetailProductName {
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 130px;
+}
+
+
+.HanCkListDetailProductDate {
+  font-size: 15px;
+  color: #939393;
+  margin: 9px 0;
+  margin-top: 0;
+}
+
+.HanCkListDetailProductNameDiv {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HanCkListDetailProductNameP {
+  font-size: 20px;
+  margin: 1px 0;
+
+}
+
+.HanCkListDetailProductPriceP {
+  font-size: 18px;
+  margin: 1px 0;
+}
+
+.HanCkListDetailDelivery {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HanCkListDetailDeliveryName {
+  font-size: 24px;
+
+}
+
+.HanCkListDetailDeliveryPhone {
+  color: #939393;
+
+}
+
+.HanCkListDetailDelivery p {
+  margin: 0;
+}
+
+.HanCkListDetailDeliveryText {
+  font-size: 18px;
+  padding: 6px 0;
+  padding-bottom: 13px;
+
+}
+
+.HanCkListDetailCheckout {
+  padding: 10px 35px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.HanCkListDetailCheckout p {
+  margin: 5px 0;
+  font-size: 17px;
+}
+
+.HanCkListDetailCheckoutDiv {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.HanCkListDetailCheckoutP1 p {
+  font-weight: 600;
+  font-size: 18px;
+  padding-top: 5px;
+
+}

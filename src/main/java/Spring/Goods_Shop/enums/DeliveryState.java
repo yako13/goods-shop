@@ -1,6 +1,6 @@
 package Spring.Goods_Shop.enums;
 
-public enum ShipmentState {
+public enum DeliveryState {
     PENDING, TRANSIT, DELIVERED, CANCELED, RETURNED
 
     //PENDING : 배송 준비중

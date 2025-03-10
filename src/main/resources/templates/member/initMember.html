@@ -7,20 +7,24 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
-
-    <link rel="stylesheet" href="/css/memberFooter.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/memberHeader.css">
+    <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/initMyPage.css">
 
 </head>
+
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+
 <div class="container">
+    <div class="textArea">
+        <h3>회원정보확인</h3>
+        <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해주세요.</p>
+    </div>
     <!-- Form -->
-    <form th:action="@{/init/myPage}" method="post" class="mainForm">
+    <form th:action="@{/init/member}" method="post" class="mainForm">
         <div class="first-input input__block first-input__block">
-            <input type="password" placeholder="비밀번호를 입력해주세요." class="input" name="userId"/>
+            <input type="password" placeholder="비밀번호" class="input" name="userPassword" required/>
         </div>
 
         <button type="submit" class="btn"><b>
@@ -31,7 +35,8 @@
 
 </div>
 
-</main>
+
+</div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 </body>
 

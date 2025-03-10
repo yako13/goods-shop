@@ -1,0 +1,342 @@
+.HanCardNewBodyDiv {
+  width: 100%;
+  background-color: #f1f0f1;
+  padding-top: 50px;
+  padding-bottom: 70px;
+
+
+}
+
+.HanCardNewBody {
+  border-radius: 5px;
+  width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.HanCardNewDiv {
+  width: 500px;
+
+}
+
+
+.HanCardNewDiv ul {
+  margin: 0;
+  margin-top: 25px;
+  list-style-type: none;
+  padding: 0;
+
+}
+
+.HanCardNewDiv ul li {
+  position: relative;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+
+.HanCardNewDiv label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.HanCardNewDiv input {
+  box-sizing: border-box;
+  width: 500px;
+  height: 43px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+
+
+.HanSignUpIdDiv button {
+  padding: 10px 15px;
+  border: 0px;
+  border-radius: 3px;
+  background-color: #e9e9e9;
+  color: #3a3a3a;
+  transition: all 0.5s;
+  font-size: 18px;
+  font-weight: bolder;
+  cursor: pointer;
+
+}
+
+
+
+.HanSignUpIdDiv button:hover {
+
+  background-color: #dddddd;
+  color: black;
+
+}
+
+.HanSignUpIdDiv.HanRedButton button {
+  border: 1px solid #fc4545;
+  box-shadow: 0 0 0 1px #fc4545;
+  color: #fc4545;
+  background-color: white;
+
+
+}
+
+
+.HanCardNewDiv h1 {
+  font-size: 25px;
+  font-weight: 500;
+  text-align: center;
+  margin: 8px 0;
+  margin-top: -30px;
+
+}
+
+
+.HanCardNewLogoDiv {
+  padding-top: 6px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.HanRed input {
+  border: 1px solid #fc4545;
+  box-shadow: 0 0 0 1px #fc4545;
+
+}
+
+.HanRed p {
+  margin: 3px 0;
+  color: #fc4545;
+  font-size: 12px;
+
+}
+
+.hanNone .HanSignUpInfo {
+  display: none;
+}
+
+#HanSignUpOk {
+  margin: 3px 0;
+  font-size: 12px;
+  color: #0fa824;
+}
+
+
+#HanSignUpFail,
+#HanSignUpPwFail1,
+#HanSignUpPwFail2,
+#HanSignUpCheckNotRun {
+  margin: 3px 0;
+  font-size: 12px;
+  color: #fc4545;
+
+}
+
+
+
+/* 회원가입 버튼 */
+.HanCardNewButton {
+  margin-top: 45px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.HanCardNewButton button {
+  width: 300px;
+  height: 50px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bolder;
+  transition: all 0.3s ease;
+}
+
+.HanCardNewButton .HanCancel {
+  background-color: #e7e7e7;
+  color: #333;
+}
+
+.HanCardNewButton .HanSubmit {
+  background-color: #fff6a6;
+  color: #363636;
+}
+
+.HanCardNewButton .HanCancel:hover {
+  background-color: #c9c9c9;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.HanCardNewButton .HanSubmit:hover {
+  background-color: #fdef6f;
+  color: #585858;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.HanMemberEditP1Div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.HanMemberEditP1Div p {
+  margin: 0;
+  color: #8a8a8a;
+  font-size: 16px;
+}
+
+.HanMemberEditP1Div a {
+  padding: 8px 18px;
+  border-radius: 3px;
+  text-decoration-line: none;
+  background-color: #e9e9e9;
+  color: #3a3a3a;
+  transition: all 0.5s;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.HanMemberEditP1Div a:hover {
+
+  background-color: #dddddd;
+  color: black;
+
+}
+
+
+
+
+
+/* signUpSubmitPopUp머스타치 css  */
+
+.HanSubmitDiv {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.HanSubmitDiv img {
+  padding-top: 200px;
+  width: 300px;
+  height: 300px;
+
+}
+
+.HanSubmitDiv p {
+  font-size: 22px;
+}
+
+.HanAddressPopNewIcon {
+  position: absolute;
+  background: url(/images/search.svg) no-repeat center center;
+  width: 30px;
+  height: 30px;
+  right: 10px;
+  top: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.HanCardCheckDiv {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.HanCardCheckDiv p {
+  margin: 0;
+  display: inline-block;
+  font-size: 17px;
+  padding-left: 10px;
+  padding-bottom: 4px;
+}
+
+.HanCardCheckDiv input {
+  display: none;
+  margin: 0;
+}
+
+.HanCardCheckDiv label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 0;
+  padding-left: 3px;
+
+}
+
+
+.HanCardCheckDiv input+label {
+  background: url(/images/checkmark_off.svg) no-repeat center center;
+  background-size: cover;
+}
+
+.HanCardCheckDiv input:checked+label {
+  background: url(/images/checkmark_on.svg) no-repeat center center;
+  background-size: cover;
+}
+
+.HanCheckboxLi {
+  margin-top: -5px;
+}
+
+.HanCard {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.HanCard input {
+  width: 24%;
+
+}
+
+.HanCardDateCvc {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.HanCardDateCvc label {
+  display: inline-block;
+}
+
+.HanCardDate,
+.HanCVC {
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+
+}
+
+.HanCardDate input {
+  width: 120px;
+}
+
+.HanCVC input {
+  width: 246px;
+
+}

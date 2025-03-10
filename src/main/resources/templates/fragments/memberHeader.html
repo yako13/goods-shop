@@ -1,56 +1,229 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>회원 헤더</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarCloud Workshop</title>
+
+    <link rel="stylesheet" href="css/mainPage.css">
+
+    <style>
+        .carousel {
+          margin: 20px auto;
+          margin-top: 40px;
+          position: relative;
+          width: 1400px;
+          height: 300px;
+          overflow: hidden;
+          border-radius: 7px;
+          background-color: rgb(255, 219, 219);
+          /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); */
+        }
+
+        .carousel-track {
+          display: flex;
+          width: calc(800px * 7);
+          /* 이미지 개수 + 복제된 첫/마지막 이미지 */
+          transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+          width: 800px;
+          height: 300px;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        /* 좌우 버튼 */
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: rgba(255, 255, 255, 0.7);
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          border-radius: 50%;
+          font-size: 20px;
+          z-index: 100;
+        }
+
+        .prev {
+          left: 10px;
+        }
+
+        .next {
+          right: 10px;
+        }
+
+        /* 네비게이션 점 */
+        .dots {
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 10px;
+        }
+
+        .dot {
+          width: 10px;
+          height: 10px;
+          background-color: white;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+
+        .dot.active {
+          background-color: #ff7f7f;
+        }
+    </style>
+
+
 </head>
+
 <body>
-<!-- 헤더 시작 -->
+
 <header th:fragment="memberHeader">
-    <div class="HanHeaderBody">
 
-        <div class="HanHeaderTop">
+<!-- 헤더 시작 -->
 
-            <div class="HanHeaderLogo">
-                <p class="HanHeaderLogoP">CloudStar Workshop</p>
-            </div>
 
-            <div class="HanHeaderButton">
-                <a th:href="@{/login}">로그인</a>
-                <a th:href="@{/join}">회원가입</a>
-            </div>
+<div class="HanHeaderBody">
+
+    <div class="HanHeaderTop">
+
+        <div class="HanHeaderLogo">
+            <img th:src="@{/images/logostar.svg}" alt="" width="20px" style="padding-right: 10px;">
+
+            <p class="HanHeaderLogoP">CloudStar Workshop</p>
 
         </div>
 
-        <hr class="HanHeaderHr">
+        <!-- 로그아웃시 나타나는 헤더부분 시작-->
 
-        <div class="HanHeaderBottom">
 
-            <p class="HanHeaderBottomP">포근한 구름속 반짝이는 별처럼 반짝이는 굿즈를 만들어요</p>
+        <!-- <div class="HanHeaderButton">
+          <a href="">로그인</a>
+          <a href="">회원가입</a>
+        </div> -->
 
-            <div class="HanLoginForm">
 
-                <form th:action="@{/product/search/index}" method="get" role="search" id="SerachForm">
+        <!-- 로그아웃시 나타나는 헤더부분 끝-->
 
-                    <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
 
-                    <button type="submit" class="searchBtn"><i class="fa-solid fa-xl fa-magnifying-glass"></i></button>
 
-                </form>
+        <!-- 로그인시 나타나는 헤더부분 시작-->
+
+        <div class="HanHeaderButton">
+
+            <div class="Handropdown">
+
+
+                <a href="#" class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'mypageDropdown')">
+                    <img th:src="@{/images/user1.svg}" alt="" width="24px" height="auto"></a>
+
+
+                <div class="HanDrodBoxName" id="mypageDropdown">
+
+                    <div class="HanDrodBoxNameBox">
+
+                        <img th:src="@{/images/user1.svg}" alt="">
+
+                        <div class="HanDrodBoxNameDiv">
+
+                            <div>
+                                <p class="HanHeaderUserName">홍길동님</p>
+                                <a href="/logout">로그아웃</a>
+                            </div>
+
+                            <p class="HanHeaderUserId">id@gmail.com</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="HandropdownBox" id="">
+                        <a th:href="@{/init/member}">마이페이지</a>
+                        <a href="/settings">주문목록</a>
+                        <a href="/logout">결제 등록</a>
+                        <a href="/logout">배송지 등록</a>
+                    </div>
+
+                </div>
 
             </div>
+
+            <a href="" class="HanHeaderButtonA"><img th:src="@{/images/cart4.svg}" width="29px" height="auto"></a>
+
+        </div>
+
+        <!-- 로그인시 나타나는 헤더부분 끝-->
+
+    </div>
+
+    <hr class="HanHeaderHr">
+
+    <div class="HanHeaderBottom">
+
+        <div class="HanHeaderBottomLeft">
+
+            <img th:src="@{/images/logoSmall.png}" alt="" width="80px" height="auto">
+            <p class="HanHeaderBottomP">포근한 구름처럼 부드럽고 별처럼 반짝이는 굿즈를 만들어요</p>
+
+        </div>
+        <div class="HanLoginForm">
+
+            <form action="/product/search/index" method="get" role="search" id="SerachForm">
+
+                <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
+
+                <img th:src="@{/images/search.svg}">
+
+            </form>
 
         </div>
 
     </div>
 
-    <!-- 헤더 끝 -->
+</div>
+
+
+
+<!-- 네비 시작 -->
+
+<div class="HanNaviMain">
+
+    <div class="HanNaviLogoDiv">
+
+        <img th:src="@{/images/logo.png}" alt="" width="auto" height="350px">
+
+    </div>
+
+    <!-- <hr class="HanHeaderHr"> -->
+
+    <div class="HanNaviBar">
+
+        <a href="">전체상품</a>
+        <a href="">포토카드</a>
+        <a href="">악세사리</a>
+        <a href="">컴퓨터용품</a>
+        <a href="">기타</a>
+
+    </div>
+    <hr class="HanHeaderHr2">
+
+</div>
+
+<!-- 네비 끝 -->
+
+
+<!-- 헤더 끝 -->
+
+
 </header>
 
-
-
 </body>
+
 </html>

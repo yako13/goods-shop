@@ -17,7 +17,7 @@ public class Delivery extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "delivery_name")
+    @Column(name = "delivery_id")
     private Long id;
 
     @JoinColumn(name = "member_id")
@@ -32,27 +32,27 @@ public class Delivery extends BaseTime {
     @Comment("우편번호")
     private String postalCode;
 
-    @Column(name = "street_address", nullable = false)
-    @Comment("도로명 주소")
-    private String streetAddress;
+    @Column( nullable = false)
+    @Comment("주소")
+    private String address;
 
-    @Column(name = "lot_number_address", nullable = false)
-    @Comment("구주소")
-    private String lotNumberAddress;
-
-    @Column(name = "detail_address", nullable = false)
+    @Column( nullable = false)
     @Comment("상세주소")
-    private String detailAddress;
+    private String addressDetail;
 
-    @Column(name = "recipient_name", nullable = false)
+    @Column(nullable = false)
     @Comment("수신자 이름")
     private String recipientName;
 
-    @Column(name = "recipient_phone_number")
+    @Column
     @Comment("수신자 연락처")
     private String recipientPhoneNumber;
 
     @Column(nullable = true)
     @Comment("배송 요청 사항")
     private String memo;
+
+    @Column(nullable = false)
+    @Comment("기본 배송지 여부")
+    private boolean defaultDelivery;
 }

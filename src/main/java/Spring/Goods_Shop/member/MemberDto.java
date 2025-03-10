@@ -4,10 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 회원 정보 찾기, 피드백 Dto
+ */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class MemberJoinDto {
+@AllArgsConstructor
+public class MemberDto {
+
+    private Long id;
 
     private String userId;
 
@@ -17,8 +22,6 @@ public class MemberJoinDto {
 
     private String phoneNumber;
 
-    private boolean termsAgreement;
-
-    private boolean privacyAgreement;
+    private String provider;
 
 }
