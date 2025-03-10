@@ -15,10 +15,10 @@ import java.util.UUID;
 @Component
 public class ProductImageManager {
 
-    @Value("${config.product-image-location}")
+    @Value("${image.path}")
     private String location;
 
-    @Value("${config.product-image-resource-handler}")
+    @Value("${image.path.directory}")
     private String resourceHandler;
 
     // 허용하는 이미지 파일 확장자
