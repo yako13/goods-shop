@@ -1,45 +1,123 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  }
+  
+  * {
+    font-family: NanumSquareRound;
+  
+  }
+  
+  
+
 /*헤더시작  */
+header {
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+
+
 .masterHeader {
+    box-sizing: border-box;
+    padding: 20px 30px;
     background-color: #FFCFD2;
     height: 50px;
     display: flex;
     justify-content: space-between;
+    gap: 0;
+    align-items: center;
     line-height: 50px;
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
 }
 
-.headerLogoImage {
-    width: 100px;
-    height: 50px;
-}
 
 .headerTitle {
-    width: 75%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 400px;
+}
+
+.headerTitleMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+}
+
+
+.headerTitleMenu .fa-user-tie {
+    font-size: 22px;
+}
+
+.headerTitle p {
+    display: inline-block;
+    font-size: 22px;
 }
 
 p {
     margin: 0;
 }
 
-.homepageLink,
-.logoutLink {
-    color: rgb(90, 90, 90);
-    text-decoration: none;
 
-}
-
-.logout,
-.homePage {
-    width: 100px;
-    white-space: nowrap;
+.headerTitleADiv {
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
 }
 
 
-.homepageLink:hover,
-.logoutLink:hover {
-    font-weight: 600;
+.homePage img {
+    margin-bottom: -3px;
+    margin-right: 3px;
+    width: 22px;
+    height: auto;
 }
+
+.homePage a {
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: black;
+
+}
+
+.homePage a:hover {
+    background-color: #f0f0f0;
+}
+
+
+.logout a {
+    padding: 6px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    background-color: #FFADAD;
+    color: black;
+}
+
+.logout a:hover {
+    background-color: #ee8686;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
 
 .headerLogoArea {
     display: flex;
@@ -51,38 +129,18 @@ body {
     margin: 0;
 }
 
-.headerTitle {
-    width: 80%;
-}
 
 p {
     margin: 0;
 }
 
-.homepageLink,
-.logoutLink {
-    color: black;
-    text-decoration: none;
 
-}
-
-.logout,
-.homePage {
-    width: 100px;
-    white-space: nowrap;
-}
-
-
-.homepageLink:hover,
-.logoutLink:hover {
-    font-weight: 600;
-}
 
 .headerLogoArea {
     display: flex;
     justify-content: end;
     width: 120px;
-    margin-left : 20px;
+    margin-left: 20px;
 }
 
 /* 헤더 끝 */

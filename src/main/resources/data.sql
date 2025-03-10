@@ -11,33 +11,33 @@ VALUES
 
 --상품 테이블
 
-INSERT INTO product(name,created_at,price,count,product_Description)
+INSERT INTO product(name,created_at,price,count,product_Description,product_category)
 VALUES
-('동화 일러스트 키캡 4종','2025-02-02',20000,20,'귀여운 동화 일러스트가 그려진 키캡입니다'),
-('동물 캐릭터 안경닦이','2025-02-02',10000,40,'귀여운 동물 일러스트가 그려진 안경닦이입니다'),
-('고양이 장패드','2025-02-02',30000,30,'길쭉한 깜냥이가 그려진 장패드입니다'),
-('동물 캐릭터 메모지','2025-02-02',25000,70,'고양아 멍멍해봐~'),
-('멍뭉이 안경닦이 4종','2025-02-02',45000,80,'당싱은 멍뭉이의 안경닦이가 가징공싶엉집니당');
+('동화 일러스트 키캡 4종','2025-02-02',20000,20,'귀여운 동화 일러스트가 그려진 키캡입니다','악세서리'),
+('동물 캐릭터 안경닦이','2025-02-02',10000,40,'귀여운 동물 일러스트가 그려진 안경닦이입니다','악세서리'),
+('고양이 장패드','2025-02-02',30000,30,'길쭉한 깜냥이가 그려진 장패드입니다','기타'),
+('동물 캐릭터 메모지','2025-02-02',25000,70,'고양아 멍멍해봐~','악세서리'),
+('멍뭉이 안경닦이 4종','2025-02-02',45000,80,'당싱은 멍뭉이의 안경닦이가 가징공싶엉집니당','기타');
 
 --상품 이미지 테이블
 
-INSERT INTO product_image(product_id,image_Type,image_path)
-VALUES
-('1','MAIN','C:/images/product1.png'),
-('1','SUB','C:/images/product1-1.png'),
-('1','SUB','C:/images/product1-2.png'),
-('1','SUB','C:/images/product1-3.png'),
-('1','DESC','C:/images/product1-D.png'),
-('2','MAIN','C:/images/product2.png'),
-('2','SUB','C:/images/product2-1.png'),
-('2','SUB','C:/images/product2-2.png'),
-('2','SUB','C:/images/product2-3.png'),
-('2','DESC','C:/images/product2-D.png'),
-('3','MAIN','C:/images/product3.png'),
-('3','SUB','C:/images/product3-1.png'),
-('3','SUB','C:/images/product3-2.png'),
-('4','DESC','C:/images/product3-D.png'),
-('5','DESC','C:/images/product3-D.png');
+--INSERT INTO product_image(product_id,image_Type,image_path)
+--VALUES
+--('1','MAIN','C:/images/product1.png'),
+--('1','SUB','C:/images/product1-1.png'),
+--('1','SUB','C:/images/product1-2.png'),
+--('1','SUB','C:/images/product1-3.png'),
+--('1','DESC','C:/images/product1-D.png'),
+--('2','MAIN','C:/images/product2.png'),
+--('2','SUB','C:/images/product2-1.png'),
+--('2','SUB','C:/images/product2-2.png'),
+--('2','SUB','C:/images/product2-3.png'),
+--('2','DESC','C:/images/product2-D.png'),
+--('3','MAIN','C:/images/product3.png'),
+--('3','SUB','C:/images/product3-1.png'),
+--('3','SUB','C:/images/product3-2.png'),
+--('4','DESC','C:/images/product3-D.png'),
+--('5','DESC','C:/images/product3-D.png');
 
 --장바구니 테이블
 

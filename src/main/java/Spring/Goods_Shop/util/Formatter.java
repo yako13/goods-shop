@@ -39,7 +39,7 @@ public class Formatter {
 
     public static String changeBigDecimalFormat(BigDecimal bigDecimal){
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
-        return decimalFormat.format(bigDecimal);
+        return decimalFormat.format(bigDecimal) + " 원";
     }
 
 
