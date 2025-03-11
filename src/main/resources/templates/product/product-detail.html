@@ -118,14 +118,14 @@
         width: 57rem;
         height: 57rem;
       }
-      .div__image--desc {
+      .image__desc {
         text-align: center;
         margin-top: 3rem;
       }
       .notice__product-cnt {
         text-align: center;
       }
-      .img__notice {
+      .image__notice {
         width: 28rem;
       }
       .HanProductCntDiv {
@@ -194,24 +194,27 @@
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>
+<!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
 
     <main class="container__main">
       <div class="container__flex">
         <div class="flex">
+          <div th:each="product : ${product}"></div>
           <span>
-            <img class="image__main" src="/images/product1.png" />
+
+            <img class="image__main" th:src="@{|/product-image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
             <div class="flex__sub-image">
-              <img class="image__sub" src="/images/product1.png" />
-              <img class="image__sub" src="/images/product1.png" />
-              <img class="image__sub" src="/images/product1.png" />
+              <img class="image__sub" th:src="@{|/product-image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+              <div th:each="subImage : ${product.subImage}">
+              <img class="image__sub" th:src="@{|/product-image/${subImage.uuid}${subImage.fileExtension}|}" />
+              </div>
             </div>
           </span>
           <div class="product-info">
             <form action="#" method="#">
-              <p class="product-info__name">코지캣 쉬폰</p>
-              <p class="product-info__count">nn 개 남음</p>
-              <p class="product-info__price">
+              <p th:text="${product.name}" class="product-info__name">코지캣 쉬폰</p>
+              <p th:text="${product.count}" class="product-info__count">nn 개 남음</p>
+              <p th:text="${product.price}" class="product-info__price">
                 30,000<span class="text__black">원</span>
               </p>
               <p class="product-info__post">택배 배송 | 3,000원</p>
@@ -221,13 +224,13 @@
               <input
                 type="hidden"
                 id="HanProductPriceSaleValue"
-                value="30000" />
+                th:value="${product.price}" />
 
               <div class="HanProductCntDiv">
                 <!-- 수량버튼 -->
                 <div class="HanProductSpinner">
                   <button onclick="changeQuantity(-1)">-</button>
-                  <input type="text" id="HanProductValue" value="1" readonly />
+                  <input type="text" id="HanProductValue" value="0" readonly />
                   <button onclick="changeQuantity(1)">+</button>
                 </div>
 
@@ -239,7 +242,7 @@
 
                   <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
                   <span class="HanProductPriceSum" id="HanProductPriceSum"
-                    >30000</span
+                    ></span
                   >
                   <span class="HanProductSpan3">원</span>
                 </div>
@@ -269,17 +272,17 @@
               <!-- sold out image -->
 
               <!-- <div class="notice__product-cnt">
-                <img class="img__notice" src="/images/soldout.png" />
+                <img class="image__notice" src="/images/soldout.png" />
               </div> -->
             </form>
           </div>
         </div>
       </div>
-      <div class="div__image--desc">
-        <img class="desc-image" src="/images/product1.png" />
-        <img class="desc-image" src="/images/product1.png" />
-        <img class="desc-image" src="/images/product1.png" />
-        <img class="desc-image" src="/images/product1.png" />
+      <div th:text="${product.productDescription}" class="text__desc"></div>
+      <div class="image__desc">
+        <div th:each="descImage : ${product.descImage}">
+        <img class="desc-image" th:src="@{|/product-image/${descImage.uuid}${descImage.fileExtension}}" />
+        </div>
       </div>
     </main>
     <aside>
