@@ -54,6 +54,9 @@ public class CheckoutController {
         return "redirect:/master/checkout/list";
     }
 
+
+    //-Han Part- 시작
+
     //    테스트 페이지 이동 컨트롤러
     @GetMapping("/test10")
     public String test10Go(HttpServletRequest request, Model model) {
@@ -93,5 +96,6 @@ public class CheckoutController {
         return "checkout/checkoutListDetail";
     }
 
+    //-Han Part- 끝
 
 }

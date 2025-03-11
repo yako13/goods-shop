@@ -13,7 +13,7 @@ public class CartController {
     public String CartGo(HttpServletRequest request, Model model) {
 
 
-        return "pages/cart";
+        return "cart";
     }
 
 
