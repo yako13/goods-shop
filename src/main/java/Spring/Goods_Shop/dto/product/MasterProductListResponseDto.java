@@ -1,6 +1,5 @@
 package Spring.Goods_Shop.dto.product;
 
-import Spring.Goods_Shop.enums.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class MasterProductListResponseDto {
     private BigDecimal price;
     private int count;
     private String mainImagePath;
-    private String productCategory;
+    private String category;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

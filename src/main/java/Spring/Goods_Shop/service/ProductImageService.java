@@ -1,17 +1,17 @@
 package Spring.Goods_Shop.service;
 
 import Spring.Goods_Shop.dto.product.ProductImageUrlDto;
-import Spring.Goods_Shop.dto.product.ProductRequestDto;
-import Spring.Goods_Shop.entity.Product;
 import Spring.Goods_Shop.entity.ProductImage;
 import Spring.Goods_Shop.enums.ImageType;
+import Spring.Goods_Shop.entity.Product;
+import Spring.Goods_Shop.dto.product.ProductRequestDto;
 import Spring.Goods_Shop.inter.ProductImageManager;
+import Spring.Goods_Shop.inter.ProductImageMapper;
 import Spring.Goods_Shop.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +20,8 @@ import java.util.UUID;
 public class ProductImageService {
 
     private final ImageRepository imageRepository;
+
+    private final ProductImageMapper productImageMapper;
 
     private final ProductImageManager productImageManager;
 
@@ -71,27 +73,6 @@ public class ProductImageService {
     // 이미지 URL을 반환하는 메서드
     public ProductImageUrlDto getProductImageDto(Long id) {
         List<ProductImage> productImageList = imageRepository.findByProductId(id);
-
-        String productMainImageUrl = null;
-        List<String> productSubImageUrl = new ArrayList<>();
-        List<String> productDescImageUrl = new ArrayList<>();
-
-        //이미지 타입에 따른 분류
-        for (ProductImage productImage : productImageList) {
-            String imageUrl = productImageManager.createImageUrl(productImage.getImageFullName());
-            switch (productImage.getImageType()) {
-                case MAIN -> productMainImageUrl = imageUrl;
-                case SUB ->
-                        productSubImageUrl.add(imageUrl);
-                case DESC ->
-                        productDescImageUrl.add(imageUrl);
-            }
-        }
-
-        return ProductImageUrlDto.builder()
-                .mainImageUrl(productMainImageUrl)
-                .subImageUrl(productSubImageUrl)
-                .descImageUrl(productDescImageUrl)
-                .build();
+        return productImageMapper.toProductImageUrlDto(productImageList);
     }
 }

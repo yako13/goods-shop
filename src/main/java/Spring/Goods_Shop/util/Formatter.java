@@ -3,7 +3,6 @@ package Spring.Goods_Shop.util;
 import Spring.Goods_Shop.enums.CheckoutState;
 import Spring.Goods_Shop.enums.DeliveryCompany;
 import Spring.Goods_Shop.enums.DeliveryState;
-import Spring.Goods_Shop.enums.ProductCategory;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -35,15 +34,6 @@ public class Formatter {
             case CJ -> "대한통운";
             case POST -> "우체국택배";
             case HANJIN -> "한진택배";
-        };
-    }
-
-    public static String getProductCategory(ProductCategory productCategory) {
-        return switch(productCategory) {
-            case PHOTO_CARD -> "포토카드";
-            case ACCESSORIES -> "악세서리";
-            case COMPUTER_SUPPLIES -> "컴퓨터용품";
-            case ETC -> "기타";
         };
     }
 
