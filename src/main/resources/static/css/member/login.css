@@ -53,40 +53,6 @@ h1 {
     transition: .2s linear;
 }
 
-.links {
-    list-style-type: none;
-
-    li {
-        display: inline-block;
-        margin: 0 20px 0 0;
-        transition: .2s linear;
-
-        &:nth-child(2) {
-            opacity: .6;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        &:nth-child(3) {
-            opacity: .6;
-            float: right;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        a {
-            text-decoration: none;
-            color: #8a8a8a;
-            font-weight: bolder;
-            text-align: center;
-            cursor: pointer;
-        }
-    }
-}
 
 
 .loginForm {
@@ -209,7 +175,8 @@ h1 {
 .find {
     padding-top: 10px;
     color: rgb(102, 102, 102);
-    span{
+
+    span {
         padding-top: 2px;
     }
 
@@ -263,6 +230,24 @@ h1 {
 
         &:hover {
             color: gray;
+        }
+    }
+}
+
+.join {
+    margin-top: 5px;
+    text-align: center;
+
+    span {
+        margin-right: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            font-weight: 600;
         }
     }
 }

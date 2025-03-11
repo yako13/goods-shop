@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매자 헤더</title>
-
 </head>
 
 <body>
@@ -21,8 +20,8 @@
             </div>
 
             <div>
-                <p>구름별 공방</p>
-                <p>Administrator</p>
+                <p class="adminText siteName">구름별 공방</p>
+                <p class="adminText">Administrator</p>
             </div>
         </div>
 
@@ -30,11 +29,11 @@
 
             <div class="homePage">
 
-                <a th:href="@{/}" class=""><img th:src="@{/images/home3.svg}" alt="">홈페이지</a>
+                <a th:href="@{/}"><i class="fa-solid fa-house"></i><span>홈페이지</span></a>
             </div>
 
             <div class="logout">
-                <a th:href="@{/master/logout}" >로그아웃</a>
+                <a th:href="@{/logout}" ><i class="fa-solid fa-power-off"></i><span>로그아웃</span></a>
             </div>
 
         </div>

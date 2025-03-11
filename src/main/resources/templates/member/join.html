@@ -13,22 +13,13 @@
 </head>
 
 <body class="text-center">
-    <header th:replace="/fragments/memberHeader::memberHeader"></header>
     <div class="container">
         <div class="title">
             <h1>회원가입</h1>
         </div>
-        <ul class="links">
-            <li>
-                <a th:href="@{/login}" id="signin">로그인</a>
-            </li>
-            <li>
-                <a th:href="@{/join}" id="signup">회원가입</a>
-            </li>
-
-            <span id="star">*는 필수입니다.</span>
-
-        </ul>
+        <div class="starArea">
+        <span id="star">*는 필수입니다.</span>
+    </div>
         <form th:action="@{/join}" th:method="post" enctype="multipart/form-data" class="joinForm">
             <div id="hiddenIdArea">
                 <p>아이디는 영소문자, 숫자조합으로 6~11자리여야 합니다.</p>
@@ -142,7 +133,6 @@
             </div>
         </form>
     </div>
-    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script th:src="@{/js/member/join.js}"></script>
 </body>

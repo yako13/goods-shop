@@ -37,40 +37,7 @@ h1 {
     transition: .2s linear;
 }
 
-.links {
-    list-style-type: none;
 
-    li {
-        display: inline-block;
-        margin: 0 20px 0 0;
-        transition: .2s linear;
-
-        &:nth-child(1) {
-            opacity: .6;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        &:nth-child(3) {
-            opacity: .6;
-            float: right;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        a {
-            text-decoration: none;
-            color: #8a8a8a;
-            font-weight: bolder;
-            text-align: center;
-            cursor: pointer;
-        }
-    }
-}
 
 .joinForm {
     width: 100%;
@@ -269,12 +236,7 @@ textarea {
 }
 
 #star {
-    padding-left: 120px;
     color: red;
-
-    &:hover {
-        color: red;
-    }
 }
 
 
@@ -309,29 +271,35 @@ textarea {
     }
 }
 
-.error{
+.error {
 
     width: 380px;
 }
 
-        #hiddenIdArea,
-        #hiddenPasswordArea,
-        #hiddenNameArea,
-        #hiddenPhoneArea {
-            display: none;
-            border: 1px #ccc solid;
-            position: absolute;
-            right: 440px;
-            background-color: white;
-            z-index: 10;
-            width: 200px;
-            padding: 20px;
-        }
+#hiddenIdArea,
+#hiddenPasswordArea,
+#hiddenNameArea,
+#hiddenPhoneArea {
+    display: none;
+    border: 1px #ccc solid;
+    position: absolute;
+    right: 440px;
+    background-color: white;
+    z-index: 10;
+    width: 200px;
+    padding: 20px;
+}
 
-        .container {
-            position: relative;
-        }
+.container {
+    position: relative;
+}
 
-        #hiddenPhoneArea {
-            right: 210px;
-        }
+#hiddenPhoneArea {
+    right: 210px;
+}
+
+
+.starArea{
+    width: 415px;
+    text-align: end;
+}

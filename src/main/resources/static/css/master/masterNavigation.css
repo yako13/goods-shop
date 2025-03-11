@@ -24,7 +24,7 @@
   z-index: 1;
   top: 50px;
   left: 0;
-  background-color: #fff8f8;
+  background-color: #5c677d;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -33,12 +33,13 @@
   align-items: center;
   justify-content: flex-start;
 }
+
 .sidenav a {
   width: 250px;
   padding: 15px 0;
   text-decoration: none;
   font-size: 25px;
-  color: #363636;
+  color: white;
   display: block;
   margin-bottom: 10px;
   transition: 0.3s;
@@ -46,7 +47,7 @@
 }
 
 .sidenav a:hover {
-  background-color: #FFCFD2;
+  background-color: #7d8597;
 }
 
 .sidenav .closebtn {
@@ -60,9 +61,13 @@
 .SlideNavOpenDiv {
   position: absolute;
   transition: all 0.3s ease-in-out;
-  top: 430px;
+  top: 70px;
   left: -50px;
   z-index: 1;
+
+  i {
+    color: #5c677d;
+  }
 
 }
 
@@ -74,9 +79,13 @@
 
 .SlideNavCloseDiv {
   position: absolute;
-  top: 380px;
+  top: 20px;
   left: 190px;
   z-index: 20;
+
+  i {
+    color: white;
+  }
 }
 
 
@@ -86,6 +95,7 @@
   width: 35px;
   height: 35px;
   cursor: pointer;
+
 }
 
 .SlideClose:hover {
@@ -97,11 +107,6 @@
   transform: translateX(6px);
 
 }
-
-
-
-
-
 
 main {
   transition: margin-left .5s;
@@ -117,5 +122,3 @@ main {
     font-size: 18px;
   }
 }
-
-/* 네비끝 */
