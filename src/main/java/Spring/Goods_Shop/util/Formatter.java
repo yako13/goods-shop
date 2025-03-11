@@ -3,6 +3,7 @@ package Spring.Goods_Shop.util;
 import Spring.Goods_Shop.enums.CheckoutState;
 import Spring.Goods_Shop.enums.DeliveryCompany;
 import Spring.Goods_Shop.enums.DeliveryState;
+import Spring.Goods_Shop.enums.ProductCategory;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -36,6 +37,14 @@ public class Formatter {
             case HANJIN -> "한진택배";
         };
     }
+    public static String getProductCategory(ProductCategory productCategory) {
+        return switch(productCategory) {
+            case PHOTO_CARD -> "포토카드";
+            case ACCESSORIES -> "악세서리";
+            case COMPUTER_SUPPLIES -> "컴퓨터용품";
+            case ETC -> "기타";
+        };
+    }
 
     public static String changeBigDecimalFormat(BigDecimal bigDecimal){
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
@@ -49,5 +58,15 @@ public class Formatter {
 
     public static String getCheckoutCode(LocalDateTime localDateTime){
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss_"));
+    }
+
+    public static String changePhoneNumber(String phoneNumber){
+        if(phoneNumber.length()==11){
+            return phoneNumber.substring(0,3)+"-"+phoneNumber.substring(3,7)+"-"+phoneNumber.substring(7,11);
+        }
+        else if(phoneNumber.length()==10){
+            return phoneNumber.substring(0,3)+"-"+phoneNumber.substring(3,6)+"-"+phoneNumber.substring(6,10);
+        }
+        throw new RuntimeException("잘못된 전화번호");
     }
 }

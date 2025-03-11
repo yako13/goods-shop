@@ -108,10 +108,10 @@ public class CheckoutService {
                .cardCode(cardCode)
                .productList(productList)
                .ordererName(checkout.getMember().getName())
-               .ordererPhoneNumber(checkout.getMember().getPhoneNumber())
+               .ordererPhoneNumber(Formatter.changePhoneNumber(checkout.getMember().getPhoneNumber()))
                .ordererId(checkout.getMember().getUserId())
                .recipientName(checkout.getCheckoutName())
-               .recipientPhoneNumber(checkout.getCheckoutPhoneNumber())
+               .recipientPhoneNumber(Formatter.changePhoneNumber(checkout.getCheckoutPhoneNumber()))
                .address(address)
                .deliveryMemo(checkout.getCheckoutDeliveryMemo())
                .build();

@@ -51,7 +51,7 @@
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+<!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
     <main class="container container__main">
       <p class="p-text">{search-name}</p>
       <hr />
@@ -71,7 +71,7 @@
                 class="product-image"
                 th:src="${productList.mainImagePath}" />
               <p th:text="${productList.name}"></p>
-              <p class="p__small">30,000 원</p>
+              <p th:text="${productList.price}" class="p__small"></p>
             </div>
           </a>
         </div>

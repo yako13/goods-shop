@@ -27,6 +27,7 @@ public class CheckoutController {
         Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(pageable);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
+        model.addAttribute("total",responseDtos.getTotalElements());
         return "checkout/masterList";
     }
 
@@ -47,12 +48,16 @@ public class CheckoutController {
        return "redirect:/master/checkout/details/"+checkoutDetailsDto.getId();
     }
 
-    @GetMapping("/master/checkout/details/{id}/delete")
+    @GetMapping("/master/checkout/{id}/delete")
     public String deleteCheckout(@PathVariable Long id, RedirectAttributes rttr){
         checkoutService.deleteCheckout(id);
         rttr.addFlashAttribute("alert","삭제가 완료되었습니다.");
         return "redirect:/master/checkout/list";
     }
+
+
+
+    //-Han Part- 시작
 
     //    테스트 페이지 이동 컨트롤러
     @GetMapping("/test10")
@@ -67,7 +72,7 @@ public class CheckoutController {
     public String checkoutGo(HttpServletRequest request, Model model) {
 
 
-        return "pages/checkout";
+        return "checkout/checkout";
     }
 
     //주문 완료 페이지로 이동
@@ -75,7 +80,7 @@ public class CheckoutController {
     public String checkoutCompleteGo(HttpServletRequest request, Model model) {
 
 
-        return "pages/checkoutComplete";
+        return "checkout/checkoutComplete";
     }
 
     //주문 목록 페이지로 이동
@@ -83,15 +88,17 @@ public class CheckoutController {
     public String checkoutListGo(HttpServletRequest request, Model model) {
 
 
-        return "pages/checkoutList";
+        return "checkout/checkoutList";
     }
 
     //주문 목록 상세 페이지로 이동
     @GetMapping("/member/checkout/details/")
     public String checkoutDetailsGo(HttpServletRequest request, Model model) {
 
-        return "pages/checkoutListDetail";
+        return "checkout/checkoutListDetail";
     }
+
+    //-Han Part- 끝
 
 
 }

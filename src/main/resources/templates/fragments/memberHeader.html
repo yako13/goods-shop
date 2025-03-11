@@ -34,11 +34,10 @@
             <!-- 로그아웃시 나타나는 헤더부분 시작-->
 
 
-            <!-- <div class="HanHeaderButton">
-              <a href="">로그인</a>
-              <a href="">회원가입</a>
-            </div> -->
-
+            <div class="HanHeaderButton" th:if="${session.memberId==null}">
+              <a th:href="@{/login}">로그인</a>
+              <a th:href="@{/join}">회원가입</a>
+            </div>
 
             <!-- 로그아웃시 나타나는 헤더부분 끝-->
 
@@ -46,12 +45,12 @@
 
             <!-- 로그인시 나타나는 헤더부분 시작-->
 
-            <div class="HanHeaderButton">
+            <div class="HanHeaderButton" th:if="${session.memberId!=null}">
 
                 <div class="Handropdown">
 
 
-                    <a href="#" class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'mypageDropdown')">
+                    <a class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'mypageDropdown')">
                         <img th:src="@{/images/user1.svg}" alt="" width="24px" height="auto" class="HanHeaderHover"></a>
 
 
@@ -64,18 +63,18 @@
                             <div class="HanDrodBoxNameDiv">
 
                                 <div>
-                                    <p class="HanHeaderUserName">홍길동님</p>
+                                    <p class="HanHeaderUserName" th:if="${name!=null}">[[${name}]]님</p>
                                     <a href="/logout">로그아웃</a>
                                 </div>
 
-                                <p class="HanHeaderUserId">id@gmail.com</p>
+                                <p class="HanHeaderUserId" th:text="${userId}"></p>
 
                             </div>
 
                         </div>
 
                         <div class="HandropdownBox" id="">
-                            <a href="/profile">마이페이지</a>
+                            <a th:href="@{/init/member}">마이페이지</a>
                             <a href="/settings">주문목록</a>
                             <a href="/logout">결제 등록</a>
                             <a href="/logout">배송지 등록</a>

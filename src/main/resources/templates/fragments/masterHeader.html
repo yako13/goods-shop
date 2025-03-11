@@ -17,14 +17,12 @@
         <div class="headerTitle">
 
             <div class="headerTitleMenu">
-                <a href="">
                     <i class="fa-solid fa-user-tie"></i>
-                </a>
             </div>
 
             <div>
                 <p>구름별 공방</p>
-                <p>Adiministrator</p>
+                <p>Administrator</p>
             </div>
         </div>
 
@@ -32,11 +30,11 @@
 
             <div class="homePage">
 
-                <a href="@{/}" class=""><img th:src="@{/images/home3.svg}" alt="">홈페이지</a>
+                <a th:href="@{/}" class=""><img th:src="@{/images/home3.svg}" alt="">홈페이지</a>
             </div>
 
             <div class="logout">
-                <a href="@{/logout}" class="">로그아웃</a>
+                <a th:href="@{/master/logout}" >로그아웃</a>
             </div>
 
         </div>

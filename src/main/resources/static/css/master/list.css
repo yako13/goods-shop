@@ -173,6 +173,9 @@
 
  a{
   text-decoration: none;
+  b{
+  color:black;
+  }
  }
 
  .active {

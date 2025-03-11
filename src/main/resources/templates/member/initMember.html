@@ -15,6 +15,7 @@
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 
 <div class="container">
     <div class="textArea">
@@ -38,6 +39,7 @@
 
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+<script th:src="@{/js/member/alert.js}"></script>
 </body>
 
 </html>

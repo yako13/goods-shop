@@ -82,9 +82,6 @@ body {
 
         }
 
-        input:focus {
-            box-shadow: 5px 5px 15px #CDDAFD;
-        }
 
         input {
             border: 1px solid #ccc;

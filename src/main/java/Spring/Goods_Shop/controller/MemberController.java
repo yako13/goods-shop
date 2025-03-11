@@ -32,6 +32,11 @@ public class MemberController {
         return "member/login";
     }
 
+    @GetMapping("/master/login")
+    String createMasterLoginPage(){
+        return "member/masterLogin";
+    }
+
     //회원가입 화면
     @GetMapping("/join")
     String createJoinPage(){
@@ -86,7 +91,7 @@ public class MemberController {
         return "member/edit";
 
     }
-    
+
     //마이페이지 접속 시 비밀번호 일치 여부 확인
     @PostMapping("/init/member")
     String initMyPage(MemberDto memberDto, HttpServletRequest request, Model model){
@@ -94,7 +99,7 @@ public class MemberController {
         MemberResponseDto memberResponseDto = memberService.initMyPage(memberDto,request);
 
         if(memberResponseDto==null) {
-            model.addAttribute("error","비밀번호가 일치하지 않습니다.");
+            model.addAttribute("alert","비밀번호가 일치하지 않습니다.");
             return "member/initMember";
         }
         model.addAttribute("id",memberResponseDto.getMemberPK());
@@ -123,7 +128,6 @@ public class MemberController {
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
-
             return "member/edit";
         }
 
@@ -176,8 +180,9 @@ public class MemberController {
 
     //계정 탈퇴
     @GetMapping("/account/cancellation")
-    String createAccountCancellationPage(HttpServletRequest request,RedirectAttributes rttr){
+    String createAccountCancellationPage(HttpServletRequest request,RedirectAttributes rttr,Model model){
        Member member =  memberService.getMemberEntity(request);
+       model.addAttribute("name",member.getName());
 
        if(member.getProvider()==null){
            return "member/accountCancellation";
