@@ -111,7 +111,7 @@
 }
 
 
-.HanRed input {
+.HanCardNewDiv input.HanRed{
   border: 1px solid #fc4545;
   box-shadow: 0 0 0 1px #fc4545;
 
@@ -126,6 +126,13 @@
 
 .hanNone .HanSignUpInfo {
   display: none;
+}
+
+.HanSignUpInfo {
+  margin: 3px 0;
+  color: #fc4545;
+  font-size: 12px;
+
 }
 
 #HanSignUpOk {

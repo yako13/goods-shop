@@ -276,6 +276,11 @@
   transition: all 0.3s ease;
 }
 
+.HanAddressPopNewIcon:hover{
+  transform: translateY(-3px);
+
+}
+
 .HanMemberDeliveryCheckDiv {
   display: flex;
   justify-content: flex-start;
@@ -319,3 +324,4 @@
 .HanCheckboxLi{
   margin-top: -5px;
 }
+

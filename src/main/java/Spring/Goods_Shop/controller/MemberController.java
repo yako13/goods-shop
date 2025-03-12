@@ -5,6 +5,7 @@ import Spring.Goods_Shop.dto.member.MemberDto;
 import Spring.Goods_Shop.dto.member.MemberEditDto;
 import Spring.Goods_Shop.dto.member.MemberResponseDto;
 import Spring.Goods_Shop.entity.Member;
+import Spring.Goods_Shop.service.ErrorService;
 import Spring.Goods_Shop.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -25,6 +26,8 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final ErrorService errorService;
 
     //로그인 화면
     @GetMapping("/login")
@@ -53,7 +56,7 @@ public class MemberController {
             model.addAttribute("name",memberAuthDto.getName());
             model.addAttribute("phoneNumber",memberAuthDto.getPhoneNumber());
 
-            Map<String, String> validatorResult = memberService.validateHandling(errors);
+            Map<String, String> validatorResult = errorService.validateHandling(errors);
 
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
@@ -123,7 +126,7 @@ public class MemberController {
             model.addAttribute("phoneNumber",memberEditDto.getPhoneNumber());
             model.addAttribute("userPassword",memberEditDto.getUserPassword());
 
-            Map<String, String> validatorResult = memberService.validateHandling(errors);
+            Map<String, String> validatorResult = errorService.validateHandling(errors);
 
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));

@@ -102,7 +102,7 @@ VALUES
 
 
 
-INSERT INTO checkout_Details (product_id, checkout_id, member_id, checkout_detail_price, checkout_detail_cnt)
+INSERT INTO checkout_details (product_id, checkout_id, member_id, checkout_detail_price, checkout_detail_cnt)
 VALUES
 ('1','1','1',20000,3),
 ('2','1','1',10000,4),

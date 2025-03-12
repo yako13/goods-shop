@@ -2,167 +2,356 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar WorkShop</title>
-    <link rel="stylesheet" href="css/memberCardNew.css">
-    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
-    <link rel="stylesheet" th:href="@{/css/member/memberCardNew.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudStar WorkShop</title>
+  <link rel="stylesheet" th:href="@{/css/member/memberCardNew.css}">
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+<style>
+  .errorArea{
 
+  }
+
+  .error{
+    color: red;
+    font-size: 12px;
+  }
+
+  #hiddenNameArea {
+   display: none; 
+    border: 1px #ccc solid;
+    position: absolute;
+    right: 520px;
+    background-color: white;
+    z-index: 10;
+    width: 200px;
+    padding: 20px;
+</style>
 </head>
 
 <body>
+  <header th:replace="/fragments/memberHeader::memberHeader"></header>
 
+  <!-- 메인 시작 -->
 
-<!-- 헤더 시작 -->
-
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
-
-<!-- 헤더 끝 -->
-
-
-<!-- 메인 시작 -->
-
-<div class="HanCardNewBodyDiv">
-
-    <!--메뉴바 시작-->
-
-    <div th:replace="/fragments/menuBar::menuBar"></div>
-
-    <!--메뉴바 끝-->
+  <div class="HanCardNewBodyDiv">
 
     <div class="HanCardNewBody">
 
-        <div class="HanCardNewDiv">
+      <div class="HanCardNewDiv">
 
-            <div class="">
+        <div class="">
 
-                <div class="HanCardNewLogoDiv">
+          <div class="HanCardNewLogoDiv">
 
-                    <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+            <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
 
-                </div>
+          </div>
 
-                <h1>CloudStar Workshop</h1>
-
-            </div>
-
-            <ul>
-                <form action="" method="post" id="HanSignUpForm">
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">카드 별칭</label>
-                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="카드 별칭을 입력해주세요"
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">카드 번호</label>
-
-                        <div class="HanCard">
-
-                            <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000"
-                                   class="HanSignUpInput">
-
-                            <input type="text" id="HanSignUpPw1" name="cardNum" placeholder="0000"
-                                   class="HanSignUpInput">
-
-                            <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000"
-                                   class="HanSignUpInput">
-
-                            <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="0000"
-                                   class="HanSignUpInput">
-
-                        </div>
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <div class="HanCardDateCvc">
-
-
-                            <div>
-
-                                <label for="HanSignUpPw2">유효기간</label>
-
-                                <div class="HanCardDate">
-                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="MM" required
-                                           class="HanSignUpInput">
-
-                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="YY" required
-                                           class="HanSignUpInput">
-
-                                </div>
-
-                            </div>
-
-                            <div>
-
-                                <label for="HanSignUpPw2">CVC</label>
-
-                                <div class="HanCVC">
-
-                                    <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="카드 뒷면 3자리 숫자"
-                                           required
-                                           class="HanSignUpInput">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
-
-                        <div class="HanCardCheckDiv">
-
-                            <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
-                            <label for="HanCheckbox"></label>
-                            <p>기본 결제 카드로 등록</p>
-                        </div>
-
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                </form>
-
-            </ul>
-
-            <div class="HanCardNewButton">
-                <button class="HanCancel" type="button">취소</button>
-                <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
-            </div>
+          <h1>CloudStar Workshop</h1>
 
         </div>
 
+        <ul>
+          <form th:action="@{/member/pay/create}" th:method="post" id="HanSignUpForm">
+            <input type="hidden" th:value="${session.memberId}" id="sessionId" name="memberId">
+
+
+            <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiTitle">
+              <div id="hiddenNameArea">
+                <p>카드 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+            </div>
+
+              <label for="HanSignUpPw1" id="hiddenName">카드 별칭</label>
+              <input type="text" name="nickName" id="HanCardNewLiTitleInput" placeholder="카드 별칭을 입력해주세요"
+                class="HanSignUpInput" maxlength="10" th:value="${nickName}">
+
+              <p class="HanSignUpInfo">카드 별칭을 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_nickName!=null}">
+                <p class="error" th:text="${valid_nickName}"></p>
+              </div>
+
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiNum">
+
+              <label for="HanSignUpPw1">카드 번호</label>
+
+              <div class="HanCard">
+
+                <input type="text" id="cardNum1" name="cardNum" placeholder="0000" class="HanSignUpInput"
+                  maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum1}">
+
+                <input type="text" id="cardNum2" name="cardNum" placeholder="0000" class="HanSignUpInput" maxlength="4"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum2}">
+
+                <input type="password" id="cardNum3" name="cardNum" placeholder="0000" class="HanSignUpInput" maxlength="4"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum3}">
+
+                <input type="password" id="cardNum4" name="cardNum" placeholder="0000" class="HanSignUpInput" maxlength="4"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum4}">
+
+              </div>
+
+              <p class="HanSignUpInfo">카드 번호를 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_cardNum!=null}">
+                <p class="error" th:text="${valid_cardNum}"></p>
+              </div>
+
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck ">
+
+              <div class="HanCardDateCvc">
+
+
+                <div>
+
+                  <label >유효기간</label>
+
+                  <div class="HanCardDate">
+                    <input type="text" id="expPeriod1" name="expPeriod" placeholder="MM" required
+                      class="HanSignUpInput" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                      th:value="${expPeriod1}">
+
+                    <input type="text" id="expPeriod2" name="expPeriod" placeholder="YY" required class="HanSignUpInput" maxlength="2"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${expPeriod2}">
+
+                  </div>
+
+                </div>
+
+                <div>
+
+                  <label for="HanSignUpPw3">CVC</label>
+
+                  <div class="HanCVC">
+
+                    <input type="password" id="HanSignUpPw3" name="cvc" placeholder="카드 뒷면 3자리 숫자" required
+                      class="HanSignUpInput" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                      th:value="${cvc}">
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <p class="HanSignUpInfo">유효기간과 cvc번호를 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_expPeriod!=null}">
+                <p class="error" th:text="${valid_expPeriod}"></p>
+              </div>
+              <div class="errorArea" th:if="${valid_cvc!=null}">
+                <p class="error" th:text="${valid_cvc}"></p>
+              </div>
+            </li>
+
+            <li class="HanSignUpLi hanNone  HanCheckboxLi">
+
+              <div class="HanCardCheckDiv">
+
+                <input type="checkbox" id="HanCheckbox" name="defaultCard" class="">
+                <label for="HanCheckbox"></label>
+                <p>기본 결제 카드로 등록</p>
+              </div>
+
+              <p class="HanSignUpInfo">기본 결제 카드로 등록버튼을 눌러주세요</p>
+
+            </li>
+
+
+
+          </form>
+
+        </ul>
+
+        <div class="HanCardNewButton">
+          <button class="HanCancel" type="button">취소</button>
+          <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+        </div>
+
+      </div>
+
     </div>
-</div>
-</div>
-<!-- 메인 끝 -->
+
+  </div>
+  <!-- 메인 끝 -->
+  <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+
+    $("#hiddenName").mouseover(function(){
+      $("#hiddenNameArea").css("display","block");
+    })
+
+    $("#hiddenName").mouseout(function(){
+      $("#hiddenNameArea").css("display","none");
+    })
+
+    $("#HanCardNewLiTitleInput").focus(function(){
+      $("#hiddenNameArea").css("display","block");
+    })
+
+    $("#HanCardNewLiTitleInput").focusout(function(){
+      $("#hiddenNameArea").css("display","none");
+    })
+
+    //기본결제카드 중복 여부 확인용
+    let check_bol = 0;
+
+    window.addEventListener("load", function () {
+
+      let inputs = document.querySelectorAll(".HanSignUpInput");
+
+      inputs.forEach(function (input) {
+        input.addEventListener("focusout", function () {
+          let parentLi = input.closest(".HanSignUpLi"); // 부모 li 요소 찾기
+          let warningText = parentLi.querySelector(".HanSignUpInfo"); // 경고 문구 찾기
+
+          if (input.value.trim() === "") {
+            input.classList.add("HanRed"); // 빨간 테두리 추가
+            if (warningText) warningText.style.display = "block"; // 경고 문구 표시
+          } else {
+            input.classList.remove("HanRed"); // 빨간 테두리 제거
+            if (warningText) warningText.style.display = "none"; // 경고 문구 숨김
+          }
+        });
+
+        //input에 값을 쓸때 빨간색 테두리와 경고문자 제거하는 함수 호출
+        input.addEventListener("input", function () {
+
+          let parentLi = input.closest(".HanSignUpLi");
+          let warningText = parentLi.querySelector(".HanSignUpInfo");
+
+          input.classList.remove("HanRed"); // 빨간 테두리 제거
+          if (warningText) warningText.style.display = "none"; // 경고 문구 숨김
+        });
+
+      });
+
+      $("#HanCheckbox").click(function () {
+        if ($("#HanCheckbox").is(":checked")) {
+
+          var params = {
+            memberId: $("#sessionId").val()
+          }
+
+          // ajax 통신
+          $.ajax({
+            type: "POST",            // HTTP method type(GET, POST) 형식
+            url: "/check/defaultCard",      // 컨트롤러에서 대기중인 URL 주소
+            data: params,            // Json 형식의 데이터
+            success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
+              if (res == "false") {
+                alert("이미 기본 결제 카드가 존재합니다.");
+                $("#HanCheckbox").val(false);
+                $("#HanCheckbox").prop("checked", false);
+                check_bol = 0;
+              }
+              else {
+                $("#HanCheckbox").val(true);
+                check_bol = 1;
+                $("#HanCheckbox").prop("checked", true);
+              }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옴
+              alert("통신 실패.")
+            }
+          });
+
+        }
+      })
+
+      const form = document.querySelector("#HanSignUpForm"); // 폼 선택 (폼 ID가 있는 경우)
+      const submitButton = document.querySelector("#HanSignUpSubmit"); // submit 버튼 선택
+
+      submitButton.addEventListener("click", function (event) {
+        let isValid = true; // 모든 필드가 유효한지 확인하는 변수
+
+        inputs.forEach(function (input) {
+          let parentLi = input.closest(".HanSignUpLi"); // 부모 li 요소 찾기
+          let warningText = parentLi.querySelector(".HanSignUpInfo"); // 경고 문구 찾기
+
+          if (input.value.trim() === "") {
+            input.classList.add("HanRed"); // 빨간 테두리 추가
+            if (warningText) warningText.style.display = "block"; // 경고 문구 표시
+            isValid = false; // 하나라도 비어 있으면 폼 제출 방지
+          } else {
+            input.classList.remove("HanRed"); // 빨간 테두리 제거
+            if (warningText) warningText.style.display = "none"; // 경고 문구 숨김
+          }
+        });
 
 
-<!-- 푸터 시작 -->
+        if($("#cardNum1").val().length !== 4){
+          $("#cardNum1").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#cardNum1").removeClass("HanRed");
+        }
 
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+        if($("#cardNum2").val().length !==4){
+          $("#cardNum2").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#cardNum2").removeClass("HanRed");
+        }
 
-<!-- 푸터 끝 -->
+        if($("#cardNum3").val().length !== 4){
+          $("#cardNum3").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#cardNum3").removeClass("HanRed");
+        }
+
+        if($("#cardNum4").val().length !==4){
+          $("#cardNum4").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#cardNum2").removeClass("HanRed");
+        }
+
+        if($("#expPeriod1").val().length !== 2){
+          $("#expPeriod1").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#expPeriod1").removeClass("HanRed");
+        }
+
+        if($("#expPeriod2").val().length !==2){
+          $("#expPeriod2").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#expPeriod2").removeClass("HanRed");
+        }
+
+        if($("#HanSignUpPw3").val().length !==3){
+          $("#HanSignUpPw3").addClass("HanRed");
+          isValid = false;
+        }
+        else{
+          $("#HanSignUpPw3").removeClass("HanRed");
+        }
+
+
+        if ((!isValid) && check_bol == 0) {
+          event.preventDefault(); // 폼 제출 방지
+        }
+      });
+
+
+    });
+
+
+
+  </script>
 
 
 </body>

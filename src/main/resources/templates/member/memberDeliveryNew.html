@@ -2,176 +2,332 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStarWorkshop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarCloud Workshop</title>
 
-    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
-    <link rel="stylesheet" th:href="@{/css/member/memberDeliveryNew.css}">
-
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+  <link rel="stylesheet" th:href="@{/css/member/memberDeliveryNew.css}">
 </head>
 
 <body>
 
-<!-- 헤더 시작 -->
 
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
 
-<!-- 헤더 끝 -->
 
+  <!-- 메인 시작 -->
 
-<!-- 메인 시작 -->
-
-<div class="HanMemDeliveryNewBodyDiv">
-
-    <!--메뉴바 시작-->
-
-    <div th:replace="/fragments/menuBar::menuBar"></div>
-
-    <!--메뉴바 끝-->
+  <div class="HanMemDeliveryNewBodyDiv">
 
     <div class="HanSignUpBody">
 
-        <div class="HanSignUpDiv">
+      <div class="HanSignUpDiv">
 
-            <div class="">
+        <div class="">
 
-                <div class="HanCardNewLogoDiv">
+          <div class="HanCardNewLogoDiv">
 
-                    <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+            <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
 
-                </div>
+          </div>
 
-                <h1>CloudStar Workshop</h1>
-
-            </div>
-
-            <ul>
-                <!-- <div>
-                <a href="">배송지 목록</a>
-                <p> > </p>
-                <a href="">배송지 작성</a>
-              </div> -->
-
-                <form action="" method="post" id="HanSignUpForm">
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">배송지 별칭</label>
-                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="배송지 별칭을 입력해주세요"
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">받는분 성함</label>
-                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="성함을 입력해주세요"
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw2">받는분 연락처</label>
-                        <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="연락처를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpName">우편번호</label>
-                        <input type="text" id="HanSignUpName" name="cardName" placeholder="우편번호를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <a><i class="HanAddressPopNewIcon"></i></a>
-
-                        <p class="HanSignUpInfo">이름을 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpName">도로명 주소,지번 주소</label>
-                        <input type="text" id="HanSignUpName" name="cardName" placeholder="주소를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">이름을 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPhone">상세 주소</label>
-                        <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="상세 주소를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPhone">배송 요청 사항</label>
-                        <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="배송 요청 사항을 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
-
-                        <div class="HanMemberDeliveryCheckDiv">
-
-                            <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
-                            <label for="HanCheckbox"></label>
-                            <p>기본 배송지로 등록</p>
-                        </div>
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                </form>
-
-            </ul>
-
-            <div class="HanSignUpButton">
-                <button class="HanCancel" type="button">취소</button>
-                <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
-            </div>
+          <h1>CloudStar Workshop</h1>
 
         </div>
 
+        <ul>
+          <!-- <div>
+          <a href="">배송지 목록</a>
+          <p> > </p>
+          <a href="">배송지 작성</a>
+        </div> -->
+
+          <form th:action="@{/member/delivery/create}" th:method="post" id="HanSignUpForm">
+
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >배송지 별칭</label>
+              <input type="text" name="adressName" placeholder="배송지 별칭을 입력해주세요" class="HanSignUpInput">
+
+              <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
+
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >받는분 성함</label>
+              <input type="text"  name="recipientName" placeholder="성함을 입력해주세요" class="HanSignUpInput">
+
+              <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
+
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >받는분 연락처</label>
+              <input type="tel"  name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput">
+
+              <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >우편번호</label>
+              <input type="text" id="HanZipcodeValue" name="postCode" placeholder="우편번호를 입력해주세요" readonly
+                class="HanSignUpInput">
+
+              <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
+
+              <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >도로명 주소,지번 주소</label>
+              <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
+                class="HanSignUpInput">
+
+              <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label >상세 주소</label>
+              <input type="tel" id="HanDetailAddress" name="detailAddress" placeholder="상세 주소를 입력해주세요"
+                class="HanSignUpInput">
+
+              <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone ">
+
+              <label >배송 요청 사항</label>
+              <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50">
+
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi ">
+
+              <div class="HanMemberDeliveryCheckDiv ">
+
+                <input type="checkbox" id="HanCheckbox" name="defaultAddress" class="HanSignUpInput">
+                <label for="HanCheckbox"></label>
+                <p>기본 배송지로 등록</p>
+
+              
+              </div>
+
+              <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
+
+            </li>
+
+
+
+          </form>
+
+        </ul>
+
+        <div class="HanSignUpButton">
+          <button class="HanCancel" type="reset">취소</button>
+          <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+        </div>
+
+      </div>
+
     </div>
 
-</div>
-</div>
-<!-- 메인 끝 -->
+  </div>
+  <!-- 메인 끝 -->
 
-
-<!-- 푸터 시작 -->
 
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
-<!-- 푸터 끝 -->
+  <script>
 
+
+    //필수 입력칸의 LiCheck 클래스가있는 li
+    const HanSignUpLiList = document.querySelectorAll('.LiCheck');
+
+      //필수 입력칸 HanSignUpInput 클래스가 있는 input
+    const HanSignUpInputList = document.querySelectorAll('.HanSignUpInput');
+
+    //HanSignUpSubmit 폼의 submit 버튼
+    const HanSignUpSubmit = document.querySelector('#HanSignUpSubmit');
+
+    // HanSignUpSubmit.addEventListener('click', HanSignUpValueCheck);
+
+    // HanSignUpSubmit.addEventListener('submit', HanSignUpValueCheck());
+
+    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
+    function HanSignUpValueCheckAll() {
+
+      let value1 = 0;
+
+      for (let i = 0; i < HanSignUpLiList.length; i++) {
+
+        if (HanSignUpInputList[i].value === "") {
+          //input박스를 빨간색으로 보여주고
+          //경고 문자를 보여준다
+          HanSignUpLiList[i].classList.add('HanRed');
+          HanSignUpLiList[i].classList.remove('hanNone');
+          value1 = value1 + 1;
+
+        } else {
+          //input박스의 빨간색제거
+          //경고 문자 안보이게
+          HanSignUpLiList[i].classList.remove('HanRed');
+          HanSignUpLiList[i].classList.add('hanNone');
+        }
+      };
+
+      return value1;
+    };
+
+    //창 로드시 필수 입력칸에 이벤트 걸어준다
+    window.addEventListener('load', focusEvent);
+
+
+    function focusEvent() {
+      // 필수 입력칸에 focusout시 값이 다 있는지 체크
+      for (let i = 0; i < HanSignUpLiList.length; i++) {
+
+        HanSignUpInputList[i].addEventListener('focusout', function () {
+
+          HanSignUpValueCheck(i);
+
+        });
+
+
+      }
+    }
+
+    function HanSignUpValueCheck(i) {
+
+      if (HanSignUpInputList[i].value === "") {
+        //input박스를 빨간색으로 보여주고
+        //경고 문자를 보여준다
+        HanSignUpLiList[i].classList.add('HanRed');
+        HanSignUpLiList[i].classList.remove('hanNone');
+      } else {
+        //input박스의 빨간색제거
+        //경고 문자 안보이게
+        HanSignUpLiList[i].classList.remove('HanRed');
+        HanSignUpLiList[i].classList.add('hanNone');
+      }
+
+
+    }
+
+    //회원가입버튼 누를시 검사하는 메서드 호출
+    HanSignUpSubmit.addEventListener('click', HanSignUpSubmitCheck);
+
+    //회원가입버튼 누를시 검사하고 submit 하는 메서드
+
+
+    //1. 필수입력창에 값을 다 입력했는지
+
+    function HanSignUpSubmitCheck(e) {
+
+
+      e.preventDefault(); // 폼 제출 방지
+
+
+      //1. 필수입력창에 값을 다 입력했는지
+      let ValueCheck = HanSignUpValueCheckAll();
+
+ 
+
+      if (ValueCheck === 0) {
+
+        document.getElementById("HanSignUpForm").submit();
+
+      } else {
+        return;
+      }
+
+    };
+
+    //HanSignUpLiList에  값을 쓸때 빨간색 테두리와 경고문자 제거하는 함수 호출
+    HanSignUpLiList.forEach((input, i) => {
+      input.addEventListener('input', () => HanSignUpWrite(i));
+    });
+
+    //input에 값을 쓸때 빨간색 테두리와 경고문자 제거
+    function HanSignUpWrite(i) {
+
+      HanSignUpLiList[i].classList.remove('HanRed');
+      HanSignUpLiList[i].classList.add('hanNone');
+
+    }
+
+
+  </script>
+
+<!-- 다음 우편번호 주소찾기 API연결 사이트.-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+
+  //우편번호 및 주소찾기, 다음 API이용
+  function sample6_execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var addr = ''; // 주소 변수
+        var extraAddr = ''; // 참고항목 변수
+
+        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+          addr = data.roadAddress;
+        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+          addr = data.jibunAddress;
+        }
+
+        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+        if (data.userSelectedType === 'R') {
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraAddr !== '') {
+            extraAddr = ' (' + extraAddr + ')';
+          }
+          // 조합된 참고항목을 해당 필드에 넣는다.
+          //document.getElementById("sample6_extraAddress").value = extraAddr;
+
+        } else {
+          // document.getElementById("sample6_extraAddress").value = '';
+        }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("HanZipcodeValue").value = data.zonecode;
+        document.getElementById("HanAddressValue").value = addr;
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById("HanDetailAddress").focus();
+
+      }
+    }).open();
+  }
+</script>
 
 </body>
 

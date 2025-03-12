@@ -30,18 +30,6 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * 오류가 발생한 필드와, 그 필드 오류 메세지를 출력하기 위해 리스트에 추가
-     */
-    public Map<String, String> validateHandling(Errors errors) {
-        Map<String, String> validatorResult = new HashMap<>();
-
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
-        }
-        return validatorResult;
-    }
 
     /**
      * 회원가입
@@ -225,6 +213,9 @@ public class MemberService {
 
     }
 
+    /**
+     * SNS계정 가입자 탈퇴
+     */
     public void tryToCancellationSNSAccount(HttpServletRequest request) {
         Member member = getMemberEntity(request);
 
@@ -235,6 +226,9 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    /**
+     * 폼 가입자 탈퇴
+     */
     public boolean tryToCancellationAccount(MemberAuthDto memberDto, HttpServletRequest request) {
         Member member = getMemberEntity(request);
 
@@ -250,4 +244,5 @@ public class MemberService {
 
         return true;
     }
+
 }
