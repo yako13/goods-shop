@@ -46,6 +46,11 @@ public class CheckoutService {
                 productInfo=productName+"외 "+ (length-1) +"종";
             }
 
+            String modifiedAt = "";
+            if(checkout.getModifiedAt() != null){
+                modifiedAt=Formatter.getLocalDate(checkout.getModifiedAt());
+            }
+
             return CheckoutResponseDto.builder()
                     .id(checkout.getId())
 //                    .checkoutCode()
@@ -64,7 +69,7 @@ public class CheckoutService {
                     .checkoutStep(Formatter.getCheckoutState(checkout.getCheckoutStep()))
                     .checkoutTotalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
                     .createdAt(Formatter.getLocalDate(checkout.getCreatedAt()))
-                    .modifiedAt(Formatter.getLocalDate(checkout.getModifiedAt()))
+                    .modifiedAt(modifiedAt)
                     .build();
         }));
     }
@@ -79,9 +84,6 @@ public class CheckoutService {
 
        Checkout checkout = optionalCheckout.get();
 
-       //카드번호
-       String cardCode = checkout.getCheckoutCardNum().substring(0,4)+"-"+checkout.getCheckoutCardNum().substring(4,8)+"-****-****";
-
        //해당 주문번호의 주문상세를 리스트로 가져옴
        List<CheckoutDetails> checkoutDetailsList = checkoutDetailsRepository.findALLByCheckoutId(id);
 
@@ -92,6 +94,13 @@ public class CheckoutService {
 
         //배송지
         String address = "("+ checkout.getCheckoutZipCode()+") " + checkout.getCheckoutAddress();
+
+
+        String ordererPhoneNumber="";
+
+        if(checkout.getMember().getPhoneNumber() !=null){
+            ordererPhoneNumber=Formatter.changePhoneNumber(checkout.getMember().getPhoneNumber());
+        }
 
 
        return CheckoutDetailsResponseDto.builder()
@@ -105,10 +114,10 @@ public class CheckoutService {
                .totalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
                .totalProductCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay().subtract(checkout.getCheckoutDeliveryCost())))
                .deliveryCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutDeliveryCost()))
-               .cardCode(cardCode)
+               .cardCode(Formatter.changeCardNumber(checkout.getCheckoutCardNum()))
                .productList(productList)
                .ordererName(checkout.getMember().getName())
-               .ordererPhoneNumber(Formatter.changePhoneNumber(checkout.getMember().getPhoneNumber()))
+               .ordererPhoneNumber(ordererPhoneNumber)
                .ordererId(checkout.getMember().getUserId())
                .recipientName(checkout.getCheckoutName())
                .recipientPhoneNumber(Formatter.changePhoneNumber(checkout.getCheckoutPhoneNumber()))

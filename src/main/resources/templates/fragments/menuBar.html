@@ -12,15 +12,15 @@
             <hr class="HanMenuBarHr">
 
             <div class="HanMenuBarDiv">
-                <a th:href="@{/member/checkout/list}">주문 목록</a>
+                <a th:href="@{/member/checkout/list}" id="checkoutLink">주문 목록</a>
 
-                <a th:href="@{/init/member}">회원 수정</a>
-
-
-                <a th:href="@{/member/delivery/list}">배송지 관리</a>
+                <a th:href="@{/init/member}" id="editLink">회원 수정</a>
 
 
-                <a th:href="@{/member/pay/list}">결제 관리</a>
+                <a th:href="@{/member/delivery/list}" id="deliveryLink">배송지 관리</a>
+
+
+                <a th:href="@{/member/pay/list}" id="payLink">결제 관리</a>
 
 
             </div>

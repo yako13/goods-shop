@@ -20,26 +20,6 @@ VALUES
 ('동물 캐릭터 메모지','2025-02-02',25000,70,'고양아 멍멍해봐~','ETC'),
 ('멍뭉이 안경닦이 4종','2025-02-02',45000,80,'당싱은 멍뭉이의 안경닦이가 가징공싶엉집니당','ETC');
 
---상품 이미지 테이블
-
---INSERT INTO product_image(product_id,image_Type,image_path)
---VALUES
---('1','MAIN','C:/images/product1.png'),
---('1','SUB','C:/images/product1-1.png'),
---('1','SUB','C:/images/product1-2.png'),
---('1','SUB','C:/images/product1-3.png'),
---('1','DESC','C:/images/product1-D.png'),
---('2','MAIN','C:/images/product2.png'),
---('2','SUB','C:/images/product2-1.png'),
---('2','SUB','C:/images/product2-2.png'),
---('2','SUB','C:/images/product2-3.png'),
---('2','DESC','C:/images/product2-D.png'),
---('3','MAIN','C:/images/product3.png'),
---('3','SUB','C:/images/product3-1.png'),
---('3','SUB','C:/images/product3-2.png'),
---('4','DESC','C:/images/product3-D.png'),
---('5','DESC','C:/images/product3-D.png');
-
 --장바구니 테이블
 
 INSERT INTO cart(member_id,product_id,cart_cnt)

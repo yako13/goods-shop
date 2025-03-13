@@ -69,4 +69,8 @@ public class Formatter {
         }
         throw new RuntimeException("잘못된 전화번호");
     }
+
+    public static String changeCardNumber(String cardNumber){
+        return cardNumber.substring(0,4)+"-"+cardNumber.substring(4,8)+"-****-****";
+    }
 }

@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>☁️CloudStar WorkShop 계정관리</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/initMyPage.css">
@@ -15,6 +15,7 @@
 
 <body class="text-center">
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<div th:replace="/fragments/menuBar::menuBar"></div>
 <input type="hidden" th:value="${alert}" id="dataAlert">
 
 <div class="container">
@@ -35,7 +36,7 @@
     </form>
 
 </div>
-
+</div>
 
 </div>
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>

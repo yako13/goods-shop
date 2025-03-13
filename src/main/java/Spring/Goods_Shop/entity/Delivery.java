@@ -10,6 +10,7 @@ import org.hibernate.annotations.Comment;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Entity
 public class Delivery extends BaseTime {

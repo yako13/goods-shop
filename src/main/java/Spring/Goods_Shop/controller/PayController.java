@@ -1,7 +1,10 @@
 package Spring.Goods_Shop.controller;
 
 import Spring.Goods_Shop.dto.member.PayDto;
+import Spring.Goods_Shop.dto.member.PayResponseDto;
+import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.ErrorService;
+import Spring.Goods_Shop.service.MemberService;
 import Spring.Goods_Shop.service.PayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -9,9 +12,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -19,6 +26,8 @@ import java.util.Map;
 public class PayController {
 
     private final PayService payService;
+
+    private final MemberService memberService;
 
     private final ErrorService errorService;
 
@@ -76,7 +85,51 @@ public class PayController {
         }
 
         payService.savePay(payDto, request);
-        return "/member/memberCardList";
+        return "redirect:/member/pay/list";
+    }
+
+    //카드 목록 페이지로 이동
+    @GetMapping("/member/pay/list")
+    public String memberPayList(HttpServletRequest request, Model model) {
+
+        Member member = memberService.getMemberEntity(request);
+
+        model.addAttribute("userId",member.getUserId());
+        model.addAttribute("name",member.getName());
+
+        List<PayResponseDto> responseDtos = payService.getPayList(member);
+
+        model.addAttribute("payList",responseDtos);
+
+        return "member/memberCardList";
+    }
+
+    @GetMapping("/member/pay/delete/{id}")
+    @ResponseBody
+    public String deletePayCard(@PathVariable Long id){
+        payService.deletePayCard(id);
+        return "1000";
+    }
+
+    //카드 등록 페이지로 이동
+    @GetMapping("/member/pay/create")
+    public String memberPayCreatePage(HttpServletRequest request, RedirectAttributes rttr,Model model) {
+
+
+
+          Member member = memberService.getMemberEntity(request);
+
+          model.addAttribute("userId",member.getUserId());
+          model.addAttribute("name",member.getName());
+
+
+          //배송지 3개 이상 등록되어있을 경우 결제 등록 페이지로 못들어가게 막음
+          if(!payService.checkCardCount(member)) {
+              rttr.addFlashAttribute("alert","이미 결제수단이 3개 등록되어있습니다. 결제수단은 최대 3개까지 등록 가능합니다.");
+              return "redirect:/member/pay/list";}
+
+
+        return "member/memberCardNew";
     }
 
 }

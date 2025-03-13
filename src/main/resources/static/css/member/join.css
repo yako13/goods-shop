@@ -229,7 +229,7 @@ textarea {
 }
 
 .namePhoneLabel {
-    width: 284px;
+    width: 310px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -240,12 +240,7 @@ textarea {
 }
 
 
-.passwordArea {
-    i {
-        margin-left: 300px;
-        color: #8a8a8a;
-    }
-}
+
 
 .labelId {
     display: block;
@@ -290,6 +285,7 @@ textarea {
     padding: 20px;
 }
 
+
 .container {
     position: relative;
 }
@@ -302,4 +298,24 @@ textarea {
 .starArea{
     width: 415px;
     text-align: end;
+}
+
+label {
+    i {
+        color: rgb(133, 133, 133);
+    }
+}
+
+#hiddenPassword {
+    display: inline-block;
+}
+
+.passwordArea {
+    i {
+        display: inline-block;
+        margin-left: 1px;
+    }
+    .fa-eye,.fa-eye-slash{
+        margin-left: 270px;
+    }
 }

@@ -158,7 +158,7 @@
                 <table class="rwd-table productTable">
                     <tbody>
                         <tr>
-                            <th>번호</th>
+                            <th style="width:30px;">번호</th>
                             <th>이미지</th>
                             <th>상품명</th>
                             <th>수량</th>
@@ -166,8 +166,8 @@
                             <th>총 구매 가격</th>
                         </tr>
                         <tr th:each="product,productList : ${productList}">
-                            <td th:text="${productList.count}"></td>
-                            <td><img th:src="@{C:/images/product3-D.png}" style="width:100px;"></td>
+                            <td style="width:30px;" th:text="${productList.count}"></td>
+                            <td><img th:src="@{'/productImages/'+${product.productImage.getImageFullName}}" style="width:100px;"></td>
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.count}"></td>
                             <td th:text="${product.price}" class="price"></td>

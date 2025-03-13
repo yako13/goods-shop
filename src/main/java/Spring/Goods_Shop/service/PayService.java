@@ -1,16 +1,20 @@
 package Spring.Goods_Shop.service;
 
 import Spring.Goods_Shop.dto.member.PayDto;
+import Spring.Goods_Shop.dto.member.PayResponseDto;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.entity.Pay;
 import Spring.Goods_Shop.repository.MemberRepository;
 import Spring.Goods_Shop.repository.PayRepository;
+import Spring.Goods_Shop.util.Formatter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,29 +36,27 @@ public class PayService {
         return optionalPay.isPresent();
     }
 
-    public void savePay(PayDto payDto, HttpServletRequest request){
+    public void savePay(PayDto payDto, HttpServletRequest request) {
         //등록하려고 하는 member PK와 로그인한 사용자PK 같은지 확인
         HttpSession session = request.getSession(false);
 
-        if(!payDto.getMemberId().equals(session.getAttribute("memberId"))) throw new RuntimeException("올바르지 않은 접근");
+        if (!payDto.getMemberId().equals(session.getAttribute("memberId"))) throw new RuntimeException("올바르지 않은 접근");
 
         Optional<Member> optionalMember = memberRepository.findById(payDto.getMemberId());
 
-        if(optionalMember.isEmpty()) throw new RuntimeException("해당 회원이 존재하지 않음");
+        if (optionalMember.isEmpty()) throw new RuntimeException("해당 회원이 존재하지 않음");
 
         Member member = optionalMember.get();
 
-        if(member.getCartList().size()>=3) throw new RuntimeException("배송지는 3개 초과로 설정할 수 없음");
-
         //카드번호 리스트 -> String화
         StringBuilder cardNumber = new StringBuilder();
-        for(String cardNum : payDto.getCardNum()){
+        for (String cardNum : payDto.getCardNum()) {
             cardNumber.append(cardNum);
         }
 
         //카드유효기간 리스트-> String화
         StringBuilder cardExpPeriod = new StringBuilder();
-        for(String cardExp : payDto.getExpPeriod()){
+        for (String cardExp : payDto.getExpPeriod()) {
             cardExpPeriod.append(cardExp);
         }
 
@@ -69,4 +71,40 @@ public class PayService {
 
         payRepository.save(pay);
     }
+
+    public List<PayResponseDto> getPayList(Member member){
+
+        List<Pay> payList = payRepository.findAllByMemberId(member.getId());
+
+        List<PayResponseDto> payResponseDtoList = new ArrayList<>();
+
+        for(Pay pay : payList){
+            PayResponseDto payResponseDto = PayResponseDto.builder()
+                    .id(pay.getId())
+                    .nickName(pay.getNickname())
+                    .number(Formatter.changeCardNumber(pay.getNumber()))
+                    .expPeriod(pay.getExpPeriod())
+                    .cvc(pay.getCvc())
+                    .defaultCard(pay.isDefaultCard())
+                    .build();
+
+            payResponseDtoList.add(payResponseDto);
+        }
+
+        return payResponseDtoList;
+    }
+
+    public void deletePayCard(Long id){
+       Optional<Pay> optionalPay = payRepository.findById(id);
+       if(optionalPay.isEmpty()) throw new RuntimeException("올바르지 않은 접근");
+
+       Pay pay = optionalPay.get();
+
+       payRepository.delete(pay);
+    }
+
+    public boolean checkCardCount(Member member){
+        return member.getPayList().size() < 3;
+    }
+
 }
