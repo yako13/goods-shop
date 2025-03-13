@@ -30,7 +30,7 @@ public class ProductMapper {
                 .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
                 .count(product.getCount())
                 .mainImagePath(productMainImagePath)
-                .category(product.getProductCategory().name())
+                .productCategory(product.getProductCategory().name())
                 .createdAt(product.getCreatedAt())
                 .modifiedAt(product.getModifiedAt())
                 .build();

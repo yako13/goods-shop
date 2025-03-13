@@ -22,6 +22,12 @@
 
 <div class="HanCkListBody">
 
+    <!--메뉴바 시작-->
+
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+
+    <!--메뉴바 끝-->
+
     <div class="HanCkListMain">
 
         <div class="HanCkListTop">
@@ -137,7 +143,6 @@
             <!-- 카트 아이템 끝 -->
 
 
-
             <!-- 카트 아이템 시작 -->
             <li>
                 <div class="HanCkListOrderNum">
@@ -205,16 +210,12 @@
             <!-- 카트 아이템 끝 -->
 
 
-
-
         </ul>
 
     </div>
 
 
-
-
-
+</div>
 
 </div>
 
@@ -227,7 +228,6 @@
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 <!-- 푸터 끝 -->
-
 
 
 </body>

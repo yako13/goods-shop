@@ -101,10 +101,10 @@
                         <option value="#" disabled="disabled">
                             카테고리를 선택해주세요
                         </option>
-                        <option value="포토카드" th:selected="${product.productCategory.name() == '포토카드'}">포토카드</option>
-                        <option value="악세서리" th:selected="${product.productCategory.name() == '악세서리'}">악세서리</option>
-                        <option value="컴퓨터용품" th:selected="${product.productCategory.name() == '컴퓨터용품'}">컴퓨터용품</option>
-                        <option value="기타" th:selected="${product.productCategory.name() == '기타'}">기타</option>
+                        <option value="PHOTO_CARD" th:selected="${product.productCategory.name() eq 'PHOTO_CARD'}">포토카드</option>
+                        <option value="ACCESSORIES" th:selected="${product.productCategory.name() eq 'ACCESSORIES'}">악세서리</option>
+                        <option value="COMPUTER_SUPPLIES" th:selected="${product.productCategory.name() eq 'COMPUTER_SUPPLIES'}">컴퓨터용품</option>
+                        <option value="ETC" th:selected="${product.productCategory.name() eq 'ETC'}">기타</option>
                     </select>
                 </div>
                 <!-- /카테고리 -->

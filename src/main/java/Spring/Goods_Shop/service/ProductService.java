@@ -1,17 +1,20 @@
 package Spring.Goods_Shop.service;
 
 import Spring.Goods_Shop.dto.product.MasterProductListResponseDto;
+import Spring.Goods_Shop.dto.product.ProductDetailsRequestDto;
 import Spring.Goods_Shop.dto.product.ProductListResponseDto;
 import Spring.Goods_Shop.dto.product.ProductRequestDto;
 import Spring.Goods_Shop.entity.Product;
-import Spring.Goods_Shop.inter.ProductMapper;
 import Spring.Goods_Shop.entity.ProductImage;
+import Spring.Goods_Shop.enums.ImageType;
 import Spring.Goods_Shop.inter.ProductImageManager;
 import Spring.Goods_Shop.repository.ProductRepository;
+import Spring.Goods_Shop.util.Formatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +25,6 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     private final ProductImageService productImageService;
-
-    private final ProductMapper productMapper;
 
     private final ProductImageManager productImageManager;
 
@@ -54,7 +55,28 @@ public class ProductService {
 
         List<Product> productList = productRepository.findAll();
 
-        return productList.stream().map(productMapper::toMasterProductListResponseDto).toList();
+        return productList.stream().map(this::toMasterProductListResponseDto).toList();
+    }
+
+    public MasterProductListResponseDto toMasterProductListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return MasterProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
+                .count(product.getCount())
+                .mainImagePath(productMainImagePath)
+                .productCategory(Formatter.getProductCategory(product.getProductCategory()))
+                .createdAt(product.getCreatedAt())
+                .modifiedAt(product.getModifiedAt())
+                .build();
     }
 
     // 등록된 상품 삭제
@@ -88,7 +110,39 @@ public class ProductService {
 
     public List<ProductListResponseDto> getProductListResponseDto(Product product) {
         List<Product> productList = productRepository.findAll();
-        return productList.stream().map(productMapper::toProductListResponseDto).toList();
+        return productList.stream().map(this::toProductListResponseDto).toList();
+    }
+
+    public ProductListResponseDto toProductListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+        return ProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
+                .mainImagePath(productMainImagePath)
+                .build();
+    }
+
+    public ProductDetailsRequestDto toProductDetailsRequestDto(Long id) {
+        Product product = getProduct(id);
+        return ProductDetailsRequestDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .count(product.getCount())
+                .price(product.getPrice())
+                .productDescription(product.getProductDescription())
+                .mainImage(product.getProductImage())
+                .subImage(product.getProductImageList().stream()
+                        .filter(productImage -> productImage.getImageType() == ImageType.SUB).toList())
+                .descImage(product.getProductImageList().stream()
+                        .filter(productImage -> productImage.getImageType() == ImageType.DESC).toList())
+                .build();
     }
 
 }

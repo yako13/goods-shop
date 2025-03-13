@@ -38,6 +38,22 @@ deleteBtn.addEventListener("click", () => {
     var answer = confirm("주문삭제를 하시면, 복구가 어려운 점을 참고하시기 바랍니다. 정말 삭제를 원하시나요?");
 
     if (answer == true) {
-        location = "[[${checkoutDetails.id}]]/delete";
+        location = "http://localhost:8080/master/checkout/[[${checkoutDetails.id}]]/delete";
     }
 })
+
+const priceElements = document.querySelectorAll(".price");
+const totalPriceElements = document.querySelectorAll(".totalPrice");
+
+function formatPrice(p){
+  return p.toLocaleString();
+}
+
+priceElements.forEach((priceElement,index)=>{
+  const price = parseFloat(priceElement.textContent);
+  const totalPrice = parseFloat(totalPriceElements[index].textContent);
+
+  priceElement.textContent = formatPrice(price)+" 원"
+  totalPriceElements[index].textContent = formatPrice(totalPrice) + " 원";
+
+});

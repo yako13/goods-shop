@@ -2,15 +2,16 @@ package Spring.Goods_Shop.entity;
 
 import Spring.Goods_Shop.base.BaseTime;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
+
 @Table(name = "delivery")
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@EqualsAndHashCode(callSuper = true)
 @Entity
 public class Delivery extends BaseTime {
 

@@ -26,3 +26,19 @@ cancelBtn.addEventListener("click",()=>{
       location = "/account/cancellation";
     }
 })
+
+if(document.title.includes("주문관리")){
+  document.getElementById("checkoutLink").style.backgroundColor = "#fff6a6";
+}
+
+if(document.title.includes("계정관리")){
+  document.getElementById("editLink").style.backgroundColor = "#fff6a6";
+}
+
+if(document.title.includes("배송지")){
+  document.getElementById("deliveryLink").style.backgroundColor = "#fff6a6";
+}
+
+if(document.title.includes("결제")){
+  document.getElementById("payLink").style.backgroundColor = "#fff6a6";
+}
