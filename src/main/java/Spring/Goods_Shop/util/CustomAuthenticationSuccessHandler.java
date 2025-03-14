@@ -27,8 +27,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         else if(role.equals("ROLE_ADMIN")){
             response.sendRedirect("/master/checkout/list");
         }
-        else{
-            response.sendRedirect("/login");
+        else if(role.equals("ROLE_CANCELLATION")){
+            response.sendRedirect("/");
         }
     }
 }
