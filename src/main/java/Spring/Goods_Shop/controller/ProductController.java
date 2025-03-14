@@ -1,9 +1,12 @@
 package Spring.Goods_Shop.controller;
 
 import Spring.Goods_Shop.dto.product.*;
+import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.entity.Product;
+import Spring.Goods_Shop.service.MemberService;
 import Spring.Goods_Shop.service.ProductImageService;
 import Spring.Goods_Shop.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,13 +25,23 @@ public class ProductController {
 
     private final ProductImageService productImageService;
 
+    private final MemberService memberService;
 
 
     @GetMapping("/product/list")
     public String productList(
             @RequestParam(defaultValue = "0") int page, // 페이지 시작
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
-            Model model) {
+            Model model, HttpServletRequest request) {
+
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+            return "mainPage";
+        }
+
         Page<ProductListResponseDto> productListResponseDtoPage = productService.getProductListResponseDto(page, size);
         model.addAttribute("productList", productListResponseDtoPage.getContent());
         model.addAttribute("page", productListResponseDtoPage);
@@ -38,16 +51,32 @@ public class ProductController {
     }
 
     @GetMapping("/product/details/{id}")
-    public String productDetail(@PathVariable Long id, Model model) {
+    public String productDetail(@PathVariable Long id, Model model, HttpServletRequest request) {
         ProductDetailsResponseDto productDetailsResponseDto = productService.toProductDetailsResponseDto(id);
         model.addAttribute("product", productDetailsResponseDto);
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+            return "mainPage";
+        }
+
         return "product/product-detail";
     }
 
     @GetMapping("/product/list/category")
     public String getProductCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category,
                                      @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "10") int size, Model model) {
+                                     @RequestParam(defaultValue = "10") int size, Model model, HttpServletRequest request) {
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+            return "mainPage";
+        }
+
         Page<ProductCategoryAndSearchResponseDto> productCategoryResponseDtoPage = productService.getProductCategoryResponseListDto(category, page, size);
 
         model.addAttribute("categoryList", productCategoryResponseDtoPage.getContent());
@@ -60,9 +89,17 @@ public class ProductController {
     }
 
     @GetMapping("/product/search/index")
-    public String getSearchProductName(@RequestParam(value = "keyword", required = false, defaultValue = "")String name,
-                                       @RequestParam(defaultValue = "0")int page,
-                                       @RequestParam(defaultValue = "10")int size, Model model) {
+    public String getSearchProductName(@RequestParam(value = "keyword", required = false, defaultValue = "") String name,
+                                       @RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size, Model model, HttpServletRequest request) {
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+            return "mainPage";
+        }
+
         Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size);
 
         model.addAttribute("searchList", productCategoryAndSearchResponseDtoPage.getContent());
@@ -92,7 +129,7 @@ public class ProductController {
 
     // 상품 저장
     @PostMapping("/master/product/save")
-    public String saveProduct(@Valid @ModelAttribute ProductRequestDto productRequestDto){
+    public String saveProduct(@Valid @ModelAttribute ProductRequestDto productRequestDto) {
 
         productService.save(productRequestDto);
 
