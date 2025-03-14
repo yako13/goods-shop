@@ -194,7 +194,7 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .count(product.getCount())
-                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .price(product.getPrice())
                 .productDescription(product.getProductDescription())
                 .mainImage(product.getProductImage())
                 .subImage(product.getProductImageList().stream()

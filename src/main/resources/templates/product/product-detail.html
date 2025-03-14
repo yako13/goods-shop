@@ -231,7 +231,9 @@
                 th:text="${product.count}"
                 class="product-info__count"></span
               ><sapn> 개 남았습니다.</sapn>
-              <p th:text="${product.price}" class="product-info__price">
+              <p
+                th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
+                class="product-info__price">
                 <span class="text__black">원</span>
               </p>
               <p class="product-info__post">택배 배송 | 3,000원</p>
@@ -246,9 +248,9 @@
               <div class="HanProductCntDiv">
                 <!-- 수량버튼 -->
                 <div class="HanProductSpinner">
-                  <button onclick="changeQuantity(-1)">-</button>
+                  <button onclick="changeQuantity(-1)" type="button">-</button>
                   <input type="text" id="HanProductValue" value="0" readonly />
-                  <button onclick="changeQuantity(1)">+</button>
+                  <button onclick="changeQuantity(1)" type="button">+</button>
                 </div>
 
                 <div>
