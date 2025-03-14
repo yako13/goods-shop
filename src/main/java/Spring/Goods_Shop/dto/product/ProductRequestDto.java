@@ -24,7 +24,7 @@ public class ProductRequestDto {
     private String name;
 
     @NotNull(message = "판매 가격은 필수 입력사항입니다.")
-    @Min(value = 100, message = "판매 가격은 100원 이상 이여야 합니다.")
+    @PositiveOrZero(message = "판매 가격은 100원 이상 이여야 합니다.")
     private BigDecimal price;
 
     @NotNull(message = "재고 수량 필수 입력사항입니다.")

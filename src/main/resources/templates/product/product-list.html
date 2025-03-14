@@ -119,7 +119,7 @@
       <!-- product card -->
       <div class="container__product-image">
         <div th:each="productList : ${productList}">
-          <a th:href="@{/product/detail/{id}(id=${productList.id})}">
+          <a th:href="@{/product/details/{id}(id=${productList.id})}">
             <div class="card__product-image">
               <img
                 class="product-image"

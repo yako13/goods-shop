@@ -128,7 +128,7 @@
       <!-- product card -->
       <div class="container__product-image">
         <div th:each="product : ${searchList}">
-          <a th:href="@{/product/detail/{id}(id=${product.id})}">
+          <a th:href="@{/product/details/{id}(id=${product.id})}">
             <div class="card__product-image">
               <img class="product-image" th:src="${product.mainImagePath}" />
               <p th:text="${product.name}"></p>

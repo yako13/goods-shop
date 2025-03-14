@@ -32,7 +32,7 @@ public class ProductController {
         return "product/product-list";
     }
 
-    @GetMapping("/product/detail/{id}")
+    @GetMapping("/product/details/{id}")
     public String productDetail(@PathVariable Long id, Model model) {
         ProductDetailsResponseDto productDetailsResponseDto = productService.toProductDetailsResponseDto(id);
         model.addAttribute("product", productDetailsResponseDto);

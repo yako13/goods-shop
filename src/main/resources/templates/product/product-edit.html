@@ -168,7 +168,7 @@
               <div id="mainImagePreview" class="preview-container">
                 <div class="mainImageContainer" id="existingMainImage">
                   <img
-                    th:src="@{/image/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}"
+                    th:src="@{/productImages/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}"
                     class="thumbnail" />
                   <!-- <button type="button" class="btn-delete">x</button> -->
                 </div>

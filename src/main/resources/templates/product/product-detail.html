@@ -211,16 +211,16 @@
           <span>
             <img
               class="image__main"
-              th:src="@{|/image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+              th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
             <div class="flex__sub-image">
               <img
                 class="image__sub"
-                th:src="@{|/image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+                th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
               <div th:each="subImage : ${product.subImage}">
                 <img
                   class="image__sub"
                   onclick="addEventListener(click, changepic)"
-                  th:src="@{|/image/${subImage.uuid}${subImage.fileExtension}|}" />
+                  th:src="@{|/productImages/${subImage.uuid}${subImage.fileExtension}|}" />
               </div>
             </div>
           </span>
@@ -300,7 +300,7 @@
         <div th:each="descImage : ${product.descImage}">
           <img
             class="desc-image"
-            th:src="@{|/image/${descImage.uuid}${descImage.fileExtension}}" />
+            th:src="@{|/productImages/${descImage.uuid}${descImage.fileExtension}}" />
         </div>
       </div>
     </main>
