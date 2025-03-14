@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar Workshop</title>
+    <title>☁️CloudStar WorkShop 회원 주문</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/checkout/checkoutList.css}">
-
+<style>
+</style>
 </head>
 
 <body>
@@ -36,17 +37,28 @@
 
             </div>
 
-            <ul>
+            <div th:if="${#lists.size(checkoutList)<1} " class="HanCkListTop none">
 
+                <p>주문 내역 없음</p>
+
+            </div>
+
+            <ul>
                 <!-- 카트 아이템 시작 -->
 
-                <li th:each="checkout : ${checkoutList}">
+                <li th:if="${checkoutList!=null} " th:each="checkout : ${checkoutList}">
+
                     <div class="HanCkListOrderNum">
                         <div class="HanCkListOrderNumCnt">
 
                             <span class="HanCkListBold">총</span>
                             <span th:text="${checkout.checkoutSize}"></span>
                             <span>건</span>
+
+                        </div>
+                        <div class="HanCkListDelivery">
+                            <p th:if="${checkout.checkoutStep !='주문완료'}" th:text="${checkout.checkoutStep}"></p>
+                            <p th:if="${checkout.checkoutStep =='주문완료'}" th:text="${checkout.checkoutPostStep}"></p>
 
                         </div>
 
@@ -57,11 +69,7 @@
                                 th:text="${checkout.checkoutCode}"></a>
 
                         </div>
-                        <div class="HanCkListDelivery">
 
-                            <p th:text="${checkout.checkoutPostStep}"></p>
-
-                        </div>
                     </div>
 
                     <!-- 카트 아이템 항목 시작 -->
@@ -72,7 +80,8 @@
 
                                 <div class="HanCkListImgDiv">
 
-                                    <img th:src="@{${product.mainImagePath}}" alt="">
+                                    <a th:href="@{'/product/details/'+${product.id}}"><img
+                                            th:src="@{${product.mainImagePath}}" alt=""></a>
 
                                 </div>
 
@@ -87,6 +96,9 @@
                                     </div>
 
                                 </div>
+                                <div class="reorder">
+                                    <a th:href="@{'/product/details/'+${product.id}}">재구매</a>
+                                </div>
 
                             </div>
 
@@ -97,8 +109,8 @@
 
                     <div class="HanCkSubmitA">
 
-                        <a class="HanCheckoutList" id="">총 결제 가격: [[${checkout.checkoutTotalPay}]]</a>
-                        <a class="HanHome" id="" th:href="@{'/member/checkout/details/'+${checkout.id}}">상세보기</a>
+                        <p class="HanCheckoutList" >총 결제 가격: [[${checkout.checkoutTotalPay}]]</p>
+                        <a class="HanHome"  th:href="@{'/member/checkout/details/'+${checkout.id}}">상세보기</a>
 
                     </div>
 
@@ -123,7 +135,7 @@
 
     <!-- 푸터 끝 -->
 
-
+<script th:src="@{/js/member/alert.js}"></script>
 </body>
 
 </html>

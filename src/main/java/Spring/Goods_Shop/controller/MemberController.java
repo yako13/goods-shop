@@ -171,12 +171,19 @@ public class MemberController {
     @PostMapping("/find/password")
     @ResponseBody
     String findPassword(MemberDto memberDto,Model model){
-       return memberService.tryToFindPassword(memberDto);
+
+        return memberService.tryToFindPassword(memberDto);
     }
 
     //비밀번호 수정
     @PostMapping("/password/edit")
-    String editPassword(MemberAuthDto memberAuthDto){
+    String editPassword(@Valid MemberAuthDto memberAuthDto,Errors errors,Model model){
+
+        if(errors.hasErrors()){
+            model.addAttribute("alert","비밀번호는 대소문자, 숫자, 특수문자 조합으로 8~15자리여야합니다.");
+            return "member/findPassword";
+        }
+
         memberService.tryToEditPassword(memberAuthDto);
         return "redirect:/login";
     }

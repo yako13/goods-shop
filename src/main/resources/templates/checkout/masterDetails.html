@@ -7,7 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>관리자 주문 상세 내역</title>
+    <title>☁️CloudStar WorkShop 관리자 주문 상세 내역</title>
     <script src="https://kit.fontawesome.com/f3f72a2177.js" crossorigin="anonymous"></script>
     <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet">
     <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet">
@@ -40,7 +40,8 @@
                                             주문완료</option>
                                         <option th:selected="${checkoutDetails.checkoutState}=='주문보류'" value="WAIT">주문보류
                                         </option>
-                                        <option th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">
+                                        <option style="color: red;"
+                                            th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">
                                             주문취소</option>
                                     </select></td>
 
@@ -66,7 +67,8 @@
                                         배송완료</option>
                                     <option th:selected="${checkoutDetails.deliveryState}=='배송취소'" value="CANCELED">배송취소
                                     </option>
-                                    <option th:selected="${checkoutDetails.deliveryState}=='반품'" value="RETURNED">반품
+                                    <option style="color: red;" th:selected="${checkoutDetails.deliveryState}=='반품'"
+                                        value="RETURNED">반품
                                     </option>
                                 </select>
                             </td>
@@ -167,7 +169,8 @@
                         </tr>
                         <tr th:each="product,productList : ${productList}">
                             <td style="width:30px;" th:text="${productList.count}"></td>
-                            <td><img th:src="@{'/productImages/'+${product.productImage.getImageFullName}}" style="width:100px;"></td>
+                            <td><img th:src="@{'/productImages/'+${product.productImage.getImageFullName}}"
+                                    style="width:100px;"></td>
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.count}"></td>
                             <td th:text="${product.price}" class="price"></td>

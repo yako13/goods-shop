@@ -97,6 +97,8 @@ public class CheckoutController {
         List<CheckoutResponseDto> checkoutResponseDtoList = checkoutService.getMemberCheckoutList(member);
 
         model.addAttribute("checkoutList",checkoutResponseDtoList);
+        model.addAttribute("userId",member.getUserId());
+        model.addAttribute("name",member.getName());
 
         return "checkout/checkoutList";
     }

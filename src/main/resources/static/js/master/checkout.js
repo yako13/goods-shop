@@ -1,3 +1,30 @@
+const checkoutStepElements = document.querySelectorAll(".checkoutStep");
+const postStepElements = document.querySelectorAll(".postStep");
+
+//주문상태와 배송상태에 따라 색깔 다르게 적용
+checkoutStepElements.forEach((checkoutStepElement, index) => {
+    const checkoutStep = checkoutStepElement.textContent;
+    const postStep = postStepElements[index].textContent;
+
+    if(checkoutStep =="주문완료"){
+        checkoutStepElement.style.color ="blue";
+    }
+    else if(checkoutStep =="주문보류"){
+        checkoutStepElement.style.color ="green";
+    }
+    else{
+        checkoutStepElement.style.color ="red";
+    }
+
+    if(postStep =="배송완료"){
+        postStepElements[index].style.color = "blue";
+    }
+    else if(postStep =="반품"){
+        postStepElements[index].style.color = "red";
+    }
+});
+
+
 // 스크롤을 내리면 버튼을 보여주기
 window.onscroll = function () {
     let topButton = document.getElementById("topBtn");

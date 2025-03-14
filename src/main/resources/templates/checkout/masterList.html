@@ -7,7 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>관리자 주문 리스트</title>
+    <title>☁️CloudStar WorkShop 관리자 주문 리스트</title>
     <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet">
     <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/master/list.css}">
@@ -47,17 +47,17 @@
 
 
                         <td>
-                            <a th:href="@{'/master/checkout/details/'+${checkout.id}}"> <b>20250228080808_0001</b></a>
+                            <a th:href="@{'/master/checkout/details/'+${checkout.id}}" th:text="${checkout.checkoutCode}" id="checkoutCode"></a>
                         </td>
 
                         <td th:text="${checkout.checkoutName}"></td>
                         <td th:text="${checkout.checkoutDeliveryName}"></td>
                         <td th:text="${checkout.checkoutProductName}"></td>
-                        <td th:text="${checkout.checkoutTotalPay}" class="totalPrice"><b>18,000원</b>
+                        <td th:text="${checkout.checkoutTotalPay}" class="totalPrice"><b></b>
                         </td>
                         <td>카드</td>
-                        <td th:text="${checkout.checkoutStep}"></td>
-                        <td th:text="${checkout.checkoutPostStep}"></td>
+                        <td th:text="${checkout.checkoutStep}" class="checkoutStep"></td>
+                        <td th:text="${checkout.checkoutPostStep}" class="postStep"></td>
                         <td th:text="${checkout.createdAt}"></td>
                         <td th:text="${checkout.modifiedAt}"></td>
 

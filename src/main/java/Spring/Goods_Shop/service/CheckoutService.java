@@ -59,7 +59,7 @@ public class CheckoutService {
 
             return CheckoutResponseDto.builder()
                     .id(checkout.getId())
-//                    .checkoutCode()
+                    .checkoutCode(checkout.getCheckoutCode())
                     .checkoutProductName(productInfo)
                     .checkoutName(checkout.getCheckoutName())
                     .checkoutDeliveryName(checkout.getCheckoutDeliveryName())
@@ -103,6 +103,7 @@ public class CheckoutService {
 
         return CheckoutDetailsResponseDto.builder()
                 .id(checkout.getId())
+                .checkoutCode(checkout.getCheckoutCode())
                 .checkoutState(Formatter.getCheckoutState(checkout.getCheckoutStep()))
                 .deliveryCompany(Formatter.getDeliveryCompany(checkout.getCheckoutDeliveryCompany()))
                 .deliveryState(Formatter.getDeliveryState(checkout.getCheckoutPostStep()))

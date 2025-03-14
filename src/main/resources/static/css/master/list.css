@@ -201,3 +201,8 @@
  .page-item .disabled a {
    color: #bfbfbf;
  }
+
+ #checkoutCode{
+  color: #000;
+  font-weight: 600;
+}

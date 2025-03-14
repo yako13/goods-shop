@@ -530,21 +530,15 @@ body {
 
 }
 
-.HanDrodBoxNameDiv a {
-  padding: 5px 5px;
+#logoutLink {
   background-color: #FFADAD;
-  border-radius: 5px;
   text-decoration-line: none;
   color: #000000;
-  transition: all 0.5s;
-  font-size: 16px;
   cursor: pointer;
-
 }
 
-.HanDrodBoxNameDiv a:hover {
+#logoutLink:hover {
   background-color: #ee8686;
-
 }
 
 
