@@ -6,7 +6,11 @@ import Spring.Goods_Shop.dto.product.ProductRequestDto;
 import Spring.Goods_Shop.entity.Product;
 import Spring.Goods_Shop.service.ProductImageService;
 import Spring.Goods_Shop.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +29,11 @@ public class MasterController {
 
     // 등록된 상품 리스트
     @GetMapping("/product/list")
-    public String masterProductList(Product product, Model model) {
-        List<MasterProductListResponseDto> productList = productService.getMasterProductListDto(product);
-        model.addAttribute("productList", productList);
+    public String masterProductList(Model model, @PageableDefault Pageable pageable) {
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(pageable);
+        model.addAttribute("productList", productList.getContent());
+        model.addAttribute("page", productList);
+        model.addAttribute("currentPage", productList.getNumber());
         return "product/master-product-list";
     }
 
@@ -39,7 +45,7 @@ public class MasterController {
 
     // 상품 저장
     @PostMapping("/product/save")
-    public String saveProduct(@ModelAttribute ProductRequestDto productRequestDto){
+    public String saveProduct(@Valid @ModelAttribute ProductRequestDto productRequestDto){
 
         productService.save(productRequestDto);
 
@@ -59,8 +65,10 @@ public class MasterController {
 
     // 수정 완료
     @PostMapping("/product/edit/{id}")
-    public String productEditComplete(@PathVariable Long id, @ModelAttribute ProductRequestDto requestDto) {
-        productService.update(id, requestDto);
+    public String productEditComplete(@PathVariable Long id,
+                                      @Valid @ModelAttribute ProductRequestDto requestDto,
+                                      @RequestParam(value = "deletedImages", required = false) String deletedImages) {
+        productService.update(id, requestDto, deletedImages);
         return "redirect:/master/product/edit/" + id;
     }
 

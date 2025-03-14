@@ -1,6 +1,6 @@
 package Spring.Goods_Shop.dto.product;
 
-import Spring.Goods_Shop.enums.ProductCategory;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +17,10 @@ public class MasterProductListResponseDto {
 
     private Long id;
     private String name;
-    private BigDecimal price;
+    private String price;
     private int count;
     private String mainImagePath;
     private String productCategory;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String createdAt;
+    private String modifiedAt;
 }

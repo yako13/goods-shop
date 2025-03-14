@@ -7,6 +7,10 @@ import Spring.Goods_Shop.entity.ProductImage;
 import Spring.Goods_Shop.enums.ImageType;
 import Spring.Goods_Shop.inter.ProductImageManager;
 import Spring.Goods_Shop.repository.ImageRepository;
+import Spring.Goods_Shop.repository.ProductRepository;
+import Spring.Goods_Shop.util.FileStorageService;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +26,10 @@ public class ProductImageService {
     private final ImageRepository imageRepository;
 
     private final ProductImageManager productImageManager;
+
+    private final FileStorageService fileStorageService;
+
+    private final ProductRepository productRepository;
 
     // 단일 이미지 저장
     public ProductImage save(MultipartFile imageFile, Product product, ImageType imageType) {
@@ -49,23 +57,61 @@ public class ProductImageService {
         imageFiles.forEach(imageFile -> save(imageFile, product, imageType)); // 각 이미지를 저장
     }
 
-    // 메인, 서브, 설명 이미지 처리
-    public ProductImage create(ProductRequestDto requestDto, Product product) {
-        // 서브 이미지와 설명 이미지 처리
+    @Transactional
+    public void updateSubAndDescImages(ProductRequestDto requestDto, Product product) {
+        // 기존 서브 및 설명 이미지 조회
+        List<ProductImage> existingImages = new ArrayList<>(product.getProductImageList().stream()
+                .filter(img -> img.getImageType() == ImageType.SUB || img.getImageType() == ImageType.DESC)
+                .toList());
+
+        if (requestDto.getSubImage() != null && requestDto.getSubImage().isEmpty()) {
+            ProductImage oldImage = product.getProductImage();
+            if (oldImage != null) {
+                fileStorageService.deleteFile(oldImage.getImageFullName());
+                // 기존 이미지 삭제
+                existingImages.forEach(image -> fileStorageService.deleteFile(image.getImageFullName()));
+
+                // Hibernate 캐시에서 삭제 (flush 사용)
+                imageRepository.deleteAll(existingImages);
+                imageRepository.flush(); // 삭제 즉시 반영
+
+                // Product에서 이미지 제거 후 저장
+                product.getProductImageList().removeAll(existingImages);
+                productRepository.save(product);
+            }
+        }
+
+        // 새 이미지 저장
         if (requestDto.getSubImage() != null && !requestDto.getSubImage().isEmpty()) {
-            multiSave(requestDto.getSubImage(), product, ImageType.SUB); // 서브 이미지 저장
+            multiSave(requestDto.getSubImage(), product, ImageType.SUB);
         }
-
         if (requestDto.getDescImage() != null && !requestDto.getDescImage().isEmpty()) {
-            multiSave(requestDto.getDescImage(), product, ImageType.DESC); // 설명 이미지 저장
+            multiSave(requestDto.getDescImage(), product, ImageType.DESC);
         }
+    }
 
-        // 메인 이미지 처리
+    @Transactional
+    public ProductImage create(ProductRequestDto requestDto, Product product) {
+        updateSubAndDescImages(requestDto, product);
+
+        // 기존 메인 이미지 삭제
         if (requestDto.getMainImage() != null && !requestDto.getMainImage().isEmpty()) {
-            return save(requestDto.getMainImage(), product, ImageType.MAIN); // 메인 이미지 저장 후 반환
+            ProductImage oldImage = product.getProductImage();
+            if (oldImage != null) {
+                fileStorageService.deleteFile(oldImage.getImageFullName());
+
+                // Hibernate 캐시에서 삭제 (flush 사용)
+                imageRepository.delete(oldImage);
+                imageRepository.flush(); // 즉시 반영
+
+                // Product에서 제거 후 저장
+                product.setProductImage(null);
+                productRepository.save(product);
+            }
+            return save(requestDto.getMainImage(), product, ImageType.MAIN);
         }
 
-        return product.getProductImage(); // 메인 이미지가 없으면 기존 이미지 반환
+        return product.getProductImage();
     }
 
     // 이미지 URL을 반환하는 메서드
@@ -81,10 +127,8 @@ public class ProductImageService {
             String imageUrl = productImageManager.createImageUrl(productImage.getImageFullName());
             switch (productImage.getImageType()) {
                 case MAIN -> productMainImageUrl = imageUrl;
-                case SUB ->
-                        productSubImageUrl.add(imageUrl);
-                case DESC ->
-                        productDescImageUrl.add(imageUrl);
+                case SUB -> productSubImageUrl.add(imageUrl);
+                case DESC -> productDescImageUrl.add(imageUrl);
             }
         }
 

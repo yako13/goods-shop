@@ -6,20 +6,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDetailsRequestDto {
+public class ProductDetailsResponseDto {
 
     private Long id;
     private String name;
     private int count;
-    private BigDecimal price;
-    private BigDecimal totalPrice;
+    private String price;
+    private String totalPrice;
     private String productDescription;
     private ProductImage mainImage;
     private List<ProductImage> subImage;
