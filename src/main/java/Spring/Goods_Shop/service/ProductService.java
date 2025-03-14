@@ -1,22 +1,28 @@
 package Spring.Goods_Shop.service;
 
-import Spring.Goods_Shop.dto.product.MasterProductListResponseDto;
-import Spring.Goods_Shop.dto.product.ProductDetailsRequestDto;
-import Spring.Goods_Shop.dto.product.ProductListResponseDto;
-import Spring.Goods_Shop.dto.product.ProductRequestDto;
+import Spring.Goods_Shop.dto.product.*;
 import Spring.Goods_Shop.entity.Product;
 import Spring.Goods_Shop.entity.ProductImage;
 import Spring.Goods_Shop.enums.ImageType;
+import Spring.Goods_Shop.enums.ProductCategory;
 import Spring.Goods_Shop.inter.ProductImageManager;
+import Spring.Goods_Shop.repository.ImageRepository;
 import Spring.Goods_Shop.repository.ProductRepository;
+import Spring.Goods_Shop.util.FileStorageService;
 import Spring.Goods_Shop.util.Formatter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -24,9 +30,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageRepository imageRepository;
+
     private final ProductImageService productImageService;
 
     private final ProductImageManager productImageManager;
+
+    private final FileStorageService fileStorageService;
 
     // 상품 저장
     @Transactional
@@ -50,14 +60,15 @@ public class ProductService {
         return optProduct.get();
     }
 
-    // 등록된 상품 리스트 조회
-    public List<MasterProductListResponseDto> getMasterProductListDto(Product product) {
+    // 등록된 상품 리스트 조회 호출 (관리자)
+    public Page<MasterProductListResponseDto> getMasterProductListDto(
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+        Page<Product> productList = productRepository.findAll(pageable);
 
-        List<Product> productList = productRepository.findAll();
-
-        return productList.stream().map(this::toMasterProductListResponseDto).toList();
+        return productList.map(this::toMasterProductListResponseDto);
     }
 
+    // 상품 리스트 조회 (관리자)
     public MasterProductListResponseDto toMasterProductListResponseDto(Product product) {
         ProductImage productMainImage = product.getProductImage();
 
@@ -70,12 +81,12 @@ public class ProductService {
         return MasterProductListResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .productCategory(Formatter.getProductCategory(product.getProductCategory()))
-                .createdAt(product.getCreatedAt())
-                .modifiedAt(product.getModifiedAt())
+                .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
+                .modifiedAt(Formatter.getLocalDate(product.getModifiedAt()))
                 .build();
     }
 
@@ -88,31 +99,78 @@ public class ProductService {
         productRepository.delete(product);
     }
 
+    // 상품 업데이트
     @Transactional
-    public Product update(Long id, ProductRequestDto requestDto) {
-        Product product = getProduct(id); // 상품 조회
+    public Product update(Long id, ProductRequestDto requestDto, String deletedImages) {
+        Product product = getProduct(id);
         product.update(requestDto); // 기존 상품 정보 업데이트
 
-        // 메인 이미지가 있으면 업데이트, 없으면 기존 이미지 유지
-        if (requestDto.getMainImage() != null && !requestDto.getMainImage().isEmpty()) {
-            ProductImage updatedImage = productImageService.create(requestDto, product);
-            product.setProductImage(updatedImage); // 새로운 메인 이미지 설정
+        // SUB 이미지만 필터링
+        List<ProductImage> subImageList = product.getProductImageList().stream()
+                .filter(image -> image.getImageType() == ImageType.SUB)
+                .collect(Collectors.toList());
+
+        List<ProductImage> descImageList = product.getProductImageList().stream()
+                .filter(image -> image.getImageType() == ImageType.DESC)
+                .collect(Collectors.toList());
+
+        // 삭제 요청이 있으면 이미지 삭제 처리
+        if (deletedImages != null && !deletedImages.trim().isEmpty()) {
+            String[] deletedImageList = deletedImages.split(",");
+
+            for (String deletedImage : deletedImageList) {
+                if (deletedImage.isEmpty()) continue;
+
+                if (deletedImage.startsWith("subImage")) {
+                    try {
+                        int index = Integer.parseInt(deletedImage.replace("subImage", ""));
+                        if (index < subImageList.size()) {
+                            ProductImage imageToDelete = subImageList.get(index);
+                            fileStorageService.deleteFile(imageToDelete.getImageFullName());
+
+                            imageRepository.delete(imageToDelete); // DB에서 삭제
+                            product.getProductImageList().remove(imageToDelete); // 리스트에서 제거
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid subImage index: " + deletedImage);
+                    }
+                }
+                if (deletedImage.startsWith("descImage")) {
+                    try {
+                        int index = Integer.parseInt(deletedImage.replace("descImage", ""));
+                        if (index < descImageList.size()) {
+                            ProductImage imageToDelete = descImageList.get(index);
+                            fileStorageService.deleteFile(imageToDelete.getImageFullName());
+
+                            imageRepository.delete(imageToDelete); // DB에서 삭제
+                            product.getProductImageList().remove(imageToDelete); // 리스트에서 제거
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid descImage index: " + deletedImage);
+                    }
+                }
+            }
         }
 
-        // 서브 이미지, 설명이미지 추가되면 업데이트
-        if (requestDto.getSubImage() != null && !requestDto.getSubImage().isEmpty() ||
-        requestDto.getDescImage() != null && !requestDto.getDescImage().isEmpty()) {
-            productImageService.create(requestDto, product); // 서브 이미지 저장
+        // 기존 이미지 삭제 후 새로운 이미지 저장
+        ProductImage updatedImage = productImageService.create(requestDto, product);
+
+        if (updatedImage != null) {
+            updatedImage = imageRepository.save(updatedImage); // 🚀 먼저 저장
+            product.setProductImage(updatedImage); // 🚀 저장된 이미지 연결
         }
 
-        return productRepository.save(product); // 상품 정보 저장
+        return productRepository.save(product);
     }
 
-    public List<ProductListResponseDto> getProductListResponseDto(Product product) {
-        List<Product> productList = productRepository.findAll();
-        return productList.stream().map(this::toProductListResponseDto).toList();
+    // 상품 리스트 조회 호출 (멤버)
+    public Page<ProductListResponseDto> getProductListResponseDto(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Product> productList = productRepository.findAll(pageable);
+        return productList.map(this::toProductListResponseDto);
     }
 
+    // 상품 리스트 조회
     public ProductListResponseDto toProductListResponseDto(Product product) {
         ProductImage productMainImage = product.getProductImage();
 
@@ -124,18 +182,19 @@ public class ProductService {
         return ProductListResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .price(product.getPrice().setScale(0, RoundingMode.FLOOR))
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .mainImagePath(productMainImagePath)
                 .build();
     }
 
-    public ProductDetailsRequestDto toProductDetailsRequestDto(Long id) {
+    // 상품 상세 리스트
+    public ProductDetailsResponseDto toProductDetailsResponseDto(Long id) {
         Product product = getProduct(id);
-        return ProductDetailsRequestDto.builder()
+        return ProductDetailsResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .count(product.getCount())
-                .price(product.getPrice())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .productDescription(product.getProductDescription())
                 .mainImage(product.getProductImage())
                 .subImage(product.getProductImageList().stream()
@@ -145,4 +204,75 @@ public class ProductService {
                 .build();
     }
 
+    public Page<ProductCategoryAndSearchResponseDto> getProductCategoryResponseListDto(String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        ProductCategory productCategory = convertToProductCategory(category);
+
+        Page<Product> products;
+        if (productCategory == null) {
+            products = productRepository.findAll(pageable);
+        } else {
+            products = productRepository.findByProductCategory(productCategory, pageable);
+        }
+
+        return products.map(this::toProductCategoryResponseDto);
+    }
+
+    public ProductCategoryAndSearchResponseDto toProductCategoryResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return ProductCategoryAndSearchResponseDto.builder()
+                .id(product.getId())
+                .productCategory(product.getProductCategory().name())
+                .name(product.getName())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .mainImagePath(productMainImagePath)
+                .build();
+    }
+
+    public Page<ProductCategoryAndSearchResponseDto> getProductNameResponseListDto(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+
+        if (name == null || name.isBlank()) return Page.empty();
+
+        Page<Product> productPage = productRepository.findByNameContaining(name, pageable);
+
+
+        return productPage.map(this::toProductNameResponseDto);
+    }
+
+    public ProductCategoryAndSearchResponseDto toProductNameResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return ProductCategoryAndSearchResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .mainImagePath(productMainImagePath)
+                .build();
+    }
+
+    /**
+     * 문자열을 ProductCategory Enum으로 변환하는 메서드
+     */
+    private ProductCategory convertToProductCategory(String category) {
+        if (category == null || category.isBlank()) {
+            return null;
+        }
+        try {
+            return ProductCategory.valueOf(category.toUpperCase().replace("-", "_")); // Enum과 매칭
+        } catch (IllegalArgumentException e) {
+            return null; // 존재하지 않는 카테고리 값이면 null 반환
+        }
+    }
 }

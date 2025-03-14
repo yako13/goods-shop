@@ -91,16 +91,36 @@
         pointer-events: none;
         background-color: #f8f9fa;
       }
+      .noProduct {
+        text-align: center;
+      }
+      .noProductImage {
+        height: 50rem;
+      }
     </style>
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
     <!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
     <main class="container container__main">
-      <div class="search-name">전체상품</div>
+      <div th:switch="${categoryQuery}" class="search-name">
+        <span th:case="photo_card">포토카드</span>
+        <span th:case="memo">메모지</span>
+        <span th:case="sticker">스티커</span>
+        <span th:case="postcard">엽서</span>
+        <span th:case="etc">기타</span>
+        <span th:case="*">전체상품</span>
+      </div>
       <hr />
-      <div class="sort-product">
-        <select name="sortSelect" id="sortSelect" onchange="">
+      <div class="noProduct" th:if="${page.totalElements == 0}">
+        <img class="noProductImage" src="/images/notice.png" />
+      </div>
+      <div th:unless="${page.totalElements == 0}" class="sort-product">
+        <select
+          class="sortSelect"
+          name="sortSelect"
+          id="sortSelect"
+          onchange="">
           <option value="5" th:selected="${size==5}">5개</option>
           <option value="10" th:selected="${size==10}">10개</option>
           <option value="15" th:selected="${size==15}">15개</option>
@@ -118,14 +138,12 @@
 
       <!-- product card -->
       <div class="container__product-image">
-        <div th:each="productList : ${productList}">
-          <a th:href="@{/product/detail/{id}(id=${productList.id})}">
+        <div th:each="product : ${categoryList}">
+          <a th:href="@{/product/detail/{id}(id=${product.id})}">
             <div class="card__product-image">
-              <img
-                class="product-image"
-                th:src="${productList.mainImagePath}" />
-              <p th:text="${productList.name}"></p>
-              <p th:text="${productList.price}" class="p__small"></p>
+              <img class="product-image" th:src="${product.mainImagePath}" />
+              <p th:text="${product.name}"></p>
+              <p th:text="${product.price}" class="p__small"></p>
             </div>
           </a>
         </div>
@@ -140,7 +158,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list(page=0, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=0, size=${size})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -152,7 +170,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/product/list(page=${currentPage - 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -166,7 +184,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list(page=${pageNum}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -176,7 +194,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/product/list(page=${currentPage + 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -186,7 +204,7 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list(page=${page.totalPages - 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
@@ -204,12 +222,13 @@
     <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
   <script>
-    // 상품개수 정렬
+    // 카테고리 기준 상품 개수 정렬
     document
       .getElementById("sortSelect")
       .addEventListener("change", function () {
-        const selectedSize = this.value;
-        window.location.href = `/product/list?page=0&size=${selectedSize}`;
+        let selectedSize = this.value;
+        let categoryQuery = `[[${categoryQuery}]]`;
+        window.location.href = `/product/list/category?category=${categoryQuery}&page=0&size=${selectedSize}`;
       });
   </script>
 </html>

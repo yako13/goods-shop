@@ -35,6 +35,7 @@
       .image__sub {
         width: 5rem;
         height: 5rem;
+        cursor: pointer;
       }
       .flex {
         display: flex;
@@ -51,6 +52,7 @@
         margin: 3rem;
         width: 28rem;
         max-width: 100%;
+        margin-bottom: 1rem;
       }
       .product-info__name {
         font-size: 2rem;
@@ -123,10 +125,10 @@
         margin-top: 3rem;
       }
       .notice__product-cnt {
-        text-align: center;
+        justify-self: center;
       }
       .image__notice {
-        width: 28rem;
+        width: 30rem;
       }
       .HanProductCntDiv {
         display: flex;
@@ -190,32 +192,47 @@
         font-weight: 400;
         font-size: 1rem;
       }
+      .text__desc {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        border: 1px solid #cccccc;
+        padding: 2rem;
+      }
     </style>
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-<!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+    <!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
 
     <main class="container__main">
       <div class="container__flex">
         <div class="flex">
           <div th:each="product : ${product}"></div>
           <span>
-
-            <img class="image__main" th:src="@{|/product-image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+            <img
+              class="image__main"
+              th:src="@{|/image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
             <div class="flex__sub-image">
-              <img class="image__sub" th:src="@{|/product-image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+              <img
+                class="image__sub"
+                th:src="@{|/image/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
               <div th:each="subImage : ${product.subImage}">
-              <img class="image__sub" th:src="@{|/product-image/${subImage.uuid}${subImage.fileExtension}|}" />
+                <img
+                  class="image__sub"
+                  onclick="addEventListener(click, changepic)"
+                  th:src="@{|/image/${subImage.uuid}${subImage.fileExtension}|}" />
               </div>
             </div>
           </span>
           <div class="product-info">
             <form action="#" method="#">
-              <p th:text="${product.name}" class="product-info__name">코지캣 쉬폰</p>
-              <p th:text="${product.count}" class="product-info__count">nn 개 남음</p>
+              <p th:text="${product.name}" class="product-info__name"></p>
+              <span
+                th:text="${product.count}"
+                class="product-info__count"></span
+              ><sapn> 개 남았습니다.</sapn>
               <p th:text="${product.price}" class="product-info__price">
-                30,000<span class="text__black">원</span>
+                <span class="text__black">원</span>
               </p>
               <p class="product-info__post">택배 배송 | 3,000원</p>
               <!--              <p class="product-info__orderCount">수량</p>-->
@@ -241,9 +258,9 @@
                   <span class="HanProductPriceSumCnt"></span>
 
                   <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
-                  <span class="HanProductPriceSum" id="HanProductPriceSum"
-                    ></span
-                  >
+                  <span
+                    class="HanProductPriceSum"
+                    id="HanProductPriceSum"></span>
                   <span class="HanProductSpan3">원</span>
                 </div>
               </div>
@@ -256,7 +273,7 @@
 
               <!-- button -->
 
-              <div class="flex__btn">
+              <div th:unless="${product.count} == '0'" class="flex__btn">
                 <button class="btn btn__order" type="submit">
                   <i class="fa-solid fa-credit-card" style="color: #f5c724">
                     주문하기</i
@@ -271,9 +288,9 @@
 
               <!-- sold out image -->
 
-              <!-- <div class="notice__product-cnt">
+              <div th:if="${product.count} == '0'" class="notice__product-cnt">
                 <img class="image__notice" src="/images/soldout.png" />
-              </div> -->
+              </div>
             </form>
           </div>
         </div>
@@ -281,7 +298,9 @@
       <div th:text="${product.productDescription}" class="text__desc"></div>
       <div class="image__desc">
         <div th:each="descImage : ${product.descImage}">
-        <img class="desc-image" th:src="@{|/product-image/${descImage.uuid}${descImage.fileExtension}}" />
+          <img
+            class="desc-image"
+            th:src="@{|/image/${descImage.uuid}${descImage.fileExtension}}" />
         </div>
       </div>
     </main>
@@ -331,6 +350,19 @@
         const formatted3 = totalPrice.toLocaleString("ko-KR"); // 천 단위로 쉼표 추가
         document.getElementById("HanProductPriceSum").textContent = formatted3;
       }
+    }
+
+    //작업해야함 이미지 클릭시 변환
+    let bigImage = document.querySelector(".image__main");
+    let smallImage = document.querySelectorAll(".image__sub");
+
+    for (let i = 0; i < smallImage.length; i++) {
+      smallImage[i].addEventListener("click", changepic);
+    }
+
+    function changepic() {
+      let smallImageAttribute = this.getAttribute("src");
+      bigImage.setAttribute("src", smallImageAttribute);
     }
   </script>
 </html>

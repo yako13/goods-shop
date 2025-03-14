@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductListResponseDto {
+public class ProductCategoryAndSearchResponseDto {
 
     private Long id;
     private String name;
     private String price;
     private String mainImagePath;
-    private String totalPrice;
+    private String productCategory;
+
 }

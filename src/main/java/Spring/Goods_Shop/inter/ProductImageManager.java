@@ -77,4 +77,21 @@ public class ProductImageManager {
 
         return originalFilename.substring(originalFilename.lastIndexOf("."));
     }
+
+    public void deleteImage(String imageUuid) {
+        try {
+            File imageFile = new File(location, imageUuid);
+
+            if (imageFile.exists()) {
+                if (imageFile.delete()) {
+                    System.out.println("이미지 삭제 성공: " + imageFile.getAbsolutePath());
+                } else {
+                    throw new RuntimeException("이미지 삭제 실패: " + imageFile.getAbsolutePath());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("이미지 삭제 중 오류 발생");
+        }
+    }
 }

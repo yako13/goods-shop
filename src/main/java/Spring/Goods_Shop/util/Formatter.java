@@ -40,8 +40,9 @@ public class Formatter {
     public static String getProductCategory(ProductCategory productCategory) {
         return switch(productCategory) {
             case PHOTO_CARD -> "포토카드";
-            case ACCESSORIES -> "악세서리";
-            case COMPUTER_SUPPLIES -> "컴퓨터용품";
+            case MEMO -> "메모지";
+            case STICKER -> "스티커";
+            case POSTCARD -> "엽서";
             case ETC -> "기타";
         };
     }
