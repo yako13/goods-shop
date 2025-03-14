@@ -47,6 +47,16 @@ public class Formatter {
         };
     }
 
+    public static String getProductCategory(ProductCategory productCategory) {
+        return switch(productCategory) {
+            case PHOTO_CARD -> "포토카드";
+            case MEMO -> "메모지";
+            case STICKER -> "스티커";
+            case POSTCARD -> "엽서";
+            case ETC -> "기타";
+        };
+    }
+
     public static String changeBigDecimalFormat(BigDecimal bigDecimal){
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
         return decimalFormat.format(bigDecimal) + " 원";

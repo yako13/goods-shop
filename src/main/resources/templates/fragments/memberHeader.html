@@ -26,7 +26,7 @@
 
                 </div>
 
-                <!-- 로그아웃시 나타나는 헤더부분 시작-->
+            <!-- 로그아웃시 나타나는 헤더부분 시작-->
 
 
                 <div class="HanHeaderButton" th:if="${session.memberId==null}">
@@ -38,7 +38,7 @@
 
 
 
-                <!-- 로그인시 나타나는 헤더부분 시작-->
+            <!-- 로그인시 나타나는 헤더부분 시작-->
 
                 <div class="HanHeaderButton" th:if="${session.memberId!=null}">
 
@@ -85,11 +85,11 @@
 
                 </div>
 
-                <!-- 로그인시 나타나는 헤더부분 끝-->
+            <!-- 로그인시 나타나는 헤더부분 끝-->
 
-            </div>
+        </div>
 
-            <hr class="HanHeaderHr">
+        <hr class="HanHeaderHr">
 
             <div class="HanHeaderBottom">
 
@@ -116,7 +116,7 @@
 
 
 
-        <!-- 네비 시작 -->
+    <!-- 네비 시작 -->
 
         <div class="HanNaviMain">
 
@@ -126,27 +126,48 @@
 
             </div>
 
-            <div class="HanNaviBar">
-
-                <a href="">전체상품</a>
-                <a href="">포토카드</a>
-                <a href="">악세사리</a>
-                <a href="">컴퓨터용품</a>
-                <a href="">기타</a>
-
-            </div>
-            <hr class="HanHeaderHr2">
-
+        <div class="HanNaviBar">
+          <a
+            th:href="@{/product/list}"
+            >전체상품</a
+          >
+          <a
+            th:href="@{/product/list/category(category='photo_card')}"
+            th:classappend="${categoryQuery == 'photo_card'} ? 'active' : ''"
+            >포토카드</a
+          >
+          <a
+            th:href="@{/product/list/category(category='memo')}"
+            th:classappend="${categoryQuery == 'memo'} ? 'active' : ''"
+            >메모지</a
+          >
+          <a
+            th:href="@{/product/list/category(category='sticker')}"
+            th:classappend="${categoryQuery == 'sticker'} ? 'active' : ''"
+            >스티커</a
+          >
+          <a
+            th:href="@{/product/list/category(category='postcard')}"
+            th:classappend="${categoryQuery == 'postcard'} ? 'active' : ''"
+            >엽서</a
+          >
+          <a
+            th:href="@{/product/list/category(category='etc')}"
+            th:classappend="${categoryQuery == 'etc'} ? 'active' : ''"
+            >기타</a
+          >
         </div>
+        <hr class="HanHeaderHr2" />
+      </div>
 
-        <!-- 네비 끝 -->
-
-
-
-        <!-- 헤더 끝 -->
+    <!-- 네비 끝 -->
 
 
-    </header>
+
+    <!-- 헤더 끝 -->
+
+
+</header>
 
 </body>
 

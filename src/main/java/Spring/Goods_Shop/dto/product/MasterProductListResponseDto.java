@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.dto.product;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

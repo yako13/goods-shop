@@ -9,6 +9,7 @@ import Spring.Goods_Shop.inter.ProductImageManager;
 import Spring.Goods_Shop.repository.ImageRepository;
 import Spring.Goods_Shop.repository.ProductRepository;
 import Spring.Goods_Shop.util.FileStorageService;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
