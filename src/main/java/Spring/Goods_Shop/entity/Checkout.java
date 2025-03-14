@@ -1,7 +1,6 @@
 package Spring.Goods_Shop.entity;
 
 import Spring.Goods_Shop.base.BaseTime;
-import Spring.Goods_Shop.dto.checkout.CheckoutDetails;
 import Spring.Goods_Shop.enums.CheckoutState;
 import Spring.Goods_Shop.enums.DeliveryCompany;
 import Spring.Goods_Shop.enums.DeliveryState;

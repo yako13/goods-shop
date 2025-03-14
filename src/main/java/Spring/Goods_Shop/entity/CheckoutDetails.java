@@ -1,8 +1,5 @@
-package Spring.Goods_Shop.dto.checkout;
+package Spring.Goods_Shop.entity;
 
-import Spring.Goods_Shop.entity.Checkout;
-import Spring.Goods_Shop.entity.Member;
-import Spring.Goods_Shop.entity.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
