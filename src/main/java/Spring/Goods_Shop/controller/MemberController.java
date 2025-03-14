@@ -1,9 +1,6 @@
 package Spring.Goods_Shop.controller;
 
-import Spring.Goods_Shop.dto.member.MemberAuthDto;
-import Spring.Goods_Shop.dto.member.MemberDto;
-import Spring.Goods_Shop.dto.member.MemberEditDto;
-import Spring.Goods_Shop.dto.member.MemberResponseDto;
+import Spring.Goods_Shop.dto.member.*;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.ErrorService;
 import Spring.Goods_Shop.service.MemberService;
@@ -178,18 +175,18 @@ public class MemberController {
 
     //비밀번호 수정
     @PostMapping("/password/edit")
-    String editPassword(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model) {
+    String editPassword(@Valid MemberPasswordDto memberPasswordDto, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("alert", "비밀번호는 대소문자, 숫자, 특수문자 조합으로 8~15자리여야합니다.");
             return "member/findPassword";
         }
 
-        memberService.tryToEditPassword(memberAuthDto);
+        memberService.tryToEditPassword(memberPasswordDto);
         return "redirect:/login";
     }
 
-    //S계정 탈퇴
+    //SNS 가입자 계정 탈퇴
     @GetMapping("/account/cancellation")
     String createAccountCancellationPage(HttpServletRequest request, RedirectAttributes rttr, Model model) {
         Member member = memberService.getMemberEntity(request);
