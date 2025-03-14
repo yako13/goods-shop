@@ -19,18 +19,12 @@ public class MainPageController {
     @GetMapping("/")
     String createHomePage(Model model, HttpServletRequest request){
         Member member = memberService.getMemberEntity(request);
-        if(member==null){
+        if(member!=null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+
             return "mainPage";
         }
-
-        //관리자로 로그인 했을 때
-        if(member.getRole().equals(MemberRole.ADMIN)){
-            return "redirect:/master/checkout/list";
-        }
-
-        model.addAttribute("name",member.getName());
-        model.addAttribute("userId",member.getUserId());
-
         return "mainPage";
     }
 }

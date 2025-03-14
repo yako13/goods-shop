@@ -27,7 +27,7 @@ cancelBtn.addEventListener("click",()=>{
     }
 })
 
-if(document.title.includes("주문관리")){
+if(document.title.includes("회원주문")){
   document.getElementById("checkoutLink").style.backgroundColor = "#fff6a6";
 }
 

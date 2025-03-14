@@ -72,6 +72,8 @@ public class MemberService {
 
         Long id = (Long) session.getAttribute("memberId");
 
+        if(id==null) return null;
+
         Optional<Member> optionalMember = memberRepository.findById(id);
 
         return optionalMember.orElse(null);
@@ -168,6 +170,9 @@ public class MemberService {
 
         Member member = optionalMember.get();
 
+        //탈퇴한 회원일 경우
+        if(member.getRole().equals(MemberRole.CANCELLATION))return null;
+
         //소셜로그인 사용자의 경우
         if (member.getProvider() != null) return null;
 
@@ -190,6 +195,9 @@ public class MemberService {
         if (optionalMember.isEmpty()) return null;
 
         Member member = optionalMember.get();
+
+        //탈퇴한 회원일 경우
+        if(member.getRole().equals(MemberRole.CANCELLATION))return null;
 
         //소셜로그인 사용자의 경우
         if (member.getProvider() != null) return null;
@@ -216,13 +224,9 @@ public class MemberService {
     /**
      * SNS계정 가입자 탈퇴
      */
-    public void tryToCancellationSNSAccount(HttpServletRequest request) {
-        Member member = getMemberEntity(request);
-
+    public void tryToCancellationSNSAccount(Member member) {
         //권한 : 탈퇴
         member.setRole(MemberRole.CANCELLATION);
-        
-
         memberRepository.save(member);
     }
 
@@ -231,8 +235,6 @@ public class MemberService {
      */
     public boolean tryToCancellationAccount(MemberAuthDto memberDto, HttpServletRequest request) {
         Member member = getMemberEntity(request);
-
-        // 로그인 체크를 해줬기 때문에 member null 체크 X
 
         String userPassword = memberDto.getUserPassword();
 
