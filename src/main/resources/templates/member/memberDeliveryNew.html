@@ -2,169 +2,190 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStarWorkshop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☁️CloudStar WorkShop 회원 배송지</title>
 
-    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
-    <link rel="stylesheet" th:href="@{/css/member/memberDeliveryNew.css}">
-
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+  <link rel="stylesheet" th:href="@{/css/member/memberDeliveryNew.css}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- 헤더 시작 -->
 
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
-
-<!-- 헤더 끝 -->
+  <header th:replace="/fragments/memberHeader::memberHeader"></header>
 
 
-<!-- 메인 시작 -->
 
-<div class="HanMemDeliveryNewBodyDiv">
+  <!-- 메인 시작 -->
 
+  <div class="HanMemDeliveryNewBodyDiv">
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+    
     <div class="HanSignUpBody">
 
-        <div class="HanSignUpDiv">
+      <div class="HanSignUpDiv">
 
-            <div class="">
+        <div class="">
 
-                <div class="HanCardNewLogoDiv">
+          <div class="HanCardNewLogoDiv">
 
-                    <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+            <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
 
-                </div>
+          </div>
 
-                <h1>CloudStar Workshop</h1>
-
-            </div>
-
-            <ul>
-                <!-- <div>
-                <a href="">배송지 목록</a>
-                <p> > </p>
-                <a href="">배송지 작성</a>
-              </div> -->
-
-                <form action="" method="post" id="HanSignUpForm">
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">배송지 별칭</label>
-                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="배송지 별칭을 입력해주세요"
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw1">받는분 성함</label>
-                        <input type="password" id="HanSignUpPw1" name="cardNum" placeholder="성함을 입력해주세요"
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail1">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPw2">받는분 연락처</label>
-                        <input type="password" id="HanSignUpPw2" name="cardNum" placeholder="연락처를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p style="display: none;" id="HanSignUpPwFail2">비밀번호가 일치하지 않습니다</p>
-                        <p class="HanSignUpInfo">비밀번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpName">우편번호</label>
-                        <input type="text" id="HanSignUpName" name="cardName" placeholder="우편번호를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <a><i class="HanAddressPopNewIcon"></i></a>
-
-                        <p class="HanSignUpInfo">이름을 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpName">도로명 주소,지번 주소</label>
-                        <input type="text" id="HanSignUpName" name="cardName" placeholder="주소를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">이름을 입력해주세요</p>
-
-                    </li>
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPhone">상세 주소</label>
-                        <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="상세 주소를 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck">
-
-                        <label for="HanSignUpPhone">배송 요청 사항</label>
-                        <input type="tel" id="HanSignUpPhone" name="cardName32" placeholder="배송 요청 사항을 입력해주세요" required
-                               class="HanSignUpInput">
-
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                    <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi">
-
-                        <div class="HanMemberDeliveryCheckDiv">
-
-                            <input type="checkbox" id="HanCheckbox" name="cardName32" class="HanSignUpInput">
-                            <label for="HanCheckbox"></label>
-                            <p>기본 배송지로 등록</p>
-                        </div>
-                        <p class="HanSignUpInfo">전화번호를 입력해주세요</p>
-
-                    </li>
-
-
-                </form>
-
-            </ul>
-
-            <div class="HanSignUpButton">
-                <button class="HanCancel" type="button">취소</button>
-                <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
-            </div>
+          <h1>CloudStar Workshop</h1>
 
         </div>
 
+        <ul>
+
+
+          <form th:action="@{/member/delivery/create}" th:method="post" id="HanSignUpForm">
+            <input type="hidden" th:value="${session.memberId}" id="sessionId" name="memberId">
+
+            <li class="HanSignUpLi hanNone LiCheck">
+              <div id="hiddenDeliveryNameArea">
+                <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+              </div>
+
+              <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
+              <input type="text" id="deliveryName" name="deliveryName" placeholder="배송지 별칭을 입력해주세요"
+                class="HanSignUpInput" maxlength="10" th:value="${deliveryName}">
+
+              <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_deliveryName!=null}">
+                <p class="error" th:text="${valid_deliveryName}"></p>
+              </div>
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+              <div id="hiddenNameArea">
+                <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 2~10자리씩이여야 합니다.</p>
+              </div>
+
+              <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
+              <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
+                placeholder="성함을 입력해주세요" class="HanSignUpInput" maxlength="21">
+
+              <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_recipientName!=null}">
+                <p class="error" th:text="${valid_recipientName}"></p>
+              </div>
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+              <div id="hiddenPhoneArea">
+                <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야 합니다.</p>
+              </div>
+
+              <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
+              <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput"
+                id="recipientPhoneNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="11"
+                th:value="${recipientPhoneNumber}">
+
+              <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_recipientPhoneNumber!=null}">
+                <p class="error" th:text="${valid_recipientPhoneNumber}"></p>
+              </div>
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label>우편번호</label>
+              <input type="text" id="HanZipcodeValue" name="postCode" placeholder="우편번호를 입력해주세요" readonly
+                class="HanSignUpInput" th:value="${postCode}">
+
+              <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
+
+              <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label>도로명 주소,지번 주소</label>
+              <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
+                class="HanSignUpInput" th:value="${address}">
+
+              <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+              <div class="errorArea" th:if="${valid_postCode!=null}">
+                <p class="error" th:text="${valid_postCode}"></p>
+              </div>
+              <div class="errorArea" th:if="${valid_address!=null}">
+                <p class="error" th:text="${valid_address}"></p>
+              </div>
+            </li>
+
+            <li class="HanSignUpLi hanNone LiCheck">
+
+              <label>상세 주소</label>
+              <input type="tel" id="HanDetailAddress" name="detailAddress" placeholder="상세 주소를 입력해주세요"
+                class="HanSignUpInput" th:value="${detailAddress}">
+
+              <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
+              <div class="errorArea" th:if="${valid_detailAddress!=null}">
+                <p class="error" th:text="${valid_detailAddress}"></p>
+              </div>
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone ">
+
+              <label>배송 요청 사항</label>
+              <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50" th:value="${memo}">
+              <div class="errorArea" th:if="${valid_memo!=null}">
+                <p class="error" th:text="${valid_memo}"></p>
+              </div>
+
+            </li>
+
+
+            <li class="HanSignUpLi hanNone LiCheck HanCheckboxLi ">
+
+              <div class="HanMemberDeliveryCheckDiv ">
+
+                <input type="checkbox" id="HanCheckbox" name="defaultDelivery" class="HanSignUpInput">
+                <label for="HanCheckbox"></label>
+                <p>기본 배송지로 등록</p>
+
+
+              </div>
+
+              <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
+
+            </li>
+
+
+
+          </form>
+
+        </ul>
+
+        <div class="HanSignUpButton">
+          <button class="HanCancel" type="reset">취소</button>
+          <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
+        </div>
+
+      </div>
+
     </div>
 
+  </div>
 </div>
-<!-- 메인 끝 -->
+  <!-- 메인 끝 -->
 
 
-<!-- 푸터 시작 -->
+  <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script th:src="@{/js/member/alert.js}"></script>
 
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-
-<!-- 푸터 끝 -->
-
+  <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script th:src="@{/js/member/delivery.js}"></script>
 
 </body>
 

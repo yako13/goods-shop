@@ -7,37 +7,18 @@ VALUES
 ('id4123456','2025-03-07 12:34:56.789123','{bcrypt}$2a$10$jqG7eZdWY.xx/0kR6TesS.mnLbTyrCODz4bi.brSbSUmfQRkjnflq','01311112222','홍길동3',null,null,'USER',true,true,null),
 ('id5123456','2025-03-07 12:34:56.789123','{bcrypt}$2a$10$jqG7eZdWY.xx/0kR6TesS.mnLbTyrCODz4bi.brSbSUmfQRkjnflq','01411112222','김춘식1',null,null,'USER',true,true,null),
 ('id@gmail.com','2025-03-07 12:34:56.789123',null,'01411112222','홍길동5','google','11223344','USER',true,true,null),
-('id2@naver.com','2025-03-07 12:34:56.789123',null,'01411112222','홍길동5','naver','11334455','USER',true,true,null);
+('id2@naver.com','2025-03-07 12:34:56.789123',null,'01411112222','홍길동5','naver','11334455','USER',true,true,null),
+('master1234','2025-03-11 11:12:13.123456','{bcrypt}$2a$10$pm6kNRbbi8xSqpTZWtEwJu6qOI/xXhTmPjfI.y7qcg6u.cG0tbI6W','01012341234','김말자',null,null,'ADMIN',true,true,null);
 
 --상품 테이블
 
 INSERT INTO product(name,created_at,price,count,product_Description,product_category)
 VALUES
-('동화 일러스트 키캡 4종','2025-02-02',20000,20,'귀여운 동화 일러스트가 그려진 키캡입니다','악세서리'),
-('동물 캐릭터 안경닦이','2025-02-02',10000,40,'귀여운 동물 일러스트가 그려진 안경닦이입니다','악세서리'),
-('고양이 장패드','2025-02-02',30000,30,'길쭉한 깜냥이가 그려진 장패드입니다','기타'),
-('동물 캐릭터 메모지','2025-02-02',25000,70,'고양아 멍멍해봐~','악세서리'),
-('멍뭉이 안경닦이 4종','2025-02-02',45000,80,'당싱은 멍뭉이의 안경닦이가 가징공싶엉집니당','기타');
-
---상품 이미지 테이블
-
---INSERT INTO product_image(product_id,image_Type,image_path)
---VALUES
---('1','MAIN','C:/images/product1.png'),
---('1','SUB','C:/images/product1-1.png'),
---('1','SUB','C:/images/product1-2.png'),
---('1','SUB','C:/images/product1-3.png'),
---('1','DESC','C:/images/product1-D.png'),
---('2','MAIN','C:/images/product2.png'),
---('2','SUB','C:/images/product2-1.png'),
---('2','SUB','C:/images/product2-2.png'),
---('2','SUB','C:/images/product2-3.png'),
---('2','DESC','C:/images/product2-D.png'),
---('3','MAIN','C:/images/product3.png'),
---('3','SUB','C:/images/product3-1.png'),
---('3','SUB','C:/images/product3-2.png'),
---('4','DESC','C:/images/product3-D.png'),
---('5','DESC','C:/images/product3-D.png');
+('동화 일러스트 키캡 4종','2025-02-02',20000,20,'귀여운 동화 일러스트가 그려진 키캡입니다','ETC'),
+('동물 캐릭터 안경닦이','2025-02-02',10000,40,'귀여운 동물 일러스트가 그려진 안경닦이입니다','ETC'),
+('고양이 장패드','2025-02-02',30000,30,'길쭉한 깜냥이가 그려진 장패드입니다','ETC'),
+('동물 캐릭터 메모지','2025-02-02',25000,70,'고양아 멍멍해봐~','ETC'),
+('멍뭉이 안경닦이 4종','2025-02-02',45000,80,'당싱은 멍뭉이의 안경닦이가 가징공싶엉집니당','ETC');
 
 --장바구니 테이블
 
@@ -101,7 +82,7 @@ VALUES
 
 
 
-INSERT INTO checkout_Details (product_id, checkout_id, member_id, checkout_detail_price, checkout_detail_cnt)
+INSERT INTO checkout_details (product_id, checkout_id, member_id, checkout_detail_price, checkout_detail_cnt)
 VALUES
 ('1','1','1',20000,3),
 ('2','1','1',10000,4),

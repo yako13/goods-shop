@@ -4,241 +4,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>관리자 주문 상세 내역</title>
+    <title>☁️CloudStar WorkShop 관리자 주문 상세 내역</title>
+    <script src="https://kit.fontawesome.com/f3f72a2177.js" crossorigin="anonymous"></script>
     <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet">
     <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/master/details.css}">
-    <script src="https://kit.fontawesome.com/f3f72a2177.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
-<nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
-<input type="hidden" th:value="${alert}" id="dataAlert">
-
-<main id="main">
-
-    <h2>주문 상세 내역</h2>
-    <hr>
-    <!-- 주문정보 -->
-    <div class="checkoutInfo">
-        <div class="tableTitle">
-            <p><b><i class="fa-regular fa-clipboard"></i> 주문 정보</b></p>
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
+    <input type="hidden" th:value="${alert}" id="dataAlert">
+    <main id="main">
+        <div class="container">
+            <h2>주문 상세 내역</h2>
             <hr>
-        </div>
+            <!-- 주문정보 -->
+            <div class="checkoutInfo">
+                <div class="tableTitle">
+                    <p><b><i class="fa-regular fa-clipboard"></i> 주문 정보</b></p>
 
-        <table class="rwd-table">
-            <tbody>
-            <tr>
-                <th>주문 상태 변경</th>
-                <form th:action="@{/master/checkout/edit}" th:method="post">
-                    <input type="hidden" th:value="${checkoutDetails.id}" name="id" id="id">
-                    <td><select class="selectBox" name="checkoutState" id="checkoutState">
-                        <option th:selected="${checkoutDetails.checkoutState}=='주문완료'" value="CONFIRM">주문완료</option>
-                        <option th:selected="${checkoutDetails.checkoutState}=='주문보류'" value="WAIT">주문보류</option>
-                        <option th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">주문취소</option>
-                    </select></td>
+                </div>
+                <hr>
+                <table class="rwd-table">
+                    <tbody>
+                        <tr>
+                            <th>주문 상태 변경</th>
+                            <form th:action="@{/master/checkout/edit}" th:method="post">
+                                <input type="hidden" th:value="${checkoutDetails.id}" name="id" id="id">
+                                <td><select class="selectBox" name="checkoutState" id="checkoutState">
+                                        <option th:selected="${checkoutDetails.checkoutState}=='주문완료'" value="CONFIRM">
+                                            주문완료</option>
+                                        <option th:selected="${checkoutDetails.checkoutState}=='주문보류'" value="WAIT">주문보류
+                                        </option>
+                                        <option style="color: red;"
+                                            th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">
+                                            주문취소</option>
+                                    </select></td>
 
-            </tr>
-            <tr>
-                <th>배송업체</th>
-                <td><select class="selectBox" name="deliveryCompany" id="deliveryCompany">
-                    <option th:selected="${checkoutDetails.deliveryCompany}=='대한통운'" value="CJ">대한통운</option>
-                    <option th:selected="${checkoutDetails.deliveryCompany}=='우체국택배'" value="POST">우체국택배</option>
-                    <option th:selected="${checkoutDetails.deliveryCompany}=='한진택배'" value="HANJIN">한진택배</option>
-                </select>
-                    <input type="text" placeholder="운송장번호" name="deliveryCode" id="deliveryCode"
-                           th:value="${checkoutDetails.deliveryCode}">
-                    <select class="selectBox" name="deliveryState" id="deliveryState">
-                        <option th:selected="${checkoutDetails.deliveryState}=='배송준비중'" value="PENDING">배송준비중</option>
-                        <option th:selected="${checkoutDetails.deliveryState}=='배송중'" value="TRANSIT">배송중</option>
-                        <option th:selected="${checkoutDetails.deliveryState}=='배송완료'" value="DELIVERED">배송완료</option>
-                        <option th:selected="${checkoutDetails.deliveryState}=='배송취소'" value="CANCELED">배송취소</option>
-                        <option th:selected="${checkoutDetails.deliveryState}=='반품'" value="RETURNED">반품</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>주문번호</th>
-                <td th:text="${checkoutDetails.checkoutCode}"><b></b></td>
-            </tr>
-            <tr>
-                <th>주문일시</th>
-                <td th:text="${checkoutDetails.checkoutDate}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="editButtonArea">
-            <button type="submit" class="editBtn" id="editBtn"><i class="fa-solid fa-pen-to-square"></i>수정</button>
-        </div>
-        </form>
+                        </tr>
+                        <tr>
+                            <th>배송업체</th>
+                            <td><select class="selectBox" name="deliveryCompany" id="deliveryCompany">
+                                    <option th:selected="${checkoutDetails.deliveryCompany}=='대한통운'" value="CJ">대한통운
+                                    </option>
+                                    <option th:selected="${checkoutDetails.deliveryCompany}=='우체국택배'" value="POST">우체국택배
+                                    </option>
+                                    <option th:selected="${checkoutDetails.deliveryCompany}=='한진택배'" value="HANJIN">한진택배
+                                    </option>
+                                </select>
+                                <input type="text" placeholder="운송장번호" name="deliveryCode" id="deliveryCode"
+                                    th:value="${checkoutDetails.deliveryCode}">
+                                <select class="selectBox" name="deliveryState" id="deliveryState">
+                                    <option th:selected="${checkoutDetails.deliveryState}=='배송준비중'" value="PENDING">
+                                        배송준비중</option>
+                                    <option th:selected="${checkoutDetails.deliveryState}=='배송중'" value="TRANSIT">배송중
+                                    </option>
+                                    <option th:selected="${checkoutDetails.deliveryState}=='배송완료'" value="DELIVERED">
+                                        배송완료</option>
+                                    <option th:selected="${checkoutDetails.deliveryState}=='배송취소'" value="CANCELED">배송취소
+                                    </option>
+                                    <option style="color: red;" th:selected="${checkoutDetails.deliveryState}=='반품'"
+                                        value="RETURNED">반품
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주문번호</th>
+                            <td th:text="${checkoutDetails.checkoutCode}"><b></b></td>
+                        </tr>
+                        <tr>
+                            <th>주문일시</th>
+                            <td th:text="${checkoutDetails.checkoutDate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="editButtonArea">
+                    <button type="submit" class="editBtn" id="editBtn"><i
+                            class="fa-solid fa-pen-to-square"></i>수정</button>
+                </div>
+                </form>
 
-    </div>
-    <!-- /주문정보 -->
-    <!-- 결제정보 -->
-    <div class="payInfo">
-        <div class="tableTitle ">
-            <p><b><i class="fa-regular fa-credit-card"></i> 결제 정보</b></p>
-            <hr>
-        </div>
-        <div class="tableArea">
-            <table class="parentsTable">
-                <tr>
-                    <th class="parentsTableHead"><i class="fa-solid fa-wallet"></i> 결제 정보</th>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="rwd-table">
-                            <tbody>
-                            <tr>
-                                <th>총 결제 금액</th>
-                                <td class="red" th:text="${checkoutDetails.totalPay}"><b></b></td>
+            </div>
+            <!-- /주문정보 -->
+            <!-- 결제정보 -->
+            <div class="payInfo">
+                <div class="tableTitle">
+                    <p><b><i class="fa-regular fa-credit-card"></i> 결제 정보</b></p>
+                </div>
+                <hr>
 
-                            </tr>
-                            <tr>
-                                <th>총 상품 금액</th>
-                                <td th:text="${checkoutDetails.totalProductCost}">2,000원</td>
-                            </tr>
-                            <tr>
-                                <th>배송비</th>
-                                <td th:text="${checkoutDetails.deliveryCost}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <table class="parentsTable borderNone">
-                <tr>
-                    <th class="parentsTableHead"><i class="fa-regular fa-credit-card"></i> 결제 수단</th>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="rwd-table">
-                            <tbody>
-                            <tr>
-                                <th>결제 수단</th>
-                                <td>카드</td>
+                <div class="tableArea">
+                    <table class="parentsTable">
+                        <tr>
+                            <th class="parentsTableHead firstHead"><i class="fa-solid fa-wallet"></i> 결제 정보</th>
+                        </tr>
+                        <tr>
+                            <td class="parentsTableTd firstBody">
+                                <table class="rwd-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>총 결제 금액</th>
+                                            <td class="red" th:text="${checkoutDetails.totalPay}"><b></b></td>
 
-                            </tr>
-                            <tr>
-                                <th>카드 정보</th>
-                                <td>카드 번호 : [[${checkoutDetails.cardCode}]]</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <!-- /결제정보 -->
-    <!-- 주문상품정보 -->
-    <div class="productInfo">
-        <div class="tableTitle">
-            <p><b><i class="fa-solid fa-list"></i> 주문 상품 정보</b></p>
-            <hr>
-        </div>
+                                        </tr>
+                                        <tr>
+                                            <th>총 상품 금액</th>
+                                            <td th:text="${checkoutDetails.totalProductCost}">2,000원</td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송비</th>
+                                            <td th:text="${checkoutDetails.deliveryCost}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="parentsTable borderNone">
+                        <tr>
+                            <th class="parentsTableHead lastHead"><i class="fa-regular fa-credit-card"></i> 결제 수단</th>
+                        </tr>
+                        <tr>
+                            <td class="parentsTableTd lastBody">
+                                <table class="rwd-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>결제 수단</th>
+                                            <td>카드</td>
 
-        <table class="rwd-table productTable">
-            <tbody>
-            <tr>
-                <th>번호</th>
-                <th>이미지</th>
-                <th>상품명</th>
-                <th>수량</th>
-                <th>판매 가격</th>
-                <th>총 구매 가격</th>
-            </tr>
-            <tr th:each="product,productList : ${productList}">
-                <td th:text="${productList.index}"></td>
-                <td><img th:src="@{C:/images/product3-D.png}" style="width:100px;"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.count}"></td>
-                <td th:text="${product.price}">2,000원</td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- /주문상품정보 -->
+                                        </tr>
+                                        <tr>
+                                            <th>카드 정보</th>
+                                            <td>카드 번호 : [[${checkoutDetails.cardCode}]]</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /결제정보 -->
+            <!-- 주문상품정보 -->
+            <div class="productInfo">
+                <div class="tableTitle">
+                    <p><b><i class="fa-solid fa-list"></i> 주문 상품 정보</b></p>
+                </div>
+                <hr>
 
-    <!-- 주문자 및 배송지 정보 -->
-    <div class="ordererInfo">
-        <div class="tableTitle">
-            <p><b><i class="fa-regular fa-user"></i> 주문자 및 배송지 정보</b></p>
-            <hr>
+                <table class="rwd-table productTable">
+                    <tbody>
+                        <tr>
+                            <th style="width:30px;">번호</th>
+                            <th>이미지</th>
+                            <th>상품명</th>
+                            <th>수량</th>
+                            <th>판매 가격</th>
+                            <th>총 구매 가격</th>
+                        </tr>
+                        <tr th:each="product,productList : ${productList}">
+                            <td style="width:30px;" th:text="${productList.count}"></td>
+                            <td><img th:src="@{'/productImages/'+${product.productImage.getImageFullName}}"
+                                    style="width:100px;"></td>
+                            <td th:text="${product.name}"></td>
+                            <td th:text="${product.count}"></td>
+                            <td th:text="${product.price}" class="price"></td>
+                            <td th:text="${product.price}*${product.count}" class="totalPrice"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /주문상품정보 -->
+
+            <!-- 주문자 및 배송지 정보 -->
+            <div class="ordererInfo">
+                <div class="tableTitle">
+                    <p><b><i class="fa-regular fa-user"></i> 주문자 및 배송지 정보</b></p>
+                </div>
+                <hr>
+
+                <div class="tableArea">
+                    <table class="parentsTable">
+                        <tr>
+                            <th class="parentsTableHead firstHead"><i class="fa-solid fa-user"></i> 주문자 정보</th>
+                        </tr>
+                        <tr>
+                            <td class="parentsTableTd firstBody">
+                                <table class="rwd-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>주문자명</th>
+                                            <td th:text="${checkoutDetails.ordererName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>아이디 또는<br>이메일주소</th>
+                                            <td th:text="${checkoutDetails.ordererId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>연락처</th>
+                                            <td th:text="${checkoutDetails.ordererPhoneNumber}" id="orderer"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="parentsTable borderNone">
+                        <tr>
+                            <th class="parentsTableHead lastHead"><i class="fa-solid fa-truck"></i> 배송지 정보</th>
+                        </tr>
+                        <tr>
+                            <td class="parentsTableTd lastBody">
+                                <table class="rwd-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>수취인명</th>
+                                            <td th:text="${checkoutDetails.recipientName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>연락처</th>
+                                            <td th:text="${checkoutDetails.recipientPhoneNumber}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송지 주소</th>
+                                            <td th:text="${checkoutDetails.address}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송 요청 사항</th>
+                                            <td th:text="${checkoutDetails.deliveryMemo}"><b></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /주문자 및 배송지 정보  -->
+            <!-- 버튼영역 -->
+            <div class="buttonArea">
+                <a th:href="@{/master/checkout/list}" class="listBtn"><i class="fa-solid fa-rotate-left"></i> 목록</a>
+                <button type="submit" class="deleteBtn" id="deleteBtn"><i class="fa-solid fa-trash-can"></i> 삭제</button>
+            </div>
+            <button id="topBtn" title="Go to top">▲</button>
         </div>
-        <div class="tableArea">
-            <table class="parentsTable">
-                <tr>
-                    <th class="parentsTableHead"><i class="fa-solid fa-user"></i> 주문자 정보</th>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="rwd-table">
-                            <tbody>
-                            <tr>
-                                <th>주문자명</th>
-                                <td th:text="${checkoutDetails.ordererName}"></td>
-                            </tr>
-                            <tr>
-                                <th>아이디 또는<br>이메일주소</th>
-                                <td th:text="${checkoutDetails.ordererId}"></td>
-                            </tr>
-                            <tr>
-                                <th>연락처</th>
-                                <td th:text="${checkoutDetails.ordererPhoneNumber}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <table class="parentsTable borderNone">
-                <tr>
-                    <th class="parentsTableHead"><i class="fa-solid fa-truck"></i> 배송지 정보</th>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="rwd-table">
-                            <tbody>
-                            <tr>
-                                <th>수취인명</th>
-                                <td th:text="${checkoutDetails.recipientName}"></td>
-                            </tr>
-                            <tr>
-                                <th>연락처</th>
-                                <td th:text="${checkoutDetails.recipientPhoneNumber}"></td>
-                            </tr>
-                            <tr>
-                                <th>배송지 주소</th>
-                                <td th:text="${checkoutDetails.address}"></td>
-                            </tr>
-                            <tr>
-                                <th>배송 요청 사항</th>
-                                <td th:text="${checkoutDetails.deliveryMemo}"><b></b></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <!-- /주문자 및 배송지 정보  -->
-    <!-- 버튼영역 -->
-    <div class="buttonArea">
-        <a href="@{/master/checkout/list}" class="listBtn"><i class="fa-solid fa-rotate-left"></i> 목록</a>
-        <button type="submit" class="deleteBtn" id="deleteBtn"><i class="fa-solid fa-trash-can"></i> 삭제</button>
-    </div>
-    <button id="topBtn" title="Go to top">▲</button>
-</main>
-<script th:src="@{/js/master/masterNavigation.js}"></script>
-<script th:src="@{/js/master/checkout.js}"></script>
+    </main>
+    <script th:src="@{/js/master/masterNavigation.js}"></script>
+    <script th:src="@{/js/master/checkout.js}"></script>
 </body>
 
 </html>

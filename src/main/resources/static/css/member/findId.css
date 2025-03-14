@@ -20,7 +20,7 @@ body {
     width: 450px;
     border-radius: 7px;
     margin: 190px auto;
-    height: 320px;
+    height: 370px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 
@@ -82,14 +82,11 @@ body {
 
         }
 
-        input:focus {
-            box-shadow: 5px 5px 15px #CDDAFD;
-        }
 
         input {
             border: 1px solid #ccc;
             display: block;
-            width: 90%;
+            width: 80%;
             max-width: 680px;
             height: 50px;
             margin: 0 auto;
@@ -113,11 +110,11 @@ body {
         background-color: #fff6a6;
         color: #363636;
         display: block;
-        width: 92.5%;
+        width: 84%;
         max-width: 680px;
         height: 50px;
         border-radius: 4px;
-        margin: 0 auto;
+        margin: 40px auto;
         border: none;
         cursor: pointer;
         font-size: 16px;

@@ -3,6 +3,7 @@ package Spring.Goods_Shop.entity;
 import Spring.Goods_Shop.base.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.Comment;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Pay extends BaseTime {
 
     @Id
@@ -24,7 +26,7 @@ public class Pay extends BaseTime {
     private Member member;
 
     @Column(nullable = true)
-    @Comment("카드 별침")
+    @Comment("카드 별칭")
     private String nickname;
 
     @Column(nullable = false)

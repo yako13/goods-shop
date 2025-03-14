@@ -1,241 +1,439 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/master/masterHeader.css"/>
-    <link rel="stylesheet" href="/css/master/masterNavigation.css"/>
-    <link rel="stylesheet" th:href="@{/css/product/productEdit.css}">
+    <link rel="stylesheet" href="/css/master/masterHeader.css" />
+    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
+    <link rel="stylesheet" th:href="@{/css/product/productEdit.css}" />
 
-    <!--    <style>-->
-    <!--      body {-->
-    <!--        margin: 0px;-->
-    <!--      }-->
-    <!--      a {-->
-    <!--        text-decoration: none;-->
-    <!--        color: #000000;-->
-    <!--      }-->
-    <!--      .container__main {-->
-    <!--        justify-self: center;-->
-    <!--      }-->
-    <!--      .container__input {-->
-    <!--        display: flex;-->
-    <!--        flex-direction: column;-->
-    <!--        margin-bottom: 2rem;-->
-    <!--      }-->
-    <!--      .container__input label {-->
-    <!--        margin-top: 0.5rem;-->
-    <!--      }-->
-    <!--      .container__form {-->
-    <!--        border: 1px solid #000000;-->
-    <!--        padding: 3rem;-->
-    <!--        margin-top: 5rem;-->
-    <!--        width: 25rem;-->
-    <!--        border-radius: 7px;-->
-    <!--      }-->
-    <!--      input[type="file"] {-->
-    <!--        margin-bottom: 0.5rem;-->
-    <!--      }-->
-    <!--      .preview-container {-->
-    <!--        display: flex;-->
-    <!--        gap: 10px;-->
-    <!--      }-->
-    <!--      .preview-container img {-->
-    <!--        width: 45px;-->
-    <!--        height: 45px;-->
-    <!--        object-fit: cover;-->
-    <!--        border-radius: 5px;-->
-    <!--      }-->
-    <!--      .preview-item {-->
-    <!--        position: relative;-->
-    <!--        display: inline-block;-->
-    <!--      }-->
-    <!--      .delete-btn {-->
-    <!--        position: absolute;-->
-    <!--        top: 0;-->
-    <!--        right: 0;-->
-    <!--        background: red;-->
-    <!--        color: white;-->
-    <!--        border: none;-->
-    <!--        cursor: pointer;-->
-    <!--        font-size: 5px;-->
-    <!--      }-->
-    <!--      .required-text {-->
-    <!--        color: #ff0000;-->
-    <!--        font-size: 0.5rem;-->
-    <!--        margin-left: 0.5rem;-->
-    <!--      }-->
-    <!--    </style>-->
-</head>
-<body>
-<header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
-<nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
-<main class="container__main" id="main">
-    <div class="master__product">
+    <style>
+      .thumbnail {
+        max-width: 150px;
+        max-height: 150px;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .image-container {
+        display: flex;
+        /* margin-right: 10px; */
+        position: relative;
+      }
+      .btn-delete {
+        font-size: 1rem;
+        border: 0px;
+        border-radius: 10px;
+        background-color: #acd1ff33;
+        color: #6a6a6a;
+        height: 20px;
+        position: relative;
+        top: 30px;
+        cursor: pointer;
+      }
+      .btn-delete:hover {
+        background-color: #b578ff33;
+      }
+    </style>
+  </head>
+  <body>
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+    <main class="container__main" id="main">
+      <div class="master__product">
         <div th:each="product : ${product}" class="container__form">
-            <!-- form -->
-            <form
-                    th:action="@{/master/product/edit/{id}(id=${product.id})}"
-                    method="post"
-                    enctype="multipart/form-data">
-                <!-- 상품명 -->
-                <div class="container__input">
-                    <label for="product-name"
-                    >상품명<span class="required-text">* 필수</span></label
-                    >
-                    <input
-                            type="text"
-                            id="product-name"
-                            name="name"
-                            th:value="${product.name}"/>
-                </div>
-                <!-- /상품명 -->
+          <!-- form -->
+          <form
+            th:action="@{/master/product/edit/{id}(id=${product.id})}"
+            method="post"
+            onsubmit="return doAction();"
+            enctype="multipart/form-data">
+            <!-- 상품명 -->
+            <div class="container__input">
+              <label for="productName"
+                >상품명<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="text"
+                id="productName"
+                name="name"
+                placeholder="상품명은 30자 이내로 작성해주세요."
+                oninput="inputName(this, 50)"
+                th:value="${product.name}" />
+            </div>
+            <!-- /상품명 -->
 
-                <!-- 카테고리 -->
-                <div class="container__input">
-                    <label for="category"
-                    >카테고리<span class="required-text">* 필수</span></label
-                    >
-                    <select id="category" name="productCategory">
-                        <option value="#" disabled="disabled">
-                            카테고리를 선택해주세요
-                        </option>
-                        <option value="포토카드" th:selected="${product.productCategory.name() == '포토카드'}">포토카드</option>
-                        <option value="악세서리" th:selected="${product.productCategory.name() == '악세서리'}">악세서리</option>
-                        <option value="컴퓨터용품" th:selected="${product.productCategory.name() == '컴퓨터용품'}">컴퓨터용품</option>
-                        <option value="기타" th:selected="${product.productCategory.name() == '기타'}">기타</option>
-                    </select>
-                </div>
-                <!-- /카테고리 -->
+            <!-- 카테고리 -->
+            <div class="container__input">
+              <label for="category"
+                >카테고리<span class="required-text">* 필수</span></label
+              >
+              <select id="category" name="productCategory">
+                <option value="#" disabled="disabled">
+                  카테고리를 선택해주세요
+                </option>
+                <option
+                  value="PHOTO_CARD"
+                  th:selected="${product.productCategory.name() eq 'PHOTO_CARD'}">
+                  포토카드
+                </option>
+                <option
+                  value="MEMO"
+                  th:selected="${product.productCategory.name() eq 'MEMO'}">
+                  메모지
+                </option>
+                <option
+                  value="STICKER"
+                  th:selected="${product.productCategory.name() eq 'STICKER'}">
+                  스티커
+                </option>
+                <option
+                  value="POSTCARD"
+                  th:seleted="${product.productCategory.name() eq 'POSTCARD'}">
+                  엽서
+                </option>
+                <option
+                  value="ETC"
+                  th:selected="${product.productCategory.name() eq 'ETC'}">
+                  기타
+                </option>
+              </select>
+            </div>
+            <!-- /카테고리 -->
 
-                <!-- 판매가격 -->
-                <div class="container__input">
-                    <label for="price"
-                    >판매 가격<span class="required-text">* 필수</span></label
-                    >
-                    <input
-                            type="text"
-                            id="price"
-                            name="price"
-                            th:value="${#numbers.formatInteger(product.price, 3)}"/>
-                </div>
-                <!-- /판매가격 -->
+            <!-- 판매가격 -->
+            <div class="container__input">
+              <label for="price"
+                >판매 가격<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="text"
+                id="price"
+                name="price"
+                placeholder="숫자만 입력해주세요."
+                th:value="${#numbers.formatInteger(product.price, 3)}" />
+            </div>
+            <!-- /판매가격 -->
 
-                <!-- 재고 수량 -->
-                <div class="container__input">
-                    <label for="count"
-                    >재고 수량<span class="required-text">* 필수</span></label
-                    >
-                    <input
-                            type="number"
-                            id="count"
-                            name="count"
-                            th:value="${product.count}"/>
-                </div>
-                <!-- /재고 수량 -->
+            <!-- 재고 수량 -->
+            <div class="container__input">
+              <label for="count"
+                >재고 수량<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="number"
+                id="count"
+                name="count"
+                placeholder="숫자만 입력해주세요."
+                th:value="${product.count}" />
+            </div>
+            <!-- /재고 수량 -->
 
-                <!-- 상품 설명 -->
-                <div class="container__input">
-                    <label for="description">상품 설명</label>
-                    <textarea
-                            cols="47"
-                            rows="5"
-                            id="description"
-                            name="ProductDescription"
-                            th:text="${product.productDescription}"></textarea>
-                </div>
-                <!-- /상품 설명 -->
+            <!-- 상품 설명 -->
+            <div class="container__input">
+              <label for="description">상품 설명</label>
+              <textarea
+                cols="47"
+                rows="5"
+                id="description"
+                oninput="inputTextarea(this, 200)"
+                placeholder="상품 설명은 200자 이내로 작성해주세요."
+                name="ProductDescription"
+                th:text="${product.productDescription}"></textarea>
+            </div>
+            <!-- /상품 설명 -->
 
-                <!-- 이미지 -->
-                <!-- 상품 메인 이미지 -->
-                <div class="container__input">
-                    <label>상품 메인 이미지 (1장만 업로드 가능)<span class="required-text">* 필수</span></label>
+            <input
+              type="hidden"
+              id="deletedImages"
+              name="deletedImages"
+              value="" />
+            <!-- 이미지 -->
+            <!-- 상품 메인 이미지 -->
+            <div class="container__input">
+              <label
+                >상품 메인 이미지 (1장만 업로드 가능)<span class="required-text"
+                  >* 필수</span
+                ></label
+              >
 
-                    <!-- 새 이미지 업로드 -->
-                    <input type="file" name="mainImage" id="mainImage" accept="image/*"
-                           onchange="previewSingleImage(event, 'mainImagePreview')"/>
-                    <!-- 기존 이미지 미리보기 (있다면) -->
-                    <div id="mainImagePreview" class="preview-container">
-                        <img th:if="${product.productImage != null}"
-                             th:src="@{/product-image/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}"
-                             class="thumbnail"/>
-                    </div>
+              <!-- 새 이미지 업로드 -->
+              <input
+                type="file"
+                name="mainImage"
+                id="mainImage"
+                accept="image/*"
+                onchange="previewSingleImage(event, 'mainImagePreview', 'mainImage')" />
+              <!-- 기존 이미지 미리보기 (있다면) -->
+              <div id="mainImagePreview" class="preview-container">
+                <div class="mainImageContainer" id="existingMainImage">
+                  <img
+                    th:src="@{/productImages/{uuid}{fileExtension}(uuid=${product.productImage.uuid}, fileExtension=${product.productImage.fileExtension})}"
+                    class="thumbnail" />
+                  <!-- <button type="button" class="btn-delete">x</button> -->
                 </div>
+              </div>
+            </div>
 
-                <!-- 상품 서브 이미지 (최대 3장) -->
-                <div class="container__input">
-                    <label>상품 서브 이미지 (최대 3장)</label>
-                    <input type="file" id="subImage" name="subImage" accept="image/*" multiple
-                           onchange="previewMultipleImages(event, 'subImagePreview', 3)"/>
-                    <div id="subImagePreview" class="preview-container">
-                        <div th:each="sub : ${subImage}">
-                            <img th:src="@{${sub}}" class="thumbnail"/>
-                        </div>
-                    </div>
+            <!-- 상품 서브 이미지 (최대 3장) -->
+            <div class="container__input">
+              <label>상품 서브 이미지 (최대 3장)</label>
+              <input
+                type="file"
+                id="subImage"
+                name="subImage"
+                accept="image/*"
+                multiple
+                onchange="previewMultipleImages(event, 'subImagePreview', 3, 'subImage')" />
+              <div class="subImageContainer" id="existingSubImage">
+                <div id="subImagePreview" class="preview-container">
+                  <div
+                    class="image-container subImage-image-container"
+                    th:each="sub, iterStat : ${subImage}"
+                    id="subImageContainer-[[${iterStat.index}]]">
+                    <img th:src="@{${sub}}" class="thumbnail" />
+                    <button
+                      class="btn-delete"
+                      type="button"
+                      th:attr="onclick=|deleteExistingImage(this, [[${iterStat.index}]], 'subImage')|">
+                      x
+                    </button>
+                  </div>
                 </div>
+              </div>
+            </div>
 
-
-                <div class="container__input">
-                    <label>상품 설명 이미지 (최대 5장)</label>
-                    <input type="file" id="descImage" name="descImage" accept="image/*" multiple
-                           onchange="previewMultipleImages(event, 'descImagePreview', 5)"/>
-                    <div id="descImagePreview" class="preview-container">
-                        <div th:each="desc : ${descImage}">
-                            <img th:src="@{${desc}}" class="thumbnail">
-                        </div>
-                    </div>
+            <div class="container__input">
+              <label>상품 설명 이미지 (최대 5장)</label>
+              <input
+                type="file"
+                id="descImage"
+                name="descImage"
+                accept="image/*"
+                multiple
+                onchange="previewMultipleImages(event, 'descImagePreview', 5, 'descImage')" />
+              <div id="descImagePreview" class="preview-container">
+                <div
+                  class="image-container"
+                  th:each="desc, iterStat : ${descImage}"
+                  id="descImageContainer-[[${iterStat.index}]]">
+                  <img th:src="@{${desc}}" class="thumbnail" />
+                  <button
+                    type="button"
+                    class="btn-delete"
+                    th:attr="onclick=|deleteExistingImage(this, [[${iterStat.index}]], 'descImage')|">
+                    x
+                  </button>
                 </div>
-                <!-- /이미지 -->
-                <div class="HanCardNewButton2">
-                    <button class="HanCancel" type="button" onclick="location.href='/master/product/list'">취소</button>
-                    <button class="HanSubmit" type="submit">수정</button>
-                </div>
-            </form>
-            <!-- /form -->
+              </div>
+            </div>
+            <!-- /이미지 -->
+            <div class="HanCardNewButton2">
+              <button
+                class="HanCancel"
+                type="button"
+                onclick="location.href='/master/product/list'">
+                취소
+              </button>
+              <button class="HanSubmit" type="submit">수정</button>
+            </div>
+          </form>
+          <!-- /form -->
         </div>
-    </div>
-</main>
-</body>
-<script th:src="@{/js/master/masterNavigation.js}"></script>
-<script>
-    // 단일 이미지 미리보기
-  function previewSingleImage(event, previewId) {
-    const reader = new FileReader();
-    reader.onload = function() {
-      const imgElement = document.createElement("img");
-      imgElement.src = reader.result;
-      imgElement.className = "thumbnail";
+      </div>
+    </main>
+  </body>
+  <script th:src="@{/js/master/masterNavigation.js}"></script>
+  <script>
+    // 기존 이미지 삭제 함수 (메인, 서브, 설명 이미지)
+    function deleteExistingImage(button, index, type) {
+      // id 기반 삭제 시도
+      let imageContainer = document.getElementById(`${type}Container-${index}`);
 
-      const previewDiv = document.getElementById(previewId);
-      previewDiv.innerHTML = ""; // 기존 이미지 삭제
-      previewDiv.appendChild(imgElement);
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  }
+      if (!imageContainer) {
+        imageContainer = button.closest("div");
+      }
 
-  // 다중 이미지 미리보기
-  function previewMultipleImages(event, previewId, maxImages) {
-    const previewDiv = document.getElementById(previewId);
-    previewDiv.innerHTML = ""; // 기존 이미지 삭제
+      if (imageContainer) {
+        imageContainer.remove(); // 화면에서 즉시 삭제
+      }
+      // 삭제된 이미지 목록 업데이트
+      const deletedImagesInput = document.getElementById("deletedImages");
+      let deletedImages = deletedImagesInput.value
+        ? deletedImagesInput.value.split(",")
+        : [];
 
-    const files = event.target.files;
-    if (files.length > maxImages) {
-      alert(`최대 ${maxImages}장까지 업로드할 수 있습니다.`);
-      event.target.value = ""; // 파일 입력 초기화
-      return;
+      if (!deletedImages.includes(`${type}${index}`)) {
+        deletedImages.push(`${type}${index}`);
+      }
+
+      deletedImagesInput.value = deletedImages.join(",");
     }
 
-    Array.from(files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = function() {
-        const imgElement = document.createElement("img");
-        imgElement.src = reader.result;
-        imgElement.className = "thumbnail";
-        previewDiv.appendChild(imgElement);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-</script>
+    // 기존 메인 이미지 삭제
+    function deleteMainImage() {
+      const mainPreviewContainer = document.getElementById("mainImagePreview");
+      if (mainPreviewContainer) {
+        mainPreviewContainer.innerHTML = ""; // 미리보기 삭제
+      }
+
+      const mainInput = document.getElementById("mainImage");
+      if (mainInput) {
+        mainInput.value = ""; // 파일 선택 초기화
+      }
+
+      const deletedImagesInput = document.getElementById("deletedImages");
+      let deletedImages = deletedImagesInput.value
+        ? deletedImagesInput.value.split(",")
+        : [];
+
+      if (!deletedImages.includes("mainImage")) {
+        deletedImages.push("mainImage");
+      }
+
+      deletedImagesInput.value = deletedImages.join(",");
+    }
+
+    // 새로 추가한 이미지 삭제 (서브, 설명 이미지)
+    function deleteNewImage(index, type) {
+      console.log(`새 이미지 삭제 실행: type=${type}, index=${index}`);
+
+      const imageContainer = document.getElementById(`new${type}-${index}`);
+      if (imageContainer) {
+        imageContainer.remove(); // 화면에서 즉시 삭제
+      }
+
+      const fileInput = document.getElementById(type);
+      if (fileInput) {
+        fileInput.value = ""; // 파일 선택 초기화
+      }
+    }
+
+    // 서브, 설명 이미지 미리보기 기능 (동적 추가)
+    const newImageIndex = {};
+
+    function previewMultipleImages(event, previewId, maxImages, type) {
+      const previewContainer = document.getElementById(previewId);
+      const files = event.target.files;
+
+      if (!previewContainer || !files) return;
+
+      // newImageIndex[type]가 없으면 초기화
+      if (!newImageIndex[type]) {
+        newImageIndex[type] = 0;
+      }
+
+      for (let i = 0; i < files.length; i++) {
+        if (previewContainer.childElementCount >= maxImages) {
+          alert(`최대 ${maxImages}개의 이미지만 업로드할 수 있습니다.`);
+          break;
+        }
+
+        const file = files[i];
+        const reader = new FileReader();
+        const currentIndex = newImageIndex[type]++;
+
+        reader.onload = function (e) {
+          const imageContainer = document.createElement("div");
+          imageContainer.classList.add("image-container");
+          imageContainer.classList.add(`${type}-image-container`); // text
+          imageContainer.id = `new${type}-${currentIndex}`;
+
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.classList.add("thumbnail");
+
+          const deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.innerText = "x";
+          deleteButton.className = "btn-delete";
+          deleteButton.onclick = function () {
+            deleteNewImage(currentIndex, type);
+          };
+
+          imageContainer.appendChild(img);
+          imageContainer.appendChild(deleteButton);
+          previewContainer.appendChild(imageContainer);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // 메인 이미지 미리보기 기능
+    function previewSingleImage(event, previewId, inputId) {
+      const file = event.target.files[0];
+      const previewContainer = document.getElementById(previewId);
+      previewContainer.innerHTML = "";
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageContainer = document.createElement("div");
+          imageContainer.classList.add("image-container");
+          imageContainer.id = `new${inputId}`;
+
+          const imgElement = document.createElement("img");
+          imgElement.src = e.target.result;
+          imgElement.classList.add("thumbnail");
+
+          const deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.innerText = "x";
+          deleteButton.className = "btn-delete";
+          deleteButton.onclick = function () {
+            deleteMainImage();
+          };
+
+          imageContainer.appendChild(imgElement);
+          imageContainer.appendChild(deleteButton);
+          previewContainer.appendChild(imageContainer);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    // form required
+    function doAction() {
+      let checkProductName = document.getElementById("productName");
+      let checkCategory = document.getElementById("category");
+      let checkPrice = document.getElementById("price");
+      let checkCount = document.getElementById("count");
+      let checkMainImage = document.getElementById("existingMainImage");
+
+      let cPrice = /^[0-9]+$/;
+
+      if (checkProductName.value.length == 0) {
+        alert("상품명은 필수 입력 사항입니다.");
+        return false;
+      } else if (checkCategory.value == "#") {
+        alert("상품 카테고리는 필수 입력 사항입니다.");
+        return false;
+      } else if (checkPrice.value.length == 0) {
+        alert("판매 가격은 필수 입력 사항입니다.");
+        return false;
+      } else if (!cPrice.test(checkPrice.value)) {
+        alert("판매 가격은 숫자만 입력 가능합니다.");
+        return false;
+      } else if (checkCount.value.length == 0) {
+        alert("재고 수량은 필수 입력 사항입니다.");
+        return false;
+      } else if (checkMainImage.files.length == 0) {
+        alert("상품 메인 이미지는 필수 입력 사항입니다.");
+        return false;
+      }
+      return true;
+    }
+    // 상품명의 최대 길이 제한
+    function inputName(name, maxlength) {
+      if (name.value.length > maxlength) {
+        name.value = name.value.substr(0, maxlength);
+      }
+    }
+    // 상품 설명의 최대 길이 제한
+    function inputTextarea(text, maxlength) {
+      if (text.value.length > maxlength) {
+        text.value = text.value.substr(0, maxlength);
+      }
+    }
+  </script>
 </html>

@@ -50,7 +50,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String providerId = oAuth2UserInfo.getProviderId();
         String loginId = oAuth2UserInfo.getEmail();
         String name = oAuth2UserInfo.getName();
+
         String phoneNumber = oAuth2UserInfo.getPhoneNumber();
+
+        //네이버로 회원가입 시 휴대전화번호에 "-"가 포함되어 있어서 나중에 formatter 에서 오류날 수 있음
+        if(phoneNumber!=null && phoneNumber.contains("-")){
+            phoneNumber = phoneNumber.replace("-","");
+        }
 
         Optional<Member> findMember = memberRepository.findByUserId(loginId);
 

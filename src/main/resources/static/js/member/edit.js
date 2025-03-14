@@ -19,6 +19,39 @@ let phone = document.getElementById("phoneNumber");
 
 let provider = document.getElementById("blue");
 
+let hiddenPasswordArea = document.getElementById("hiddenPasswordArea");
+let hiddenNameArea = document.getElementById("hiddenNameArea");
+let hiddenPhoneArea = document.getElementById("hiddenPhoneArea");
+
+let hiddenPassword = document.getElementById("hiddenPassword");
+let hiddenName = document.getElementById("hiddenName");
+let hiddenPhone = document.getElementById("hiddenPhone");
+
+//정규식 적용 알림
+
+hiddenName.addEventListener("mouseover",()=>{
+    hiddenNameArea.style.display="block";
+})
+hiddenName.addEventListener("mouseout",()=>{
+    hiddenNameArea.style.display="none";
+})
+
+hiddenPhone.addEventListener("mouseover",()=>{
+    hiddenPhoneArea.style.display="block";
+})
+hiddenPhone.addEventListener("mouseout",()=>{
+    hiddenPhoneArea.style.display="none";
+})
+
+userName.addEventListener("focus",()=>{
+    hiddenNameArea.style.display="none";
+})
+
+phone.addEventListener("focus",()=>{
+    hiddenPhoneArea.style.display="none";
+})
+
+
 
 button.addEventListener("click", () => {
     //SNS 이용자의 경우
@@ -29,7 +62,7 @@ button.addEventListener("click", () => {
         }
         else {
             bol_name = 0;
-            alert("이름은 한글 2~5자 또는 성과 이름을 구분하여 영문 2~10자리씩이여야 합니다.");
+            hiddenNameArea.style.display="block";
         }
     
         if (phone_check.test(phone.value)) {
@@ -37,7 +70,7 @@ button.addEventListener("click", () => {
         }
         else {
             bol_phone = 0;
-            alert("휴대전화번호는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야 합니다.");
+            hiddenPhoneArea.style.display="block";
         }
       
         bol_all = bol_name + bol_phone;
@@ -54,14 +87,14 @@ button.addEventListener("click", () => {
         }
         else {
             bol_password = 0;
-            alert("비밀번호는 대소문자, 숫자, 특수문자 조합으로 8~15자리여야합니다.");
+            hiddenPasswordArea.style.display="block";
         }
         if (name_check.test(userName.value)) {
             bol_name = 1;
         }
         else {
             bol_name = 0;
-            alert("이름은 한글 2~5자 또는 성과 이름을 구분하여 영문 2~10자리씩이여야 합니다.");
+            hiddenNameArea.style.display="block";
         }
     
         if (phone_check.test(phone.value)) {
@@ -69,7 +102,7 @@ button.addEventListener("click", () => {
         }
         else {
             bol_phone = 0;
-            alert("휴대전화번호는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야 합니다.");
+            hiddenPhoneArea.style.display="block";
         }
     
     
@@ -131,3 +164,15 @@ userPasswordCheck.addEventListener("keydown", () => {
 userPasswordCheck.addEventListener("keyup", () => {
     checkPassword();
 })
+
+hiddenPassword.addEventListener("mouseover",()=>{
+    hiddenPasswordArea.style.display="block";
+})
+hiddenPassword.addEventListener("mouseout",()=>{
+    hiddenPasswordArea.style.display="none";
+})
+
+userPassword.addEventListener("focus",()=>{
+    hiddenPasswordArea.style.display="none";
+})
+

@@ -3,12 +3,19 @@
 @font-face {
     font-family: 'NanumSquareRound';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-  }
+ }
+
+ @font-face {
+      font-family: 'Ownglyph_jiwoosonang';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/Ownglyph_jiwoosonang.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+ }
   
-  * {
+ * {
     font-family: NanumSquareRound;
   
-  }
+ }
   
   
 
@@ -19,12 +26,14 @@ header {
     gap: 0;
 }
 
-
+.siteName{
+    font-family: 'Ownglyph_jiwoosonang';
+}
 
 .masterHeader {
     box-sizing: border-box;
     padding: 20px 30px;
-    background-color: #FFCFD2;
+    background-color: #f7dad9;
     height: 50px;
     display: flex;
     justify-content: space-between;
@@ -79,8 +88,8 @@ p {
 }
 
 
-.homePage img {
-    margin-bottom: -3px;
+.homePage i {
+    margin-bottom: -6px;
     margin-right: 3px;
     width: 22px;
     height: auto;
@@ -92,29 +101,34 @@ p {
     cursor: pointer;
     font-size: 18px;
     transition: all 0.3s ease;
-    background-color: #ffffff;
-    color: black;
-
+    color: white;
+    background-color: #5c677d;
 }
 
 .homePage a:hover {
-    background-color: #f0f0f0;
+    font-weight: 600;
 }
 
 
 .logout a {
-    padding: 6px 22px;
+    padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
     transition: all 0.3s ease;
-    background-color: #FFADAD;
-    color: black;
+    color: white;
 }
 
+.logout{
+    i{  
+        margin-right: 5px;
+    }
+ 
+}
+
+
 .logout a:hover {
-    background-color: #ee8686;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }
 
 
@@ -141,6 +155,16 @@ p {
     justify-content: end;
     width: 120px;
     margin-left: 20px;
+}
+
+.masterHeader {
+    background-color: #7d8597;
+    color: white;
+}
+
+.adminText {
+        font-weight: 600;
+
 }
 
 /* 헤더 끝 */

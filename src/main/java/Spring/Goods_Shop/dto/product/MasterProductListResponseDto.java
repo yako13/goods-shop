@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,10 +13,10 @@ public class MasterProductListResponseDto {
 
     private Long id;
     private String name;
-    private BigDecimal price;
+    private String price;
     private int count;
     private String mainImagePath;
-    private String category;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String productCategory;
+    private String createdAt;
+    private String modifiedAt;
 }

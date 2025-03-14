@@ -21,7 +21,7 @@
         width: 1400px;
         margin-top: 2rem;
       }
-      .p-text__right {
+      .text__right {
         text-align: right;
       }
       .p__small {
@@ -47,20 +47,74 @@
         right: 2rem;
         bottom: 3rem;
       }
+      .search-name {
+        font-size: 2rem;
+      }
+      .sort-product {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem;
+      }
+      li {
+        list-style: none;
+      }
+      .pagination {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .pagination .page-item {
+        margin: 0 5px;
+      }
+
+      .pagination .page-link {
+        color: #ffddfc;
+        border-radius: 8px;
+        padding: 8px 12px;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .pagination .page-link:hover {
+        background-color: #ffddfc;
+        color: white;
+      }
+
+      .pagination .active .page-link {
+        background-color: #fec3fa;
+        color: white;
+        border: none;
+      }
+
+      .pagination .disabled .page-link {
+        color: #ccc;
+        pointer-events: none;
+        background-color: #f8f9fa;
+      }
     </style>
   </head>
   <body>
     <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+    <!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
     <main class="container container__main">
-      <p class="p-text">{search-name}</p>
+      <div class="search-name">전체상품</div>
       <hr />
-      <p class="p-text p-text__right">총 {nn} 개 중 1-40</p>
-      <select name="sort-select">
-        <option value="20" selected>20개</option>
-        <option value="30">30개</option>
-        <option value="40">40개</option>
-      </select>
+      <div class="sort-product">
+        <select name="sortSelect" id="sortSelect" onchange="">
+          <option value="5" th:selected="${size==5}">5개</option>
+          <option value="10" th:selected="${size==10}">10개</option>
+          <option value="15" th:selected="${size==15}">15개</option>
+        </select>
+
+        <span class="text__right">
+          <span th:text="${page.totalElements + '건의 상품 / '}"></span>
+          <span
+            th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
+          -
+          <span
+            th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+        </span>
+      </div>
 
       <!-- product card -->
       <div class="container__product-image">
@@ -71,11 +125,75 @@
                 class="product-image"
                 th:src="${productList.mainImagePath}" />
               <p th:text="${productList.name}"></p>
-              <p class="p__small">30,000 원</p>
+              <p th:text="${productList.price}" class="p__small"></p>
             </div>
           </a>
         </div>
       </div>
+
+      <!-- 페이지네이션 -->
+      <nav aria-label="Page navigation" th:if="${page.totalElements > 3}">
+        <ul class="pagination">
+          <!-- 첫 페이지 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.first} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/list(page=0, size=${size})}"
+              aria-label="First">
+              <span>&laquo;</span>
+            </a>
+          </li>
+
+          <!-- 이전 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/product/list(page=${currentPage - 1}, size=${size})}"
+              aria-label="Previous">
+              <span>&lt;</span>
+            </a>
+          </li>
+
+          <!-- 페이지 번호 -->
+          <li
+            class="page-item"
+            th:each="pageNum : ${#numbers.sequence(currentPage - 3 > 0 ? currentPage - 3 : 0,
+                                                 currentPage + 3 < page.totalPages - 1 ? currentPage + 3 : page.totalPages - 1)}"
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/list(page=${pageNum}, size=${size})}"
+              th:text="${pageNum + 1}"></a>
+          </li>
+
+          <!-- 다음 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasNext()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/product/list(page=${currentPage + 1}, size=${size})}"
+              aria-label="Next">
+              <span>&gt;</span>
+            </a>
+          </li>
+
+          <!-- 마지막 페이지 버튼 -->
+          <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/list(page=${page.totalPages - 1}, size=${size})}"
+              aria-label="Last">
+              <span>&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <!-- /product card -->
     </main>
     <aside>
@@ -85,4 +203,13 @@
     </aside>
     <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
+  <script>
+    // 상품개수 정렬
+    document
+      .getElementById("sortSelect")
+      .addEventListener("change", function () {
+        const selectedSize = this.value;
+        window.location.href = `/product/list?page=0&size=${selectedSize}`;
+      });
+  </script>
 </html>

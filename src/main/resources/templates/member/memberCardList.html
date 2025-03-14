@@ -4,77 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar WorkShop</title>
+    <title>☁️CloudStar WorkShop 회원 결제수단</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/member/memberCardList.css}">
-
 </head>
 
 <body>
 
-<!-- 헤더 시작 -->
+    <!-- 헤더 시작 -->
 
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
+    <header th:replace="/fragments/memberHeader::memberHeader"></header>
+    <input type="hidden" th:value="${alert}" id="dataAlert">
 
-<!-- 헤더 끝 -->
-
-
-<!-- 메인 시작 -->
+    <!-- 헤더 끝 -->
 
 
-<div class="">
+    <!-- 메인 시작 -->
 
-    <div class="HanCardBody" id="">
 
-        <!--메뉴바 시작-->
+    <div class="">
 
-        <div th:replace="/fragments/menuBar::menuBar"></div>
+        <div class="HanCardBody" id="">
 
-        <!--메뉴바 끝-->
+            <!--메뉴바 시작-->
 
-        <div class="HanCardMain">
+            <div th:replace="/fragments/menuBar::menuBar"></div>
 
-            <div class="HanCardLogoMain">
+            <!--메뉴바 끝-->
 
-                <div class="HanCardLogoDiv">
+            <div class="HanCardMain">
 
-                    <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+                <div class="HanCardLogoMain">
+
+                    <div class="HanCardLogoDiv">
+
+                        <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+
+                    </div>
+
+                    <h1>CloudStar Workshop</h1>
 
                 </div>
 
-                <h1>CloudStar Workshop</h1>
+                <!-- 카드 목록 -->
+                <div class="HanCardContainer">
+                    <input type="hidden" th:value="${session.memberId}" name="memberId" id="sessionId">
 
-            </div>
+                    <!-- 카드 시작 -->
 
-            <!-- 카드 목록 -->
-            <div class="HanCardContainer">
+                    <div class="HanCard" th:each="payList :${payList}" th:id="'cardBody'+${payList.id}">
 
+                        <div class="HanCardRadio">
 
-                <!-- 카드 시작 -->
+                            <img th:if="${payList.defaultCard == true}" th:src="@{/images/card6on.svg}" alt=""
+                                width="65px" height="65px">
+                            <img th:if="${payList.defaultCard == false}" th:src="@{/images/card6off.svg}" alt=""
+                                width="65px" height="65px">
 
-                <div class="HanCard">
+                            <div class="HanCardTextDiv">
 
-                    <div class="HanCardRadio">
+                                <div class="HanCardTextTagDiv">
 
-                        <img th:src="@{/images/card6on.svg}" alt="" width="65px" height="65px">
+                                    <p class="HanCardTextTag" th:text="${payList.nickName}"></p>
 
-                        <div class="HanCardTextDiv">
+                                    <p class="HanCardTextP1" th:if="${payList.defaultCard == true}">기본 결제카드</p>
 
-                            <div class="HanCardTextTagDiv">
+                                    <img th:src="@{/images/close.svg}" alt="" th:id="${payList.id}" class="XBtn">
 
-                                <p class="HanCardTextTag">국민카드</p>
+                                </div>
 
-                                <p class="HanCardTextP1">기본 결제카드</p>
-
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
-
-                            </div>
-
-                            <div class="HanCardTextDiv2">
+                                <div class="HanCardTextDiv2">
 
 
-                                <p class="HanCardTextP2">11111-2222-3333-4444</p>
+                                    <p class="HanCardTextP2" th:text="${payList.number}"></p>
+
+                                </div>
 
                             </div>
 
@@ -82,117 +87,43 @@
 
                     </div>
 
+                    <!-- 카드 끝 -->
+
+
                 </div>
 
-                <!-- 카드 끝 -->
+                <div>
 
+                    <div class="HanNewButton">
 
-                <!-- 카드 시작 -->
-
-                <div class="HanCard">
-
-                    <div class="HanCardRadio">
-
-                        <img th:src="@{/images/card6off.svg}" alt="" width="65px" height="65px">
-
-                        <div class="HanCardTextDiv">
-
-                            <div class="HanCardTextTagDiv">
-
-                                <p class="HanCardTextTag">신한카드</p>
-
-
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
-
-                            </div>
-
-                            <div class="HanCardTextDiv2">
-
-
-                                <p class="HanCardTextP2">11111-2222-3333-4444</p>
-
-                            </div>
-
-                        </div>
+                        <img th:src="@{/images/plus.svg}" alt="">
+                        <button id="openNewAddressModal" class="HanNew" type="button"
+                            onclick="location='http://localhost:8080/member/pay/create'">카드 등록하기</button>
 
                     </div>
 
                 </div>
 
-                <!-- 카드 끝 -->
-
-
-                <!-- 카드 시작 -->
-
-                <div class="HanCard">
-
-                    <div class="HanCardRadio">
-
-                        <img th:src="@{/images/card6off.svg}" alt="" width="65px" height="65px">
-
-                        <div class="HanCardTextDiv">
-
-                            <div class="HanCardTextTagDiv">
-
-                                <p class="HanCardTextTag">롯데카드</p>
-
-
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
-
-                            </div>
-
-                            <div class="HanCardTextDiv2">
-
-
-                                <p class="HanCardTextP2">11111-2222-3333-4444</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- 카드 끝 -->
-
-
             </div>
-
-            <div>
-
-                <div class="HanNewButton">
-
-                    <img th:src="@{/images/plus.svg}" alt="">
-                    <button id="openNewAddressModal" class="HanNew" type="button">카드 등록하기</button>
-
-                </div>
-
-                <div class="HanCardButton">
-
-                    <button class="HanSubmit" id="selectAddressButton">확인</button>
-                    <button class="HanClose" id="closeAddressModal">닫기</button>
-
-                </div>
-
-            </div>
-
         </div>
+
+    </div>
     </div>
 
-</div>
-</div>
+
+    <!-- 메인 끝 -->
 
 
-<!-- 메인 끝 -->
+    <!-- 푸터 시작 -->
 
+    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
-<!-- 푸터 시작 -->
-
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-
-<!-- 푸터 끝 -->
-
+    <!-- 푸터 끝 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script th:src="@{/js/member/cardList.js}"></script>
+    <script th:src="@{/js/member/alert.js}"></script>
+    <script>
+    </script>
 
 </body>
 

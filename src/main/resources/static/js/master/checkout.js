@@ -1,3 +1,30 @@
+const checkoutStepElements = document.querySelectorAll(".checkoutStep");
+const postStepElements = document.querySelectorAll(".postStep");
+
+//주문상태와 배송상태에 따라 색깔 다르게 적용
+checkoutStepElements.forEach((checkoutStepElement, index) => {
+    const checkoutStep = checkoutStepElement.textContent;
+    const postStep = postStepElements[index].textContent;
+
+    if(checkoutStep =="주문완료"){
+        checkoutStepElement.style.color ="blue";
+    }
+    else if(checkoutStep =="주문보류"){
+        checkoutStepElement.style.color ="green";
+    }
+    else{
+        checkoutStepElement.style.color ="red";
+    }
+
+    if(postStep =="배송완료"){
+        postStepElements[index].style.color = "blue";
+    }
+    else if(postStep =="반품"){
+        postStepElements[index].style.color = "red";
+    }
+});
+
+
 // 스크롤을 내리면 버튼을 보여주기
 window.onscroll = function () {
     let topButton = document.getElementById("topBtn");
@@ -38,6 +65,22 @@ deleteBtn.addEventListener("click", () => {
     var answer = confirm("주문삭제를 하시면, 복구가 어려운 점을 참고하시기 바랍니다. 정말 삭제를 원하시나요?");
 
     if (answer == true) {
-        location = "[[${checkoutDetails.id}]]/delete";
+        location = "http://localhost:8080/master/checkout/[[${checkoutDetails.id}]]/delete";
     }
 })
+
+const priceElements = document.querySelectorAll(".price");
+const totalPriceElements = document.querySelectorAll(".totalPrice");
+
+function formatPrice(p){
+  return p.toLocaleString();
+}
+
+priceElements.forEach((priceElement,index)=>{
+  const price = parseFloat(priceElement.textContent);
+  const totalPrice = parseFloat(totalPriceElements[index].textContent);
+
+  priceElement.textContent = formatPrice(price)+" 원"
+  totalPriceElements[index].textContent = formatPrice(totalPrice) + " 원";
+
+});
