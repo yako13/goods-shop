@@ -10,7 +10,7 @@ let passwordError = document.getElementById("passwordError");
 let eye = document.getElementById("eye");
 
 const password_check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/; //대소문자, 숫자, 특수문자 조합으로 8~15자
-const name_check = /^[가-힣]{2,5}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
+const name_check =  /^(?:[가-힣]{2,5})$|^(?:[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
 const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
 let button = document.getElementById("button");

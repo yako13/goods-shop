@@ -1,5 +1,6 @@
 const checkoutStepElements = document.querySelectorAll(".checkoutStep");
 const postStepElements = document.querySelectorAll(".postStep");
+let checkoutId = "http://localhost:8080/master/checkout/" +document.getElementById("id").value+"/delete";
 
 //주문상태와 배송상태에 따라 색깔 다르게 적용
 checkoutStepElements.forEach((checkoutStepElement, index) => {
@@ -65,7 +66,7 @@ deleteBtn.addEventListener("click", () => {
     var answer = confirm("주문삭제를 하시면, 복구가 어려운 점을 참고하시기 바랍니다. 정말 삭제를 원하시나요?");
 
     if (answer == true) {
-        location = "http://localhost:8080/master/checkout/[[${checkoutDetails.id}]]/delete";
+        location = checkoutId;
     }
 })
 

@@ -1,10 +1,7 @@
 package Spring.Goods_Shop.service;
 
 
-import Spring.Goods_Shop.dto.member.MemberAuthDto;
-import Spring.Goods_Shop.dto.member.MemberDto;
-import Spring.Goods_Shop.dto.member.MemberEditDto;
-import Spring.Goods_Shop.dto.member.MemberResponseDto;
+import Spring.Goods_Shop.dto.member.*;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.enums.MemberRole;
 import Spring.Goods_Shop.repository.MemberRepository;
@@ -170,8 +167,8 @@ public class MemberService {
 
         Member member = optionalMember.get();
 
-        //탈퇴한 회원일 경우
-        if(member.getRole().equals(MemberRole.CANCELLATION))return null;
+        //탈퇴한 회원 또는 관리자일 경우
+        if(member.getRole().equals(MemberRole.CANCELLATION) || member.getRole().equals(MemberRole.ADMIN))return null;
 
         //소셜로그인 사용자의 경우
         if (member.getProvider() != null) return null;
@@ -196,8 +193,8 @@ public class MemberService {
 
         Member member = optionalMember.get();
 
-        //탈퇴한 회원일 경우
-        if(member.getRole().equals(MemberRole.CANCELLATION))return null;
+        //탈퇴한 회원 또는 관리자일 경우
+        if(member.getRole().equals(MemberRole.CANCELLATION) || member.getRole().equals(MemberRole.ADMIN))return null;
 
         //소셜로그인 사용자의 경우
         if (member.getProvider() != null) return null;
@@ -208,14 +205,14 @@ public class MemberService {
     /**
      * 비밀번호 재설정
      */
-    public void tryToEditPassword(MemberAuthDto memberAuthDto) {
-        Optional<Member> optionalMember = memberRepository.findByUserId(memberAuthDto.getUserId());
+    public void tryToEditPassword(MemberPasswordDto memberPasswordDto) {
+        Optional<Member> optionalMember = memberRepository.findByUserId(memberPasswordDto.getUserId());
 
         if (optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
 
         Member member = optionalMember.get();
 
-        member.setUserPassword(passwordEncoder.encode(memberAuthDto.getUserPassword()));
+        member.setUserPassword(passwordEncoder.encode(memberPasswordDto.getUserPassword()));
 
         memberRepository.save(member);
 

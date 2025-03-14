@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     // 등록된 상품 리스트
-    @GetMapping("/product/list")
+    @GetMapping("/master/product/list")
     public String masterProductList(Model model, @PageableDefault Pageable pageable) {
         Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(pageable);
         model.addAttribute("productList", productList.getContent());
@@ -87,13 +87,13 @@ public class ProductController {
     }
 
     // 상품 등록 페이지 이동
-    @GetMapping("/product/register")
+    @GetMapping("/master/product/register")
     public String productRegister() {
         return "product/product-register";
     }
 
     // 상품 저장
-    @PostMapping("/product/save")
+    @PostMapping("/master/product/save")
     public String saveProduct(@Valid @ModelAttribute ProductRequestDto productRequestDto){
 
         productService.save(productRequestDto);
@@ -102,7 +102,7 @@ public class ProductController {
     }
 
     // 수정 요청
-    @GetMapping("/product/edit/{id}")
+    @GetMapping("/master/product/edit/{id}")
     public String productEdit(@PathVariable Long id, Model model) {
         Product product = productService.getProduct(id);
         ProductImageUrlDto productImageUrlDto = productImageService.getProductImageDto(id);
@@ -113,7 +113,7 @@ public class ProductController {
     }
 
     // 수정 완료
-    @PostMapping("/product/edit/{id}")
+    @PostMapping("/master/product/edit/{id}")
     public String productEditComplete(@PathVariable Long id,
                                       @Valid @ModelAttribute ProductRequestDto requestDto,
                                       @RequestParam(value = "deletedImages", required = false) String deletedImages) {
@@ -122,7 +122,7 @@ public class ProductController {
     }
 
     // 상품 삭제
-    @GetMapping("/product/delete/{id}")
+    @GetMapping("/master/product/delete/{id}")
     public String productDelete(@PathVariable Long id) {
         productService.delete(id);
         return "redirect:/master/product/list";

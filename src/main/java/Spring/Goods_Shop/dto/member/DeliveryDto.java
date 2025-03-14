@@ -17,7 +17,7 @@ public class DeliveryDto {
     @NotBlank(message = "배송지 별칭은 필수 정보입니다.")
     private String deliveryName;
 
-    @Pattern(regexp = "^[가-힣]{2,5}|[a-zA-Z]{2,10}\\s[a-zA-Z]{2,10}$", message = "받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 2~10자리씩이여야 합니다.")
+    @Pattern(regexp = "^(?:[가-힣]{2,5})$|^(?:[a-zA-Z]{2,10}\\s[a-zA-Z]{2,10})$", message = "받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 2~10자리씩이여야 합니다.")
     @NotBlank(message = "받는분 성함은 필수 정보입니다.")
     private String recipientName;
 

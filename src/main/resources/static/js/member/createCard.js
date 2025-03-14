@@ -174,7 +174,10 @@ $("#hiddenName").mouseover(function () {
             else {
               isValid = false;
               alert("기본 결제 카드는 반드시 하나는 필요합니다.");
-              $("#HanCheckbox").trigger("click");
+              check_bol = 1;
+              isValid = true;
+              $("#HanCheckbox").prop("checked", true);
+              $("#HanCheckbox").val(true);
             }
           },
           error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옴

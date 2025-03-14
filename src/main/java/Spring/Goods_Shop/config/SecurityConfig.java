@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .authorizationEndpoint(authorization -> authorization.baseUri("/oauth2/authorization"))
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
         );
 
