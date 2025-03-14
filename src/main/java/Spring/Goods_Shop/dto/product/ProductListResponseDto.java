@@ -17,4 +17,5 @@ public class ProductListResponseDto {
     private String name;
     private BigDecimal price;
     private String mainImagePath;
+    private String totalPrice;
 }
