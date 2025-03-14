@@ -1,14 +1,13 @@
-
-.HanCardBody{
-width: 100%;
-background-color: #f1f0f1;
-padding-top: 40px;
-padding-bottom: 50px;
+.HanCardBody {
+  width: 100%;
+  background-color: #f1f0f1;
+  padding-top: 40px;
+  padding-bottom: 50px;
 
 }
 
 .HanCardMain {
-  margin: 0 auto;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -246,4 +245,8 @@ padding-bottom: 50px;
   background-color: #fdef6f;
   color: #585858;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.XBtn {
+  cursor: pointer;
 }

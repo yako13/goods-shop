@@ -1,14 +1,20 @@
 /* 네비 시작 */
 
+.SlideNavBody {
+  position: relative;
+
+}
+
 .logoArea {
+  width: 250px;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .logoImage {
-  width: 160px;
-  height: 100px;
+  width: 200px;
+  height: auto;
 }
 
 .sidenav {
@@ -18,17 +24,22 @@
   z-index: 1;
   top: 50px;
   left: 0;
-  background-color: #FBF8CC;
+  background-color: #5c677d;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .sidenav a {
-  padding: 8px;
+  width: 250px;
+  padding: 15px 0;
   text-decoration: none;
   font-size: 25px;
-  color: #363636;
+  color: white;
   display: block;
   margin-bottom: 10px;
   transition: 0.3s;
@@ -36,7 +47,7 @@
 }
 
 .sidenav a:hover {
-  font-weight: 600;
+  background-color: #7d8597;
 }
 
 .sidenav .closebtn {
@@ -45,6 +56,56 @@
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+.SlideNavOpenDiv {
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  top: 70px;
+  left: -50px;
+  z-index: 1;
+
+  i {
+    color: #5c677d;
+  }
+
+}
+
+.SlideShow {
+  left: 20px;
+}
+
+
+
+.SlideNavCloseDiv {
+  position: absolute;
+  top: 20px;
+  left: 210px;
+  z-index: 20;
+
+  i {
+    color: white;
+  }
+}
+
+
+.SlideNavCloseDiv img,
+.SlideNavOpenDiv img {
+  transition: all 0.3s ease-in-out;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+
+}
+
+.SlideClose:hover {
+  transform: translateX(-6px);
+
+}
+
+.SlideOpen:hover {
+  transform: translateX(6px);
+
 }
 
 main {
@@ -61,5 +122,3 @@ main {
     font-size: 18px;
   }
 }
-
-/* 네비끝 */

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--    <link rel="stylesheet" href="/css/memberHeader.css" />-->
+    <!--    <link rel="stylesheet" href="/css/memberFooter.css" />-->
+    <link rel="stylesheet" href="/css/mainPage.css" />
+
+    <style>
+      a {
+        text-decoration: none;
+        color: #111111;
+      }
+
+      .container {
+        justify-self: center;
+      }
+      .container__main {
+        width: 1400px;
+        margin-top: 2rem;
+      }
+      .text__right {
+        text-align: right;
+      }
+      .p__small {
+        font-size: 0.8rem;
+      }
+      .container__product-image {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 1rem;
+        column-gap: 2.5rem;
+      }
+      .card__product-image {
+        width: 15rem;
+        height: 21rem;
+      }
+      .product-image {
+        width: 15rem;
+        height: 15rem;
+      }
+      .button__top {
+        position: fixed;
+        right: 2rem;
+        bottom: 3rem;
+      }
+      .search-name {
+        font-size: 2rem;
+      }
+      .sort-product {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem;
+      }
+      li {
+        list-style: none;
+      }
+      .pagination {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .pagination .page-item {
+        margin: 0 5px;
+      }
+
+      .pagination .page-link {
+        color: #ffddfc;
+        border-radius: 8px;
+        padding: 8px 12px;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .pagination .page-link:hover {
+        background-color: #ffddfc;
+        color: white;
+      }
+
+      .pagination .active .page-link {
+        background-color: #fec3fa;
+        color: white;
+        border: none;
+      }
+
+      .pagination .disabled .page-link {
+        color: #ccc;
+        pointer-events: none;
+        background-color: #f8f9fa;
+      }
+      .noProduct {
+        text-align: center;
+      }
+      .noProductImage {
+        height: 50rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+    <!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+    <main class="container container__main">
+      <div th:text="${keywordQuery}" class="search-name"></div>
+      <hr />
+      <div th:if="${page.totalElements == 0}" class="noProduct">
+        <img src="/images/notice.png" class="noProductImage" />
+      </div>
+      <div th:unless="${page.totalElements == 0}" class="sort-product">
+        <select name="sortSelect" id="sortSelect" onchange="">
+          <option value="5" th:selected="${size==5}">5개</option>
+          <option value="10" th:selected="${size==10}">10개</option>
+          <option value="15" th:selected="${size==15}">15개</option>
+        </select>
+
+        <span class="text__right">
+          <span th:text="${page.totalElements + '건의 상품 / '}"></span>
+          <span
+            th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
+          -
+          <span
+            th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+        </span>
+      </div>
+
+      <!-- product card -->
+      <div class="container__product-image">
+        <div th:each="product : ${searchList}">
+          <a th:href="@{/product/detail/{id}(id=${product.id})}">
+            <div class="card__product-image">
+              <img class="product-image" th:src="${product.mainImagePath}" />
+              <p th:text="${product.name}"></p>
+              <p th:text="${product.price}" class="p__small"></p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 페이지네이션 -->
+      <nav aria-label="Page navigation" th:if="${page.totalElements > 3}">
+        <ul class="pagination">
+          <!-- 첫 페이지 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.first} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/search/index(keyword=${keywordQuery},page=0, size=${size})}"
+              aria-label="First">
+              <span>&laquo;</span>
+            </a>
+          </li>
+
+          <!-- 이전 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/product/search/index(keyword=${keywordQuery}, page=${currentPage - 1}, size=${size})}"
+              aria-label="Previous">
+              <span>&lt;</span>
+            </a>
+          </li>
+
+          <!-- 페이지 번호 -->
+          <li
+            class="page-item"
+            th:each="pageNum : ${#numbers.sequence(currentPage - 3 > 0 ? currentPage - 3 : 0,
+                                                 currentPage + 3 < page.totalPages - 1 ? currentPage + 3 : page.totalPages - 1)}"
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/search/index(keyword=${keywordQuery}, page=${pageNum}, size=${size})}"
+              th:text="${pageNum + 1}"></a>
+          </li>
+
+          <!-- 다음 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasNext()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/product/search/index(keyword=${keywordQuery}, page=${currentPage + 1}, size=${size})}"
+              aria-label="Next">
+              <span>&gt;</span>
+            </a>
+          </li>
+
+          <!-- 마지막 페이지 버튼 -->
+          <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/product/search/index(keyword=${keywordQuery}, page=${page.totalPages - 1}, size=${size})}"
+              aria-label="Last">
+              <span>&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- /product card -->
+    </main>
+    <aside>
+      <button class="button__top" type="button" onclick="window.scrollTo(0,0);">
+        TOP
+      </button>
+    </aside>
+    <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
+  </body>
+  <script>
+    // 검색 단어기준 상품개수 정렬
+    document
+      .getElementById("sortSelect")
+      .addEventListener("change", function () {
+        const selectedSize = this.value;
+        const keywordQuery = `[[${keywordQuery}]]`;
+        window.location.href = `/product/search/index?keyword=${keywordQuery}&page=0&size=${selectedSize}`;
+      });
+  </script>
+</html>

@@ -6,27 +6,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>로그인</title>
+    <title>☁️CloudStar WorkShop 로그인</title>
     <link rel="stylesheet" href="/css/member/login.css">
     <link rel="stylesheet" href="/css/mainPage.css">
+    <style>
+
+    </style>
 </head>
 <body class="text-center">
-
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
 <input type="hidden" th:if="${param.error}" value="로그인에 실패하였습니다." id="dataAlert">
 <div class="container">
     <div class="title">
         <h1>로그인</h1>
     </div>
-    <ul class="links">
-        <li>
-            <a th:href="@{/login}" id="signin">로그인</a>
-        </li>
-        <li>
-            <a th:href="@{/join}" id="signup">회원가입</a>
-        </li>
-    </ul>
-
     <!-- Form -->
     <form th:action="@{/login}" method="post" class="loginForm">
         <!-- id input -->
@@ -46,6 +38,9 @@
     <div class="find">
         <a th:href="@{/find/id}">아이디 찾기</a><span>|</span><a th:href="@{/find/password}">비밀번호 찾기</a>
     </div>
+    <div class="join">
+        <span>아직 회원이 아니시라면?</span><a th:href="@{/join}">회원가입</a>
+    </div>
     <!-- separator -->
     <div class="separator">
         <p>OR</p>
@@ -60,7 +55,6 @@
 </div>
 
 </main>
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 <script src="/js/member/alert.js"></script>
 
 </body>

@@ -3,6 +3,8 @@
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
 }
 
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
 * {
   font-family: NanumSquareRound;
 
@@ -130,33 +132,45 @@ body {
 
 
 
-.HanLoginForm {
+.HanSerachForm {
   position: relative;
+
 }
 
 
-.HanLoginForm input {
+.HanSerachForm input {
   box-sizing: border-box;
   width: 240px;
   padding: 8px 10px;
   font-size: 14px;
   border: none;
   border-radius: 12px;
+
 }
 
-.HanLoginForm input:focus {
+.HanSerachForm input:focus {
   outline: none;
 }
 
-.HanLoginForm img {
-  width: 18px;
-  height: 18px;
+.HanSerachForm button {
+  background: url(/images/search.svg);
+  border: none;
+  width: 20px;
+  height: 20px;
   position: absolute;
   right: 6px;
   top: 6px;
   z-index: 10;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.HanSerachForm:hover button{
+  transform: translateY(-2px);
 
 }
+
+
 
 /* 헤더 css 끝 */
 
@@ -200,7 +214,7 @@ body {
   font-size: 16px;
   cursor: pointer;
   margin: 15px 0;
-
+  transition: all 0.3s ease-in-out;
 }
 
 .HanNaviBarImage {
@@ -216,6 +230,12 @@ body {
   max-width: 1600px;
   height: 400px;
 }
+
+.HanNaviBar a:hover {
+
+  transform: translateY(-3px);
+}
+
 
 
 /* 네비 css끝 */
@@ -432,7 +452,19 @@ body {
 }
 
 .HanHeaderButtonA {
+
   position: relative;
+
+}
+
+
+.HanHeaderHover {
+  transition: all 0.3s ease-in-out;
+
+}
+
+.HanHeaderHover:hover {
+  transform: translateY(-3px);
 
 }
 
@@ -498,21 +530,15 @@ body {
 
 }
 
-.HanDrodBoxNameDiv a {
-  padding: 5px 5px;
+#logoutLink {
   background-color: #FFADAD;
-  border-radius: 5px;
   text-decoration-line: none;
   color: #000000;
-  transition: all 0.5s;
-  font-size: 16px;
   cursor: pointer;
-
 }
 
-.HanDrodBoxNameDiv a:hover {
+#logoutLink:hover {
   background-color: #ee8686;
-
 }
 
 
@@ -522,179 +548,203 @@ body {
 
 
 
-/* 캐러셀 테스트용 css */
+/* 캐러셀 css */
 
-.carousel {
-  margin: 20px auto;
-  margin-top: 40px;
-  position: relative;
+.HanCarouselBody {
+  padding: 0;
+  margin: 0 auto;
   width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HanCarousel {
+  position: relative;
+  width: 1200px;
   height: 300px;
   overflow: hidden;
-  border-radius: 7px;
-  background-color: rgb(255, 219, 219);
-  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); */
+  margin: 50px auto;
+  border-radius: 10px;
 }
 
-.carousel-track {
+.HanTrack {
   display: flex;
-  width: calc(800px * 7);
-  /* 이미지 개수 + 복제된 첫/마지막 이미지 */
-  transition: transform 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
-.carousel img {
-  width: 800px;
-  height: 300px;
-  object-fit: cover;
-  flex-shrink: 0;
+.HanTrackSlide {
+  min-width: 100%;
 }
 
-/* 좌우 버튼 */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.7);
+
+
+.HanTrackSlide img {
+  width: 100%;
+  height: 100%;
+  /* 비율 유지하면서 꽉 채우는 기능 */
+  /* object-fit: cover; */
+}
+
+
+.HanArrow {
+  width: 46px;
+  height: 46px;
   border: none;
-  padding: 10px;
   cursor: pointer;
-  border-radius: 50%;
-  font-size: 20px;
-  z-index: 100;
+
 }
 
-.prev {
-  left: 10px;
+.HanArrowLeft {
+  background: url(/images/arrowLeft.svg) no-repeat center center;
+  transition: all 0.3s ease-in-out;
 }
 
-.next {
-  right: 10px;
+.HanArrowLeft:hover {
+  transform: translateX(-13px);
+
 }
 
-/* 네비게이션 점 */
-.dots {
+.HanArrowRight {
+  background: url(/images/arrowRight.svg) no-repeat center center;
+  transition: all 0.3s ease-in-out;
+}
+
+.HanArrowRight:hover {
+  transform: translateX(13px);
+}
+
+
+
+.HanDots {
   position: absolute;
-  bottom: 10px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 14px;
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  background-color: white;
+.HanDot {
+  width: 8px;
+  height: 8px;
+  /* background: white; */
+  border: 2px solid white;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.dot.active {
-  background-color: #ff7f7f;
+.HanDot.HanActive {
+  width: 11px;
+  height: 11px;
+  background: white;
 }
 
-     /* 메뉴바 */
-        .HanMenuBarBody {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          gap: 30px;
-
-          align-items: flex-start;
-        }
 
 
 
 
-        .HanMenuBarMain {
-
-          margin-top: 60px;
-          margin-left: 40px;
-          margin-right: -240px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: center;
-          /* border: 1px solid #ccc; */
-          border-radius: 7px;
-          width: 250px;
-          height: 550px;
-          background-color: white;
+/* 메뉴바 */
+.HanMenuBarBody {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: flex-start;
+}
 
 
 
-        }
 
-        .HanMenuBarMain p {
-          display: inline-block;
+.HanMenuBarMain {
 
-        }
-
-
-
-        .HanMenuBarP1 {
-          font-size: 24px;
-          margin-top: 40px;
-          margin-bottom: 16px;
-        }
-
-        .HanMenuBarHr {
-          margin: 0;
-          border: none;
-          width: 80%;
-          border-bottom: 1px solid #e9d2d2;
-          margin-bottom: 10px;
-        }
-
-
-        .HanMenuBarDiv a {
-          text-align: center;
-          display: block;
-          width: 250px;
-          height: 30px;
-          padding: 10px 0;
-          font-size: 18px;
-          color: black;
-          transition: all 0.3s ease-in-out;
-          cursor: pointer;
-          text-decoration: none;
-
-        }
-
-        .HanMenuBarDiv a:hover {
-          background-color: #fff6a6;
-        }
-
-
-        .HanMenuBarA {
-          width: 80%;
-          height: auto;
-          display: flex;
-          justify-content: center;
-          margin-top: auto;
-          padding-bottom: 30px;
-        }
-
-        .HanMenuBarA a {
-          text-align: center;
-          width: 100%;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 18px;
-          transition: all 0.3s ease;
-          font-weight: bolder;
-          background-color: #FFADAD;
-          text-decoration: none;
-          color: #3f3f3f;
-        }
+  margin-top: 60px;
+  margin-left: 40px;
+  margin-right: -240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  border-radius: 7px;
+  width: 250px;
+  height: 550px;
+  background-color: white;
 
 
 
-        .HanMenuBarA a:hover {
-          background-color: #ee8686;
-          color: #3f3f3f;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+}
+
+.HanMenuBarMain p {
+  display: inline-block;
+
+}
+
+
+
+.HanMenuBarP1 {
+  font-size: 24px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+.HanMenuBarHr {
+  margin: 0;
+  border: none;
+  width: 80%;
+  border-bottom: 1px solid #e9d2d2;
+  margin-bottom: 10px;
+}
+
+
+.HanMenuBarDiv a {
+  text-align: center;
+  display: block;
+  width: 250px;
+  height: 30px;
+  padding: 10px 0;
+  font-size: 18px;
+  color: black;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+.HanMenuBarDiv a:hover {
+  background-color: #fff6a6;
+}
+
+
+.HanMenuBarA {
+  width: 80%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-bottom: 30px;
+}
+
+.HanMenuBarA a {
+  text-align: center;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  font-weight: bolder;
+  background-color: #FFADAD;
+  text-decoration: none;
+  color: #3f3f3f;
+}
+
+
+
+.HanMenuBarA a:hover {
+  background-color: #ee8686;
+  color: #3f3f3f;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -8,7 +8,7 @@
 
 .HanAddressPopContainer {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -75,7 +75,6 @@
   box-sizing: border-box;
   padding: 15px 55px;
   width: 650px;
-  height: 130px;
   border: 1px solid #ccc;
   border-radius: 5px;
 
@@ -96,7 +95,6 @@
 
 .HanAddressPopCardTextDiv {
   width: 400px;
-  height: 60px;
 
 }
 
@@ -109,6 +107,7 @@
 }
 
 .HanAddressPopCardTextP2 {
+  line-height: 30px;
   margin: 0;
   font-size: 19px;
 }
@@ -271,4 +270,8 @@
   background-color: #fdef6f;
   color: #535353;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.XBtn {
+  cursor: pointer;
 }

@@ -8,15 +8,38 @@
     <link href="/css/masterNavigation.css" rel="stylesheet">
 </head>
 <body>
-<nav th:fragment="masterNav" id="mySidenav"  class="sidenav">
-    <div class="logoArea">
-        <img th:src="@{/images/logo.png}" class="logoImage">
-    </div>
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">상품 관리</a>
-    <a href="#">주문 관리</a>
-    </div>
-</nav>
+
+    <!-- 네비 바 시작 -->
+
+    <nav th:fragment="masterNav">
+
+        <div class="SlideNavBody">
+
+            <div class="SlideNavOpenDiv ">
+                <i class="fa-xl fa-solid fa-bars SlideOpen"  onclick="openNav()" ></i>
+            </div>
+
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+
+            <div>
+                <a href="#">상품 관리</a>
+                <a th:href="@{/master/checkout/list}">주문 관리</a>
+            </div>
+            <div class="SlideNavCloseDiv">
+                <i class="fa-xl fa-solid fa-bars SlideClose" onclick="closeNav()" style="transform:rotate(90deg);"></i>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </nav>
+
+    <!-- 네비 바 끝 -->
+
 </body>
 
 </html>

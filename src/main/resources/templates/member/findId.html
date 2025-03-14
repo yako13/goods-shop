@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>☁️CloudStar WorkShop 계정찾기</title>
+    <link rel="stylesheet" th:href="@{/css/member/findId.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/mainPage.css">
+</head>
+
+<body class="text-center">
+    <header th:replace="/fragments/memberHeader::memberHeader"></header>
+    <div class="container">
+        <div id="findId">
+            <ul class="links">
+                <li>
+                    <a th:href="@{/find/id}">아이디찾기</a>
+                </li>
+                <li>
+                    <a th:href="@{/find/password}">비밀번호 찾기</a>
+                </li>
+            </ul>
+
+
+            <!-- Form -->
+            <form class="findForm">
+                <div class="first-input input__block first-input__block">
+                    <input type="text" placeholder="이름" class="input" name="name" id="userName" />
+                </div>
+
+                <div class="input__block">
+                    <input type="text" placeholder="휴대전화번호" class="input" id="phoneNumber" name="phoneNumber" />
+                </div>
+
+                <button type="button" class="btn" id="findIdBtn"><b>
+                        아이디 찾기
+                    </b>
+                </button>
+            </form>
+        </div>
+        <div id="found" style="display: none;">
+            <div class="foundId">
+                <b>
+                    <p>아이디 찾기를 완료하였습니다.</p>
+                </b>
+                <p id="foundId"></p>
+            </div>
+            <div class="link">
+                <a th:href="@{/login}">
+                    <div id="loginBtn"><b>
+                            로그인</b>
+                    </div>
+                </a>
+                <div id="pwBtn">
+                    <a th:href="@{/find/password}"><b>비밀번호 찾기</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/member/find.js"></script>
+    <script src="/js/member/alert.js"></script>
+</body>
+
+</html>

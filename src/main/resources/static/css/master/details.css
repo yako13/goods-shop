@@ -1,314 +1,347 @@
-   body {
-      margin: 0;
-    }
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
-    table {
-      font-size: 14px;
-    }
+* {
+  font-family: 'NanumSquareRound';
+}
+body {
+  margin: 0;
+}
 
-    .rwd-table,
-    .orderTable {
-      margin: auto;
-      width: 100%;
-      min-width: 300px;
-      max-width: 100%;
-      border-collapse: collapse;
-      color: #333;
-      overflow: hidden;
-          border: 1px #a39485 solid;
-          font-size: 0.9em;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+table {
+  font-size: 14px;
+}
 
-    }
+#main{
+  margin-left: 50px;
+  margin-right: 50px;
+}
 
-    .rwd-table {
-      border-radius: 7px;
-    }
+.deliveryState{
+  margin-left: 10px;
+}
 
+.rwd-table,
+.orderTable {
+  margin: auto;
+  width: 100%;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+  color: #333;
+  overflow: hidden;
+  border: 1px #e0e0e0 solid;
+  font-size: 0.9em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 
-    th {
-      border-top: none;
-      background: DFE7FD;
-      color: #fff;
-      background-color: #cddafd;
-    }
-
-    .rwd-table tr {
-      border: 1px solid #808080;
-      background-color: #ffffff;
-    }
-
-    .rwd-table tr:nth-child(odd):not(:first-child) {
-      background-color: #ffffff;
-    }
-
-    .rwd-table th {
-      display: none;
-      width: 110px;
-    }
-
-    .rwd-table td {
-      display: block;
-      border-right: 1px solid #808080;
-    }
-
-    .rwd-table td:first-child {
-      margin-top: .5em;
-    }
-
-    .rwd-table td:last-child {
-      margin-bottom: .5em;
-    }
-
-    .rwd-table th,
-    .rwd-table td {
-      text-align: left;
-    }
-
-        .rwd-table {
-          border-radius: 0px;
-        }
-
-        .parentsTable td{
-          box-sizing: border-box;
-          padding: 10px;
-        }
-
-        .parentsTable{
-          border-spacing: 0px;
-        }
-
-        .selectBox,#waybillNumber{
-          border-radius: 3px;
-        }
-
-        .borderNone{
-         border-left:none;
-        }
-
-        .parentsTableHead{
-          padding: 5px 0px;
-          font-size: 18px;
-        }
-
-            .productTable th{
-        border: 1px solid #808080;
-        }
+}
 
 
-    .rwd-table tr {
-      border-color: #808080;
-    }
+th {
+  border-top: none;
+  background: DFE7FD;
+  color: #fff;
+  background-color: #33415c;
+}
 
-    .rwd-table th,
-    .rwd-table td {
-      padding: .5em 1em;
-    }
-
-    @media screen and (max-width: 601px) {
-      .rwd-table tr:nth-child(2) {
-        border-top: none;
-      }
-    }
-
-    @media screen and (min-width: 600px) {
-      .rwd-table td:hover {
-        background-color: #bbcdff;
-      }
-
-      .rwd-table td:before {
-        display: none;
-      }
-
-      .rwd-table th,
-      .rwd-table td {
-        display: table-cell;
-        padding: .25em .5em;
-      }
-
-      .rwd-table th:first-child,
-      .rwd-table td:first-child {
-        padding-left: 0;
-      }
-
-      .rwd-table th:last-child,
-      .rwd-table td:last-child {
-        padding-right: 0;
-      }
-
-      .rwd-table th,
-      .rwd-table td {
-        padding: 1em !important;
-      }
-    }
+.rwd-table tr {
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+}
+.rwd-table td {
+  display: block;
+}
 
 
-    .container {
-      display: block;
-      text-align: center;
-    }
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ffffff;
+}
 
-    .totalPrice {
-      color: red;
-    }
-
-    h2 {
-      margin-top: 80px;
-      text-align: left;
-    }
-
-    .tableTitle {
-      height: 70px;
-      text-align: left;
-
-      p {
-        padding-top: 30px;
-        font-size: 20px;
-      }
-    }
-
-    .red {
-      color: red;
-    }
-
-    ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .parentsTable {
-      border: 1px solid #808080;
-      width: 50%;
-    }
-
-    .parentsTableHead {
-      color: rgb(117, 117, 117);
-      height: 20px;
-      font-size: 15px;
-      background-color: #ddd;
-    }
-
-    .tableArea {
-      display: flex;
-    }
-
-    .productInfo {
-
-      th,
-      td {
-        text-align: center !important;
-      }
-    }
-
-    .buttonArea {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-
-      button,
-      a {
-        width: 100px;
-        height: 40px;
-        border-radius: 7px;
-        border: none;
-        color: white;
-        line-height: 40px;
-      }
-    }
-
-    .editButtonArea {
-      margin: 10px;
-      display: flex;
-      justify-content: end;
-    }
-
-    .editBtn {
-      width: 100px;
-      height: 40px;
-      border-radius: 7px;
-      font-size: 16px;
-      border: none;
-      color: white;
-      line-height: 40px;
-      background-color: #b8c0ff;
-
-      &:hover {
-        background-color: #a3adfc;
-      }
-    }
+.rwd-table th {
+  display: none;
+  width: 110px;
+}
 
 
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
 
-    .listBtn {
-      background-color: #bfbfbf;
-      text-align: center;
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
 
-    }
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
 
-    .listBtn:hover {
-      background-color: #b0b0b0;
+.rwd-table{
+  border-radius: 4px;
+}
 
-    }
+.parentsTable td {
+  box-sizing: border-box;
+  padding: 10px;
+}
 
-    .deleteForm {
-      button {
-        background-color: #ff8d79;
-        font-size: 16px;
-        margin-left: 20px;
-      }
+.parentsTable {
+  border-spacing: 1px;
+}
 
-      button:hover {
-        background-color: #fe765e;
-      }
-    }
+.selectBox,
+#deliveryCode {
+  border-radius: 3px;
+  margin-right: 10px;
+}
 
-    .selectBox {
-      width: 100px;
-      height: 30px;
-      border-radius: 7px;
-      margin-right: 10px;
-      border: 1px solid #ddd;
-      color: #6b6b6b;
+.borderNone {
+  border-left: none;
+}
 
-      &:focus {
-        border: 1px solid red;
-        outline: none;
-      }
-    }
+.parentsTableHead {
+  padding: 5px 0px;
+  font-size: 18px;
+}
 
-    #waybillNumber {
-      height: 27px;
-      border-radius: 7px;
-      border: 1px solid #ddd;
-      color: #6b6b6b;
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
 
-      &:focus {
-        border: 1px solid red;
-        outline: none;
-      }
-    }
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
 
-    #topBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 15px;
-      font-size: 18px;
-      cursor: pointer;
-      display: none;
-      /* 기본적으로 버튼 숨김 */
-    }
+@media screen and (min-width: 600px) {
+  .rwd-table td:hover {
+    background-color: #fcf7ff;
+  }
 
-    #topBtn:hover {
-      background-color: #0056b3;
-    }
+  .rwd-table td:before {
+    display: none;
+  }
+
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+
+.container {
+  display: block;
+  text-align: center;
+  margin-left: 50px;
+}
+
+.totalPrice {
+  color: red;
+}
+
+h2 {
+  margin-top: 80px;
+  text-align: left;
+}
+
+.tableTitle {
+  height: 70px;
+  text-align: left;
+
+  p {
+    padding-top: 30px;
+    font-size: 20px;
+  }
+}
+
+.red {
+  color: red;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.parentsTable {
+  border-radius: 4px;
+
+  width: 50%;
+  .parentsTableTd {
+    background-color: #eaeef1;
+
+  }
+}
+
+.parentsTableHead {
+  color: white;
+  height: 40px;
+  font-size: 17px;
+  background-color: #979dac;
+}
+
+.tableArea {
+  display: flex;
+}
+
+.productInfo {
+
+  th,
+  td {
+    text-align: center !important;
+  }
+}
+
+.buttonArea {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  button,
+  a {
+    width: 100px;
+    height: 40px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    line-height: 40px;
+  }
+}
+
+.editButtonArea {
+  margin: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.editBtn {
+  width: 100px;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: none;
+  color: white;
+  line-height: 40px;
+  background-color: #33415c;
+
+  &:hover {
+    background-color: #001233;
+  }
+}
+
+
+
+.listBtn {
+  background-color: #bfbfbf;
+  text-align: center;
+
+}
+
+.listBtn:hover {
+  background-color: #b0b0b0;
+
+}
+
+
+#deleteBtn {
+  background-color: #ff8d79;
+  font-size: 16px;
+  margin-left: 20px;
+
+  &:hover {
+    background-color: #fe765e;
+  }
+}
+
+
+.selectBox {
+  width: 100px;
+  height: 30px;
+  border-radius: 4px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  color: #6b6b6b;
+
+  &:focus {
+    border: 1px solid red;
+    outline: none;
+  }
+}
+
+#deliveryCode {
+  height: 27px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  color: #6b6b6b;
+
+  &:focus {
+    border: 1px solid red;
+    outline: none;
+  }
+}
+
+#topBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  /* 기본적으로 버튼 숨김 */
+}
+
+#topBtn:hover {
+  background-color: #0056b3;
+}
+
+.parentsTable:first-child {
+  border-right: none;
+}
+
+.firstHead{
+  border-top-left-radius: 4px;
+}
+.firstBody{
+  border-bottom-left-radius: 4px;
+}
+
+.lastBody{
+  border-bottom-right-radius: 4px;
+}
+
+.lastHead{
+  border-top-right-radius: 4px;
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/master/masterHeader.css" />
+    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
+    <link rel="stylesheet" th:href="@{/css/product/productEdit.css}" />
+
+    <style>
+      .thumbnail {
+        max-width: 150px;
+        max-height: 150px;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .image-container {
+        display: flex;
+        /* margin-right: 10px; */
+        position: relative;
+      }
+      .btn-delete {
+        font-size: 1rem;
+        border: 0px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        height: 20px;
+        position: relative;
+        top: 30px;
+        cursor: pointer;
+      }
+      .btn-delete:hover {
+        size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+    <main class="container__main" id="main">
+      <section class="master__product">
+        <div class="container__form">
+          <!-- form -->
+          <form
+            action="/master/product/save"
+            method="post"
+            onsubmit="return doAction();"
+            enctype="multipart/form-data">
+            <!-- 상품명 -->
+            <div class="container__input">
+              <label for="productName"
+                >상품명<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="text"
+                id="productName"
+                name="name"
+                placeholder="상품명은 30자 이내로 작성해주세요."
+                oninput="inputName(this, 30)" />
+            </div>
+            <!-- /상품명 -->
+
+            <!-- 카테고리 -->
+            <div class="container__input">
+              <label for="category"
+                >카테고리<span class="required-text">* 필수</span></label
+              >
+              <select id="category" name="productCategory">
+                <option value="#" disabled="disabled" selected>
+                  카테고리를 선택해주세요
+                </option>
+                <option value="PHOTO_CARD">포토카드</option>
+                <option value="MEMO">메모지</option>
+                <option value="STICKER">스티커</option>
+                <option value="POSTCARD">엽서</option>
+                <option value="ETC">기타</option>
+              </select>
+            </div>
+            <!-- /카테고리 -->
+
+            <!-- 판매가격 -->
+            <div class="container__input">
+              <label for="price"
+                >판매 가격<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="text"
+                id="price"
+                name="price"
+                placeholder="숫자만 입력해주세요." />
+            </div>
+            <!-- /판매가격 -->
+
+            <!-- 재고 수량 -->
+            <div class="container__input">
+              <label for="count"
+                >재고 수량<span class="required-text">* 필수</span></label
+              >
+              <input
+                type="number"
+                id="count"
+                name="count"
+                placeholder="숫자만 입력해주세요." />
+            </div>
+            <!-- /재고 수량 -->
+
+            <!-- 상품 설명 -->
+            <div class="container__input">
+              <label for="description">상품 설명</label>
+              <textarea
+                cols="47"
+                rows="5"
+                id="description"
+                oninput="inputTextarea(this, 200)"
+                placeholder="상품 설명은 200자 이내로 작성해주세요."
+                name="productDescription"></textarea>
+            </div>
+            <!-- /상품 설명 -->
+
+            <!-- 이미지 -->
+            <input
+              type="hidden"
+              id="deletedImages"
+              name="deletedImages"
+              value="" />
+
+            <!-- 상품 메인 이미지 -->
+            <div class="container__input">
+              <label
+                >상품 메인 이미지 (1장만 업로드 가능)<span class="required-text"
+                  >* 필수</span
+                ></label
+              >
+              <input
+                type="file"
+                name="mainImage"
+                id="mainImage"
+                accept="image/*"
+                onchange="previewSingleImage(event, 'mainImagePreview', 'mainImage')" />
+              <div id="mainImagePreview" class="preview-container"></div>
+            </div>
+
+            <!-- 상품 서브 이미지 -->
+            <div class="container__input">
+              <label>상품 서브 이미지 (최대 3장)</label>
+              <input
+                type="file"
+                id="subImage"
+                name="subImage"
+                accept="image/*"
+                multiple
+                onchange="previewMultipleImages(event, 'subImagePreview', 3, 'subImage')" />
+              <div id="subImagePreview" class="preview-container"></div>
+            </div>
+
+            <!-- 상품 설명 이미지 -->
+            <div class="container__input">
+              <label>상품 설명 이미지 (최대 5장)</label>
+              <input
+                type="file"
+                id="descImage"
+                name="descImage"
+                accept="image/*"
+                multiple
+                onchange="previewMultipleImages(event, 'descImagePreview', 5, 'descImage')" />
+              <div id="descImagePreview" class="preview-container"></div>
+            </div>
+            <!-- /이미지 -->
+
+            <div class="HanCardNewButton2">
+              <button
+                class="HanCancel"
+                type="button"
+                onclick="location.href='/master/product/list'">
+                취소
+              </button>
+              <button class="HanSubmit" type="submit">등록</button>
+            </div>
+          </form>
+          <!-- /form -->
+        </div>
+      </section>
+    </main>
+  </body>
+  <script th:src="@{/js/master/masterNavigation.js}"></script>
+  <script>
+    let newImageIndex = { subImage: 0, descImage: 0 }; // 새 이미지의 고유 ID 관리
+
+    // 새 이미지 미리보기 및 삭제 기능 (서브, 설명 이미지 공용)
+    function previewMultipleImages(event, previewId, maxImages, type) {
+      let previewContainer = document.getElementById(previewId);
+      let files = event.target.files;
+
+      if (!previewContainer || !files) return;
+
+      for (let i = 0; i < files.length; i++) {
+        if (previewContainer.childElementCount >= maxImages) {
+          alert(`최대 ${maxImages}개의 이미지만 업로드할 수 있습니다.`);
+          break;
+        }
+
+        let file = files[i];
+        let reader = new FileReader();
+        let currentIndex = newImageIndex[type]++; // 해당 타입(subImage, descImage)의 새로운 이미지 인덱스 증가
+
+        reader.onload = function (e) {
+          // 새 이미지 컨테이너 추가
+          let imageContainer = document.createElement("div");
+          imageContainer.classList.add("image-container");
+          imageContainer.classList.add(`${type}-image-container`);
+          imageContainer.id = `new${type}-${currentIndex}`;
+
+          // 이미지 추가
+          let img = document.createElement("img");
+          img.src = e.target.result;
+          img.classList.add("thumbnail");
+
+          // 삭제 버튼 추가
+          let deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.innerHTML =
+            '<i class="fa-regular fa-rectangle-xmark" style="color: #ff0000;"></i>';
+          deleteButton.className = "btn-delete";
+
+          deleteButton.onclick = function () {
+            deleteNewImage(currentIndex, type);
+          };
+
+          imageContainer.appendChild(img);
+          imageContainer.appendChild(deleteButton);
+          previewContainer.appendChild(imageContainer);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // 새로 추가한 이미지 삭제 (서브, 설명 이미지 공용)
+    function deleteNewImage(index, type) {
+      let imageContainer = document.getElementById(`new${type}-${index}`);
+      if (imageContainer) {
+        imageContainer.remove(); // 미리보기에서 삭제
+      }
+
+      // 파일 선택 input에서도 제거 (브라우저에서 직접 수정 불가 -> 새롭게 선택하도록 유도)
+      let fileInput = document.getElementById(type);
+      fileInput.value = ""; // 선택된 파일 초기화
+    }
+
+    function previewSingleImage(event, previewId, inputId) {
+      let file = event.target.files[0];
+      let previewContainer = document.getElementById(previewId);
+      previewContainer.innerHTML = ""; // 미리보기 이미지 보여줄 공간
+
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          // 이미지 및 버튼을 감쌀 컨테이너 div 생성
+          let imageContainer = document.createElement("div");
+          imageContainer.classList.add("image-container"); // 클래스 추가
+
+          let imgElement = document.createElement("img");
+          imgElement.src = e.target.result;
+          imgElement.classList.add("thumbnail");
+
+          // 삭제 버튼 추가
+          let deleteButton = document.createElement("button");
+          deleteButton.innerHTML =
+            '<i class="fa-regular fa-rectangle-xmark" style="color: #ff0000;"></i>';
+          deleteButton.className = "btn-delete";
+          deleteButton.onclick = function () {
+            imageContainer.remove(); // 미리보기 삭제
+            document.getElementById(inputId).value = ""; // input 초기화
+          };
+
+          imageContainer.appendChild(imgElement);
+          imageContainer.appendChild(deleteButton);
+          previewContainer.appendChild(imageContainer); // 컨테이너 추가
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function doAction() {
+      let checkProductName = document.getElementById("productName");
+      let checkCategory = document.getElementById("category");
+      let checkPrice = document.getElementById("price");
+      let checkCount = document.getElementById("count");
+      let checkMainImage = document.getElementById("mainImage");
+      let checkSubImageContainer = document.querySelectorAll(
+        ".subImage-image-container"
+      );
+      let checkDescImageContainer = document.querySelectorAll(
+        ".descImage-image-container"
+      );
+      console.log("sub: " + Number(checkSubImageContainer.length));
+      console.log("desc: " + Number(checkDescImageContainer.length));
+
+      let cPrice = /^[0-9]+$/;
+
+      if (checkProductName.value.length == 0) {
+        alert("상품명은 필수 입력 사항입니다.");
+        return false;
+      } else if (checkCategory.value == "#") {
+        alert("상품 카테고리는 필수 입력 사항입니다.");
+        return false;
+      } else if (checkPrice.value.length == 0) {
+        alert("판매 가격은 필수 입력 사항입니다.");
+        return false;
+      } else if (!cPrice.test(checkPrice.value)) {
+        alert("판매 가격은 숫자만 입력 가능합니다.");
+        return false;
+      } else if (checkCount.value == 0) {
+        alert("재고 수량은 필수 입력 사항입니다.");
+        return false;
+      } else if (!cPrice.test(checkCount.value)) {
+        alert("재고 수량은 숫자만 입력 가능합니다.");
+        return false;
+      } else if (checkMainImage.files.length == 0) {
+        alert("상품 메인 이미지는 필수 입력 사항입니다.");
+        return false;
+      } else if (Number(checkSubImageContainer.length) > 3) {
+        alert("상품 서브이미지는 최대 3장까지 등록 가능합니다.");
+        return false;
+      } else if (Number(checkDescImageContainer.length) > 5) {
+        alert("상품 설명 이미지는 최대 5장까지 등록 가능합니다.");
+        return false;
+      }
+      return true;
+    }
+    // 상품명의 최대 길이 제한
+    function inputName(name, maxlength) {
+      if (name.value.length > maxlength) {
+        name.value = name.value.substr(0, maxlength);
+      }
+    }
+    // 상품 설명의 최대 길이 제한
+    function inputTextarea(text, maxlength) {
+      if (text.value.length > maxlength) {
+        text.value = text.value.substr(0, maxlength);
+      }
+    }
+  </script>
+</html>
