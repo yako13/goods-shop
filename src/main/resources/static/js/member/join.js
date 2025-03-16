@@ -1,6 +1,4 @@
 
-
-
 // 약관 동의 시작
 let bol = true;
 let check01 = document.getElementById("check01");
@@ -14,7 +12,6 @@ function check() {
     bol = !bol;
 }
 
-
 check01.addEventListener("click", () => {
     if (bol) {
         check01.className = "fa-solid fa-circle-check";
@@ -23,8 +20,7 @@ check01.addEventListener("click", () => {
         check();
         termsAgreement.value = true;
         privacyAgreement.value = true;
-    }
-    else {
+    } else {
         check01.className = "fa-regular fa-circle-check";
         check02.className = "fa-regular fa-circle-check";
         check03.className = "fa-regular fa-circle-check";
@@ -32,9 +28,7 @@ check01.addEventListener("click", () => {
         termsAgreement.value = false;
         privacyAgreement.value = false;
     }
-
-
-})
+});
 
 let bol2 = true;
 function bol_2() {
@@ -49,28 +43,44 @@ function bol_3() {
 check02.addEventListener("click", () => {
     if (bol2) {
         check02.className = "fa-solid fa-circle-check";
-        bol_2();
         termsAgreement.value = true;
-    }
-    else {
+    } else {
         check02.className = "fa-regular fa-circle-check";
-        bol_2();
         termsAgreement.value = false;
     }
-})
+    bol_2();
+    updateAllCheck();
+});
 
 check03.addEventListener("click", () => {
     if (bol3) {
         check03.className = "fa-solid fa-circle-check";
-        bol_3();
         privacyAgreement.value = true;
-    }
-    else {
+    } else {
         check03.className = "fa-regular fa-circle-check";
-        bol_3();
         privacyAgreement.value = false;
     }
-})
+    bol_3();
+    updateAllCheck();
+});
+
+function updateAllCheck() {
+    if (
+        check02.className === "fa-solid fa-circle-check" &&
+        check03.className === "fa-solid fa-circle-check"
+    ) {
+        check01.className = "fa-solid fa-circle-check";
+        bol = false;
+    } else if (
+        check02.className === "fa-regular fa-circle-check" &&
+        check03.className === "fa-regular fa-circle-check"
+    ) {
+        check01.className = "fa-regular fa-circle-check";
+        bol = true;
+    }
+}
+
+
 // 약관동의 끝
 
 
@@ -93,7 +103,7 @@ let eye = document.getElementById("eye");
 
 const id_check = /^[a-z]{1}[a-z0-9]{5,10}$/; //첫문자는 영소문자, 영소문자와 숫자 포함 총 6~11자
 const password_check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/; //대소문자, 숫자, 특수문자 조합으로 8~15자
-const name_check = /^(?:[가-힣]{2,5})$|^(?:[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
+const name_check = /^[가-힣]{2,5}$|^[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
 const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
 let userId = document.getElementById("userId");
