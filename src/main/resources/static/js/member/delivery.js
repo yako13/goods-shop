@@ -207,6 +207,7 @@ function HanSignUpSubmitCheck(e) {
             document.getElementById("HanSignUpForm").submit();
           }
           else {
+            alert("error");
           }
         }
         else {
