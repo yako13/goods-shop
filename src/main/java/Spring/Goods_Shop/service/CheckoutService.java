@@ -107,7 +107,6 @@ public class CheckoutService {
                 .checkoutState(Formatter.getCheckoutState(checkout.getCheckoutStep()))
                 .deliveryCompany(Formatter.getDeliveryCompany(checkout.getCheckoutDeliveryCompany()))
                 .deliveryState(Formatter.getDeliveryState(checkout.getCheckoutPostStep()))
-                .checkoutCode(Formatter.getCheckoutCode(checkout.getCreatedAt()))
                 .checkoutDate(Formatter.getLocalDate(checkout.getCreatedAt()))
                 .deliveryCode(checkout.getCheckoutDeliveryCode())
                 .totalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
