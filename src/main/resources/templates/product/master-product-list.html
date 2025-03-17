@@ -146,12 +146,6 @@
         justify-content: space-between;
         margin-bottom: 0.5rem;
       }
-      .noticeText {
-        text-align: center;
-        margin-top: 3rem;
-        font-size: 2rem;
-      }
-
       table tr:hover {
         background-color: #fcf7ff;
       }
@@ -170,9 +164,6 @@
       #red {
         color: red;
       }
-      .qwe {
-        /* margin-top: 0px; */
-      }
     </style>
   </head>
   <body>
@@ -181,14 +172,11 @@
     <main id="main">
       <section class="master__product">
         <div class="table__product">
-          <h1 class="qwe">등록된 상품 리스트</h1>
+          <h1>등록된 상품 리스트</h1>
           <hr />
-          <div class="noticeText" th:unless="${page.totalElements != 0}">
-            등록된 상품이 없습니다.
-          </div>
           <div class="orderList">
             <p>
-              <b>주문 내역</b> : <b id="red">[[${page.totalElements}]]</b>건
+              <b>등록 내역</b> : <b id="red">[[${page.totalElements}]]</b>건
             </p>
           </div>
           <div th:if="${page.totalElements != 0}">
