@@ -33,7 +33,7 @@ $("#HanCheckbox").click(function () {
 }
 )
 
-const delivery_name_check = ^(?:[가-힣]+[0-9]+|[0-9]+[가-힣]+|[a-zA-Z]+[0-9]+|[0-9]+[a-zA-Z]+){2,10}$;
+const delivery_name_check = /^[가-힣0-9]{2,10}|[a-zA-Z0-9]{2,10}$/;
 const name_check = /^[가-힣]{2,5}$|^[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
 const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
@@ -207,7 +207,7 @@ function HanSignUpSubmitCheck(e) {
             document.getElementById("HanSignUpForm").submit();
           }
           else {
-            alert("error");
+            alert("입력이 잘못되었습니다.");
           }
         }
         else {

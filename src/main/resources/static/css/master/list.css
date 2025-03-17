@@ -148,61 +148,61 @@
    color: red;
  }
 
- ul {
-   list-style: none;
+
+
+ a {
+   text-decoration: none;
+
+   b {
+     color: black;
+   }
+ }
+
+ .pagination {
+   margin: 1rem;
    display: flex;
    justify-content: center;
-   text-align: center;
  }
 
- .page-item {
-   width: 30px;
-   height: 30px;
-   display: inline-block;
-   background-color: white;
-   color: black;
-   text-align: center;
-   line-height: 30px;
-   border: 1px solid #bfbfbf;
-   margin-right: 1px;
+ .pagination .page-item {
+   margin: 0 5px;
  }
 
- .page-item a {
-   color: inherit;
-   display: block;
-
+ .pagination .page-link {
+   color: #ffddfc;
+   border-radius: 8px;
+   padding: 8px 12px;
+   transition: all 0.2s ease-in-out;
  }
 
- a{
-  text-decoration: none;
-  b{
-  color:black;
-  }
- }
-
- .active {
-   background-color: #cddafd;
-   margin-right: 1px;
- }
-
- .page-item .active a {
+ .pagination .page-link:hover {
+   background-color: #ffddfc;
    color: white;
  }
 
- .disabled {
-   background-color: #e2e2e2;
-   cursor: not-allowed;
-   /* pointer-events: none;  */
-    a{
-    cursor: not-allowed;}
+ .pagination .active .page-link {
+   background-color: #fec3fa;
+   color: white;
+   border: none;
  }
 
-
- .page-item .disabled a {
-   color: #bfbfbf;
+ .pagination .disabled .page-link {
+   color: #ccc;
+   pointer-events: none;
+   background-color: #f8f9fa;
  }
 
- #checkoutCode{
-  color: #000;
-  font-weight: 600;
-}
+ .buttonAndTotal {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 0.5rem;
+ }
+
+ #checkoutCode {
+   color: #000;
+   font-weight: 600;
+ }
+
+ ul{
+  list-style: none;
+ }

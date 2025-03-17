@@ -35,6 +35,7 @@ public class CheckoutController {
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
         model.addAttribute("total",responseDtos.getTotalElements());
+        model.addAttribute("currentPage", responseDtos.getNumber());
         return "checkout/masterList";
     }
 
