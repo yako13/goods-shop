@@ -29,8 +29,9 @@
       }
       .image__main {
         max-width: 100%;
-        width: 33rem;
-        height: 33rem;
+        width: 31rem;
+        height: 31rem;
+        padding: 1rem;
       }
       .image__sub {
         width: 5rem;
@@ -198,6 +199,19 @@
         border: 1px solid #cccccc;
         padding: 2rem;
       }
+      .deliveryCompony {
+        margin-left: 0.5rem;
+      }
+      .deliveryNotice {
+        color: #ff7f0f;
+      }
+      .qwer {
+        display: flex;
+        flex-wrap: nowrap;
+      }
+      .product-info__post {
+        margin-bottom: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -225,7 +239,7 @@
             </div>
           </span>
           <div class="product-info">
-            <form action="#" method="#">
+            <form method="#">
               <p th:text="${product.name}" class="product-info__name"></p>
               <span
                 th:text="${product.count}"
@@ -236,7 +250,14 @@
                 class="product-info__price">
                 <span class="text__black">원</span>
               </p>
-              <p class="product-info__post">택배 배송 | 3,000원</p>
+              <div class="product-info__post">
+                택배 배송 | 3,000원
+                <div class="qwer">
+                  <p class="deliveryNotice">주문시 결재</p>
+                  <p class="deliveryCompony">대한통운</p>
+                </div>
+                <div>50,000원 이상 구매시 무료</div>
+              </div>
               <!--              <p class="product-info__orderCount">수량</p>-->
               <!--              <input type="number" min="0" />-->
               <!-- 상품 가격 (할인가) -->
@@ -276,12 +297,15 @@
               <!-- button -->
 
               <div th:unless="${product.count} == '0'" class="flex__btn">
-                <button class="btn btn__order" type="submit">
+                <button
+                  class="btn btn__order"
+                  type="submit"
+                  formaction="/checkout">
                   <i class="fa-solid fa-credit-card" style="color: #f5c724">
                     주문하기</i
                   >
                 </button>
-                <button class="btn btn__cart" type="submit">
+                <button class="btn btn__cart" type="submit" formaction="/cart">
                   <i class="fa-solid fa-cart-shopping" style="color: #2f648c">
                     장바구니</i
                   >
