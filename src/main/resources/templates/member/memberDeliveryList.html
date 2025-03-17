@@ -89,7 +89,7 @@
                                 <p class="HanAddressPopCardTextName" th:text="${deliveryList.recipientPhoneNumber}"></p>
                             </div>
                             <div class="HanAddressPopCardTextDiv4">
-                                <p th:if="${deliveryList.memo !=null}">배송 요청 사항 : </p>
+                                <p th:if="${deliveryList.memo != null and not #strings.isEmpty(deliveryList.memo)}">배송 요청 사항 : </p>
                                 <p class="HanAddressPopCardTextMemo" th:text="${deliveryList.memo}"></p>
                               </div>
 

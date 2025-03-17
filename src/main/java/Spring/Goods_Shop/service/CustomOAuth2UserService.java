@@ -62,6 +62,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         Member member;
         if (findMember.isEmpty()) {
+
+            //이름과 휴대폰 번호가 중복인 회원이 있을 경우 가입 안됨
+            Optional<Member> optionalMember = memberRepository.findByNameAndPhoneNumber(name,phoneNumber);
+
+            if(optionalMember.isPresent()) throw new RuntimeException("이름과 휴대전화번호가 중복되어 가입이 불가합니다.");
+
             member = Member.builder()
                     .name(name)
                     .userId(loginId)

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +33,11 @@ public class MemberService {
      * 회원가입
      */
     public boolean join(MemberAuthDto memberAuthDto) {
+
+        //이름과 휴대폰 번호가 중복인 회원이 있을 경우 가입 안됨
+        Optional<Member> optionalMember = memberRepository.findByNameAndPhoneNumber(memberAuthDto.getName(), memberAuthDto.getPhoneNumber());
+
+        if(optionalMember.isPresent()) return false;
 
         Member member = Member.builder()
                 .name(memberAuthDto.getName())
@@ -115,8 +121,6 @@ public class MemberService {
     public MemberResponseDto initMyPage(MemberDto memberDto, HttpServletRequest request) {
         Member member = getMemberEntity(request);
 
-        // 로그인 체크를 해줬기 때문에 member null 체크 X
-
         String userPassword = memberDto.getUserPassword();
 
         if (!passwordEncoder.matches(userPassword, member.getUserPassword())) return null;
@@ -132,7 +136,7 @@ public class MemberService {
     /**
      * 회원 정보 수정
      */
-    public void tryToEditMember(MemberEditDto memberEditDto, HttpServletRequest request) {
+    public boolean tryToEditMember(MemberEditDto memberEditDto, HttpServletRequest request) {
         Optional<Member> optionalMember = memberRepository.findByUserId(memberEditDto.getUserId());
 
         if (optionalMember.isEmpty()) throw new RuntimeException("비정상 접근입니다.");
@@ -147,10 +151,17 @@ public class MemberService {
         if (memberEditDto.getUserPassword() != null)
             member.setUserPassword(passwordEncoder.encode(memberEditDto.getUserPassword()));
 
+        //중복된 이름과 휴대전화번호일경우
+        Optional<Member> findMember = memberRepository.findByNameAndPhoneNumber(memberEditDto.getName(), memberEditDto.getPhoneNumber());
+
+        if(findMember.isPresent()) return false;
+
         member.setPhoneNumber(memberEditDto.getPhoneNumber());
         member.setName(memberEditDto.getName());
 
         memberRepository.save(member);
+
+        return true;
 
     }
 
@@ -224,6 +235,7 @@ public class MemberService {
     public void tryToCancellationSNSAccount(Member member) {
         //권한 : 탈퇴
         member.setRole(MemberRole.CANCELLATION);
+        member.setWithdrawalAt(LocalDateTime.now());
         memberRepository.save(member);
     }
 
@@ -238,6 +250,7 @@ public class MemberService {
         if (!passwordEncoder.matches(userPassword, member.getUserPassword())) return false;
 
         member.setRole(MemberRole.CANCELLATION);
+        member.setWithdrawalAt(LocalDateTime.now());
 
         memberRepository.save(member);
 

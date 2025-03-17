@@ -3,6 +3,7 @@ let bol_id = 0;
 let bol_password = 0;
 let bol_name = 0;
 let bol_phone = 0;
+let bol_password_check = 0;
 
 let userPassword = document.getElementById("userPassword");
 let userPasswordCheck = document.getElementById("passwordCheck");
@@ -10,7 +11,7 @@ let passwordError = document.getElementById("passwordError");
 let eye = document.getElementById("eye");
 
 const password_check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/; //대소문자, 숫자, 특수문자 조합으로 8~15자
-const name_check =  /^(?:[가-힣]{2,5})$|^(?:[a-zA-Z]{2,10}\s[a-zA-Z]{2,10})$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
+const name_check =  /^[가-힣]{2,5}$|^[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/; //한글 2~5자 또는 영문 이름 2~10자 이내 : 띄어쓰기(\s)가 들어가며 First, Last Name 형식
 const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
 let button = document.getElementById("button");
@@ -105,10 +106,11 @@ button.addEventListener("click", () => {
             hiddenPhoneArea.style.display="block";
         }
     
+        checkPassword();
+
+        bol_all =  bol_password + bol_name + bol_phone + bol_password_check;
     
-        bol_all =  bol_password + bol_name + bol_phone ;
-    
-        if (bol_all === 3) {
+        if (bol_all === 4) {
             button.type = "submit";
             button.onclick;
         }
@@ -143,9 +145,11 @@ eye.addEventListener("click", () => {
 function checkPassword() {
     if (userPassword.value !== userPasswordCheck.value) {
         passwordError.style.display = "block";
+         bol_password_check = 0 ;
     }
     else {
         passwordError.style.display = "none";
+         bol_password_check = 1 ;
     }
 }
 
