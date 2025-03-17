@@ -55,6 +55,9 @@ public class Formatter {
 
 
     public static String getLocalDate(LocalDateTime localDateTime){
+        if (localDateTime == null) {
+            return null;
+        }
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
