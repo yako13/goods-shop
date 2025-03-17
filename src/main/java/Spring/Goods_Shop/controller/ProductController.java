@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
@@ -32,6 +33,7 @@ public class ProductController {
     public String productList(
             @RequestParam(defaultValue = "0") int page, // 페이지 시작
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
+            @RequestParam(defaultValue = "default") String sort, // 상품 정렬
             Model model, HttpServletRequest request) {
 
 
@@ -39,14 +41,15 @@ public class ProductController {
         if (member != null) {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
-            return "mainPage";
         }
 
-        Page<ProductListResponseDto> productListResponseDtoPage = productService.getProductListResponseDto(page, size);
+        Page<ProductListResponseDto> productListResponseDtoPage = productService.getProductListResponseDto(page, size, sort);
         model.addAttribute("productList", productListResponseDtoPage.getContent());
         model.addAttribute("page", productListResponseDtoPage);
         model.addAttribute("currentPage", productListResponseDtoPage.getNumber());
         model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
+
         return "product/product-list";
     }
 
@@ -59,7 +62,6 @@ public class ProductController {
         if (member != null) {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
-            return "mainPage";
         }
 
         return "product/product-detail";
@@ -68,45 +70,49 @@ public class ProductController {
     @GetMapping("/product/list/category")
     public String getProductCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category,
                                      @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "10") int size, Model model, HttpServletRequest request) {
+                                     @RequestParam(defaultValue = "10") int size,
+                                     @RequestParam(defaultValue = "default") String sort,
+                                     Model model, HttpServletRequest request) {
 
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
-            return "mainPage";
         }
 
-        Page<ProductCategoryAndSearchResponseDto> productCategoryResponseDtoPage = productService.getProductCategoryResponseListDto(category, page, size);
+        Page<ProductCategoryAndSearchResponseDto> productCategoryResponseDtoPage = productService.getProductCategoryResponseListDto(category, page, size, sort);
 
         model.addAttribute("categoryList", productCategoryResponseDtoPage.getContent());
         model.addAttribute("page", productCategoryResponseDtoPage);
         model.addAttribute("currentPage", productCategoryResponseDtoPage.getNumber());
         model.addAttribute("size", size);
-        model.addAttribute("categoryQuery", category); // 현재 선택된 카테고리 저장
+        model.addAttribute("categoryQuery", category); // 현재 선택된 카테고리
+        model.addAttribute("sortSelect", sort); // 현재 선택된 정렬 방식
 
         return "product/product-category";
     }
 
     @GetMapping("/product/search/index")
-    public String getSearchProductName(@RequestParam(value = "keyword", required = false, defaultValue = "") String name,
+    public String getSearchProductName(@RequestParam(value = "keyword", required = false, defaultValue = "검색어를 입력해주세요.") String name,
                                        @RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "10") int size, Model model, HttpServletRequest request) {
+                                       @RequestParam(defaultValue = "10") int size,
+                                       @RequestParam(defaultValue = "default") String sort,
+                                       Model model, HttpServletRequest request) {
 
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
-            return "mainPage";
         }
 
-        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size);
+        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size, sort);
 
         model.addAttribute("searchList", productCategoryAndSearchResponseDtoPage.getContent());
         model.addAttribute("page", productCategoryAndSearchResponseDtoPage);
         model.addAttribute("currentPage", productCategoryAndSearchResponseDtoPage.getNumber());
         model.addAttribute("size", size);
         model.addAttribute("keywordQuery", name);
+        model.addAttribute("sortSelect", sort);
 
         return "product/product-search";
     }

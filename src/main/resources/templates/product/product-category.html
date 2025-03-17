@@ -97,6 +97,10 @@
       .noProductImage {
         height: 50rem;
       }
+      .container__sort {
+        display: flex;
+        gap: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -113,19 +117,32 @@
       </div>
       <hr />
       <div class="noProduct" th:if="${page.totalElements == 0}">
-        <img class="noProductImage" src="/images/notice.png" />
+        <img class="noProductImage" src="/images/notProductCategory.png" />
       </div>
       <div th:unless="${page.totalElements == 0}" class="sort-product">
-        <select
-          class="sortSelect"
-          name="sortSelect"
-          id="sortSelect"
-          onchange="">
-          <option value="5" th:selected="${size==5}">5개</option>
-          <option value="10" th:selected="${size==10}">10개</option>
-          <option value="15" th:selected="${size==15}">15개</option>
-        </select>
+        <div class="container__sort">
+          <select name="sizeSelect" id="sizeSelect" onchange="">
+            <option value="5" th:selected="${size==5}">5개</option>
+            <option value="10" th:selected="${size==10}">10개</option>
+            <option value="15" th:selected="${size==15}">15개</option>
+          </select>
 
+          <select name="sortSelect" id="sortSelect" onchange="">
+            <option value="default" th:selected="${sortSelect == 'default'}">
+              최신순
+            </option>
+            <option
+              value="price_asc"
+              th:selected="${sortSelect == 'price_asc'}">
+              가격낮은순
+            </option>
+            <option
+              value="price_desc"
+              th:selected="${sortSelect == 'price_desc'}">
+              가격높은순
+            </option>
+          </select>
+        </div>
         <span class="text__right">
           <span th:text="${page.totalElements + '건의 상품 / '}"></span>
           <span
@@ -158,7 +175,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list/category(category=${categoryQuery}, page=0, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=0, size=${size}, sort=${sortSelect})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -170,7 +187,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -184,7 +201,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size}, sort=${sortSelect})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -194,7 +211,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -204,7 +221,7 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size})}"
+              th:href="@{/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
@@ -222,13 +239,22 @@
     <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
   <script>
-    // 카테고리 기준 상품 개수 정렬
-    document
-      .getElementById("sortSelect")
-      .addEventListener("change", function () {
-        let selectedSize = this.value;
-        let categoryQuery = `[[${categoryQuery}]]`;
-        window.location.href = `/product/list/category?category=${categoryQuery}&page=0&size=${selectedSize}`;
-      });
+    // 검색 단어기준 상품개수 정렬
+    const sizeSelect = document.getElementById("sizeSelect");
+    const sortSelect = document.getElementById("sortSelect");
+
+    const categoryQuery = encodeURIComponent(`[[${categoryQuery}]]`);
+    const currentSize = `[[${size}]]`; // 현재 사이즈
+    const currentSort = `[[${sortSelect}]]`; // 현재 정렬 방식
+
+    sizeSelect.addEventListener("change", function () {
+      const selectedSize = this.value;
+      window.location.href = `/product/list/category?category=${categoryQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
+    });
+
+    sortSelect.addEventListener("change", function () {
+      const selectedSort = this.value;
+      window.location.href = `/product/list/category?category=${categoryQuery}&page=0&size=${currentSize}&sort=${selectedSort}`;
+    });
   </script>
 </html>

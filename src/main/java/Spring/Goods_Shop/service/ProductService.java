@@ -20,6 +20,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -156,16 +157,23 @@ public class ProductService {
         ProductImage updatedImage = productImageService.create(requestDto, product);
 
         if (updatedImage != null) {
-            updatedImage = imageRepository.save(updatedImage); // 🚀 먼저 저장
-            product.setProductImage(updatedImage); // 🚀 저장된 이미지 연결
+            updatedImage = imageRepository.save(updatedImage); // 먼저 저장
+            product.setProductImage(updatedImage); // 저장된 이미지 연결
         }
 
         return productRepository.save(product);
     }
 
     // 상품 리스트 조회 호출 (멤버)
-    public Page<ProductListResponseDto> getProductListResponseDto(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+    public Page<ProductListResponseDto> getProductListResponseDto(int page, int size, String sort) {
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        }
         Page<Product> productList = productRepository.findAll(pageable);
         return productList.map(this::toProductListResponseDto);
     }
@@ -204,8 +212,18 @@ public class ProductService {
                 .build();
     }
 
-    public Page<ProductCategoryAndSearchResponseDto> getProductCategoryResponseListDto(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+    public Page<ProductCategoryAndSearchResponseDto> getProductCategoryResponseListDto(String category, int page, int size, String sort) {
+
+        Pageable pageable;
+
+        if ("price_asc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
+
         ProductCategory productCategory = convertToProductCategory(category);
 
         Page<Product> products;
@@ -235,13 +253,22 @@ public class ProductService {
                 .build();
     }
 
-    public Page<ProductCategoryAndSearchResponseDto> getProductNameResponseListDto(String name, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+    public Page<ProductCategoryAndSearchResponseDto> getProductNameResponseListDto(String name, int page, int size, String sort) {
+
+        Pageable pageable;
+
+        if ("price_asc".equals(sort)) {
+        pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+
+        }
 
         if (name == null || name.isBlank()) return Page.empty();
 
         Page<Product> productPage = productRepository.findByNameContaining(name, pageable);
-
 
         return productPage.map(this::toProductNameResponseDto);
     }

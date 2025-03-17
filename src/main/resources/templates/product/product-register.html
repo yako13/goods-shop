@@ -30,9 +30,9 @@
         top: 30px;
         cursor: pointer;
       }
-      .btn-delete:hover {
+      /* .btn-delete:hover {
         size: 1rem;
-      }
+      } */
     </style>
   </head>
   <body>
@@ -56,8 +56,9 @@
                 type="text"
                 id="productName"
                 name="name"
+                required
                 placeholder="상품명은 30자 이내로 작성해주세요."
-                oninput="inputName(this, 30)" />
+                oninput="this.value = this.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ ㅏ-ㅣ 가-힇!@#$%^&*,./?]/g, '').substr(0, 30)" />
             </div>
             <!-- /상품명 -->
 
@@ -88,7 +89,9 @@
                 type="text"
                 id="price"
                 name="price"
-                placeholder="숫자만 입력해주세요." />
+                required
+                placeholder="숫자만 입력해주세요."
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^0+/, '')" />
             </div>
             <!-- /판매가격 -->
 
@@ -101,7 +104,9 @@
                 type="number"
                 id="count"
                 name="count"
-                placeholder="숫자만 입력해주세요." />
+                placeholder="숫자만 입력해주세요."
+                required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
             </div>
             <!-- /재고 수량 -->
 
@@ -112,7 +117,7 @@
                 cols="47"
                 rows="5"
                 id="description"
-                oninput="inputTextarea(this, 200)"
+                oninput="this.value = this.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ ㅏ-ㅣ 가-힇!@#$%^&*,./?]/g, '').substr(0, 200)"
                 placeholder="상품 설명은 200자 이내로 작성해주세요."
                 name="productDescription"></textarea>
             </div>
@@ -137,6 +142,8 @@
                 name="mainImage"
                 id="mainImage"
                 accept="image/*"
+                required
+                oninput="this.form.submitButton.disabled = !this.files.length"
                 onchange="previewSingleImage(event, 'mainImagePreview', 'mainImage')" />
               <div id="mainImagePreview" class="preview-container"></div>
             </div>
@@ -175,7 +182,13 @@
                 onclick="location.href='/master/product/list'">
                 취소
               </button>
-              <button class="HanSubmit" type="submit">등록</button>
+              <button
+                class="HanSubmit"
+                name="submitButton"
+                disabled
+                type="submit">
+                등록
+              </button>
             </div>
           </form>
           <!-- /form -->
@@ -220,7 +233,7 @@
           let deleteButton = document.createElement("button");
           deleteButton.type = "button";
           deleteButton.innerHTML =
-            '<i class="fa-regular fa-rectangle-xmark" style="color: #ff0000;"></i>';
+            '<i class="fa-solid fa-square-xmark" style="color: #ff0000;"></i>';
           deleteButton.className = "btn-delete";
 
           deleteButton.onclick = function () {
@@ -267,7 +280,7 @@
           // 삭제 버튼 추가
           let deleteButton = document.createElement("button");
           deleteButton.innerHTML =
-            '<i class="fa-regular fa-rectangle-xmark" style="color: #ff0000;"></i>';
+            '<i class="fa-solid fa-square-xmark" style="color: #ff0000;"></i>';
           deleteButton.className = "btn-delete";
           deleteButton.onclick = function () {
             imageContainer.remove(); // 미리보기 삭제
@@ -299,25 +312,28 @@
 
       let cPrice = /^[0-9]+$/;
 
-      if (checkProductName.value.length == 0) {
+      if (checkProductName.value.length === 0) {
         alert("상품명은 필수 입력 사항입니다.");
         return false;
-      } else if (checkCategory.value == "#") {
+      } else if (checkCategory.value === "#") {
         alert("상품 카테고리는 필수 입력 사항입니다.");
         return false;
-      } else if (checkPrice.value.length == 0) {
+      } else if (checkPrice.value.length === 0) {
         alert("판매 가격은 필수 입력 사항입니다.");
         return false;
       } else if (!cPrice.test(checkPrice.value)) {
         alert("판매 가격은 숫자만 입력 가능합니다.");
         return false;
-      } else if (checkCount.value == 0) {
+      } else if (checkPrice.value < 100) {
+        alert("최소 판매 금액은 100원입니다.");
+        return false;
+      } else if (checkCount.value === 0) {
         alert("재고 수량은 필수 입력 사항입니다.");
         return false;
       } else if (!cPrice.test(checkCount.value)) {
         alert("재고 수량은 숫자만 입력 가능합니다.");
         return false;
-      } else if (checkMainImage.files.length == 0) {
+      } else if (checkMainImage.files.length === 0) {
         alert("상품 메인 이미지는 필수 입력 사항입니다.");
         return false;
       } else if (Number(checkSubImageContainer.length) > 3) {
@@ -328,18 +344,6 @@
         return false;
       }
       return true;
-    }
-    // 상품명의 최대 길이 제한
-    function inputName(name, maxlength) {
-      if (name.value.length > maxlength) {
-        name.value = name.value.substr(0, maxlength);
-      }
-    }
-    // 상품 설명의 최대 길이 제한
-    function inputTextarea(text, maxlength) {
-      if (text.value.length > maxlength) {
-        text.value = text.value.substr(0, maxlength);
-      }
     }
   </script>
 </html>

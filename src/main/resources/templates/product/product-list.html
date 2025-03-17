@@ -91,6 +91,10 @@
         pointer-events: none;
         background-color: #f8f9fa;
       }
+      .container__sort {
+        display: flex;
+        gap: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -99,13 +103,33 @@
     <main class="container container__main">
       <div class="search-name">전체상품</div>
       <hr />
+      <div th:if="${page.totalElements == 0}" class="noProduct">
+        <img src="/images/notProductSearch.png" class="noProductImage" />
+      </div>
       <div class="sort-product">
-        <select name="sortSelect" id="sortSelect" onchange="">
-          <option value="5" th:selected="${size==5}">5개</option>
-          <option value="10" th:selected="${size==10}">10개</option>
-          <option value="15" th:selected="${size==15}">15개</option>
-        </select>
+        <div class="container__sort">
+          <select name="sizetSelect" id="sizeSelect" onchange="">
+            <option value="5" th:selected="${size==5}">5개</option>
+            <option value="10" th:selected="${size==10}">10개</option>
+            <option value="15" th:selected="${size==15}">15개</option>
+          </select>
 
+          <select name="sortSelect" id="sortSelect" onchange="">
+            <option value="default" th:selected="${sortSelect == 'default'}">
+              최신순
+            </option>
+            <option
+              value="price_asc"
+              th:selected="${sortSelect == 'price_asc'}">
+              가격낮은순
+            </option>
+            <option
+              value="price_desc"
+              th:selected="${sortSelect == 'price_desc'}">
+              가격높은순
+            </option>
+          </select>
+        </div>
         <span class="text__right">
           <span th:text="${page.totalElements + '건의 상품 / '}"></span>
           <span
@@ -204,12 +228,22 @@
     <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
   <script>
-    // 상품개수 정렬
-    document
-      .getElementById("sortSelect")
-      .addEventListener("change", function () {
-        const selectedSize = this.value;
-        window.location.href = `/product/list?page=0&size=${selectedSize}`;
-      });
+    // 검색 단어기준 상품개수 정렬
+    const sizeSelect = document.getElementById("sizeSelect");
+    const sortSelect = document.getElementById("sortSelect");
+
+    const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
+    const currentSize = `[[${size}]]`; // 현재 사이즈
+    const currentSort = `[[${sortSelect}]]`; // 현재 정렬 방식
+
+    sizeSelect.addEventListener("change", function () {
+      const selectedSize = this.value;
+      window.location.href = `/product/list?page=0&size=${selectedSize}&sort=${currentSort}`;
+    });
+
+    sortSelect.addEventListener("change", function () {
+      const selectedSort = this.value;
+      window.location.href = `/product/list?page=0&size=${currentSize}&sort=${selectedSort}`;
+    });
   </script>
 </html>

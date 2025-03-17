@@ -146,6 +146,11 @@
         justify-content: space-between;
         margin-bottom: 0.5rem;
       }
+      .noticeText {
+        text-align: center;
+        margin-top: 3rem;
+        font-size: 2rem;
+      }
     </style>
   </head>
   <body>
@@ -154,67 +159,74 @@
     <main id="main">
       <section class="master__product">
         <div class="table__product">
-          <div class="buttonAndTotal">
-            <a href="/master/product/register">
-              <button class="btn btn-green">등록하기</button>
-            </a>
-            <div th:text="'상품개수: ' + ${page.totalElements}"></div>
+          <h1>등록된 상품 리스트</h1>
+          <hr />
+          <div class="noticeText" th:unless="${page.totalElements != 0}">
+            등록된 상품이 없습니다.
           </div>
+          <div th:if="${page.totalElements != 0}">
+            <div class="buttonAndTotal">
+              <a href="/master/product/register">
+                <button class="btn btn-green">등록하기</button>
+              </a>
+              <div th:text="'상품개수: ' + ${page.totalElements}"></div>
+            </div>
 
-          <table>
-            <thead>
-              <th>번호</th>
-              <th>이미지</th>
-              <th>상품명</th>
-              <th>카테고리</th>
-              <th>판매가격</th>
-              <th>재고수량</th>
-              <th>등록일자</th>
-              <th>수정일자</th>
-              <th>상품수정</th>
-              <th>상품삭제</th>
-            </thead>
-            <tbody>
-              <tr th:each="productList : ${productList}">
-                <th th:text="${productList.id}"></th>
-                <td>
-                  <img
-                    th:src="${productList.mainImagePath}"
-                    style="width: 4rem; height: 4rem" />
-                </td>
-                <td>
-                  <a
-                    th:href="@{/product/details/{id}(id=${productList.id})}"
-                    th:text="${productList.name}"></a>
-                </td>
-                <td th:text="${productList.productCategory}"></td>
-                <td th:text="${productList.price}"></td>
-                <td th:text="${productList.count + '개'}"></td>
-                <td th:text="${productList.createdAt}"></td>
-                <td th:text="${productList.modifiedAt}"></td>
-                <td>
-                  <button
-                    class="btn btn-blue"
-                    type="button"
-                    th:onclick="|location.href='/master/product/edit/' + ${productList.id}|">
-                    수정하기
-                  </button>
-                </td>
-                <td>
-                  <button
-                    class="btn btn-red"
-                    type="button"
-                    th:onclick="|location.href='/master/product/delete/' + ${productList.id}|">
-                    삭제하기
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <table>
+              <thead>
+                <th>번호</th>
+                <th>이미지</th>
+                <th>상품명</th>
+                <th>카테고리</th>
+                <th>판매가격</th>
+                <th>재고수량</th>
+                <th>등록일자</th>
+                <th>수정일자</th>
+                <th>상품수정</th>
+                <th>상품삭제</th>
+              </thead>
+              <tbody>
+                <tr th:each="productList : ${productList}">
+                  <th th:text="${productList.id}"></th>
+                  <td>
+                    <img
+                      th:src="${productList.mainImagePath}"
+                      style="width: 4rem; height: 4rem" />
+                  </td>
+                  <td>
+                    <a
+                      th:href="@{/product/details/{id}(id=${productList.id})}"
+                      th:text="${productList.name}"></a>
+                  </td>
+                  <td th:text="${productList.productCategory}"></td>
+                  <td th:text="${productList.price}"></td>
+                  <td th:text="${productList.count + '개'}"></td>
+                  <td th:text="${productList.createdAt}"></td>
+                  <td th:text="${productList.modifiedAt}"></td>
+                  <td>
+                    <button
+                      class="btn btn-blue"
+                      type="button"
+                      th:onclick="|location.href='/master/product/edit/' + ${productList.id}|">
+                      수정하기
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-red"
+                      type="button"
+                      th:onclick="|location.href='/master/product/delete/' + ${productList.id}|">
+                      삭제하기
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
       <!-- 페이지네이션 -->
-      <nav aria-label="Page navigation" th:if="${page.totalElements != 0}">
+      <nav aria-label="Page navigation" th:unless="${page.totalElements == 0}">
         <ul class="pagination">
           <!-- 첫 페이지 버튼 -->
           <li
