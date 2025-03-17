@@ -1,9 +1,7 @@
 package Spring.Goods_Shop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 @Table(name = "cart")
@@ -11,6 +9,8 @@ import org.hibernate.annotations.Comment;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Setter
+@Builder
 public class Cart {
 
     @Id

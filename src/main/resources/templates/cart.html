@@ -20,207 +20,149 @@
 
 
 <!-- 메인 시작 -->
-
 <div class="HanCartBody">
-
     <div class="HanCartMain">
-
         <div class="HanCartTopPDiv">
-
             <p class="Bold">장바구니</p>
             <p class="">></p>
             <p class="">주문/결제</p>
             <p class="">></p>
             <p>완료</p>
-
         </div>
 
-        <div class="HanCartTop">
+        <!-- 장바구니에 물품이 있을때 시작-->
 
-            <div class="HanCartTopTitle HanCartCheckbox">
+        <div th:unless="${cartNo}">
 
-                <div>
-                    <input type="checkbox">
+            <div class="HanCartTop">
+                <div class="HanCartTopTitle HanCartCheckbox">
+                    <div>
+                        <input type="checkbox" id="selectAll" onclick="toggleCheckboxes(this)">
+                    </div>
+                    <img th:src="@{/images/cart3.svg}" alt="쇼핑카트 아이콘" width="27px" height="27px">
+                    <p class="HanCartTopTitleP">구름별 공방</p>
                 </div>
-                <img th:src="@{/images/cart3.svg}" alt="쇼핑카트 아이콘" width="27px" height="27px">
-                <p class="HanCartTopTitleP">구름별 공방</p>
 
 
+                <div class="HanCartTopDeleteA">
+
+                    <form id="removeSelectedForm" action="/cart/remove" method="post">
+                        <input type="hidden" name="selectedItems" id="selectedItemsInput">
+                        <button type="button" onclick="submitRemoveSelected()">선택 삭제</button>
+                    </form>
+
+                    <form id="removeAllForm" action="/cart/clear" method="post">
+                        <button type="submit">전체 삭제</button>
+                    </form>
+
+                </div>
             </div>
 
-            <div class="HanCartTopDeleteA">
+            <ul>
+                <form method="get" id="checkOut" action="/checkout/cart" onsubmit="prepareFormData()">
+                    <hr class="HanCartHr">
 
-                <a href="">선택 삭제</a>
-                <a href="">전체 삭제</a>
+                    <!-- 카트 아이템 시작 -->
+                    <li th:each="cartList : ${cartList}" class="product-item" th:data-id="${cartList.id}">
+                        <div class="HanCartCheckbox">
+                            <label th:for="|checkBox${cartList.id}|"></label>
+                            <input type="checkbox" th:id="|checkBox${cartList.id}|" th:data-id="${cartList.id}"
+                                   th:data-price="${cartList.product.price}" onclick="calculateTotal()"
+                                   name="cartIdList" th:value="${cartList.id}" class="item">
+                        </div>
 
-            </div>
+                        <div class="HanCartInfo">
+                            <div class="HanCartImgDiv">
+                                <img th:src="@{/thumbImg/{url}(url=${cartList.product.productImage.getImageFullName})}"
+                                     alt="">
+                            </div>
+
+                            <div class="HanCartProductName">
+                                <p>[[${cartList.product.name}]]</p>
+                                <p class="product-price">[[${cartList.product.price}]]</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="HanProductCntDiv">
+                                <span class="HanProductSumCnt">상품 금액</span>
+                                <span class="HanProductPriceSumCnt"></span>
+
+                                <div>
+                                        <span class="total-item-price"
+                                              th:text="|${#numbers.formatInteger(cartList.product.price * cartList.cartCnt, 1)}|"></span>
+                                </div>
+
+                                <div class="HanProductSpinner">
+                                    <button type="button" onclick="changeQuantity(this, -1)">-</button>
+                                    <input type="text" class="quantity" th:value="${cartList.cartCnt}" readonly>
+                                    <button type="button" onclick="changeQuantity(this, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- 카트 아이템 끝 -->
+
+                    <hr class="HanCartHrBottom">
+                    <div class="HanCartBottomPrice">
+                        <div class="HanCartBottomPriceDiv">
+                            <p class="HanCartBottomPriceFont">선택상품 금액</p>
+                            <p class="HanCartBottomPriceNum" id="totalPrice">0원</p>
+                        </div>
+                        <p>+</p>
+                        <div class="HanCartBottomPriceDiv">
+                            <p class="HanCartBottomPriceFont">배송비</p>
+                            <p class="HanCartBottomPriceNum" id="shippingFee">0원</p>
+                        </div>
+                        <p>=</p>
+                        <div class="HanCartBottomPriceDiv">
+                            <p class="HanCartBottomPriceFont">주문금액</p>
+                            <p class="HanCartBottomPriceNum HanCartSum" id="finalPrice">0원</p>
+                        </div>
+
+                        <div class="HanCartButtonContainer2">
+
+                            <!--장바구니 pk 리스트-->
+                            <input type="hidden" name="selectedItems" id="selectedItems">
+
+                            <!--장바구니에 담겨있는 상품 개수 -->
+                            <input type="hidden" name="cartCnt" id="selectedQuantities">
+
+                            <button class="HanOrderSubmitButton" type="submit" form="checkOut" id="checkoutButton"
+                                    disabled>
+                                0개 결제하기
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </ul>
         </div>
 
+        <!-- 장바구니에 물품이 있을때 끝-->
 
-        <ul>
+        <!-- 장바구니에 물품이 없을때 시작-->
 
-            <hr class="HanCartHr">
+        <div th:if="${cartNo}" style="padding-bottom:55px">
 
+            <div class="HanCartPDiv">
 
-            <!-- 카트 아이템 시작 -->
-            <li>
-                <div class="HanCartCheckbox">
-                    <label for=""></label>
-                    <input type="checkbox">
-
-                </div>
-
-                <div class="HanCartInfo">
-
-                    <div class="HanCartImgDiv">
-
-                        <img th:src="@{/images/product1.png}" alt="">
-
-                    </div>
-
-                    <div class="HanCartProductName">
-                        <p>동화 일러스트 키캡 4종</p>
-                        <p>20,000원</p>
-
-                    </div>
-
-
-                </div>
-
-                <div>
-
-                    <div class="HanProductCntDiv">
-
-
-                        <span class="HanProductSumCnt">상품 금액</span>
-                        <span class="HanProductPriceSumCnt"></span>
-
-                        <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
-                        <div>
-
-                            <span class="HanProductPriceSum" id="HanProductPriceSum">20000</span>
-                            <span class="HanProductSpan3">원</span>
-
-                        </div>
-
-                        <!-- 수량버튼 -->
-                        <div class="HanProductSpinner">
-
-                            <button onclick="changeQuantity(-1)">-</button>
-                            <input type="text" id="HanProductValue" value="1" readonly/>
-                            <button onclick="changeQuantity(1)">+</button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </li>
-
-            <!-- 카트 아이템 끝 -->
-
-
-            <!-- 카트 아이템 시작 -->
-            <li>
-                <div class="HanCartCheckbox">
-                    <label for=""></label>
-                    <input type="checkbox">
-
-                </div>
-
-                <div class="HanCartInfo">
-
-                    <div class="HanCartImgDiv">
-
-                        <img th:src="@{images/product2.png}" alt="">
-
-                    </div>
-
-                    <div class="HanCartProductName">
-                        <p>동물 캐릭터 안경닦이</p>
-                        <p>10,000원</p>
-
-                    </div>
-
-
-                </div>
-
-                <div>
-
-                    <div class="HanProductCntDiv">
-
-
-                        <span class="HanProductSumCnt">상품 금액</span>
-                        <span class="HanProductPriceSumCnt"></span>
-
-                        <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
-                        <div>
-
-                            <span class="HanProductPriceSum" id="HanProductPriceSum">20000</span>
-                            <span class="HanProductSpan3">원</span>
-
-                        </div>
-
-                        <!-- 수량버튼 -->
-                        <div class="HanProductSpinner">
-
-                            <button onclick="changeQuantity(-1)">-</button>
-                            <input type="text" id="HanProductValue" value="2" readonly/>
-                            <button onclick="changeQuantity(1)">+</button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </li>
-
-            <!-- 카트 아이템 끝 -->
-
-
-            <hr class="HanCartHrBottom">
-            <div class="HanCartBottomPrice">
-
-                <div class="HanCartBottomPriceDiv">
-
-                    <p class="HanCartBottomPriceFont">선택상품 금액</p>
-                    <p class="HanCartBottomPriceNum">40,000원</p>
-
-                </div>
-                <p>+</p>
-                <div class="HanCartBottomPriceDiv">
-
-                    <p class="HanCartBottomPriceFont">배송비</p>
-                    <p class="HanCartBottomPriceNum">3,000원</p>
-
-                </div>
-                <p>=</p>
-                <div class="HanCartBottomPriceDiv">
-
-                    <p class="HanCartBottomPriceFont ">주문금액</p>
-                    <p class="HanCartBottomPriceNum HanCartSum">43,000원</p>
-
-                </div>
-
-                <div class="HanCartButtonContainer2">
-                    <button class="HanOrderSubmitButton" type="submit" form="payment">
-                        2건 결제 하기
-                    </button>
-
-                </div>
+                <img th:src="@{/images/info.svg}" width="40" height="40px">
+                <p class="HanCartPDivP1">장바구니에 담긴 상품이 없습니다.</p>
+                <p class="HanCartPDivP2">원하는 상품을 장바구니에 담아보세요!</p>
 
             </div>
 
-        </ul>
-
+        </div>
+        <!-- 장바구니에 물품이 없을때 시작-->
 
     </div>
 
 
 </div>
 
+
+<!-- 장바구니에 물품이 없을때 끝-->
 
 <!-- 메인 끝 -->
 
@@ -230,6 +172,152 @@
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 <!-- 푸터 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    //---------------가격을 원단위로 바꿔주는 코드 시작------------------------------------------
+
+    document.querySelectorAll('.product-item').forEach(item => {
+        let price = parseInt(item.querySelector('.item').getAttribute('data-price'));
+        let quantity = parseInt(item.querySelector('.quantity').value);
+        let totalPriceElement = item.querySelector('.total-item-price');
+
+        totalPriceElement.textContent = (price * quantity).toLocaleString() + "원";
+    });
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".product-item").forEach(item => {
+        let priceAttr = item.querySelector(".item").getAttribute("data-price");
+
+        if (priceAttr) {
+            let productPrice = parseFloat(priceAttr);  //  소수점 포함된 숫자 변환
+            item.querySelector(".product-price").textContent = productPrice.toLocaleString() + "원";
+        } else {
+            console.warn(" 가격 값이 존재하지 않습니다.");
+        }
+    });
+});
+
+    //---------------가격을 원단위로 바꿔주는 코드 끝------------------------------------------
+
+</script>
+
+<script>
+    function toggleCheckboxes(source) {
+        let checkboxes = document.querySelectorAll('.item');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = source.checked;
+        });
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        let checkboxes = document.querySelectorAll('.item');
+        let total = 0;
+        let selectedCount = 0;
+        let shippingFee = 3000;
+
+
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                let price = parseInt(checkbox.getAttribute('data-price'));
+                let quantity = parseInt(checkbox.closest('.product-item').querySelector('.quantity').value);
+                total += price * quantity;
+                selectedCount++;
+            }
+        });
+
+
+            if (selectedCount > 0) {  //  체크박스가 하나라도 선택되었을 때만 실행
+
+        if (total >= 50000) {
+            shippingFee = 0;
+        }
+
+        let finalPrice = total + shippingFee;
+
+        document.getElementById('totalPrice').textContent = `${total.toLocaleString()}원`;
+        document.getElementById('shippingFee').textContent = `${shippingFee.toLocaleString()}원`;
+        document.getElementById('finalPrice').textContent = `${finalPrice.toLocaleString()}원`;
+        //  선택된 항목이 없으면 0원으로 초기화
+    } else {
+        document.getElementById('totalPrice').textContent = "0원";
+        document.getElementById('shippingFee').textContent = "0원";
+        document.getElementById('finalPrice').textContent = "0원";
+    }
+
+
+        let checkoutButton = document.getElementById('checkoutButton');
+        checkoutButton.textContent = `${selectedCount}개 결제하기`;
+        checkoutButton.disabled = selectedCount === 0;
+
+
+    }
+
+    function changeQuantity(button, change) {
+        let productItem = button.closest('.product-item');
+        let quantityInput = productItem.querySelector('.quantity');
+        let totalItemPrice = productItem.querySelector('.total-item-price');
+        let unitPrice = parseInt(productItem.querySelector('.item').getAttribute('data-price'));
+        let cartId = productItem.getAttribute('data-id'); // 변경된 부분
+
+        let currentQuantity = parseInt(quantityInput.value);
+        currentQuantity += change;
+
+        if (currentQuantity < 1) {
+            currentQuantity = 1;
+        }
+
+        quantityInput.value = currentQuantity;
+        totalItemPrice.textContent = (unitPrice * currentQuantity).toLocaleString() + "원";
+        calculateTotal();
+
+        //  AJAX 요청: DTO 구조로 서버에 전송
+        updateQuantityOnServer(cartId, currentQuantity);
+    }
+
+    function updateQuantityOnServer(cartId, cartCnt) {
+    $.ajax({
+        type: "POST",
+        url: "/cart/update/quantity",  //  URL 경로가 서버 컨트롤러와 일치해야 함
+        contentType: "application/json",
+        data: JSON.stringify({
+            cartId: cartId,
+            cartCnt: cartCnt
+        }),
+        success: function (response) {
+            console.log("수량 업데이트 성공:", response);
+        },
+        error: function (xhr) {
+            console.error("수량 업데이트 실패:", xhr.status, xhr.responseText);
+        }
+    });
+}
+
+
+    function submitRemoveSelected() {
+        let selectedItems = [];
+        document.querySelectorAll('.item:checked').forEach(checkbox => {
+            selectedItems.push(checkbox.getAttribute('data-id'));
+        });
+
+        if (selectedItems.length === 0) {
+            alert("삭제할 상품을 선택하세요.");
+            return;
+        }
+
+        // 선택된 상품 ID를 form의 hidden input에 저장
+        document.getElementById('selectedItemsInput').value = selectedItems.join(',');
+
+        // 폼 전송 (페이지가 새로고침됨)
+        document.getElementById('removeSelectedForm').submit();
+    }
+
+
+</script>
 
 
 </body>

@@ -19,9 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -202,8 +200,10 @@ public class CheckoutService {
 
 
             checkoutResponseDtos.add(checkoutResponseDto);
-        }
 
+        }
+        //id기준 내림차순
+        checkoutResponseDtos.sort(Comparator.comparing(CheckoutResponseDto::getId).reversed());
         return checkoutResponseDtos;
     }
 }
