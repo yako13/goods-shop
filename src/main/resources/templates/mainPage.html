@@ -223,169 +223,170 @@
 
 <script>
 
-  //캐러셀 함수
 
-  const track = document.querySelector(".HanTrack");
-  const slides = document.querySelectorAll(".HanTrackSlide");
-  const prevBtn = document.querySelector(".HanArrowLeft");
-  const nextBtn = document.querySelector(".HanArrowRight");
-  const dotsContainer = document.querySelector(".HanDots");
+//캐러셀 함수
 
-  let index = 0;
-  const totalSlides = slides.length;
+const track = document.querySelector(".HanTrack");
+const slides = document.querySelectorAll(".HanTrackSlide");
+const prevBtn = document.querySelector(".HanArrowLeft");
+const nextBtn = document.querySelector(".HanArrowRight");
+const dotsContainer = document.querySelector(".HanDots");
 
-  // 슬라이드 복제 (무한 루프용)
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[totalSlides - 1].cloneNode(true);
+let index = 0;
+const totalSlides = slides.length;
 
-  track.appendChild(firstClone);
-  track.insertBefore(lastClone, slides[0]);
+// 슬라이드 복제 (무한 루프용)
+const firstClone = slides[0].cloneNode(true);
+const lastClone = slides[totalSlides - 1].cloneNode(true);
 
-  const updatedSlides = document.querySelectorAll(".HanTrackSlide");
-  track.style.transform = `translateX(-100%)`;
+track.appendChild(firstClone);
+track.insertBefore(lastClone, slides[0]);
 
-  // 인디케이터 생성
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement("div");
-    dot.classList.add("HanDot");
-    if (i === 0) dot.classList.add("HanActive");
-    dotsContainer.appendChild(dot);
-  }
-  const dots = document.querySelectorAll(".HanDot");
+const updatedSlides = document.querySelectorAll(".HanTrackSlide");
+track.style.transform = `translateX(-100%)`;
 
-
-  function updateSlide(position) {
-
-    track.style.transition = "transform 0.5s ease-in-out";
-    track.style.transform = `translateX(-${position * 100}%)`;
-  }
-
-  function updateDots() {
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("HanActive", i === index);
-    });
-  }
+// 인디케이터 생성
+for (let i = 0; i < totalSlides; i++) {
+ const dot = document.createElement("div");
+ dot.classList.add("HanDot");
+ if (i === 0) dot.classList.add("HanActive");
+ dotsContainer.appendChild(dot);
+}
+const dots = document.querySelectorAll(".HanDot");
 
 
-  //자동으로 오른쪽 이동시
-  function nextSlideAuto() {
+function updateSlide(position) {
 
-    //버튼 눌렀을시 시간 재설정해주는 함수
-    restartAutoPlay();
-    index++;
-    updateSlide(index + 1);
+ track.style.transition = "transform 0.5s ease-in-out";
+ track.style.transform = `translateX(-${position * 100}%)`;
+}
 
-    if (index >= totalSlides) {
-      index = 0;
-      updateDots();
-      setTimeout(() => {
-        track.style.transition = "none";
-        track.style.transform = `translateX(-100%)`;
-      }, 500);
-    } else {
-      updateDots();
-    }
-  }
+function updateDots() {
+ dots.forEach((dot, i) => {
+   dot.classList.toggle("HanActive", i === index);
+ });
+}
 
 
-  //움직이는지 체크
-  let move = 1;
+//자동으로 오른쪽 이동시
+function nextSlideAuto() {
 
-  //오른쪽 이동
-  function nextSlide() {
-    if (move == 2) {
+ //버튼 눌렀을시 시간 재설정해주는 함수
+ restartAutoPlay();
+ index++;
+ updateSlide(index + 1);
 
-      return;
-    }
-
-    move = 2;
-
-    //버튼 눌렀을시 시간 재설정해주는 함수
-    restartAutoPlay();
-    index++;
-    updateSlide(index + 1);
-
-    if (index >= totalSlides) {
-      index = 0;
-      updateDots();
-      move = 2;
-      setTimeout(() => {
-        track.style.transition = "none";
-        track.style.transform = `translateX(-100%)`;
-        move = 1;
-      }, 500);
-    } else {
-      updateDots();
-      setTimeout(() => {
-        move = 1;
-      }, 500);
-    }
-  }
+ if (index >= totalSlides) {
+   index = 0;
+   updateDots();
+   setTimeout(() => {
+     track.style.transition = "none";
+     track.style.transform = `translateX(-100%)`;
+   }, 500);
+ } else {
+   updateDots();
+ }
+}
 
 
-  //왼쪽 이동
-  function prevSlide() {
+//움직이는지 체크
+let move = 1;
 
-    if (move == 2) {
+//오른쪽 이동
+function nextSlide() {
+ if (move == 2) {
 
-      return;
-    }
+   return;
+ }
 
-    move = 2;
+ move = 2;
 
-    restartAutoPlay();
-    index--;
-    updateSlide(index + 1);
+ //버튼 눌렀을시 시간 재설정해주는 함수
+ restartAutoPlay();
+ index++;
+ updateSlide(index + 1);
 
-    if (index < 0) {
-      index = totalSlides - 1;
-      updateDots();
-
-      setTimeout(() => {
-        track.style.transition = "none";
-        track.style.transform = `translateX(-${totalSlides * 100}%)`;
-        move = 1;
-      }, 500);
-    } else {
-      updateDots();
-
-      setTimeout(() => {
-        move = 1;
-      }, 500);
-    }
-  }
-
-
-  function goToSlide(i) {
-    restartAutoPlay();
-    index = i;
-    updateSlide(index + 1);
-    updateDots();
-  }
-
-  nextBtn.addEventListener("click", nextSlide);
-  prevBtn.addEventListener("click", prevSlide);
-  dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
-
-  // 자동 슬라이드 (3초마다)
-  let autoPlay = setInterval(nextSlide, 3000);
-
-  let autoPlayTimeout; // 사용자 조작 후 자동 재개 타이머
-
-  // 자동슬라이더 시간을 다시 맞춰주는 함수
-  function restartAutoPlay() {
-
-    // 기존 자동 슬라이드 멈추기
-    clearInterval(autoPlay);
-
-    // 이전에 설정된 자동 재개 타이머 제거
-    clearTimeout(autoPlayTimeout);
-
-    // 다시 자동 슬라이드 시작
-    autoPlayTimeout = setInterval(nextSlide, 3000);
+ if (index >= totalSlides) {
+   index = 0;
+   updateDots();
+   move = 2;
+   setTimeout(() => {
+     track.style.transition = "none";
+     track.style.transform = `translateX(-100%)`;
+     move = 1;
+   }, 500);
+ } else {
+   updateDots();
+   setTimeout(() => {
+     move = 1;
+   }, 500);
+ }
+}
 
 
-  }
+//왼쪽 이동
+function prevSlide() {
+
+ if (move == 2) {
+
+   return;
+ }
+
+ move = 2;
+
+ restartAutoPlay();
+ index--;
+ updateSlide(index + 1);
+
+ if (index < 0) {
+   index = totalSlides - 1;
+   updateDots();
+
+   setTimeout(() => {
+     track.style.transition = "none";
+     track.style.transform = `translateX(-${totalSlides * 100}%)`;
+     move = 1;
+   }, 500);
+ } else {
+   updateDots();
+
+   setTimeout(() => {
+     move = 1;
+   }, 500);
+ }
+}
+
+
+function goToSlide(i) {
+ restartAutoPlay();
+ index = i;
+ updateSlide(index + 1);
+ updateDots();
+}
+
+nextBtn.addEventListener("click", nextSlide);
+prevBtn.addEventListener("click", prevSlide);
+dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
+
+// 자동 슬라이드 (3초마다)
+let autoPlay = setInterval(nextSlide, 3000);
+
+let autoPlayTimeout; // 사용자 조작 후 자동 재개 타이머
+
+// 자동슬라이더 시간을 다시 맞춰주는 함수
+function restartAutoPlay() {
+
+ // 기존 자동 슬라이드 멈추기
+ clearInterval(autoPlay);
+
+ // 이전에 설정된 자동 재개 타이머 제거
+ clearTimeout(autoPlayTimeout);
+
+ // 다시 자동 슬라이드 시작
+ autoPlayTimeout = setInterval(nextSlide, 3000);
+
+
+}
 
 
 

@@ -29,32 +29,6 @@ $("#findIdBtn").click(function () {
 
 });
 
-$("#findPasswordBtn").click(function () {
 
-    var params = {
-        userId: $("#userId").val(),
-        phoneNumber: $("#phoneNumber").val()
-    }
 
-    $.ajax({
-        type: "POST",        
-        url: "/find/password",   
-        data: params,          
-        success: function (res) {
-            if (res == "") {
-                alert("비밀번호를 찾을 수 없습니다.");
-            }
-            else {
-                $("#findPassword").css("display","none");
-                $("#found").css("display","block");
-                $("#userIdInput").val(res);
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) { 
-            alert("통신 실패.")
-        }
-    });
-    
-    
-    
-    });
+

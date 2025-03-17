@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 50px auto;
   padding-bottom: 20px;
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -111,7 +111,7 @@
 }
 
 
-.HanRed input {
+.HanCardNewDiv input.HanRed{
   border: 1px solid #fc4545;
   box-shadow: 0 0 0 1px #fc4545;
 
@@ -126,6 +126,13 @@
 
 .hanNone .HanSignUpInfo {
   display: none;
+}
+
+.HanSignUpInfo {
+  margin: 3px 0;
+  color: #fc4545;
+  font-size: 12px;
+
 }
 
 #HanSignUpOk {
@@ -340,3 +347,22 @@
   width: 246px;
 
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+#hiddenNameArea {
+  display: none;
+  border: 1px #ccc solid;
+  position: absolute;
+  right: 520px;
+  background-color: white;
+  z-index: 10;
+  width: 200px;
+  padding: 20px;}
+
+ #expError{
+  display:none;
+  }

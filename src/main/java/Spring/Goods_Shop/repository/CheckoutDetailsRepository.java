@@ -1,6 +1,6 @@
 package Spring.Goods_Shop.repository;
 
-import Spring.Goods_Shop.dto.checkout.CheckoutDetails;
+import Spring.Goods_Shop.entity.CheckoutDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

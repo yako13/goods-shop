@@ -14,12 +14,10 @@ public class ImageConfig implements WebMvcConfigurer {
     @Value("${image.path.directory}")
     private String imagePathDirectory;
 
-    /**
-     * 이미지 경로 외부로 설정,js,css파일 설정
-     */
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler(imagePathDirectory+"**").addResourceLocations("file:///"+imagePath);
+        registry.addResourceHandler(imagePathDirectory+"**").addResourceLocations("file:" + imagePath);
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");

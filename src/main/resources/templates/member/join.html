@@ -6,35 +6,34 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>회원가입</title>
+    <title>☁️CloudStar WorkShop 회원가입</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/join.css">
+
 </head>
 
 <body class="text-center">
-    <header th:replace="/fragments/memberHeader::memberHeader"></header>
     <div class="container">
         <div class="title">
             <h1>회원가입</h1>
         </div>
-        <ul class="links">
-            <li>
-                <a th:href="@{/login}" id="signin">로그인</a>
-            </li>
-            <li>
-                <a th:href="@{/join}" id="signup">회원가입</a>
-            </li>
-
+        <div class="starArea">
             <span id="star">*는 필수입니다.</span>
-
-        </ul>
+        </div>
         <form th:action="@{/join}" th:method="post" enctype="multipart/form-data" class="joinForm">
-
+            <div id="hiddenIdArea">
+                <p>아이디는 영소문자, 숫자조합으로 6~11자리여야 합니다.</p>
+            </div>
             <div>
-                <label for="userId" class="label labelId">*아이디</label>
-                <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required th:value="${userId}"/>
+                <label for="userId" class="label labelId" id="hiddenId">*아이디 <i
+                        class="fa-solid fa-circle-info"></i></label>
+                <input type="text" placeholder="아이디" class="input" id="userId" name="userId" required
+                    th:value="${userId}" />
                 <button type="button" id="duplicateId">중복 확인</button>
+            </div>
+            <div id="hiddenPasswordArea">
+                <p>비밀번호는 대소문자, 숫자, 특수문자 조합으로 8~15자리여야합니다.</p>
             </div>
 
             <div class="errorArea" th:if="${valid_userId!=null}">
@@ -42,7 +41,9 @@
             </div>
             <div>
                 <div class="passwordArea">
-                    <label for="userPassword" class="label">*비밀번호</label><i class="fa-solid fa-eye" id="eye"></i>
+                    <label for="userPassword" class="label" id="hiddenPassword">*비밀번호
+                        <i class="fa-solid fa-circle-info"></i>
+                    </label><i class="fa-solid fa-eye" id="eye"></i>
                     <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="비밀번호"
                         required>
                 </div>
@@ -51,25 +52,36 @@
                     <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required>
                 </div>
             </div>
+
             <div class="errorArea">
                 <span class="error" style="display: none;" id="passwordError">비밀번호가 일치하지 않습니다.</span>
             </div>
+
             <div th:if="${valid_userPassword !=null}">
                 <p class="error" th:text="${valid_userPassword}"></p>
             </div>
-            <div class="namePhoneLabel">
-                <label for="userName" class="label">*이름</label>
-                <label for="phoneNumber" class="label">*연락처</label>
+            <div id="hiddenNameArea">
+                <p>이름은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
             </div>
+            <div id="hiddenPhoneArea">
+                <p>휴대전화번호는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야 합니다.</p>
+            </div>
+            <div class="namePhoneLabel">
+                <label for="userName" class="label" id="hiddenName">*이름 <i class="fa-solid fa-circle-info"></i></label>
+                <label for="phoneNumber" class="label" id="hiddenPhone">*연락처 <i
+                        class="fa-solid fa-circle-info"></i></label>
+            </div>
+
             <div class="namePhone">
                 <input type="text" class="form-control " id="userName" name="name" placeholder="이름" th:value="${name}">
-                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처" th:value="${phoneNumber}"
-                    maxlength="11">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="연락처"
+                    th:value="${phoneNumber}" maxlength="11">
             </div>
             <div th:if="${valid_name !=null || valid_phoneNumber !=null}">
                 <p class="error" th:text="${valid_name}"></p>
                 <p class="error" th:text="${valid_phoneNumber}"></p>
             </div>
+
             <!-- separator -->
             <div class="separator">
                 <p>약관 동의</p>
@@ -90,7 +102,27 @@
                                 <input type="hidden" name="termsAgreement" id="termsAgreement">
                             </li>
                         </ul>
-                        <textarea class="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 구름별 공방 서비스의 이용과 관련하여 구름별 공방 서비스를 제공하는 구름별 공방과 이를 이용하는 구름별 공방 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 구름별 공방 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                        <textarea class="custom_textarea">여러분을 환영합니다.구름별 공방 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 구름별 공방의 회원가입을 위해 아래의 이용약관을 확인하시고 동의해 주세요.
+제1조 (목적)
+이 약관은 '구름별 공방'에서 제공하는 온라인 굿즈 쇼핑몰 서비스(이하 "서비스")를 이용하는 회원의 권리, 의무 및 책임 사항을 규정합니다.
+제2조 (회원가입)
+회원가입은 반드시 본 약관에 동의한 후, 개인정보를 제공하여 회원가입 신청을 완료한 후 진행됩니다. 회원가입을 신청함으로써, 회원은 본 약관에 동의한 것으로 간주됩니다.
+제3조 (개인정보 수집 및 이용)
+회원가입 시 제공되는 개인정보는 '구름별 공방'의 서비스 제공을 위한 최소한의 정보만을 수집하며, 제공된 개인정보는 관련 법령에 따라 보호됩니다. 회원은 언제든지 개인정보를 수정하거나 삭제할 수 있습니다.
+제4조 (회원의 의무)
+회원은 본 약관 및 법령을 준수하여야 하며, 타인의 권리를 침해하거나 불법적인 활동을 하지 않아야 합니다.
+제5조 (서비스 이용)
+회원은 '구름별 공방'의 서비스를 정상적으로 이용할 수 있으며, 재화 또는 용역을 구매하거나 판매하는 거래를 체결할 수 있습니다. 단, 서비스 이용에 따른 책임은 회원에게 있습니다.
+제6조 (회원 탈퇴 및 자격 제한)
+회원은 언제든지 탈퇴를 요청할 수 있으며, '구름별 공방'은 회원의 탈퇴를 즉시 처리합니다. 회원이 본 약관을 위반한 경우, '구름별 공방'은 회원 자격을 제한하거나 정지할 수 있습니다.
+제7조 (회원 탈퇴 후 개인정보 보관)
+'구름별 공방'은 회원 탈퇴 후 개인정보를 관련 법령에 따라 6개월 간 보관할 수 있으며, 이후에는 개인정보를 즉시 파기합니다. 다만, 법령에 의해 일정 기간 보관이 의무화된 개인정보는 해당 기간 동안 보관할 수 있습니다. 개인정보 파기 방법은 안전한 방식으로 처리되며, 이에 대한 상세한 사항은 개인정보 처리방침에 명시됩니다.
+제8조 (약관의 변경)
+'구름별 공방'은 서비스 개선 및 법령 개정에 따라 본 약관을 변경할 수 있으며, 변경된 약관은 적용일자 전후로 공지됩니다. 변경된 약관은 회원이 동의한 것으로 간주됩니다.
+제9조 (면책조항)
+'구름별 공방'은 천재지변 등 불가항력적인 사유로 인한 서비스 중단에 대해 책임을 지지 않습니다. 또한, 회원의 부주의로 인한 피해에 대해서도 책임을 지지 않습니다.
+제10조 (기타사항)
+이 약관에 명시되지 않은 사항은 관련 법령 및 '구름별 공방'의 정책에 따릅니다.
         </textarea>
                     </li>
                     <li class="checkBox check03">
@@ -125,9 +157,9 @@
             </div>
         </form>
     </div>
-    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script th:src="@{/js/member/join.js}"></script>
+
 </body>
 
 </html>

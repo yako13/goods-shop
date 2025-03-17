@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>회원가입</title>
+    <title>☁️CloudStar WorkShop 계정관리</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/mainPage.css">
     <link rel="stylesheet" href="/css/member/join.css">
@@ -16,9 +16,12 @@
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
 <div th:replace="/fragments/menuBar::menuBar"></div>
 <input type="hidden" th:value="${alert}" id="dataAlert">
-<div class="container edit">
+<div class="container edit" style="margin-bottom:50px;">
     <div class="title">
         <h1>계정 수정</h1>
+    </div>
+    <div class="starArea">
+        <span id="star">*는 필수입니다.</span>
     </div>
     <form th:action="@{/member/edit}" th:method="post" enctype="multipart/form-data" class="joinForm">
         <input type="hidden" name="provider" th:if="${provider!=null}" th:value="${provider}">
@@ -27,14 +30,18 @@
             <span class="userId">아이디 : <b>[[${userId}]]</b></span>
             <span th:if="${provider!=null}" id="blue">소셜 로그인 회원</span>
         </div>
+        
         <div th:if="${provider==null}">
+            <div id="hiddenPasswordArea">
+                <p>비밀번호는 대소문자, 숫자, 특수문자 조합으로 8~15자리여야합니다.</p>
+            </div>
             <div class="passwordArea">
-                <label for="userPassword" class="label">비밀번호</label><i class="fa-solid fa-eye" id="eye"></i>
+                <label for="userPassword" class="label" id="hiddenPassword">*비밀번호 <i class="fa-solid fa-circle-info"></i></label><i class="fa-solid fa-eye" id="eye"></i>
                 <input type="password" class="form-control" id="userPassword" name="userPassword"
                        placeholder="비밀번호" required th:value="${userPassword}">
             </div>
             <div>
-                <label for="passwordCheck" class="label">비밀번호 확인</label>
+                <label for="passwordCheck" class="label">*비밀번호 확인</label>
                 <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인" required th:value="${userPassword}">
             </div>
             <div class="errorArea">
@@ -44,9 +51,15 @@
                 <p class="error" th:text="${valid_userPassword}"></p>
             </div>
         </div>
+        <div id="hiddenNameArea">
+            <p>이름은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+        </div>
+        <div id="hiddenPhoneArea">
+            <p>휴대전화번호는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야 합니다.</p>
+        </div>
         <div class="namePhoneLabel">
-            <label for="userName" class="label">이름</label>
-            <label for="phoneNumber" class="label">연락처</label>
+            <label for="userName" class="label" id="hiddenName">*이름 <i class="fa-solid fa-circle-info"></i></label>
+            <label for="phoneNumber" class="label" id="hiddenPhone">*연락처 <i class="fa-solid fa-circle-info"></i></label>
         </div>
 
         <div class="namePhone">

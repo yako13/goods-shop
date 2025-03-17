@@ -3,6 +3,8 @@
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
 }
 
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
 * {
   font-family: NanumSquareRound;
 
@@ -528,21 +530,15 @@ body {
 
 }
 
-.HanDrodBoxNameDiv a {
-  padding: 5px 5px;
+#logoutLink {
   background-color: #FFADAD;
-  border-radius: 5px;
   text-decoration-line: none;
   color: #000000;
-  transition: all 0.5s;
-  font-size: 16px;
   cursor: pointer;
-
 }
 
-.HanDrodBoxNameDiv a:hover {
+#logoutLink:hover {
   background-color: #ee8686;
-
 }
 
 
@@ -655,7 +651,6 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 30px;
-
   align-items: flex-start;
 }
 

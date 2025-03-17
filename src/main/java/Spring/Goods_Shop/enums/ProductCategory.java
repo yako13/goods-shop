@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.enums;
 
 public enum ProductCategory {
-    포토카드, 악세서리, 컴퓨터용품, 기타;
+    PHOTO_CARD, MEMO, STICKER, POSTCARD, ETC;
+    //포토카드, 메모, 스티커, 엽서, 기타
 }

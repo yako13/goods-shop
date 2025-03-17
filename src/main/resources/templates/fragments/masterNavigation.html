@@ -16,9 +16,7 @@
         <div class="SlideNavBody">
 
             <div class="SlideNavOpenDiv ">
-
-                <img class="SlideOpen " th:src="@{/images/arrowRightSlide.svg}" onclick="openNav()">
-
+                <i class="fa-xl fa-solid fa-bars SlideOpen"  onclick="openNav()" ></i>
             </div>
 
         </div>
@@ -26,18 +24,11 @@
         <div id="mySidenav" class="sidenav">
 
             <div>
-
-                <div class="logoArea">
-                    <img th:src="@{/images/logoSmall.png}" class="logoImage">
-                </div>
-
-                <a href="#">상품 관리</a>
-                <a href="#">주문 관리</a>
+                <a th:href="@{/master/product/list}">상품 관리</a>
+                <a th:href="@{/master/checkout/list}">주문 관리</a>
             </div>
-
-            <div class="SlideNavCloseDiv ">
-
-                <img class="SlideClose " th:src="@{/images/arrowLeftSlide.svg}" onclick="closeNav()">
+            <div class="SlideNavCloseDiv">
+                <i class="fa-xl fa-solid fa-bars SlideClose" onclick="closeNav()" style="transform:rotate(90deg);"></i>
 
             </div>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar Workshop</title>
+    <title>☁️CloudStar WorkShop 회원 배송지</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/member/memberDeliveryList.css}">
@@ -17,6 +17,7 @@
 <!-- 헤더 시작 -->
 
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
+<input type="hidden" th:value="${alert}" id="dataAlert">
 
 <!-- 헤더 끝 -->
 
@@ -24,9 +25,17 @@
 <!-- 메인 시작 -->
 
 
+
 <div class="HanMemDeliveryBody">
 
+
     <div class="" id="addressModal">
+        
+    <!--메뉴바 시작-->
+
+    <div th:replace="/fragments/menuBar::menuBar"></div>
+
+    <!--메뉴바 끝-->
 
 
         <div class="HanAddressPopContainer">
@@ -47,10 +56,11 @@
 
             <!-- 배송지 목록 -->
             <div class="HanAddressPopCardContainer">
+                <input type="hidden" th:value="${session.memberId}" name="memberId" id="sessionId">
 
                 <!-- 배송지 카드 -->
 
-                <div class="HanAddressPopCard">
+                <div class="HanAddressPopCard" th:each="deliveryList : ${deliveryList}" th:id="'deliveryBody'+${deliveryList.id}">
 
                     <div class="HanAddressPopRadio">
 
@@ -58,104 +68,30 @@
 
                             <div class="HanAddressPopCardTextTagDiv">
 
-                                <p class="HanAddressPopCardTextTag">집</p>
+                                <p class="HanAddressPopCardTextTag" th:text="${deliveryList.deliveryName}"></p>
 
-                                <p class="HanAddressPopCardTextP1">기본 배송지</p>
+                                <p class="HanAddressPopCardTextP1" th:if="${deliveryList.defaultDelivery == true}">기본 배송지</p>
+                                <p class="HanAddressPopCardTextP1" th:if="${deliveryList.defaultDelivery == false}">배송지</p>
 
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
-
-                            </div>
-
-
-                            <div class="HanAddressPopCardTextDiv2">
-
-                                <p class="HanAddressPopCardTextP2">12345</p>
-                                <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
-
-                            </div>
-
-                            <div class="HanAddressPopCardTextDiv3">
-                                <p class="HanAddressPopCardTextName">홍길동</p>
-                                <p class="HanAddressPopCardTextName">010-1234-1234</p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- 배송지 카드 끝 -->
-
-
-                <!-- 배송지 카드 시작 -->
-
-                <div class="HanAddressPopCard">
-
-                    <div class="HanAddressPopRadio">
-
-                        <div class="HanAddressPopCardTextDiv">
-
-                            <div class="HanAddressPopCardTextTagDiv">
-
-                                <p class="HanAddressPopCardTextTag">회사</p>
-
-                                <p class="HanAddressPopCardTextP1">배송지</p>
-
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
+                                <img th:src="@{/images/close.svg}" alt="" th:id="${deliveryList.id}" class="XBtn">
 
                             </div>
 
                             <div class="HanAddressPopCardTextDiv2">
 
-                                <p class="HanAddressPopCardTextP2">12345</p>
-                                <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
+                                <p class="HanAddressPopCardTextP2" th:text="${deliveryList.postCode}"></p>
+                                <p class="HanAddressPopCardTextP2" th:text="${deliveryList.address}"></p>
 
                             </div>
 
                             <div class="HanAddressPopCardTextDiv3">
-                                <p class="HanAddressPopCardTextName">홍길동</p>
-                                <p class="HanAddressPopCardTextName">010-1234-1234</p>
+                                <p class="HanAddressPopCardTextName" th:text="${deliveryList.recipientName}"></p>
+                                <p class="HanAddressPopCardTextName" th:text="${deliveryList.recipientPhoneNumber}"></p>
                             </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- 배송지 카드 끝 -->
-
-
-                <!-- 배송지 카드 시작 -->
-
-                <div class="HanAddressPopCard">
-
-                    <div class="HanAddressPopRadio">
-
-                        <div class="HanAddressPopCardTextDiv">
-
-                            <div class="HanAddressPopCardTextTagDiv">
-
-                                <p class="HanAddressPopCardTextTag">본가</p>
-
-                                <p class="HanAddressPopCardTextP1">배송지</p>
-
-                                <a href="#"><img th:src="@{/images/close.svg}" alt=""></a>
-
-                            </div>
-
-                            <div class="HanAddressPopCardTextDiv2">
-
-                                <p class="HanAddressPopCardTextP2">12345</p>
-                                <p class="HanAddressPopCardTextP2">부산시 금곡동 101호</p>
-
-                            </div>
-
-                            <div class="HanAddressPopCardTextDiv3">
-                                <p class="HanAddressPopCardTextName">홍길동</p>
-                                <p class="HanAddressPopCardTextName">010-1234-1234</p>
-                            </div>
+                            <div class="HanAddressPopCardTextDiv4">
+                                <p th:if="${deliveryList.memo != null and not #strings.isEmpty(deliveryList.memo)}">배송 요청 사항 : </p>
+                                <p class="HanAddressPopCardTextMemo" th:text="${deliveryList.memo}"></p>
+                              </div>
 
                         </div>
 
@@ -173,24 +109,18 @@
                 <div class="HanNewButton">
 
                     <img th:src="@{/images/plus.svg}" alt="">
-                    <button id="openNewAddressModal" class="HanNew" type="button"> 배송지 신규 입력</button>
+                    <button id="openNewAddressModal" class="HanNew" type="button" onclick="location='http://localhost:8080/member/delivery/create'"> 배송지 등록하기</button>
 
                 </div>
 
-                <div class="HanAddressPopButton">
-
-                    <button class="HanSubmit" id="selectAddressButton">확인</button>
-                    <button class="HanClose" id="closeAddressModal">닫기</button>
-
-                </div>
-
+    
             </div>
 
         </div>
 
     </div>
 
-
+</div>
 </div>
 
 
@@ -202,8 +132,9 @@
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 <!-- 푸터 끝 -->
-
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script th:src="@{/js/member/alert.js}"></script>
+<script th:src="@{/js/member/deliveryList.js}"></script>
 </body>
 
 </html>
