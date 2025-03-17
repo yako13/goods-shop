@@ -1,4 +1,5 @@
 let check_bol = 0;
+let check_exp = 1;
 
 $("#HanCheckbox").click(function () {
   if ($("#HanCheckbox").is(":checked")) {
@@ -135,10 +136,13 @@ HanSignUpSubmit.addEventListener("click", HanSignUpSubmitCheck);
 
 //1. 필수입력창에 값을 다 입력했는지
 
-function HanSignUpSubmitCheck(e) {
-  e.preventDefault(); // 폼 제출 방지
+function HanSignUpSubmitCheck(e) { // 폼 제출 방지
+
+    e.preventDefault();
+    check_exp = 1;
 
   if (!delivery_name_check.test($("#deliveryName").val())) {
+  check_exp=0;
     $("#deliveryName").addClass("HanRed");
     $("#hiddenDeliveryNameArea").css("display", "block");
   } else {
@@ -148,6 +152,7 @@ function HanSignUpSubmitCheck(e) {
   if (!name_check.test($("#recipientName").val())) {
     $("#hiddenNameArea").css("display", "block");
     $("#recipientName").addClass("HanRed");
+    check_exp=0;
   } else {
     $("#recipientName").removeClass("HanRed");
   }
@@ -155,6 +160,7 @@ function HanSignUpSubmitCheck(e) {
   if (!phone_check.test($("#recipientPhoneNumber").val())) {
     $("#hiddenPhoneArea").css("display", "block");
     $("#recipientPhoneNumber").addClass("HanRed");
+    check_exp=0;
   } else {
     $("#recipientPhoneNumber").removeClass("HanRed");
   }
@@ -174,11 +180,11 @@ function HanSignUpSubmitCheck(e) {
       data: params,
       success: function (res) {
         if (res == "false") {
-          if (ValueCheck === 0) {
+          if (ValueCheck === 0 && check_exp==1 ) {
             check_bol = 1;
             document.getElementById("HanSignUpForm").submit();
           } else {
-            alert("입력이 잘못되었습니다.");
+
           }
         } else {
           alert("기본 배송지는 반드시 하나는 필요합니다.");
@@ -191,7 +197,7 @@ function HanSignUpSubmitCheck(e) {
     });
   }
 
-  if (ValueCheck == 0 && check_bol == 1) {
+  if (ValueCheck == 0 && check_bol == 1 && check_exp==1) {
     document.getElementById("HanSignUpForm").submit();
   }
 }
