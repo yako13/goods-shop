@@ -48,11 +48,11 @@ public class MemberController {
     @PostMapping("/join")
     String join(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model) throws IOException {
 
-        if (errors.hasErrors()) {
+        model.addAttribute("userId", memberAuthDto.getUserId());
+        model.addAttribute("name", memberAuthDto.getName());
+        model.addAttribute("phoneNumber", memberAuthDto.getPhoneNumber());
 
-            model.addAttribute("userId", memberAuthDto.getUserId());
-            model.addAttribute("name", memberAuthDto.getName());
-            model.addAttribute("phoneNumber", memberAuthDto.getPhoneNumber());
+        if (errors.hasErrors()) {
 
             Map<String, String> validatorResult = errorService.validateHandling(errors);
 
@@ -64,7 +64,10 @@ public class MemberController {
         }
 
 
-        memberService.join(memberAuthDto);
+        if(!memberService.join(memberAuthDto)){
+            model.addAttribute("valid_phoneNumber","이미 등록되어있는 휴대폰 번호입니다. 다른 연락처를 입력하세요.");
+            return "member/join";
+        }
         return "redirect:/login";
     }
 
@@ -132,7 +135,16 @@ public class MemberController {
             return "member/edit";
         }
 
-        memberService.tryToEditMember(memberEditDto, request);
+        if(!memberService.tryToEditMember(memberEditDto, request)) {
+
+            model.addAttribute("userId", memberEditDto.getUserId());
+            model.addAttribute("name", memberEditDto.getName());
+            model.addAttribute("provider", memberEditDto.getProvider());
+            model.addAttribute("phoneNumber", memberEditDto.getPhoneNumber());
+            model.addAttribute("userPassword", memberEditDto.getUserPassword());
+            model.addAttribute("valid_phoneNumber","이미 등록되어있는 휴대폰 번호입니다. 다른 연락처를 입력하세요.");
+            return "member/edit";
+        }
         MemberResponseDto memberResponseDto = memberService.getMemberResponseDto(request);
 
         model.addAttribute("id", memberResponseDto.getMemberPK());
