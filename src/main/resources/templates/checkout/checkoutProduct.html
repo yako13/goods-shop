@@ -109,7 +109,7 @@
                     <!-- 배송지 카드 -->
 
                     <div class="HanAddressPopCard HanAddressPopCardCheck"
-                         th:each="DeliveryList : ${checkoutCartPageDto.DeliveryList}">
+                         th:each="DeliveryList : ${checkoutPageDto.DeliveryList}" th:if="${#lists.size(DeliveryList)>0}">
 
                         <input type="radio" name="selectedAddress" th:id="|selectedAddress${DeliveryList.id}|"
                                th:value="${DeliveryList.id}">
@@ -223,7 +223,7 @@
                     <ul>
 
 
-                        <form th:action="@{/checkout/cart/delivery/submit}" th:method="post" id="HanDeliveryForm">
+                        <form th:action="@{/checkout/delivery/submit}" th:method="post" id="HanDeliveryForm">
 
 
                             <li class="HanSignUpLi hanNone LiCheck2">
@@ -320,12 +320,13 @@
 
                             </li>
 
-                            <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+                            <!--리다이렉트 하기위한 상품 pk-->
+                            <input type="hidden" th:value="${checkoutPageDto.productCheckoutResDto.productPk}"
+                                   name="productPk">
 
-                                <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
-                                <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
-
-                            </div>
+                            <!--리다이렉트 하기위한 상품 개수-->
+                            <input type="hidden" th:value="${checkoutPageDto.productCheckoutResDto.productCnt}"
+                                   name="productCnt">
 
                         </form>
 
@@ -373,7 +374,7 @@
                     </div>
 
                     <ul>
-                        <form th:action="@{/checkout/cart/pay/submit}" th:method="post" id="HanCardNewForm">
+                        <form th:action="@{/checkout/pay/submit}" th:method="post" id="HanCardNewForm">
                             <input type="hidden" th:value="${session.memberId}" id="sessionId" name="memberId">
 
 
@@ -441,14 +442,12 @@
                                         <div class="HanCardDate">
                                             <input type="text" id="expPeriod1" name="expPeriod" placeholder="MM"
                                                    required
-                                                   class="HanSignUpInput" maxlength="2"
-                                                   oninput="validateMonth(this)"
+                                                   class="HanSignUpInput" maxlength="2" oninput="validateMonth(this)"
                                                    th:value="${expPeriod1}">
 
                                             <input type="text" id="expPeriod2" name="expPeriod" placeholder="YY"
                                                    required
-                                                   class="HanSignUpInput" maxlength="2"
-                                                   oninput="validateYear(this)"
+                                                   class="HanSignUpInput" maxlength="2" oninput="validateYear(this)"
                                                    th:value="${expPeriod2}">
 
                                         </div>
@@ -496,12 +495,13 @@
 
                             </li>
 
-                            <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+                            <!--리다이렉트 하기위한 상품 pk-->
+                            <input type="hidden" th:value="${checkoutPageDto.productCheckoutResDto.productPk}"
+                                   name="productPk">
 
-                                <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
-                                <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
-
-                            </div>
+                            <!--리다이렉트 하기위한 상품 개수-->
+                            <input type="hidden" th:value="${checkoutPageDto.productCheckoutResDto.productCnt}"
+                                   name="productCnt">
 
 
                         </form>
@@ -552,7 +552,7 @@
 
                     <!-- 카드 시작 -->
 
-                    <div class="HanCard HanCardCheck" th:each="PayList : ${checkoutCartPageDto.PayList}">
+                    <div class="HanCard HanCardCheck" th:each="PayList : ${checkoutPageDto.PayList}">
 
                         <div class="HanCardRadio">
 
@@ -680,7 +680,7 @@
                         <div class="selectedAddressMemoDiv">
 
                             <p class="selectedAddressMemoTitle">배송 요청 사항 : </p>
-                            <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}">빨리갖다주삼</p>
+                            <p id="selectedAddressMemo">빨리갖다주삼</p>
 
                         </div>
 
@@ -742,7 +742,7 @@
                             <div class="HanOrderTitleDiv">
                                 <span class="HanOrderCntSpan1">총</span>
 
-                                <span class="HanOrderCntSpan1" th:text="${checkoutCartDtoListCnt}">2</span>
+                                <span class="HanOrderCntSpan1" th:text="${checkoutDtoCnt}">1</span>
                                 <span class="HanOrderCntP">건</span>
                             </div>
                         </div>
@@ -754,19 +754,18 @@
                     <!-- 주문 목록 카드 시작-->
 
 
-                    <div class="HanOrderListCard"
-                         th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+                    <div class="HanOrderListCard" th:each="CheckoutCartDto : ${checkoutPageDto.CheckoutCartDto}">
 
                         <div class="HanOrderListCardImgDiv">
 
-                            <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}"
+                            <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDto.productImage.getImageFullName})}"
                                  alt="Product Image">
 
                         </div>
                         <div class="HanOrderListCardTextDiv">
                             <div class="HanOrderListCardTextDiv2">
 
-                                <p class="HanOrderListCardPrdNameP" th:text="${CheckoutCartDtoList.productName}">동화 일러스트
+                                <p class="HanOrderListCardPrdNameP" th:text="${CheckoutCartDto.productName}">동화 일러스트
                                     키캡 4종</p>
 
                             </div>
@@ -774,13 +773,13 @@
                             <div class="HanOrderPrdPriceTextDiv">
 
                                 <div>
-                                    <p class="HanOrderPrdCntP" th:text="${CheckoutCartDtoList.cartCnt}">
+                                    <p class="HanOrderPrdCntP" th:text="${CheckoutCartDto.cartCnt}">
                                         3</p>
                                     <span class="HanOrderPrdCntSpan">개</span>
                                 </div>
 
                                 <div class="HanOrderPrdPriceDiv">
-                                    <p class="HanOrderPrdPrice" th:text="${CheckoutCartDtoList.productSumPrise}">
+                                    <p class="HanOrderPrdPrice" th:text="${CheckoutCartDto.productSumPrise}">
                                         80,000</p>
                                     <!--                                    <p class="HanOrderPrdPriceWan">원</p>-->
 
@@ -858,7 +857,7 @@
                     <p class="HanOrderValue">정가 :</p>
                     <div>
                         <p class="HanOrderValueP1" id="HanOrderValueP1" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.totalCartSumPrise}">90,000
+                           th:text="${checkoutPageDto.totalCartSumPrise}">90,000
                         </p>
 
                         <!--                        <p class="HanOrderValueP">원</p>-->
@@ -870,7 +869,7 @@
                         <p class="HanOrderDetailSalePlus">+</p>
 
                         <p class="HanOrderDetailSale1" id="HanOrderDetailSaleP1" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.DeliveryCost}">3,000</p>
+                           th:text="${checkoutPageDto.DeliveryCost}">3,000</p>
 
                         <!--                        <p class="HanOrderDetailSale2">원</p>-->
                     </div>
@@ -883,7 +882,8 @@
                     <div>
 
                         <p id="HanOrderTotalPriceP" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.totalPaySumPrise}">93,000</p>
+                           th:text="${checkoutPageDto.totalPaySumPrise}">
+                            93,000</p>
 
                         <!--                        <p class="HanOrderMarginP1">원</p>-->
                     </div>
@@ -892,10 +892,18 @@
 
             </div>
 
-            <form action="/checkout/cart/submit" method="post" id="payment">
+            <form action="/checkout/submit" method="post" id="payment">
+
+                <!--상품 pk-->
+                <input type="hidden" name="productPk" th:value="${checkoutPageDto.productCheckoutResDto.productPk}"
+                       id="productPk">
+
+                <!--상품 개수-->
+                <input type="hidden" name="productCnt" th:value="${checkoutPageDto.productCheckoutResDto.productCnt}"
+                       id="productCnt">
 
                 <!--주문페이지 들어올때 보낸 맴버 pk-->
-                <input type="hidden" name="memberPk" th:value="${checkoutCartPageDto.memberPk}" id="paymentMemberKey">
+                <input type="hidden" name="memberPk" th:value="${checkoutPageDto.memberPk}" id="paymentMemberKey">
 
                 <!--배송지 pk (초기세팅은 타임리프로 가져온 기본 배송지 정보)-->
                 <input type="hidden" name="deliveryPk" th:value="${deliveryInfo.id}" id="paymentDelivery">
@@ -903,14 +911,6 @@
                 <!--카드 pk (초기세팅은 타임리프로 가져온 기본 결제 카드 정보)-->
                 <input type="hidden" name="payPk" th:value="${payInfo.id}" id="paymentCard">
 
-                <!--카드 pk (초기세팅은 타임리프로 가져온 기본 결제 카드 정보)-->
-
-                <!--장바구니 pk 를 담아준다-->
-                <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                    <input type="hidden" name="cartPk" th:value="${CheckoutCartDtoList.CartId}">
-
-                </div>
 
             </form>
 
@@ -918,7 +918,7 @@
 
                 <div class="HanOrderPriceSumDiv">
 
-                    <p class="HanOrderPriceP" th:text="${checkoutCartPageDto.totalPaySumPrise}">
+                    <p class="HanOrderPriceP" th:text="${checkoutPageDto.totalPaySumPrise}">
                         93,000</p>
                     <!--                    <p class="HanOrderPriceWan">원</p>-->
                 </div>
@@ -1144,6 +1144,7 @@
 
     function HanSignUpSubmitCheck(e) {
 
+
       e.preventDefault(); // 폼 제출 방지
 
       if (!delivery_name_check.test($("#deliveryName").val())) {
@@ -1174,18 +1175,14 @@
         $("#recipientPhoneNumber").removeClass("HanRed");
       }
 
-
       //1. 필수입력창에 값을 다 입력했는지
       let ValueCheck = HanSignUpValueCheckAll();
 
       if (!$("#HanDeliveryCheckbox").is(":checked")) {
 
-
         var params = {
           memberId: $("#sessionId").val()
         }
-
-
 
         // ajax 통신
         $.ajax({
@@ -1193,12 +1190,9 @@
           url: "/check/defaultDelivery",
           data: params,
           success: function (res) {
-
-
             if (res == "false") {
               check_bol2 = 1;
               if (ValueCheck === 0) {
-
                 document.getElementById("HanDeliveryForm").submit();
 
               }
@@ -1405,9 +1399,8 @@
 
     });
 
-    // ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
-</script>
 
+</script>
 <script>
     function validateMonth(input) {
         let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 입력 허용
@@ -1427,8 +1420,10 @@
             input.value = "";
         }
     }
+
+     // ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
 </script>
-// ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
+
 
 <script>
 
@@ -1455,7 +1450,6 @@
 
       //결제 카드 목록에 있는 결제 카드 등록 버튼 (모달을 열기 위한 버튼)
       const openCreditModalButton4 = document.getElementById("openNewCardModal4");
-
       //모달 닫기 버튼
       const closeCreditModalButton = document.getElementById("closeCreditModal");
 
@@ -1724,7 +1718,7 @@
         // 배송지 작성 모달 열기
         openNewAddressModalButton.addEventListener("click", function () {
 
-          //배송지 목록이 3개이상인지 확인하기 위한
+          //배송지 목록이 3이상인지 확인하기 위한
           let addressListCheck = document.querySelectorAll(".HanAddressPopCardCheck");
 
           if (addressListCheck.length > 2) {
@@ -1785,7 +1779,6 @@
 
     });
 </script>
-
 
 <script>
 
@@ -1866,7 +1859,6 @@
 
         });
 </script>
-
 
 <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
