@@ -2,6 +2,7 @@ let currentDate = new Date();
 let currentYear = currentDate.getFullYear() -2000;  // 현재 연도(2025년이면 25)
 let currentMonth = currentDate.getMonth() + 1;  // 현재 달 (0부터 시작하므로 +1)
 
+
 $("#hiddenName").mouseover(function () {
     $("#hiddenNameArea").css("display", "block");
   })

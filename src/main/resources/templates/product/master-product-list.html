@@ -1,318 +1,331 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <link rel="stylesheet" href="/css/master/masterHeader.css"/>
-    <link rel="stylesheet" href="/css/master/masterNavigation.css"/>
+    <link rel="stylesheet" href="/css/master/masterHeader.css" />
+    <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
-        body {
-          margin: 0px;
-        }
-        a {
-          text-decoration: none;
-          color: #000000;
-        }
-        .master-nav {
-          width: 15rem;
-          height: 90vh;
-          background-color: aliceblue;
-          border: 1px solid #000000;
-          position: fixed;
-        }
-        .nav__img {
-          text-align: center;
-          margin-top: 3rem;
-        }
-        .nav__img--logo {
-          width: 8rem;
-          height: 8rem;
-        }
-        .nav__text {
-          font-size: 1.5rem;
-          text-align: center;
-          margin-top: 4rem;
-        }
-        .nav__logout {
-          position: relative;
-          top: 28rem;
-        }
-        .master__product {
-        min-height : 840px;
-          margin-top: 4rem;
-        }
-        .table__product {
-          margin: 2rem;
-        }
+      body {
+        margin: 0px;
+      }
+      a {
+        text-decoration: none;
+        color: #000000;
+      }
+      .master-nav {
+        width: 15rem;
+        height: 90vh;
+        background-color: aliceblue;
+        border: 1px solid #000000;
+        position: fixed;
+      }
+      .nav__img {
+        text-align: center;
+        margin-top: 3rem;
+      }
+      .nav__img--logo {
+        width: 8rem;
+        height: 8rem;
+      }
+      .nav__text {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-top: 4rem;
+      }
+      .nav__logout {
+        position: relative;
+        top: 28rem;
+      }
+      .master__product {
+        min-height: 840px;
+        margin-top: 5rem;
+      }
+      .table__product {
+        margin: 2rem;
+      }
 
-        table {
-          border: 1px #a39485 solid;
-          font-size: 0.9em;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-          width: 100%;
-          border-collapse: collapse;
-          border-radius: 5px;
-          overflow: hidden;
-        }
+      table {
+        border: 1px #a39485 solid;
+        font-size: 0.9em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        overflow: hidden;
+      }
 
-        thead {
-          font-weight: bold;
-          color: #fff;
-          background: #33415c;
-        }
+      thead {
+        font-weight: bold;
+        color: #fff;
+        background: #33415c;
+      }
 
-        td,
-        th {
-          padding: 1em 0.5em;
-          vertical-align: middle;
-          text-align: center;
-        }
+      td,
+      th {
+        padding: 1em 0.5em;
+        vertical-align: middle;
+        text-align: center;
+      }
 
-        td {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        .btn {
-          font-size: 1rem;
-          font-weight: bold;
-        }
-        .btn-blue {
-          background-color: #ffffff;
-          border: 2px solid #cddafd;
-          border-radius: 7px;
-          color: #cddafd;
-        }
-        .btn-blue:hover {
-          background-color: #cddafd;
-          color: #ffffff;
-        }
-        .btn-red {
-          background-color: #ffffff;
-          border: 2px solid #fad2e1;
-          border-radius: 7px;
-          color: #fad2e1;
-        }
-        .btn-red:hover {
-          background-color: #fad2e1;
-          color: #ffffff;
-        }
-        .btn-green {
-          border: 2px solid #74cc6c;
-          border-radius: 7px;
-          color: #74cc6c;
-          background-color: #ffffff;
-        }
-        .btn-green:hover {
-          background-color: #74cc6c;
-          color: #ffffff;
-        }
-        li {
-          list-style: none;
-        }
-        .pagination {
-          margin: 1rem;
-          display: flex;
-          justify-content: center;
-        }
+      td {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .btn {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .btn-blue {
+        background-color: #ffffff;
+        border: 2px solid #cddafd;
+        border-radius: 7px;
+        color: #cddafd;
+      }
+      .btn-blue:hover {
+        background-color: #cddafd;
+        color: #ffffff;
+      }
+      .btn-red {
+        background-color: #ffffff;
+        border: 2px solid #fad2e1;
+        border-radius: 7px;
+        color: #fad2e1;
+      }
+      .btn-red:hover {
+        background-color: #fad2e1;
+        color: #ffffff;
+      }
+      .btn-green {
+        border: 2px solid #74cc6c;
+        border-radius: 7px;
+        color: #74cc6c;
+        background-color: #ffffff;
+      }
+      .btn-green:hover {
+        background-color: #74cc6c;
+        color: #ffffff;
+      }
+      li {
+        list-style: none;
+      }
+      .pagination {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
+      }
 
-        .pagination .page-item {
-          margin: 0 5px;
-        }
+      .pagination .page-item {
+        margin: 0 5px;
+      }
 
-        .pagination .page-link {
-          color: #ffddfc;
-          border-radius: 8px;
-          padding: 8px 12px;
-          transition: all 0.2s ease-in-out;
-        }
+      .pagination .page-link {
+        color: #ffddfc;
+        border-radius: 8px;
+        padding: 8px 12px;
+        transition: all 0.2s ease-in-out;
+      }
 
-        .pagination .page-link:hover {
-          background-color: #ffddfc;
-          color: white;
-        }
+      .pagination .page-link:hover {
+        background-color: #ffddfc;
+        color: white;
+      }
 
-        .pagination .active .page-link {
-          background-color: #fec3fa;
-          color: white;
-          border: none;
-        }
+      .pagination .active .page-link {
+        background-color: #fec3fa;
+        color: white;
+        border: none;
+      }
 
-        .pagination .disabled .page-link {
-          color: #ccc;
-          pointer-events: none;
-          background-color: #f8f9fa;
-        }
-        .buttonAndTotal {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 0.5rem;
-        }
-        .noticeText {
-          text-align: center;
-          margin-top: 3rem;
-          font-size: 2rem;
-        }
+      .pagination .disabled .page-link {
+        color: #ccc;
+        pointer-events: none;
+        background-color: #f8f9fa;
+      }
+      .buttonAndTotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+      .noticeText {
+        text-align: center;
+        margin-top: 3rem;
+        font-size: 2rem;
+      }
 
-         table tr:hover {
-       background-color: #fcf7ff;
-     }
-     table thead tr:hover{
-    background: #33415c;
-     }
+      table tr:hover {
+        background-color: #fcf7ff;
+      }
+      table thead tr:hover {
+        background: #33415c;
+      }
 
-         .orderList {
-   height: 70px;
-   text-align: left;
+      .orderList {
+        height: 70px;
+        text-align: left;
 
-   p {
-     padding-top: 30px;
-   }
- }
-         #red {
-   color: red;
- }
+        p {
+          padding-top: 30px;
+        }
+      }
+      #red {
+        color: red;
+      }
+      .qwe {
+        /* margin-top: 0px; */
+      }
     </style>
-</head>
-<body>
-<header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
-<nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
-<main id="main">
-    <section class="master__product">
+  </head>
+  <body>
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation::masterNav}"></nav>
+    <main id="main">
+      <section class="master__product">
         <div class="table__product">
-            <h1>등록된 상품 리스트</h1>
-            <hr/>
-            <div class="noticeText" th:unless="${page.totalElements != 0}">
-                등록된 상품이 없습니다.
+          <h1 class="qwe">등록된 상품 리스트</h1>
+          <hr />
+          <div class="noticeText" th:unless="${page.totalElements != 0}">
+            등록된 상품이 없습니다.
+          </div>
+          <div class="orderList">
+            <p>
+              <b>주문 내역</b> : <b id="red">[[${page.totalElements}]]</b>건
+            </p>
+          </div>
+          <div th:if="${page.totalElements != 0}">
+            <div class="buttonAndTotal">
+              <a href="/master/product/register">
+                <button class="btn btn-green">등록하기</button>
+              </a>
             </div>
-            <div class="orderList">
-                <p><b>주문 내역</b> : <b id="red">[[${page.totalElements}]]</b>건</p>
-            </div>
-            <div th:if="${page.totalElements != 0}">
-                <div class="buttonAndTotal">
-                    <a href="/master/product/register">
-                        <button class="btn btn-green">등록하기</button>
-                    </a>
-                </div>
 
-                <table>
+            <table>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>이미지</th>
+                  <th>상품명</th>
+                  <th>카테고리</th>
+                  <th>판매가격</th>
+                  <th>재고수량</th>
+                  <th>등록일자</th>
+                  <th>수정일자</th>
+                  <th>상품수정</th>
+                  <th>상품삭제</th>
+                </tr>
+              </thead>
 
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>이미지</th>
-                        <th>상품명</th>
-                        <th>카테고리</th>
-                        <th>판매가격</th>
-                        <th>재고수량</th>
-                        <th>등록일자</th>
-                        <th>수정일자</th>
-                        <th>상품수정</th>
-                        <th>상품삭제</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr th:each="productList : ${productList}">
-                        <th th:text="${productList.id}"></th>
-                        <td>
-                            <img
-                                    th:src="${productList.mainImagePath}"
-                                    style="width: 4rem; height: 4rem"/>
-                        </td>
-                        <td>
-                            <a
-                                    th:href="@{/product/details/{id}(id=${productList.id})}"
-                                    th:text="${productList.name}"></a>
-                        </td>
-                        <td th:text="${productList.productCategory}"></td>
-                        <td th:text="${productList.price}"></td>
-                        <td th:text="${productList.count + '개'}"></td>
-                        <td th:text="${productList.createdAt}"></td>
-                        <td th:text="${productList.modifiedAt}"></td>
-                        <td>
-                            <button
-                                    class="btn btn-blue"
-                                    type="button"
-                                    th:onclick="|location.href='/master/product/edit/' + ${productList.id}|">
-                                수정하기
-                            </button>
-                        </td>
-                        <td>
-                            <button
-                                    class="btn btn-red"
-                                    type="button"
-                                    th:onclick="|location.href='/master/product/delete/' + ${productList.id}|">
-                                삭제하기
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+              <tbody>
+                <tr th:each="productList : ${productList}">
+                  <th th:text="${productList.id}"></th>
+                  <td>
+                    <img
+                      th:src="${productList.mainImagePath}"
+                      style="width: 4rem; height: 4rem" />
+                  </td>
+                  <td>
+                    <a
+                      th:href="@{/product/details/{id}(id=${productList.id})}"
+                      th:text="${productList.name}"></a>
+                  </td>
+                  <td th:text="${productList.productCategory}"></td>
+                  <td th:text="${productList.price}"></td>
+                  <td th:text="${productList.count + '개'}"></td>
+                  <td th:text="${productList.createdAt}"></td>
+                  <td th:text="${productList.modifiedAt}"></td>
+                  <td>
+                    <button
+                      class="btn btn-blue"
+                      type="button"
+                      th:onclick="|location.href='/master/product/edit/' + ${productList.id}|">
+                      수정하기
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-red"
+                      type="button"
+                      th:onclick="|deleteBtn(${productList.id})|">
+                      삭제하기
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </section>
-    <!-- 페이지네이션 -->
-    <nav aria-label="Page navigation" th:unless="${page.totalElements == 0}">
+      </section>
+      <!-- 페이지네이션 -->
+      <nav aria-label="Page navigation" th:unless="${page.totalElements == 0}">
         <ul class="pagination">
-            <!-- 첫 페이지 버튼 -->
-            <li
-                    class="page-item"
-                    th:classappend="${page.first} ? 'disabled' : ''">
-                <a
-                        class="page-link"
-                        th:href="@{/master/product/list(page=0, size=${size})}"
-                        aria-label="First">
-                    <span>&laquo;</span>
-                </a>
-            </li>
+          <!-- 첫 페이지 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.first} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/product/list(page=0, size=${size})}"
+              aria-label="First">
+              <span>&laquo;</span>
+            </a>
+          </li>
 
-            <!-- 이전 버튼 -->
-            <li
-                    class="page-item"
-                    th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
-                <a
-                        class="page-link"
-                        th:href="@{/master/product/list(page=${currentPage - 1}, size=${size})}"
-                        aria-label="Previous">
-                    <span>&lt;</span>
-                </a>
-            </li>
+          <!-- 이전 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/master/product/list(page=${currentPage - 1}, size=${size})}"
+              aria-label="Previous">
+              <span>&lt;</span>
+            </a>
+          </li>
 
-            <!-- 페이지 번호 -->
-            <li
-                    class="page-item"
-                    th:each="pageNum : ${#numbers.sequence(currentPage - 2 > 0 ? currentPage - 2 : 0,
+          <!-- 페이지 번호 -->
+          <li
+            class="page-item"
+            th:each="pageNum : ${#numbers.sequence(currentPage - 2 > 0 ? currentPage - 2 : 0,
                                                  currentPage + 2 < page.totalPages - 1 ? currentPage + 2 : page.totalPages - 1)}"
-                    th:classappend="${pageNum == currentPage} ? 'active' : ''">
-                <a
-                        class="page-link"
-                        th:href="@{/master/product/list(page=${pageNum}, size=${size})}"
-                        th:text="${pageNum + 1}"></a>
-            </li>
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/product/list(page=${pageNum}, size=${size})}"
+              th:text="${pageNum + 1}"></a>
+          </li>
 
-            <!-- 다음 버튼 -->
-            <li
-                    class="page-item"
-                    th:classappend="${page.hasNext()} ? '' : 'disabled'">
-                <a
-                        class="page-link"
-                        th:href="@{/master/product/list(page=${currentPage + 1}, size=${size})}"
-                        aria-label="Next">
-                    <span>&gt;</span>
-                </a>
-            </li>
+          <!-- 다음 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${page.hasNext()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/master/product/list(page=${currentPage + 1}, size=${size})}"
+              aria-label="Next">
+              <span>&gt;</span>
+            </a>
+          </li>
 
-            <!-- 마지막 페이지 버튼 -->
-            <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
-                <a
-                        class="page-link"
-                        th:href="@{/master/product/list(page=${page.totalPages - 1}, size=${size})}"
-                        aria-label="Last">
-                    <span>&raquo;</span>
-                </a>
-            </li>
+          <!-- 마지막 페이지 버튼 -->
+          <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/product/list(page=${page.totalPages - 1}, size=${size})}"
+              aria-label="Last">
+              <span>&raquo;</span>
+            </a>
+          </li>
         </ul>
-    </nav>
-</main>
-</body>
-<script th:src="@{/js/master/masterNavigation.js}"></script>
+      </nav>
+    </main>
+  </body>
+  <script th:src="@{/js/master/masterNavigation.js}"></script>
+  <script>
+    function deleteBtn(productId) {
+      if (!confirm("정말 삭제하시겠습니까?")) {
+        return;
+      }
+      window.location.href = `/master/product/delete/${productId}`;
+      alert("삭제되었습니다.");
+    }
+  </script>
 </html>
