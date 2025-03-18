@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class ProductListResponseDto {
     private String price;
     private String mainImagePath;
     private String totalPrice;
+    private int count;
 }

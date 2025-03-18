@@ -44,7 +44,7 @@
                                             th:selected="${checkoutDetails.checkoutState}=='주문취소'" value="CANCEL">
                                             주문취소</option>
                                     </select></td>
-                            </form>
+
 
                         </tr>
                         <tr>
@@ -174,12 +174,13 @@
 
                             <td style="width:30px;" th:text="${productList.count}"></td>
 
-                            <td><a th:href="@{'/product/details/'+${product.id}}"><img th:src="@{'/productImages/'+${product.productImage.getImageFullName}}"
+                            <td><a th:href="@{'/product/details/'+${product.id}}"><img th:src="@{${product.mainImagePath}}"
                                     style="width:100px;"></a></td>
+
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.count}"></td>
                             <td th:text="${product.price}" class="price"></td>
-                            <td th:text="${product.price}*${product.count}" class="totalPrice"></td>
+                            <td th:text="${product.totalPrice}" class="totalPrice"></td>
 
                         </tr>
 
