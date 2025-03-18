@@ -1,12 +1,10 @@
 package Spring.Goods_Shop.dto.checkout;
 
 import Spring.Goods_Shop.dto.product.ProductListResponseDto;
-import Spring.Goods_Shop.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class CheckoutResponseDto  {
 
     private String checkoutName;
 
-    private String checkoutDeliveryName;
+    private String checkoutRecipientName;
 
     private String checkoutPostStep;
 
