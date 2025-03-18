@@ -65,21 +65,65 @@
                 </tbody>
             </table>
         </div>
-        <nav th:if="${!checkoutList.isEmpty()}">
+        <!-- 페이지네이션 -->
+        <nav aria-label="Page navigation" th:unless="${paging.totalElements == 0}">
             <ul class="pagination">
-                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=0|}" aria-label="First">
-                        <span aria-hidden="true">&laquo;</span>
+                <!-- 첫 페이지 버튼 -->
+                <li
+                        class="page-item"
+                        th:classappend="${paging.first} ? 'disabled' : ''">
+                    <a
+                            class="page-link"
+                            th:href="@{/master/checkout/list(page=0, size=${size})}"
+                            aria-label="First">
+                        <span>&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-                    th:classappend="${page == paging.number} ? 'active'"
-                    th:if="${page>=paging.number-1 and page <= paging.number+1}">
-                    <a class="page-link" th:text="${page+1}" th:href="@{|?page=${page}|}"></a>
+
+                <!-- 이전 버튼 -->
+                <li
+                        class="page-item"
+                        th:classappend="${paging.hasPrevious()} ? '' : 'disabled'">
+                    <a
+                            class="page-link"
+                            th:href="@{/master/checkout/list(page=${currentPage - 1}, size=${size})}"
+                            aria-label="Previous">
+                        <span>&lt;</span>
+                    </a>
                 </li>
-                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=${paging.totalPages-1}|}" aria-label="Last"></a>
-                    <span aria-hidden="true">&raquo;</span>
+
+                <!-- 페이지 번호 -->
+                <li
+                        class="page-item"
+                        th:each="pageNum : ${#numbers.sequence(currentPage - 2 > 0 ? currentPage - 2 : 0,
+                                                 currentPage + 2 < paging.totalPages - 1 ? currentPage + 2 : paging.totalPages - 1)}"
+                        th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                    <a
+                            class="page-link"
+                            th:href="@{/master/checkout/list(page=${pageNum}, size=${size})}"
+                            th:text="${pageNum + 1}"></a>
+                </li>
+
+                <!-- 다음 버튼 -->
+                <li
+                        class="page-item"
+                        th:classappend="${paging.hasNext()} ? '' : 'disabled'">
+                    <a
+                            class="page-link"
+                            th:href="@{/master/checkout/list(page=${currentPage + 1}, size=${size})}"
+                            aria-label="Next">
+                        <span>&gt;</span>
+                    </a>
+                </li>
+
+                <!-- 마지막 페이지 버튼 -->
+                <li class="page-item" th:classappend="${paging.last} ? 'disabled' : ''">
+                    <a
+                            class="page-link"
+                            th:href="@{/master/checkout/list(page=${paging.totalPages - 1}, size=${size})}"
+                            aria-label="Last">
+                        <span>&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>

@@ -50,22 +50,23 @@
                 <div class="HanCkSubmitMidText HanCheckoutNum">
 
                     <p class="HanCkSubmitP1">주문번호 : </p>
-                    <p>2025030301</p>
+                    <p th:text="${checkout.checkout.checkoutCode}">2025030301</p>
 
                 </div>
 
                 <div class="HanCkSubmitMidText">
-                    <p class="HanCkSubmitP1">배송지정보 : </p>
+                    <p class="HanCkSubmitP1" >배송지정보 : </p>
 
                     <div>
 
                         <div>
-                            <p class="HanOrderAddressName">홍길동 (집)</p>
-                            <p class="HanOrderPhoneP">010-1234-1234</p>
+                            <p class="HanOrderAddressName">
+                                [[${checkout.checkout.checkoutName}]]  ([[${checkout.checkout.checkoutDeliveryName}]])</p>
+                            <p class="HanOrderPhoneP">[[${checkout.checkoutPhoneNumber}]]</p>
                         </div>
 
-                        <span class="HanCkSubmitMidSpan">12345</span>
-                        <span>부산시 금곡동 101호</span>
+                        <span class="HanCkSubmitMidSpan" th:text="${checkout.checkout.checkoutZipCode}" >12345</span>
+                        <span th:text="${checkout.checkout.checkoutAddress}">부산시 금곡동 101호</span>
 
                     </div>
                 </div>
@@ -75,8 +76,8 @@
                     <p class="HanCkSubmitP1">결제정보 : </p>
 
                     <div>
-                        <p>국민카드</p>
-                        <p>1111-2222-****-****</p>
+                        <p th:text="${checkout.checkout.checkoutCardName}">국민카드</p>
+                        <p  th:text="${checkout.checkoutCardNum}">1111-2222-****-****</p>
                     </div>
 
                 </div>
@@ -84,8 +85,8 @@
 
                 <div class="HanCkSubmitA">
 
-                    <a class="HanCheckoutList" id="">구매내역 보기</a>
-                    <a class="HanHome" id="">홈으로 가기</a>
+                    <a class="HanCheckoutList" th:href="@{/member/checkout/list}">구매내역 보기</a>
+                    <a class="HanHome" th:href="@{/}">홈으로 가기</a>
 
                 </div>
 

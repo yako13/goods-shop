@@ -1,6 +1,6 @@
 const checkoutStepElements = document.querySelectorAll(".checkoutStep");
 const postStepElements = document.querySelectorAll(".postStep");
-let checkoutId = "http://localhost:8080/master/checkout/" +document.getElementById("id").value+"/delete";
+
 
 //주문상태와 배송상태에 따라 색깔 다르게 적용
 checkoutStepElements.forEach((checkoutStepElement, index) => {
@@ -60,8 +60,9 @@ function dataAlertFunction() {
     }
 };
 
-let deleteBtn = document.getElementById("deleteBtn");
 
+let deleteBtn = document.getElementById("deleteBtn");
+let checkoutId = "http://localhost:8080/master/checkout/" +document.getElementById("id").value+"/delete";
 deleteBtn.addEventListener("click", () => {
     var answer = confirm("주문삭제를 하시면, 복구가 어려운 점을 참고하시기 바랍니다. 정말 삭제를 원하시나요?");
 
@@ -70,18 +71,3 @@ deleteBtn.addEventListener("click", () => {
     }
 })
 
-const priceElements = document.querySelectorAll(".price");
-const totalPriceElements = document.querySelectorAll(".totalPrice");
-
-function formatPrice(p){
-  return p.toLocaleString();
-}
-
-priceElements.forEach((priceElement,index)=>{
-  const price = parseFloat(priceElement.textContent);
-  const totalPrice = parseFloat(totalPriceElements[index].textContent);
-
-  priceElement.textContent = formatPrice(price)+" 원"
-  totalPriceElements[index].textContent = formatPrice(totalPrice) + " 원";
-
-});

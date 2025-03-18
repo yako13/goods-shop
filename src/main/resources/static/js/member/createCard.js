@@ -1,3 +1,7 @@
+let currentDate = new Date();
+let currentYear = currentDate.getFullYear() -2000;  // 현재 연도(2025년이면 25)
+let currentMonth = currentDate.getMonth() + 1;  // 현재 달 (0부터 시작하므로 +1)
+
 
 $("#hiddenName").mouseover(function () {
     $("#hiddenNameArea").css("display", "block");
@@ -7,7 +11,7 @@ $("#hiddenName").mouseover(function () {
     $("#hiddenNameArea").css("display", "none");
   })
 
-  const name_check= /^[가-힣0-9]{2,10}|[a-zA-Z0-9]{2,10}$/;
+const name_check = /^[가-힣0-9]{2,10}$|^[a-zA-Z0-9]{2,10}$/;
 
   //기본결제카드 중복 여부 확인용
   let check_bol = 0;
@@ -147,13 +151,31 @@ $("#hiddenName").mouseover(function () {
         $("#expPeriod2").removeClass("HanRed");
       }
 
-      if ($("#HanSignUpPw3").val().length !== 3) {
-        $("#HanSignUpPw3").addClass("HanRed");
-        isValid = false;
-      }
-      else {
-        $("#HanSignUpPw3").removeClass("HanRed");
-      }
+    if ($("#HanSignUpPw3").val().length !== 3) {
+      $("#HanSignUpPw3").addClass("HanRed");
+      isValid = false;
+    }
+    else {
+      $("#HanSignUpPw3").removeClass("HanRed");
+    }
+
+    if (parseInt($("#expPeriod2").val()) < currentYear || (parseInt($("#expPeriod2").val()) === currentYear && parseInt($("#expPeriod1").val()) < currentMonth)) {
+      $("#expPeriod1").addClass("HanRed");
+      $("#expPeriod2").addClass("HanRed");
+      document.getElementById("expError").style.display = "block";
+      isValid = false;
+    }
+    else {
+        if (parseInt($("#expPeriod1").val()) > 12) {
+          $("#expPeriod1").addClass("HanRed");
+          document.getElementById("expError").style.display = "block";
+          isValid = false;
+        }
+        else{
+          $("#expPeriod1").removeClass("HanRed");
+          document.getElementById("expError").style.display = "none";
+        }
+    }
 
       if (!$("#HanCheckbox").is(":checked")) {
 

@@ -38,7 +38,8 @@
         top: 28rem;
       }
       .master__product {
-        margin-top: 4rem;
+        min-height: 840px;
+        margin-top: 5rem;
       }
       .table__product {
         margin: 2rem;
@@ -57,7 +58,7 @@
       thead {
         font-weight: bold;
         color: #fff;
-        background: #cddafd;
+        background: #33415c;
       }
 
       td,
@@ -69,7 +70,6 @@
 
       td {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        background: #fff;
       }
       .btn {
         font-size: 1rem;
@@ -146,10 +146,37 @@
         justify-content: space-between;
         margin-bottom: 0.5rem;
       }
-      .noticeText {
-        text-align: center;
-        margin-top: 3rem;
-        font-size: 2rem;
+      table tr:hover {
+        background-color: #fcf7ff;
+      }
+      table thead tr:hover {
+        background: #33415c;
+      }
+
+      .orderList {
+        height: 70px;
+        text-align: left;
+
+        p {
+          padding-top: 30px;
+        }
+      }
+      #red {
+        color: red;
+      }
+      #topBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        /* 기본적으로 버튼 숨김 */
       }
     </style>
   </head>
@@ -161,30 +188,34 @@
         <div class="table__product">
           <h1>등록된 상품 리스트</h1>
           <hr />
-          <div class="noticeText" th:unless="${page.totalElements != 0}">
-            등록된 상품이 없습니다.
+          <div class="orderList">
+            <p>
+              <b>등록 내역</b> : <b id="red">[[${page.totalElements}]]</b>건
+            </p>
           </div>
           <div th:if="${page.totalElements != 0}">
             <div class="buttonAndTotal">
               <a href="/master/product/register">
                 <button class="btn btn-green">등록하기</button>
               </a>
-              <div th:text="'상품개수: ' + ${page.totalElements}"></div>
             </div>
 
             <table>
               <thead>
-                <th>번호</th>
-                <th>이미지</th>
-                <th>상품명</th>
-                <th>카테고리</th>
-                <th>판매가격</th>
-                <th>재고수량</th>
-                <th>등록일자</th>
-                <th>수정일자</th>
-                <th>상품수정</th>
-                <th>상품삭제</th>
+                <tr>
+                  <th>번호</th>
+                  <th>이미지</th>
+                  <th>상품명</th>
+                  <th>카테고리</th>
+                  <th>판매가격</th>
+                  <th>재고수량</th>
+                  <th>등록일자</th>
+                  <th>수정일자</th>
+                  <th>상품수정</th>
+                  <th>상품삭제</th>
+                </tr>
               </thead>
+
               <tbody>
                 <tr th:each="productList : ${productList}">
                   <th th:text="${productList.id}"></th>
@@ -215,7 +246,7 @@
                     <button
                       class="btn btn-red"
                       type="button"
-                      th:onclick="|location.href='/master/product/delete/' + ${productList.id}|">
+                      th:onclick="|deleteBtn(${productList.id})|">
                       삭제하기
                     </button>
                   </td>
@@ -287,7 +318,35 @@
           </li>
         </ul>
       </nav>
+      <button id="topBtn" title="Go to top">▲</button>
     </main>
   </body>
   <script th:src="@{/js/master/masterNavigation.js}"></script>
+  <script>
+    function deleteBtn(productId) {
+      if (!confirm("정말 삭제하시겠습니까?")) {
+        return;
+      }
+      window.location.href = `/master/product/delete/${productId}`;
+      alert("삭제되었습니다.");
+    }
+
+    // 스크롤을 내리면 버튼을 보여주기
+    window.onscroll = function () {
+      let topButton = document.getElementById("topBtn");
+      if (
+        document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 50
+      ) {
+        topButton.style.display = "block"; // 스크롤이 50px 이상 내려가면 버튼 표시
+      } else {
+        topButton.style.display = "none"; // 50px 이하로 올라가면 버튼 숨김
+      }
+    };
+
+    // 버튼 클릭 시 페이지 맨 위로 스크롤
+    document.getElementById("topBtn").onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
+    };
+  </script>
 </html>
