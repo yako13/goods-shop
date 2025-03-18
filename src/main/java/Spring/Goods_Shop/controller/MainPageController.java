@@ -26,9 +26,11 @@ public class MainPageController {
     @GetMapping("/")
     String createHomePage(Model model, HttpServletRequest request){
 
-        List<ProductListResponseDto> productListResponseDtoList = productService.getSellingTop3Product();
+        List<ProductListResponseDto> productOrderBySellingCount = productService.getSellingTop3Product();
+        List<ProductListResponseDto> productOrderById = productService.getTop3NewProduct();
 
-        model.addAttribute("productList",productListResponseDtoList);
+        model.addAttribute("productListCount",productOrderBySellingCount);
+        model.addAttribute("productListId",productOrderById);
 
 
         Member member = memberService.getMemberEntity(request);

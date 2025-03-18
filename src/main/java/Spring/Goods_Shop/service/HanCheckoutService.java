@@ -626,7 +626,7 @@ public class HanCheckoutService {
         //구매할려는 상품개수가 상품 재고보다 클경우 실패
         int count = product.getCount() - form.getProductCnt();
 
-        if (count <= 0) {
+        if (count > 0) {    // if (count <= 0)에서 수정 재고수가 count 값이 0이 되면 nullException
 
             return null;
         }
