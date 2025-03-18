@@ -18,6 +18,8 @@ public class ProductRequestDto {
 
     private Long id;
 
+    private Long sellingCount;
+
     @NotBlank(message = "상품명은 필수 입력사항입니다.")
     @Pattern(regexp = "^(?=\\S)(.*\\S)?$", message = "상품명의 시작과 끝은 공백이 될 수 없습니다.")
     @Size(max = 30, message = "상품명은 최대 30자까지 입력가능합니다.")
@@ -50,6 +52,7 @@ public class ProductRequestDto {
     public Product toEntity() {
         return Product.builder()
                 .name(name)
+                .sellingCount(0L)
                 .price(price)
                 .count(count)
                 .productDescription(productDescription)

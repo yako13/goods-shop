@@ -565,8 +565,10 @@ public class HanCheckoutService {
                     .member(memberEntity)
                     .checkoutDetailPrice(productPrice)
                     .checkoutDetailCnt(cart.getCartCnt())
-
                     .build();
+
+            //상품 판매개수 추가
+            checkoutDetail.getProduct().setSellingCount(checkoutDetail.getProduct().getSellingCount() + cart.getCartCnt());
 
             checkoutTotalPay = checkoutTotalPay.add(productPrice);
 
@@ -879,9 +881,9 @@ public class HanCheckoutService {
                 .member(memberEntity)
                 .checkoutDetailPrice(productPrice)
                 .checkoutDetailCnt(productCnt)
-
                 .build();
-
+        //상품 판매개수 추가
+        checkoutDetail.getProduct().setSellingCount(checkoutDetail.getProduct().getSellingCount() + productCnt);
 
         //주문 결제 저장
         Checkout checkoutEntity = hanCheckoutRepository.save(checkout);
