@@ -30,7 +30,7 @@ public class Product extends BaseTime {
     @Comment("상품명")
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "selling_count", nullable = false)
     @Comment("판매 개수")
     private Long sellingCount;
 
@@ -73,7 +73,7 @@ public class Product extends BaseTime {
 
     public void update(ProductRequestDto requestDto) {
         this.name = requestDto.getName();
-        this.sellingCount= requestDto.getSellingCount();
+        this.sellingCount = getSellingCount();
         this.price = requestDto.getPrice();
         this.count = requestDto.getCount();
         this.productCategory = requestDto.getProductCategory();
