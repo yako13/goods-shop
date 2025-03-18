@@ -418,6 +418,16 @@
       if (currentQuantity < 1) {
         currentQuantity = 1;
       }
+
+      //재고수 보다 많이 사는 거 막기
+      let productCount = document.querySelector(
+        ".product-info__count"
+      ).textContent;
+      if (currentQuantity > parseInt(productCount)) {
+        alert("재고수보다 많이 구매할 수 없습니다.");
+        currentQuantity = parseInt(productCount);
+      }
+
       //구매하기와 장바구니 둘다 input hidden에 넣어줌
       quantityInput.value = currentQuantity;
       quantityInputHidden.value = currentQuantity;
