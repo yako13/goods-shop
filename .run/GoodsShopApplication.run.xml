@@ -1,5 +1,15 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GoodsShopApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+<<<<<<< HEAD
+    <envs>
+      <env name="GOOGLE_ID" value="595066049930-g7pnji7i8ptde6kn19t4dfb8p4qfa32e.apps.googleusercontent.com" />
+      <env name="GOOGLE_PASSWORD" value="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" />
+      <env name="NAVER_ID" value="eCzT9sJDKQXzSKRV2lUR" />
+      <env name="NAVER_PASSWORD" value="KWu75uTaBE" />
+      <env name="DBname" value="cloudstar" />
+    </envs>
+=======
+>>>>>>> a28b5222a3c174949d859a642a52a03c4e710dd9
     <option name="MAIN_CLASS_NAME" value="Spring.Goods_Shop.GoodsShopApplication" />
     <module name="Goods-Shop.main" />
     <extension name="coverage">
