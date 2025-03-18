@@ -1,14 +1,18 @@
 package Spring.Goods_Shop.controller;
 
+import Spring.Goods_Shop.dto.product.ProductListResponseDto;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.enums.MemberRole;
 import Spring.Goods_Shop.service.MemberService;
+import Spring.Goods_Shop.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -17,8 +21,18 @@ public class MainPageController {
 
     private final MemberService memberService;
 
+    private final ProductService productService;
+
     @GetMapping("/")
     String createHomePage(Model model, HttpServletRequest request){
+
+        List<ProductListResponseDto> productOrderBySellingCount = productService.getSellingTop3Product();
+        List<ProductListResponseDto> productOrderById = productService.getTop3NewProduct();
+
+        model.addAttribute("productListCount",productOrderBySellingCount);
+        model.addAttribute("productListId",productOrderById);
+
+
         Member member = memberService.getMemberEntity(request);
 
         if(member !=null && member.getRole().equals(MemberRole.CANCELLATION)){

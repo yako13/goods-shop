@@ -565,8 +565,10 @@ public class HanCheckoutService {
                     .member(memberEntity)
                     .checkoutDetailPrice(productPrice)
                     .checkoutDetailCnt(cart.getCartCnt())
-
                     .build();
+
+            //상품 판매개수 추가
+            checkoutDetail.getProduct().setSellingCount(checkoutDetail.getProduct().getSellingCount() + cart.getCartCnt());
 
             checkoutTotalPay = checkoutTotalPay.add(productPrice);
 
@@ -624,7 +626,7 @@ public class HanCheckoutService {
         //구매할려는 상품개수가 상품 재고보다 클경우 실패
         int count = product.getCount() - form.getProductCnt();
 
-        if (count <= 0) {
+        if (count > 0) {    // if (count <= 0)에서 수정 재고수가 count 값이 0이 되면 nullException
 
             return null;
         }
@@ -879,9 +881,9 @@ public class HanCheckoutService {
                 .member(memberEntity)
                 .checkoutDetailPrice(productPrice)
                 .checkoutDetailCnt(productCnt)
-
                 .build();
-
+        //상품 판매개수 추가
+        checkoutDetail.getProduct().setSellingCount(checkoutDetail.getProduct().getSellingCount() + productCnt);
 
         //주문 결제 저장
         Checkout checkoutEntity = hanCheckoutRepository.save(checkout);

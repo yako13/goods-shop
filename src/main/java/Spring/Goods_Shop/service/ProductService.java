@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -288,6 +289,60 @@ public class ProductService {
                 .build();
     }
 
+    //판매 개수가 제일 높은 3개의 항목 가져옴
+    public List<ProductListResponseDto> getSellingTop3Product(){
+         List<Product> productList =productRepository.findTop3ByOrderBySellingCountDescIdDesc();
+
+         List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
+
+         for(Product product : productList){
+             ProductImage productMainImage = product.getProductImage();
+             String productMainImagePath = null;
+
+             if (productMainImage != null) {
+                 productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+             }
+
+             ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
+                     .id(product.getId())
+                     .name(product.getName())
+                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                     .mainImagePath(productMainImagePath)
+                     .build();
+
+             productListResponseDtoList.add(productListResponseDto);
+         }
+
+        return productListResponseDtoList;
+    }
+
+    //신상품 3개의 항목 가져옴(PK 높은순)
+    public List<ProductListResponseDto> getTop3NewProduct(){
+        List<Product> productList =productRepository.findTop3ByOrderByIdDesc();
+
+        List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
+
+        for(Product product : productList){
+            ProductImage productMainImage = product.getProductImage();
+            String productMainImagePath = null;
+
+            if (productMainImage != null) {
+                productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+            }
+
+            ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                    .mainImagePath(productMainImagePath)
+                    .build();
+
+            productListResponseDtoList.add(productListResponseDto);
+        }
+
+        return productListResponseDtoList;
+    }
+
     /**
      * 문자열을 ProductCategory Enum으로 변환하는 메서드
      */
@@ -301,4 +356,5 @@ public class ProductService {
             return null; // 존재하지 않는 카테고리 값이면 null 반환
         }
     }
+
 }

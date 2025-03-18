@@ -31,6 +31,10 @@ public class Product extends BaseTime {
     private String name;
 
     @Column(nullable = false)
+    @Comment("판매 개수")
+    private Long sellingCount;
+
+    @Column(nullable = false)
     @Comment("상품 가격")
     private BigDecimal price;
 
@@ -56,8 +60,9 @@ public class Product extends BaseTime {
     private List<ProductImage> productImageList = new ArrayList<>();
 
     @Builder
-    public Product(Long id, String name, BigDecimal price, int count, String productDescription, ProductCategory productCategory, ProductImage productImage) {
+    public Product(Long id, String name, BigDecimal price, int count, String productDescription, ProductCategory productCategory, ProductImage productImage,Long sellingCount) {
         this.id = id;
+        this.sellingCount =sellingCount;
         this.name = name;
         this.price = price;
         this.count = count;
@@ -68,6 +73,7 @@ public class Product extends BaseTime {
 
     public void update(ProductRequestDto requestDto) {
         this.name = requestDto.getName();
+        this.sellingCount= requestDto.getSellingCount();
         this.price = requestDto.getPrice();
         this.count = requestDto.getCount();
         this.productCategory = requestDto.getProductCategory();
