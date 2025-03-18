@@ -35,11 +35,9 @@
         </button>
     </form>
 
+
     <div class="find">
-        <a th:href="@{/find/id}">아이디 찾기</a><span>|</span><a th:href="@{/find/password}">비밀번호 찾기</a>
-    </div>
-    <div class="join">
-        <span>아직 회원이 아니시라면?</span><a th:href="@{/join}">회원가입</a>
+        <a th:href="@{/find/id}">아이디 찾기</a><span>|</span><a th:href="@{/find/password}">비밀번호 찾기</a><span>|</span><a th:href="@{/join}" id="joinLink">회원가입</a>
     </div>
     <!-- separator -->
     <div class="separator">
