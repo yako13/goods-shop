@@ -291,7 +291,7 @@ public class ProductService {
 
     //판매 개수가 제일 높은 3개의 항목 가져옴
     public List<ProductListResponseDto> getSellingTop3Product(){
-         List<Product> productList =productRepository.findTop3ByOrderBySellingCountDesc();
+         List<Product> productList =productRepository.findTop3ByOrderBySellingCountDescIdDesc();
 
          List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
 

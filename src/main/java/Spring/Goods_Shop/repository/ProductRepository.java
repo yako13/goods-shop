@@ -14,5 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 검색어
     Page<Product> findByNameContaining(String name, Pageable pageable);
 
-    List<Product> findTop3ByOrderBySellingCountDesc();
+    List<Product> findTop3ByOrderBySellingCountDescIdDesc();
 }
