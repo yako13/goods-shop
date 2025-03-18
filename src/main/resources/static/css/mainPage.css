@@ -3,14 +3,25 @@
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
 }
 
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+/*
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+} */
 
 * {
   font-family: NanumSquareRound;
 
+
 }
 
-
+@font-face {
+  font-family: 'Ownglyph_jiwoosonang';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/Ownglyph_jiwoosonang.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
   margin: 0;
@@ -20,13 +31,22 @@ body {
 
 /* 헤더 css 시작 */
 
-.HanHeaderBody {
-  width: auto;
+.HanHeaderBodyDiv {
+  width: 100%;
   background-color: #fff8f8;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.HanHeaderBody {
+  width: 80%;
+  margin: 0 auto;
   /* background-color: #fffab6; */
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+
 }
 
 .HanHeaderBody p {
@@ -34,7 +54,7 @@ body {
 }
 
 .HanMainTitleP {
-  font-size: 25px;
+  font-size: 30px;
   margin: 50px 0;
 
 }
@@ -45,6 +65,20 @@ body {
   min-width: 600px;
   display: flex;
   justify-content: space-between;
+
+}
+
+.HanHeaderLeft {
+  width: 600px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+
+.HanHeaderLeft p {
+  display: inline-block;
+  font-size: 18px;
 
 }
 
@@ -87,9 +121,8 @@ body {
 
 
 .HanHeaderBottom {
+  width: 600px;
   height: 60px;
-  width: 70%;
-  min-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,6 +133,13 @@ body {
   display: flex;
   align-items: center;
 
+}
+
+.HanHeaderRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
 
 
@@ -139,12 +179,14 @@ body {
 
 
 .HanSerachForm input {
+
   box-sizing: border-box;
   width: 240px;
   padding: 8px 10px;
   font-size: 14px;
   border: none;
-  border-radius: 12px;
+  border: 1px solid #ecdbdb;
+  border-radius: 7px;
 
 }
 
@@ -165,7 +207,7 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.HanSerachForm:hover button{
+.HanSerachForm:hover button {
   transform: translateY(-2px);
 
 }
@@ -185,11 +227,10 @@ body {
 }
 
 .HanNaviLogoDiv {
-  padding: 10px 0;
   display: flex;
   justify-content: center;
-  width: 100%;
-  background-color: #FFD2E3;
+  align-items: center;
+  padding: 10px 0;
 }
 
 .HanNaviLogoDiv p {
@@ -209,7 +250,7 @@ body {
 
 .HanNaviBar a {
   text-decoration-line: none;
-  color: #000000;
+  color: #443730;
   transition: all 0.5s;
   font-size: 16px;
   cursor: pointer;
@@ -244,6 +285,8 @@ body {
 
 /* 메인 css 시작 */
 
+
+
 .HanMainBody {
   display: flex;
   align-items: center;
@@ -254,16 +297,45 @@ body {
 
 .HanMainBodyTitle {
   width: 100%;
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 360px;
+  z-index: 40;
 
 }
 
+.HanMainBodyTitle a {
+  outline: none;
+  border: none;
+  background-color: none;
+  font-size: 30px;
+  transition: all 0.3s ease-in-out;
+  z-index: 40;
+
+}
+
+.HanMainBodyTitle :active:hover {
+
+  transform: translateY(-3px);
+
+}
+
+
+.HanMainNewDivAera {
+  width: 1650px;
+  min-height: 570px;
+  position: relative;
+}
+
+
+
+
+
 .HanMainNewDiv {
   padding: 20px 0;
-  width: 1800px;
+  width: 1650px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -278,8 +350,8 @@ body {
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  width: 430px;
-  height: 510px;
+  width: 530px;
+  height: 560px;
 
 }
 
@@ -522,6 +594,7 @@ body {
   margin: 0;
   margin-bottom: 4px;
   font-size: 18px;
+  padding-top: 0;
 }
 
 .HanHeaderUserId {
@@ -530,15 +603,21 @@ body {
 
 }
 
-#logoutLink {
+.HanDrodBoxNameDiv a {
+  padding: 5px 5px;
   background-color: #FFADAD;
+  border-radius: 5px;
   text-decoration-line: none;
   color: #000000;
+  transition: all 0.5s;
+  font-size: 16px;
   cursor: pointer;
+
 }
 
-#logoutLink:hover {
+.HanDrodBoxNameDiv a:hover {
   background-color: #ee8686;
+
 }
 
 
@@ -552,30 +631,61 @@ body {
 
 .HanCarouselBody {
   padding: 0;
-  margin: 0 auto;
-  width: 1400px;
+  margin: 30px auto;
+  width: 80%;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .HanCarousel {
   position: relative;
-  width: 1200px;
-  height: 300px;
+  width: 100%;
+  height: 600px;
   overflow: hidden;
   margin: 50px auto;
   border-radius: 10px;
 }
 
+.HanCarouselButton {
+  box-sizing: border-box;
+  padding: 0 100px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 400;
+}
+
 .HanTrack {
   display: flex;
-  transition: all 0.5s ease-in-out;
+  /* transition: all 1s ease; */
 }
 
 .HanTrackSlide {
   min-width: 100%;
 }
+
+
+.HanTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.HanTrackSlide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
 
 
 
@@ -587,11 +697,13 @@ body {
 }
 
 
+
 .HanArrow {
   width: 46px;
   height: 46px;
   border: none;
   cursor: pointer;
+
 
 }
 
@@ -624,6 +736,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
+  z-index: 1000;
 }
 
 .HanDot {
@@ -633,6 +746,7 @@ body {
   border: 2px solid white;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .HanDot.HanActive {
@@ -651,6 +765,7 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 30px;
+
   align-items: flex-start;
 }
 
@@ -747,4 +862,31 @@ body {
   background-color: #ee8686;
   color: #3f3f3f;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 로그아웃 버튼 DIV */
+.HandropdownBoxLogout {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/* 로그아웃 버튼 */
+#logoutLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 30px;
+  gap: 5px;
+  background-color: #FFADAD;
+  text-decoration-line: none;
+  color: #000000;
+  cursor: pointer;
+
 }

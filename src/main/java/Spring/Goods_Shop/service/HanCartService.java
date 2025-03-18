@@ -92,7 +92,7 @@ public class HanCartService {
         //상품 재고보다 구매할려는 상품 개수가 클경우 실패
         int count = product.getCount() - form.getProductCnt();
 
-        if (count <= 0) {
+        if (count < 0) {
 
             return "죄송합니다 상품 재고가 부족합니다";
         }
