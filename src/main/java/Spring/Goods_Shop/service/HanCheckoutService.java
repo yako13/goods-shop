@@ -71,7 +71,7 @@ public class HanCheckoutService {
             //장바구니의 구매 개수보다 물건 재고가 작을경우 실패
             int count = cart.getProduct().getCount() - cart.getCartCnt();
 
-            if (count <= 0) {
+            if (count < 0) {
 
                 return null;
             }
