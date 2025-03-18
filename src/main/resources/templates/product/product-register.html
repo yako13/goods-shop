@@ -356,5 +356,38 @@
       alert("상품정보가 저장되었습니다.");
       return true;
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const descImageInput = document.getElementById("descImage");
+      const dataTransfer = new DataTransfer(); //
+
+      descImageInput.addEventListener("change", function () {
+        let fileArr = descImageInput.files;
+
+        if (fileArr && fileArr.length > 0) {
+          for (let i = 0; i < fileArr.length; i++) {
+            dataTransfer.items.add(fileArr[i]);
+          }
+
+          descImageInput.files = dataTransfer.files;
+        }
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const subImageInput = document.getElementById("subImage");
+      const dataTransfer = new DataTransfer(); //
+
+      subImageInput.addEventListener("change", function () {
+        let fileArr = subImageInput.files;
+
+        if (fileArr && fileArr.length > 0) {
+          for (let i = 0; i < fileArr.length; i++) {
+            dataTransfer.items.add(fileArr[i]);
+          }
+
+          subImageInput.files = dataTransfer.files;
+        }
+      });
+    });
   </script>
 </html>
