@@ -164,7 +164,14 @@ p {
 
 .adminText {
         font-weight: 600;
+        margin-top: 5px;
 
+}
+
+#mainLogo {
+    img {
+        margin-top: 20px;
+    }
 }
 
 /* 헤더 끝 */

@@ -556,28 +556,65 @@ public class HanCheckoutService {
 
         for (Cart cart : cartList) {
 
-            BigDecimal productPrice = cart.getProduct().getPrice();
+            Product productEntity = cart.getProduct();
+
+            BigDecimal productPrice = productEntity.getPrice();
+
+            int cartCnt = cart.getCartCnt();
+
+            //구매한 만큼 상품 재고 감소시키는 메서드
+            boolean checkValue = checkoutCountMinus(productEntity, cartCnt);
+
+            //상품재고 부족시
+            if (!checkValue) {
+                log.info("상품 재고가 부족합니다");
+
+                return null;
+            }
+
 
             CheckoutDetails checkoutDetail = CheckoutDetails.builder()
 
-                    .product(cart.getProduct())
+                    .product(productEntity)
                     .checkout(checkout)
                     .member(memberEntity)
                     .checkoutDetailPrice(productPrice)
-                    .checkoutDetailCnt(cart.getCartCnt())
+                    .checkoutDetailCnt(cartCnt)
                     .build();
 
             //상품 판매개수 추가
             checkoutDetail.getProduct().setSellingCount(checkoutDetail.getProduct().getSellingCount() + cart.getCartCnt());
 
-            checkoutTotalPay = checkoutTotalPay.add(productPrice);
+            BigDecimal productCount = new BigDecimal(cartCnt);
+
+            checkoutTotalPay = checkoutTotalPay.add(productPrice.multiply(productCount));
 
             checkoutDetailList.add(checkoutDetail);
 
         }
 
+
+        //배송비 무료 기준 (5만원)
+        BigDecimal FreeDelivery = BigDecimal.valueOf(50000);
+
+        //장바구니에 담았던 물건의 총 가격 합 5만원 미만일 경우 배송비 3천원 부과
+        if (checkoutTotalPay.compareTo(FreeDelivery) < 0) {
+
+            DeliveryCost = BigDecimal.valueOf(3000);
+
+        }
+        //상품 총가격에 배송비를 더해준다
+        checkoutTotalPay = checkoutTotalPay.add(DeliveryCost);
+
+
         //연관관계 맵핑으로 알아서 저장
         checkout.setCheckoutDetailsList(checkoutDetailList);
+
+        //총 결제 금액 다시 넣어줌
+        checkout.setCheckoutTotalPay(checkoutTotalPay);
+
+        //배송비 다시 넣어줌
+        checkout.setCheckoutDeliveryCost(DeliveryCost);
 
         //주문 결제 저장
         Checkout checkoutEntity = hanCheckoutRepository.save(checkout);
@@ -593,6 +630,8 @@ public class HanCheckoutService {
         //전화번호를 하이폰 처리해서 담아준다
         checkoutCompleteResDto.setCheckoutPhoneNumber(Formatter.changePhoneNumber(checkoutEntity.getCheckoutPhoneNumber()));
 
+        //주문할때 사용한 장바구니 비우기
+        hanCartRepository.checkoutSubmitCartDelete(cartPkList);
 
         return checkoutCompleteResDto;
     }
@@ -626,7 +665,7 @@ public class HanCheckoutService {
         //구매할려는 상품개수가 상품 재고보다 클경우 실패
         int count = product.getCount() - form.getProductCnt();
 
-        if (count > 0) {    // if (count <= 0)에서 수정 재고수가 count 값이 0이 되면 nullException
+        if (count < 0) {
 
             return null;
         }
@@ -817,7 +856,17 @@ public class HanCheckoutService {
         //상품개수
         int productCnt = form.getProductCnt();
 
-        //상품 총 가격 = 상품 가격 * 상품개수
+        //구매한 만큼 상품 재고 감소시키는 메서드
+        boolean checkValue = checkoutCountMinus(product, productCnt);
+
+        //상품재고 부족시
+        if (!checkValue) {
+            log.info("상품 재고가 부족합니다");
+
+            return null;
+        }
+
+        //상품 총 가격(총 결제 가격) = 상품 가격 * 상품개수 + (배송비)
         checkoutTotalPay = productPrice.multiply(BigDecimal.valueOf(productCnt));
 
 
@@ -830,6 +879,8 @@ public class HanCheckoutService {
             DeliveryCost = BigDecimal.valueOf(3000);
 
         }
+        //상품 총가격에 배송비를 더해준다
+        checkoutTotalPay = checkoutTotalPay.add(DeliveryCost);
 
 
         Checkout checkout = Checkout.builder()
@@ -864,7 +915,7 @@ public class HanCheckoutService {
                 .checkoutDeliveryCode(Formatter.generateDeliveryCode())
                 //주문 상태
                 .checkoutStep(CheckoutState.CONFIRM)
-                //총 결제 금액
+                //총 결제 금액 (상품 총 가격 + 배송비)
                 .checkoutTotalPay(checkoutTotalPay)
                 //배송비
                 .checkoutDeliveryCost(DeliveryCost)
@@ -975,11 +1026,24 @@ public class HanCheckoutService {
         //주문 리스트 상세페이지에 보여줄 주문상세 dto리스트를 checkoutListDetailDto에 담아준다
         checkoutListDetailDto.setCheckoutCartDtoList(checkoutCartDtoList);
 
+        //배송비 추출
+        BigDecimal deliveryCost = checkoutDto.getCheckoutDeliveryCost();
+
+        //총 결제 금액 추출
+        BigDecimal totalPay = checkoutDto.getCheckoutTotalPay();
+
+        //상품의 총 금액 = 총 결제 금액 - 배송비
+        BigDecimal productSumPay = totalPay.subtract(deliveryCost);
+
+
         //배송비를 원단위로 변환해서 넣는다
         checkoutListDetailDto.setCheckoutDeliveryCost(Formatter.changeBigDecimalFormat(checkoutDto.getCheckoutDeliveryCost()));
 
-        //총 결제금액을 원단위로 변환해서 넣는다
-        checkoutListDetailDto.setCheckoutTotalPay(Formatter.changeBigDecimalFormat(checkoutDto.getCheckoutTotalPay()));
+        //총 상품 금액을 원단위로 변환해서 넣는다
+        checkoutListDetailDto.setCheckoutProductSum(Formatter.changeBigDecimalFormat(productSumPay));
+
+        //총 결제 금액을 원단위로 변환해서 넣는다
+        checkoutListDetailDto.setCheckoutTotalPay(Formatter.changeBigDecimalFormat(totalPay));
 
         //전화번호 변환
         checkoutListDetailDto.setCheckoutPhoneNumber(Formatter.changePhoneNumber(checkoutDto.getCheckoutPhoneNumber()));
@@ -994,7 +1058,36 @@ public class HanCheckoutService {
         //배송 회사
         checkoutListDetailDto.setDeliveryCompany(Formatter.getDeliveryCompany(checkoutDto.getCheckoutDeliveryCompany()));
 
+        //주문 시간 뒷부분 잘라주기
+
+        //주문 시간
+        checkoutListDetailDto.setCheckoutCreatedAt(Formatter.getLocalDate(checkoutDto.getCreatedAt()));
+
+
         return checkoutListDetailDto;
+    }
+
+
+    //-----------------주문할때 재고 감소시키는 서비스------------------------
+
+    public boolean checkoutCountMinus(Product product, int cnt) {
+
+        //상품의 재고 - 주문 개수
+        int count = product.getCount() - cnt;
+
+        if (count < 0) {
+
+            return false;
+        }
+
+        product.setCount(count);
+
+        productRepository.save(product);
+
+
+        return true;
+
+
     }
 
 

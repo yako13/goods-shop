@@ -166,7 +166,7 @@ const name_check = /^[가-힣0-9]{2,10}$|^[a-zA-Z0-9]{2,10}$/;
       isValid = false;
     }
     else {
-        if (parseInt($("#expPeriod1").val()) > 12) {
+        if (parseInt($("#expPeriod1").val()) > 12 || parseInt($("#expPeriod1").val()) <1) {
           $("#expPeriod1").addClass("HanRed");
           document.getElementById("expError").style.display = "block";
           isValid = false;

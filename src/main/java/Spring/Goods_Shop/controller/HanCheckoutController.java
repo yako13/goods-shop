@@ -38,20 +38,38 @@ public class HanCheckoutController {
     }
 
 
-    // 장바구니에서 주문 / 결제 페이지로 이동
     @GetMapping("/checkout/cart")
     public String checkoutCartGo(HttpServletRequest request, Model model, CartCheckoutDto form,
                                  HttpSession session, RedirectAttributes rttr) {
 
-
-       CheckoutCartPageResponseDto checkoutCartPageDto = new CheckoutCartPageResponseDto();
-
         //세션 값 가져옴
         CheckoutDeliveryResponseDto deliveryInfoNew = (CheckoutDeliveryResponseDto) session.getAttribute("deliveryNewCart");
-        Spring.Goods_Shop.dto.checkout.HanPart.CheckoutPayResponseDto payInfoNew = (Spring.Goods_Shop.dto.checkout.HanPart.CheckoutPayResponseDto) session.getAttribute("payNewCart");
+        CheckoutPayResponseDto payInfoNew = (CheckoutPayResponseDto) session.getAttribute("payNewCart");
 
-        //신규배송지 등록을 했을경우
+        CheckoutCartPageResponseDto checkoutCartPageDto = new CheckoutCartPageResponseDto();
+
+        //신규 배송지 등록에서 왔거나 결제 카드에서 왔거나 장바구니에서 왔는지 체크
+        int deliveryNew = 0;
+        int payNew = 0;
+
+
+        //배송지 등록을 했을경우
         if (deliveryInfoNew != null && deliveryInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+
+            deliveryNew = 1;
+
+        }
+
+        //결제 카드 등록을 했을경우
+        if (payInfoNew != null && payInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+
+            payNew = 1;
+
+        }
+
+
+        //결제카드 등록이나 배송지 등록을 했을경우 form에 맞게 보내준다
+        if (deliveryNew == 1 || payNew == 1) {
 
             List<Long> checkList = deliveryInfoNew.getCartIdList();
 
@@ -79,38 +97,10 @@ public class HanCheckoutController {
             checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
 
 
-            //결제 카드 등록을 했을경우
-        } else if (payInfoNew != null && payInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
-
-            List<Long> checkList = payInfoNew.getCartIdList();
-
-            if (checkList == null) {
-
-                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
-
-                return "redirect:/";
-
-            }
-
-            log.info("장바구니 pk 개수 : " + checkList.size());
-
-            for (int i = 0; i < checkList.size(); i++) {
-
-                log.info("장바구니 pk  : " + checkList.get(i));
-            }
-
-            //서비스에 넣을수있게 형식을 맞춰준다
-            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
-                    .cartIdList(checkList)
-                    .build();
-
-            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
-
-
+            //상품 상세 페이지에서 올경우
         } else {
 
-            if (form == null) {
+            if (form.getCartIdList() == null || form.getCartIdList().isEmpty()) {
 
                 rttr.addFlashAttribute("data", "잘못된 접근 입니다");
 
@@ -130,6 +120,7 @@ public class HanCheckoutController {
             }
             //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
             checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, form);
+
         }
 
 
@@ -140,6 +131,12 @@ public class HanCheckoutController {
         }
 
 
+        //배송지 목록이 있는지 체크
+        int deliveryEmptyCheck = 1;
+
+        //결제 목록이 있는지 체크
+        int payEmptyCheck = 1;
+
         //배송지 목록과 결제 목록이 없을경우
         if (checkoutCartPageDto.getDeliveryList().isEmpty() && checkoutCartPageDto.getPayList().isEmpty()) {
 
@@ -147,85 +144,104 @@ public class HanCheckoutController {
 
             model.addAttribute("payEmpty", 1);
 
+            deliveryEmptyCheck = 0;
+            payEmptyCheck = 0;
 
-            return "checkout/checkout";
 
             //배송지 목록이 없을경우
         } else if (checkoutCartPageDto.getDeliveryList().isEmpty()) {
 
             model.addAttribute("deliveryEmpty", 1);
 
-            return "checkout/checkout";
+            deliveryEmptyCheck = 0;
 
             //결제 목록이 없을경우
         } else if (checkoutCartPageDto.getPayList().isEmpty()) {
 
             model.addAttribute("payEmpty", 1);
 
-            return "checkout/checkout";
+            payEmptyCheck = 0;
 
         }
 
-        //배송지 목록
-        List<CheckoutDeliveryResponseDto> DeliveryListDto = checkoutCartPageDto.getDeliveryList();
 
-        log.info("2222");
+        if (deliveryEmptyCheck == 1) {
 
 
-        //배송지나 카드등록을 했을경우 등록한것을 먼저 나타내준다
-        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null) {
+            //신규 배송지 등록을 한상태
+            if (deliveryNew == 1) {
 
-            model.addAttribute("deliveryInfo", deliveryInfoNew);
-            model.addAttribute("deliveryInfoPhone", deliveryInfoNew.getRecipientPhoneNumber());
-
-            //기본 배송지가 없고 배송지가 하나라도 등록되어있을경우 등록된 배송지의 맨 처음걸 보여준다
-        } else if (checkoutCartPageDto.getDefaultDelivery() == null) {
-
-            CheckoutDeliveryResponseDto deliveryInfo = DeliveryListDto.get(0);
-
-            model.addAttribute("deliveryInfo", deliveryInfo);
-            model.addAttribute("deliveryInfoPhone", deliveryInfo.getRecipientPhoneNumber());
-
-            log.info("3333");
-
-            //기본 배송지가 있을경우
-        } else {
-
-            Delivery deliveryInfo = checkoutCartPageDto.getDefaultDelivery();
-
-            model.addAttribute("deliveryInfo", deliveryInfo);
-            //기본배송지 목록의 휴대폰 번호에 하이폰을 넣어줌
-            model.addAttribute("deliveryInfoPhone",
-                    Formatter.changePhoneNumber(deliveryInfo.getRecipientPhoneNumber()));
+                model.addAttribute("deliveryInfo", deliveryInfoNew);
+                model.addAttribute("deliveryInfoPhone", deliveryInfoNew.getRecipientPhoneNumber());
 
 
-            log.info("4444");
-        }
+                //신규 배송지 등록을 안 한 상태
+            } else {
 
-        //결제 카드 목록
-        List<CheckoutPayResponseDto> PayListDto = checkoutCartPageDto.getPayList();
+                //배송지 목록
+                List<CheckoutDeliveryResponseDto> DeliveryListDto = checkoutCartPageDto.getDeliveryList();
 
-
-        //결제카드 등록 모달에서 등록했을 경우
-        if (payInfoNew != null && payInfoNew.getId() != null) {
-            model.addAttribute("payInfo", payInfoNew);
-            model.addAttribute("payInfoCardNum", payInfoNew.getNumber());
-        }
-        //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
-        else if (checkoutCartPageDto.getDefaultPay() == null) {
-
-            model.addAttribute("payInfo", PayListDto.get(0));
-            model.addAttribute("payInfoCardNum", PayListDto.get(0).getNumber());
+                log.info("2222");
 
 
-            //기본 결제 카드가 있을경우
-        } else {
+                if (checkoutCartPageDto.getDefaultDelivery() == null) {
 
-            model.addAttribute("payInfo", checkoutCartPageDto.getDefaultPay());
-            model.addAttribute("payInfoCardNum", Formatter.CardNumFormat(checkoutCartPageDto.getDefaultPay().getNumber()));
+                    CheckoutDeliveryResponseDto deliveryInfo = DeliveryListDto.get(0);
+
+                    model.addAttribute("deliveryInfo", deliveryInfo);
+                    model.addAttribute("deliveryInfoPhone", deliveryInfo.getRecipientPhoneNumber());
+
+                    log.info("3333");
+
+                    //기본 배송지가 있을경우
+                } else {
+
+                    Delivery deliveryInfo = checkoutCartPageDto.getDefaultDelivery();
+
+                    model.addAttribute("deliveryInfo", deliveryInfo);
+                    //기본배송지 목록의 휴대폰 번호에 하이폰을 넣어줌
+                    model.addAttribute("deliveryInfoPhone",
+                            Formatter.changePhoneNumber(deliveryInfo.getRecipientPhoneNumber()));
+
+
+                    log.info("4444");
+                }
+
+            }
 
         }
 
+
+        if (payEmptyCheck == 1) {
+
+            //신규 배송지 등록을 한상태
+            if (payNew == 1) {
+
+                model.addAttribute("payInfo", payInfoNew);
+                model.addAttribute("payInfoCardNum", payInfoNew.getNumber());
+
+            } else {
+
+                //결제 카드 목록
+                List<CheckoutPayResponseDto> PayListDto = checkoutCartPageDto.getPayList();
+
+                //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
+                if (checkoutCartPageDto.getDefaultPay() == null) {
+
+                    model.addAttribute("payInfo", PayListDto.get(0));
+                    model.addAttribute("payInfoCardNum", PayListDto.get(0).getNumber());
+
+
+                    //기본 결제 카드가 있을경우
+                } else {
+
+                    model.addAttribute("payInfo", checkoutCartPageDto.getDefaultPay());
+                    model.addAttribute("payInfoCardNum", Formatter.CardNumFormat(checkoutCartPageDto.getDefaultPay().getNumber()));
+
+                }
+            }
+
+        }
 
         //장바구니에 담긴 상품 리스트
         List<CheckoutCartDto> checkoutCartDtoList = checkoutCartPageDto.getCheckoutCartDtoList();
@@ -238,6 +254,8 @@ public class HanCheckoutController {
 
         //배송지 목록, 결제 카드 목록, 배송비, 장바구니의 상품 가격 총합(정가), 장바구니의 상품 가격 총합+ 배송비 (총 결제 가격),맴버 pk
         model.addAttribute("checkoutCartPageDto", checkoutCartPageDto);
+
+//        log.info("배송지 : " + checkoutCartPageDto.getDeliveryList().get(0).getAddress());
 
 
         return "checkout/checkout";
@@ -331,32 +349,68 @@ public class HanCheckoutController {
     // 상품 상세페이지에서 주문 / 결제 페이지로 이동
     @GetMapping("/checkout")
     public String checkoutGo1(HttpServletRequest request, Model model, ProductCheckoutResDto form
-            , HttpSession session,RedirectAttributes rttr) {
+            , HttpSession session, RedirectAttributes rttr) {
 
         //세션 값 가져옴
         CheckoutDeliveryResponseDto deliveryInfoNew = (CheckoutDeliveryResponseDto) session.getAttribute("deliveryNew");
         CheckoutPayResponseDto payInfoNew = (CheckoutPayResponseDto) session.getAttribute("payNew");
+
         //리다이렉트를 위한 dto 세션
         ProductCheckoutResDto redirectDto = (ProductCheckoutResDto) session.getAttribute("redirectDto");
+
+
+        //신규 배송지 등록에서 왔거나 결제 카드에서 왔거나 장바구니에서 왔는지 체크
+        int deliveryNew = 0;
+        int payNew = 0;
+
+        CheckoutPageResDto checkoutPageDto = new CheckoutPageResDto();     //상품 pk
+
+
+        //배송지 등록을 했을경우
+        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null ) {
+
+            deliveryNew = 1;
+
+        }
+
+        //결제 카드 등록을 했을경우
+        if (payInfoNew != null && payInfoNew.getId() != null ) {
+
+            payNew = 1;
+
+        }
 
 
         //배송지 등록이나 카드 등록으로 다시 이 페이지로 리다이렉트 할경우 그 컨트롤러에서 상품 pk와 상품 개수를 받아온다
         if (redirectDto != null) {
 
-            form = redirectDto;
+
+            //상품을 CheckoutPageResDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
+            checkoutPageDto = hanCheckoutService.checkoutPage(request, redirectDto);
+
+
+        } else {
+
+            //상품을 CheckoutPageResDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
+            checkoutPageDto = hanCheckoutService.checkoutPage(request, form);
+
+
+            if (form == null || form.getProductPk() == null) {
+
+                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
+
+                return "redirect:/checkout/cart";
+
+            }
+
 
         }
-        if (form == null || form.getProductPk() == null) {
 
-            rttr.addFlashAttribute("data", "잘못된 접근 입니다");
+        //배송지 목록이 있는지 체크
+        int deliveryEmptyCheck = 1;
 
-            return "redirect:/checkout/cart";
-
-        }
-
-
-        //상품을 CheckoutPageResDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-        CheckoutPageResDto checkoutPageDto = hanCheckoutService.checkoutPage(request, form);
+        //결제 목록이 있는지 체크
+        int payEmptyCheck = 1;
 
 
         //배송지 목록과 결제 목록이 없을경우
@@ -366,80 +420,102 @@ public class HanCheckoutController {
 
             model.addAttribute("payEmpty", 1);
 
+            deliveryEmptyCheck = 0;
+            payEmptyCheck = 0;
 
-            return "checkout/checkoutProduct";
 
             //배송지 목록이 없을경우
         } else if (checkoutPageDto.getDeliveryList().isEmpty()) {
 
             model.addAttribute("deliveryEmpty", 1);
 
-            return "checkout/checkoutProduct";
+            deliveryEmptyCheck = 0;
+
 
             //결제 목록이 없을경우
         } else if (checkoutPageDto.getPayList().isEmpty()) {
 
             model.addAttribute("payEmpty", 1);
 
-            return "checkout/checkoutProduct";
+            payEmptyCheck = 0;
+
 
         }
 
-        //배송지 목록
-        List<CheckoutDeliveryResponseDto> DeliveryListDto = checkoutPageDto.getDeliveryList();
+        if (deliveryEmptyCheck == 1) {
 
-        log.info("2222");
+            //배송지 목록
+            List<CheckoutDeliveryResponseDto> DeliveryListDto = checkoutPageDto.getDeliveryList();
 
+            log.info("2222");
 
-        //기본 배송지가 없고 배송지가 하나라도 등록되어있을경우 등록된 배송지의 맨 처음걸 보여준다
-        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null) {
+            //배송지 신규 등록을 했을경우
+            if (deliveryNew == 1) {
 
-            model.addAttribute("deliveryInfo", deliveryInfoNew);
-            model.addAttribute("deliveryInfoPhone", deliveryInfoNew.getRecipientPhoneNumber());
-
-        } else if (checkoutPageDto.getDefaultDelivery() == null) {
-
-            CheckoutDeliveryResponseDto deliveryInfo = DeliveryListDto.get(0);
-
-            model.addAttribute("deliveryInfo", deliveryInfo);
-            model.addAttribute("deliveryInfoPhone", deliveryInfo.getRecipientPhoneNumber());
-
-            log.info("3333");
-
-            //기본 배송지가 있을경우
-        } else {
-
-            Delivery deliveryInfo = checkoutPageDto.getDefaultDelivery();
-
-            model.addAttribute("deliveryInfo", deliveryInfo);
-            //기본배송지 목록의 휴대폰 번호에 하이폰을 넣어줌
-            model.addAttribute("deliveryInfoPhone",
-                    Formatter.changePhoneNumber(deliveryInfo.getRecipientPhoneNumber()));
+                model.addAttribute("deliveryInfo", deliveryInfoNew);
+                model.addAttribute("deliveryInfoPhone", deliveryInfoNew.getRecipientPhoneNumber());
 
 
-            log.info("4444");
+            } else {
+
+                //기본 배송지가 없고 배송지가 하나라도 등록되어있을경우 등록된 배송지의 맨 처음걸 보여준다
+                if (checkoutPageDto.getDefaultDelivery() == null) {
+
+                    CheckoutDeliveryResponseDto deliveryInfo = DeliveryListDto.get(0);
+
+                    model.addAttribute("deliveryInfo", deliveryInfo);
+                    model.addAttribute("deliveryInfoPhone", deliveryInfo.getRecipientPhoneNumber());
+
+                    log.info("3333");
+
+                    //기본 배송지가 있을경우
+                } else {
+
+                    Delivery deliveryInfo = checkoutPageDto.getDefaultDelivery();
+
+                    model.addAttribute("deliveryInfo", deliveryInfo);
+                    //기본배송지 목록의 휴대폰 번호에 하이폰을 넣어줌
+                    model.addAttribute("deliveryInfoPhone",
+                            Formatter.changePhoneNumber(deliveryInfo.getRecipientPhoneNumber()));
+
+
+                    log.info("4444");
+                }
+            }
+
+
         }
 
-        //결제 카드 목록
-        List<CheckoutPayResponseDto> PayListDto = checkoutPageDto.getPayList();
 
-        //결제카드 등록 모달에서 등록했을 경우
-        if (payInfoNew != null && payInfoNew.getId() != null) {
-            model.addAttribute("payInfo", payInfoNew);
-            model.addAttribute("payInfoCardNum", payInfoNew.getNumber());
-        }
-        //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
-        else if (checkoutPageDto.getDefaultPay() == null) {
+        if (payEmptyCheck == 1) {
 
-            model.addAttribute("payInfo", PayListDto.get(0));
-            model.addAttribute("payInfoCardNum", PayListDto.get(0).getNumber());
+            //결제 카드 목록
+            List<CheckoutPayResponseDto> PayListDto = checkoutPageDto.getPayList();
+
+            //결제카드 등록 모달에서 등록했을 경우
+            if (payNew == 1) {
+                model.addAttribute("payInfo", payInfoNew);
+                model.addAttribute("payInfoCardNum", payInfoNew.getNumber());
 
 
-            //기본 결제 카드가 있을경우
-        } else {
+            } else {
 
-            model.addAttribute("payInfo", checkoutPageDto.getDefaultPay());
-            model.addAttribute("payInfoCardNum", Formatter.CardNumFormat(checkoutPageDto.getDefaultPay().getNumber()));
+                                //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
+                if (checkoutPageDto.getDefaultPay() == null) {
+
+                    model.addAttribute("payInfo", PayListDto.get(0));
+                    model.addAttribute("payInfoCardNum", PayListDto.get(0).getNumber());
+
+
+                    //기본 결제 카드가 있을경우
+                } else {
+
+                    model.addAttribute("payInfo", checkoutPageDto.getDefaultPay());
+                    model.addAttribute("payInfoCardNum", Formatter.CardNumFormat(checkoutPageDto.getDefaultPay().getNumber()));
+
+                }
+
+            }
 
         }
 
@@ -573,6 +649,13 @@ public class HanCheckoutController {
 
             session.removeAttribute("payNew");
         }
+
+        // 세션에 상품 pk와 개수가 있을 경우 삭제
+        if (session.getAttribute("redirectDto") != null) {
+
+            session.removeAttribute("redirectDto");
+        }
+
 
         return "checkout/checkoutComplete";
     }

@@ -7,294 +7,381 @@
     <title>구름별 공방 : 홈</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+
+    <style>
+        .HanMainNewDiv {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateX(-300px);
+            transition: all 1.5s ease-in-out
+        }
+
+        .HanMainBodyTitle a {
+            text-decoration: none;
+            color: black;
+            outline: none;
+            border: none;
+            background-color: none;
+            font-size: 30px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+
+        }
+
+        .HanMainBodyTitle a:hover {
+
+            transform: translateY(-3px);
+
+        }
+
+
+
+        .active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 1;
+        }
+
+
+        .hidden {
+            opacity: 0;
+            transform: translateX(300px);
+            z-index: 0;
+        }
+
+        .hidden2 {
+            opacity: 0;
+            transform: translateX(300px);
+            z-index: 0;
+        }
+    </style>
+
+
 </head>
+
 <body>
 
-<!--헤더 네비-->
+    <!--헤더 네비-->
 
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
+    <header th:replace="/fragments/memberHeader::memberHeader"></header>
 
-<!-- 헤더 끝 -->
+    <!-- 헤더 끝 -->
 
-<!--알람-->
+    <!--알람-->
 
-<input type="hidden" th:value="${alert}" id="dataAlert">
-
-
-<!-- 메인 시작 -->
+    <input type="hidden" th:value="${alert}" id="dataAlert">
 
 
-<!-- 캐러셀 시작 -->
+    <!-- 메인 시작 -->
 
-<div class="HanCarouselBody">
+    <!-- 캐러셀 시작 -->
 
-    <!-- 왼쪽 버튼 -->
 
-    <button class="HanArrow HanArrowLeft"></button>
 
-    <div class="HanCarousel">
 
-        <div class="HanTrack">
 
-            <div class="HanTrackSlide"><img th:src="@{/images/test1.png}" alt="1"></div>
-            <div class="HanTrackSlide"><img th:src="@{/images/test2.png}" alt="2"></div>
-            <div class="HanTrackSlide"><img th:src="@{/images/test3.png}" alt="3"></div>
+    <div class="HanCarouselBody">
+
+
+        <div class="HanCarousel">
+
+
+            <div class="HanCarouselButton">
+
+                <!-- 왼쪽 버튼 -->
+                <button class="HanArrow HanArrowLeft"></button>
+
+                <!-- 오른쪽 버튼 -->
+                <button class="HanArrow HanArrowRight"></button>
+
+            </div>
+
+
+            <div class="HanTrack">
+
+                <div class="HanTrackSlide"><img th:src="@{images/carousel1.png}" alt="1"></div>
+                <div class="HanTrackSlide"><img th:src="@{images/carousel2.png}" alt="2"></div>
+                <div class="HanTrackSlide"><img th:src="@{images/carousel3.png}" alt="3"></div>
+
+            </div>
+
+            <!-- 인디케이터 -->
+
+            <div class="HanDots"></div>
 
         </div>
 
-        <!-- 인디케이터 -->
-
-        <div class="HanDots"></div>
-
-    </div>
-    <!-- 오른쪽 버튼 -->
-    <button class="HanArrow HanArrowRight"></button>
-
-</div>
-
-<!-- 캐러셀 끝 -->
-
-
-<div class="HanMainBody">
-
-    <div class="HanMainBodyTitle">
-
-        <p class="HanMainTitleP">신상품</p>
-        <p class="HanMainTitleP">베스트</p>
 
     </div>
 
-    <!--  베스트 상품 순  -->
-    <div class="HanMainNewDiv">
+    <!-- 캐러셀 끝 -->
 
-        <div class="HanMainNewDivCard" th:each="productCount : ${productListCount}">
+    <div class="HanMainBody">
 
-            <div class="HanMainNewDivCardImg">
-                <a th:href="@{'/product/details/'+${productCount.id}}">
-                <img th:src="@{${productCount.mainImagePath}}" alt="상품이미지">
-                </a>
+        <div class="HanMainBodyTitle">
 
-            </div>
-
-            <div class="HanMainNewDivCardPDiv">
-
-                <p class="HanMainNewDivCardPDivName" th:text="${productCount.name}">동화 일러스트 키캡 4종</p>
-                <p class="HanMainNewDivCardPDivPrice" th:text="${productCount.price}">20,000원</p>
-
-            </div>
+            <a id="showNew">신상품</a>
+            <a id="showBest">베스트</a>
 
         </div>
+        <div class="HanMainNewDivAera">
 
-    </div>
-    <!--  /베스트 상품 순  -->
-    <!--  신상품 순  -->
-    <div  class="HanMainNewDiv">
-        <div class="HanMainNewDivCard" th:each="productId : ${productListId}">
 
-            <div class="HanMainNewDivCardImg">
 
-                <a th:href="@{'/product/details/'+${productId.id}}">
-                    <img th:src="@{${productId.mainImagePath}}" alt="상품이미지">
-                </a>
+            <!--  신상품 순  -->
+
+            <div class="HanMainNewDiv  active" id="newProducts">
+                <div class="HanMainNewDivCard" th:each="productId : ${productListId}">
+
+                    <div class="HanMainNewDivCardImg">
+
+                        <a th:href="@{'/product/details/'+${productId.id}}">
+                            <img th:src="@{${productId.mainImagePath}}" alt="상품이미지">
+                        </a>
+
+                    </div>
+
+                    <div class="HanMainNewDivCardPDiv">
+
+                        <p class="HanMainNewDivCardPDivName" th:text="${productId.name}">동화 일러스트 키캡 4종</p>
+                        <p class="HanMainNewDivCardPDivPrice" th:text="${productId.price}">20,000원</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--  /신상품 순  -->
+
+            <!--  베스트 상품 순  -->
+            <div class="HanMainNewDiv hidden" id="bestProducts">
+
+                <div class="HanMainNewDivCard" th:each="productCount : ${productListCount}">
+
+                    <div class="HanMainNewDivCardImg">
+                        <a th:href="@{'/product/details/'+${productCount.id}}">
+                            <img th:src="@{${productCount.mainImagePath}}" alt="상품이미지">
+                        </a>
+
+                    </div>
+
+                    <div class="HanMainNewDivCardPDiv">
+
+                        <p class="HanMainNewDivCardPDivName" th:text="${productCount.name}">동화 일러스트 키캡 4종</p>
+                        <p class="HanMainNewDivCardPDivPrice" th:text="${productCount.price}">20,000원</p>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div class="HanMainNewDivCardPDiv">
-
-                <p class="HanMainNewDivCardPDivName" th:text="${productId.name}">동화 일러스트 키캡 4종</p>
-                <p class="HanMainNewDivCardPDivPrice" th:text="${productId.price}">20,000원</p>
-
-            </div>
+            <!--  /베스트 상품 순  -->
 
         </div>
-
     </div>
-    <!--  /신상품 순  -->
+
+    <!-- 메인 끝 -->
 
 
-</div>
+    <!-- 푸터 시작 -->
+
+    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 
 
-<!-- 메인 끝 -->
+    <!-- 푸터 끝 -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const bestProducts = document.getElementById("bestProducts");
+            const newProducts = document.getElementById("newProducts");
+            const newBtn = document.getElementById("showNew");
+            const bestBtn = document.getElementById("showBest");
+
+            newBtn.addEventListener("click", function () {
+
+                bestProducts.classList.remove("active");
+                bestProducts.classList.add("hidden");
 
 
-<script>
+                newProducts.classList.add("active");
+                newProducts.classList.remove("hidden");
 
 
-    //캐러셀 함수
-
-    const track = document.querySelector(".HanTrack");
-    const slides = document.querySelectorAll(".HanTrackSlide");
-    const prevBtn = document.querySelector(".HanArrowLeft");
-    const nextBtn = document.querySelector(".HanArrowRight");
-    const dotsContainer = document.querySelector(".HanDots");
-
-    let index = 0;
-    const totalSlides = slides.length;
-
-    // 슬라이드 복제 (무한 루프용)
-    const firstClone = slides[0].cloneNode(true);
-    const lastClone = slides[totalSlides - 1].cloneNode(true);
-
-    track.appendChild(firstClone);
-    track.insertBefore(lastClone, slides[0]);
-
-    const updatedSlides = document.querySelectorAll(".HanTrackSlide");
-    track.style.transform = `translateX(-100%)`;
-
-    // 인디케이터 생성
-    for (let i = 0; i < totalSlides; i++) {
-     const dot = document.createElement("div");
-     dot.classList.add("HanDot");
-     if (i === 0) dot.classList.add("HanActive");
-     dotsContainer.appendChild(dot);
-    }
-    const dots = document.querySelectorAll(".HanDot");
 
 
-    function updateSlide(position) {
+            });
 
-     track.style.transition = "transform 0.5s ease-in-out";
-     track.style.transform = `translateX(-${position * 100}%)`;
-    }
+            bestBtn.addEventListener("click", function () {
 
-    function updateDots() {
-     dots.forEach((dot, i) => {
-       dot.classList.toggle("HanActive", i === index);
-     });
-    }
+                newProducts.classList.remove("active");
+                newProducts.classList.add("hidden");
+
+                bestProducts.classList.add("active");
+                bestProducts.classList.remove("hidden");
 
 
-    //자동으로 오른쪽 이동시
-    function nextSlideAuto() {
+            });
+        });
+    </script>
 
-     //버튼 눌렀을시 시간 재설정해주는 함수
-     restartAutoPlay();
-     index++;
-     updateSlide(index + 1);
+    <script>
+        function toggleDropdown(event, dropdownId) {
+            event.preventDefault();
+            event.stopPropagation(); // 클릭한 요소에서 이벤트 전파 중지
 
-     if (index >= totalSlides) {
-       index = 0;
-       updateDots();
-       setTimeout(() => {
-         track.style.transition = "none";
-         track.style.transform = `translateX(-100%)`;
-       }, 500);
-     } else {
-       updateDots();
-     }
-    }
+            // 모든 드롭다운 닫기 (현재 선택된 것 제외)
+            document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
+                if (menu.id !== dropdownId) {
+                    menu.classList.remove("HanHeadershow");
+                }
+            });
 
+            // 현재 드롭다운 열기/닫기
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle("HanHeadershow");
+        }
 
-    //움직이는지 체크
-    let move = 1;
+        // 다른 곳을 클릭하면 드롭다운 닫기
+        document.addEventListener("click", function () {
+            document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
+                menu.classList.remove("HanHeadershow");
+            });
+        });
 
-    //오른쪽 이동
-    function nextSlide() {
-     if (move == 2) {
-
-       return;
-     }
-
-     move = 2;
-
-     //버튼 눌렀을시 시간 재설정해주는 함수
-     restartAutoPlay();
-     index++;
-     updateSlide(index + 1);
-
-     if (index >= totalSlides) {
-       index = 0;
-       updateDots();
-       move = 2;
-       setTimeout(() => {
-         track.style.transition = "none";
-         track.style.transform = `translateX(-100%)`;
-         move = 1;
-       }, 500);
-     } else {
-       updateDots();
-       setTimeout(() => {
-         move = 1;
-       }, 500);
-     }
-    }
+        // 드롭다운 안에서 클릭해도 닫히지 않도록 설정
+        document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
+            menu.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+        });
 
 
-    //왼쪽 이동
-    function prevSlide() {
+        const track = document.querySelector(".HanTrack");
+        const slides = document.querySelectorAll(".HanTrackSlide");
+        const prevBtn = document.querySelector(".HanArrowLeft");
+        const nextBtn = document.querySelector(".HanArrowRight");
+        const dotsContainer = document.querySelector(".HanDots");
 
-     if (move == 2) {
+        let index = 0;
+        const totalSlides = slides.length;
 
-       return;
-     }
+        // 인디케이터 생성
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement("div");
+            dot.classList.add("HanDot");
+            if (i === 0) dot.classList.add("HanActive");
+            dotsContainer.appendChild(dot);
+        }
+        const dots = document.querySelectorAll(".HanDot");
 
-     move = 2;
+        //움직이는지 체크
+        let move = 1;
 
-     restartAutoPlay();
-     index--;
-     updateSlide(index + 1);
+        // 초기 스타일 설정
+        slides.forEach((slide, i) => {
+            slide.style.position = "absolute";
+            slide.style.top = "0";
+            slide.style.left = "0";
+            slide.style.width = "100%";
+            slide.style.opacity = i === 0 ? "1" : "0";
+            slide.style.transition = "opacity 1.8s ease";
+            slide.style.zIndex = i === 0 ? "1" : "0";
+        });
 
-     if (index < 0) {
-       index = totalSlides - 1;
-       updateDots();
+        function updateSlide(newIndex) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = i === newIndex ? "1" : "0";
+                slide.style.zIndex = i === newIndex ? "1" : "0";
+            });
+        }
 
-       setTimeout(() => {
-         track.style.transition = "none";
-         track.style.transform = `translateX(-${totalSlides * 100}%)`;
-         move = 1;
-       }, 500);
-     } else {
-       updateDots();
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("HanActive", i === index);
+            });
+        }
 
-       setTimeout(() => {
-         move = 1;
-       }, 500);
-     }
-    }
+        //다음 페이지
+        function nextSlide() {
 
+            if (move == 2) {
+                return;
+            }
 
-    function goToSlide(i) {
-     restartAutoPlay();
-     index = i;
-     updateSlide(index + 1);
-     updateDots();
-    }
+            move = 2;
 
-    nextBtn.addEventListener("click", nextSlide);
-    prevBtn.addEventListener("click", prevSlide);
-    dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
+            restartAutoPlay();
 
-    // 자동 슬라이드 (3초마다)
-    let autoPlay = setInterval(nextSlide, 3000);
+            //화면 전환 시간보다 빠르게 넘기지 못하도록 딜레이주는 함수
+            setTimeout(() => {
 
-    let autoPlayTimeout; // 사용자 조작 후 자동 재개 타이머
+                index = (index + 1) % totalSlides;
+                move = 1;
+            }, 800);
 
-    // 자동슬라이더 시간을 다시 맞춰주는 함수
-    function restartAutoPlay() {
+            updateSlide(index);
+            updateDots();
+        }
 
-     // 기존 자동 슬라이드 멈추기
-     clearInterval(autoPlay);
-
-     // 이전에 설정된 자동 재개 타이머 제거
-     clearTimeout(autoPlayTimeout);
-
-     // 다시 자동 슬라이드 시작
-     autoPlayTimeout = setInterval(nextSlide, 3000);
-
-
-    }
+        //이전 페이지
+        function prevSlide() {
 
 
-</script>
+            if (move == 2) {
+                return;
+            }
+
+            move = 2;
+
+            restartAutoPlay();
+
+            //화면 전환 시간보다 빠르게 넘기지 못하도록 딜레이주는 함수
+            setTimeout(() => {
+                index = (index - 1 + totalSlides) % totalSlides;
+                move = 1;
+            }, 800);
+
+            updateSlide(index);
+            updateDots();
+        }
+
+        function goToSlide(i) {
+            restartAutoPlay();
+            index = i;
+            updateSlide(index);
+            updateDots();
+        }
+
+        nextBtn.addEventListener("click", nextSlide);
+        prevBtn.addEventListener("click", prevSlide);
+        dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
+
+        // 자동 슬라이드
+        let autoPlay = setInterval(nextSlide, 5000);
+        let autoPlayTimeout;
+
+        function restartAutoPlay() {
+            clearInterval(autoPlay);
+            clearTimeout(autoPlayTimeout);
+            autoPlayTimeout = setInterval(nextSlide, 5000);
+        }
 
 
-<!--푸터-->
 
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
-<script th:src="@{/js/member/alert.js}"></script>
+
+
+    </script>
+
+
+    <script th:src="@{/js/member/alert.js}"></script>
+
 </body>
 
 </html>

@@ -23,4 +23,6 @@ public class CheckoutCartDto {
     private String productSumPrise;     //상품 합계 가격
 
     private int cartCnt;                //상품 개수
+
+
 }
