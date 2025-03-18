@@ -5,43 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매자 헤더</title>
+    <style>
+
+    </style>
 </head>
 
 <body>
 
-<header th:fragment="masterHeader">
+    <header th:fragment="masterHeader">
 
-    <div class="masterHeader">
+        <div class="masterHeader">
 
-        <div class="headerTitle">
+            <div class="headerTitle">
 
-            <div class="headerTitleMenu">
-                    <i class="fa-solid fa-user-tie"></i>
+                <div id="mainLogo">
+                    <img th:src="@{/images/mainLogoTitle.png}" width="auto" height="40px">
+                </div>
+                <div>
+                    <p class="adminText">Administrator</p>
+                </div>
             </div>
 
-            <div>
-                <p class="adminText siteName">구름별 공방</p>
-                <p class="adminText">Administrator</p>
+            <div class="headerTitleADiv">
+
+                <div class="homePage">
+
+                    <a th:href="@{/}"><i class="fa-solid fa-house"></i><span>홈페이지</span></a>
+                </div>
+
+                <div class="logout">
+                    <a th:href="@{/logout}"><i class="fa-solid fa-power-off"></i><span>로그아웃</span></a>
+                </div>
+
             </div>
         </div>
 
-        <div class="headerTitleADiv">
+    </header>
 
-            <div class="homePage">
-
-                <a th:href="@{/}"><i class="fa-solid fa-house"></i><span>홈페이지</span></a>
-            </div>
-
-            <div class="logout">
-                <a th:href="@{/logout}" ><i class="fa-solid fa-power-off"></i><span>로그아웃</span></a>
-            </div>
-
-        </div>
-    </div>
-
-</header>
-
-<!-- 헤더 끝 -->
+    <!-- 헤더 끝 -->
 
 </body>
 
