@@ -44,7 +44,7 @@
                 <p>카드 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
               </div>
 
-              <label  id="hiddenName">카드 별칭 <i class="fa-solid fa-circle-info"></i></label>
+              <label id="hiddenName">카드 별칭 <i class="fa-solid fa-circle-info"></i></label>
               <input type="text" name="nickName" id="HanCardNewLiTitleInput" placeholder="카드 별칭을 입력해주세요"
                 class="HanSignUpInput" maxlength="10" th:value="${nickName}">
 
@@ -156,7 +156,7 @@
       </div>
 
     </div>
-    </div>
+  </div>
   </div>
 
   <!-- 메인 끝 -->
@@ -164,7 +164,11 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script th:src="@{/js/member/createCard.js}"></script>
   <script th:src="@{/js/member/alert.js}"></script>
-
+  <script>
+    document.querySelector(".HanCancel").addEventListener("click", function () {
+      HanSignUpForm.reset();
+    })
+  </script>
 
 </body>
 

@@ -421,7 +421,7 @@
 
     //재고수 보다 많이 사는 거 막기
     let productCount = document.querySelector(".product-info__count").textContent;
-    if (currentQuantity > parseInt(productCount)) {
+    if (currentQuantity > parseInt(productCount) && parseInt(productCount) !==0 ) {
       alert("재고수보다 많이 구매할 수 없습니다.");
       currentQuantity = parseInt(productCount);
     }

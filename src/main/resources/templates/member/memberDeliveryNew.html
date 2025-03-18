@@ -167,7 +167,7 @@
         </ul>
 
         <div class="HanSignUpButton">
-          <button class="HanCancel" type="reset">취소</button>
+          <button class="HanCancel" type="reset" >취소</button>
           <button class="HanSubmit" type="submit" form="HanSignUpForm" id="HanSignUpSubmit">등록</button>
         </div>
 
@@ -187,7 +187,11 @@
   <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script th:src="@{/js/member/delivery.js}"></script>
-
+<script>
+  document.querySelector(".HanCancel").addEventListener("click",function(){
+    HanSignUpForm.reset();
+  })
+</script>
 </body>
 
 </html>
