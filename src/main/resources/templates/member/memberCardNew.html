@@ -164,6 +164,11 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script th:src="@{/js/member/createCard.js}"></script>
   <script th:src="@{/js/member/alert.js}"></script>
+<script>
+  document.querySelector(".HanCancel").addEventListener("click",function(){
+    HanSignUpForm.reset();
+  })
+</script>
 
 
 </body>
