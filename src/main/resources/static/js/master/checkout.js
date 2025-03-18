@@ -60,21 +60,7 @@ function dataAlertFunction() {
     }
 };
 
-const priceElements = document.querySelectorAll(".price");
-const totalPriceElements = document.querySelectorAll(".totalPrice");
 
-function formatPrice(p){
-  return p.toLocaleString();
-}
-
-priceElements.forEach((priceElement,index)=>{
-  const price = parseFloat(priceElement.textContent);
-  const totalPrice = parseFloat(totalPriceElements[index].textContent);
-
-  priceElement.textContent = formatPrice(price)+" 원"
-  totalPriceElements[index].textContent = formatPrice(totalPrice) + " 원";
-
-});
 let deleteBtn = document.getElementById("deleteBtn");
 let checkoutId = "http://localhost:8080/master/checkout/" +document.getElementById("id").value+"/delete";
 deleteBtn.addEventListener("click", () => {

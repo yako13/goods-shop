@@ -1,5 +1,6 @@
 package Spring.Goods_Shop.dto.checkout;
 
+import Spring.Goods_Shop.dto.product.ProductListResponseDto;
 import Spring.Goods_Shop.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +49,7 @@ public class CheckoutDetailsResponseDto {
     private String cardCode;
 
     //상품 리스트
-    private List<Product> productList;
+    private List<ProductListResponseDto> productList;
 
     //주문자명
     private String ordererName;

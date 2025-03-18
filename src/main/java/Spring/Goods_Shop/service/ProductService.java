@@ -62,11 +62,10 @@ public class ProductService {
     }
 
     // 등록된 상품 리스트 조회 호출 (관리자)
-    public Page<MasterProductListResponseDto> getMasterProductListDto(
-            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
-        Page<Product> productList = productRepository.findAll(pageable);
-
-        return productList.map(this::toMasterProductListResponseDto);
+    public Page<MasterProductListResponseDto> getMasterProductListDto (int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt")); // 등록최신순 정렬
+        Page<Product> productPage = productRepository.findAll(pageable);
+        return productPage.map(this::toMasterProductListResponseDto);
     }
 
     // 상품 리스트 조회 (관리자)
