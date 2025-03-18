@@ -42,8 +42,8 @@
             </div>
 
             <div class="HanCkListDetailOrder">
-                <p class="HanCkListDetailOrderP2">주문번호 : 2025030301</p>
-                <p>주문 날짜 : 2025.03.04 06:00</p>
+                <p class="HanCkListDetailOrderP2">주문번호 : [[${CheckoutListDetailDto.checkout.checkoutCode}]]</p>
+                <p>주문 날짜 : [[${CheckoutListDetailDto.checkoutCreatedAt}]]</p>
 
             </div>
         </div>
@@ -62,7 +62,7 @@
                 </div>
                 <!-- 카트 아이템 항목 시작 -->
 
-                <div class="HanPadding">
+                <div class="HanPadding" th:each="CheckoutCartDtoList : ${CheckoutListDetailDto.CheckoutCartDtoList}">
 
                     <div class="HanCkListDetailInfoDiv">
 
@@ -70,49 +70,18 @@
 
                             <div class="HanCkListDetailImgDiv">
 
-                                <img th:src="@{/images/product1.png}" alt="">
+                                <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}" alt="">
 
                             </div>
 
                             <div class="HanCkListDetailProductName">
 
-                                <p class="HanCkListDetailProductDate">2025.03.04 06:00 결제</p>
+                                <p class="HanCkListDetailProductDate">[[${CheckoutListDetailDto.checkoutCreatedAt}]] 결제</p>
 
                                 <div class="HanCkListDetailProductNameDiv">
 
-                                    <p class="HanCkListDetailProductNameP">동화 일러스트 키캡 4종</p>
-                                    <p class="HanCkListDetailProductPriceP">20,000원</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <!-- 카트 아이템 항목 끝 -->
-
-                    <!-- 카트 아이템 항목 시작 -->
-
-                    <div class="HanCkListDetailInfoDiv">
-
-                        <div class="HanCkListDetailInfo">
-
-                            <div class="HanCkListDetailImgDiv">
-
-                                <img th:src="@{/images/product1.png}" alt="">
-
-                            </div>
-
-                            <div class="HanCkListDetailProductName">
-
-                                <p class="HanCkListDetailProductDate">2025.03.04 06:00 결제</p>
-
-                                <div class="HanCkListDetailProductNameDiv">
-
-                                    <p class="HanCkListDetailProductNameP">동화 일러스트 키캡 4종</p>
-                                    <p class="HanCkListDetailProductPriceP">20,000원</p>
+                                    <p class="HanCkListDetailProductNameP">[[${CheckoutCartDtoList.productName}]]</p>
+                                    <p class="HanCkListDetailProductPriceP">[[${CheckoutCartDtoList.productSumPrise}]]</p>
                                 </div>
 
                             </div>
@@ -142,14 +111,14 @@
                 <div class="HanPadding">
 
                     <div class="HanCkListDetailDelivery">
-                        <p class="HanCkListDetailDeliveryName">홍길동(집)</p>
-                        <p class="HanCkListDetailDeliveryPhone">010-1111-2222</p>
+                        <p class="HanCkListDetailDeliveryName">[[${CheckoutListDetailDto.checkout.checkoutName}]]([[${CheckoutListDetailDto.checkout.checkoutDeliveryName}]])</p>
+                        <p class="HanCkListDetailDeliveryPhone">[[${CheckoutListDetailDto.checkoutPhoneNumber}]]</p>
 
                         <div class="HanCkListDetailDeliveryText">
-                            <p class="HanCkSubmitMidSpan">12345</p>
-                            <p>부산시 금곡동 101호</p>
+                            <p class="HanCkSubmitMidSpan">[[${CheckoutListDetailDto.checkout.checkoutZipCode}]]</p>
+                            <p>[[${CheckoutListDetailDto.checkout.checkoutAddress}]]</p>
                         </div>
-                        <p class="">배송 요청 사항 : 천천히 와주셔도 됩니다</p>
+                        <p class="">[[${CheckoutListDetailDto.checkout.checkoutDeliveryMemo}]]</p>
 
                     </div>
 
@@ -184,12 +153,12 @@
 
                     <div class="HanCkListDetailCheckoutDiv">
 
-                        <p>40,000원</p>
-                        <p>3,000원</p>
-                        <p>국민카드</p>
+                        <p>[[${CheckoutListDetailDto.checkoutProductSum}]]</p>
+                        <p>[[${CheckoutListDetailDto.checkoutDeliveryCost}]]</p> 
+                        <p>[[${CheckoutListDetailDto.checkout.checkoutCardName}]]</p>
 
                         <div class="HanCkListDetailCheckoutP1">
-                            <p>43,000원</p>
+                            <p>[[${CheckoutListDetailDto.checkoutTotalPay}]]</p>
                         </div>
 
                     </div>

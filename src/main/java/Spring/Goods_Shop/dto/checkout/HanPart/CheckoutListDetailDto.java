@@ -21,7 +21,10 @@ public class CheckoutListDetailDto {
     private List<CheckoutCartDto> CheckoutCartDtoList;
 
     //총 결제 금액
-    private String CheckoutTotalPay;
+    private String checkoutTotalPay;
+
+    //총 상품 합계 금액
+    private String checkoutProductSum;
 
     //수신자 전화번호
     private String checkoutPhoneNumber;
@@ -30,13 +33,18 @@ public class CheckoutListDetailDto {
     private String checkoutDeliveryCost;
 
     //택배사명
-    private String DeliveryCompany;
+    private String deliveryCompany;
 
     //배송 상태
     private String checkoutPostStep;
 
     //주문 상태
     private String checkoutStep;
+
+    //주문 시간
+    private String checkoutCreatedAt;
+
+
 
 
 

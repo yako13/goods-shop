@@ -129,7 +129,7 @@ public class CheckoutService {
                 .checkoutDate(Formatter.getLocalDate(checkout.getCreatedAt()))
                 .deliveryCode(checkout.getCheckoutDeliveryCode())
                 .totalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
-                .totalProductCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutDeliveryCost().subtract(checkout.getCheckoutTotalPay())))
+                .totalProductCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay().subtract(checkout.getCheckoutDeliveryCost())))
                 .deliveryCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutDeliveryCost()))
                 .cardCode(Formatter.changeCardNumber(checkout.getCheckoutCardNum()))
                 .productList(productListResponseDtos)
