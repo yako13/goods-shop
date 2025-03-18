@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -286,6 +287,33 @@ public class ProductService {
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .mainImagePath(productMainImagePath)
                 .build();
+    }
+
+    //판매 개수가 제일 높은 3개의 항목 가져옴
+    public List<ProductListResponseDto> getSellingTop3Product(){
+         List<Product> productList =productRepository.findTop3ByOrderBySellingCountDesc();
+
+         List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
+
+         for(Product product : productList){
+             ProductImage productMainImage = product.getProductImage();
+             String productMainImagePath = null;
+
+             if (productMainImage != null) {
+                 productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+             }
+
+             ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
+                     .id(product.getId())
+                     .name(product.getName())
+                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                     .mainImagePath(productMainImagePath)
+                     .build();
+
+             productListResponseDtoList.add(productListResponseDto);
+         }
+
+        return productListResponseDtoList;
     }
 
     /**
