@@ -1,208 +1,205 @@
- @font-face {
-   font-family: 'NanumSquareRound';
-   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-   font-weight: normal;
-   font-style: normal;
- }
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
- * {
-   font-family: 'NanumSquareRound';
- }
+* {
+  font-family: "NanumSquareRound";
+}
 
+body {
+  margin: 0;
+}
 
- body {
-   margin: 0;
- }
+table {
+  font-size: 12px;
+}
 
- table {
-   font-size: 12px;
- }
+.rwd-table {
+  border: 1px #a39485 solid;
+  font-size: 0.9em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+}
 
- .rwd-table {
-   border: 1px #a39485 solid;
-   font-size: 0.9em;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-   width: 100%;
-   border-collapse: collapse;
-   border-radius: 5px;
-   overflow: hidden;
- }
+.rwd-table tr:first-child {
+  border-top: none;
+  color: #fff;
+  background-color: #33415c;
+}
 
- .rwd-table tr:first-child {
-   border-top: none;
-   color: #fff;
-   background-color: #33415c;
- }
+.rwd-table tr {
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  background-color: #ffffff;
+}
 
- .rwd-table tr {
-   border-top: 1px solid #808080;
-   border-bottom: 1px solid #808080;
-   background-color: #ffffff;
- }
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ffffff;
+}
 
- .rwd-table tr:nth-child(odd):not(:first-child) {
-   background-color: #ffffff;
- }
+.rwd-table th {
+  display: none;
+}
 
- .rwd-table th {
-   display: none;
- }
+.rwd-table td {
+  display: block;
+}
 
- .rwd-table td {
-   display: block;
- }
+.rwd-table td:first-child {
+  margin-top: 0.5em;
+}
 
- .rwd-table td:first-child {
-   margin-top: .5em;
- }
+.rwd-table td:last-child {
+  margin-bottom: 0.5em;
+}
 
- .rwd-table td:last-child {
-   margin-bottom: .5em;
- }
+.rwd-table th,
+.rwd-table td {
+  text-align: center;
+}
 
- .rwd-table th,
- .rwd-table td {
-   text-align: center;
- }
+.rwd-table {
+  color: #333;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
 
- .rwd-table {
-   color: #333;
-   border-radius: .4em;
-   overflow: hidden;
- }
+.rwd-table tr {
+  border-color: #ccc;
+}
 
- .rwd-table tr {
-   border-color: #ccc;
- }
+.rwd-table th,
+.rwd-table td {
+  padding: 0.5em 1em;
+}
 
- .rwd-table th,
- .rwd-table td {
-   padding: .5em 1em;
- }
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
 
- @media screen and (max-width: 601px) {
-   .rwd-table tr:nth-child(2) {
-     border-top: none;
-   }
- }
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #fcf7ff;
+  }
 
- @media screen and (min-width: 600px) {
-   .rwd-table tr:hover:not(:first-child) {
-     background-color: #fcf7ff;
-   }
+  .rwd-table td:before {
+    display: none;
+  }
 
-   .rwd-table td:before {
-     display: none;
-   }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: 0.25em 0.5em;
+  }
 
-   .rwd-table th,
-   .rwd-table td {
-     display: table-cell;
-     padding: .25em .5em;
-   }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
 
-   .rwd-table th:first-child,
-   .rwd-table td:first-child {
-     padding-left: 0;
-   }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
 
-   .rwd-table th:last-child,
-   .rwd-table td:last-child {
-     padding-right: 0;
-   }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
 
-   .rwd-table th,
-   .rwd-table td {
-     padding: 1em !important;
-   }
- }
+.container {
+  display: block;
+  text-align: center;
+  min-height: 800px;
+  margin-left: 32px;
+  margin-right: 50px;
+}
 
+.totalPrice {
+  color: red;
+}
 
- .container {
-   display: block;
-   text-align: center;
-   min-height: 800px;
-   margin-left: 50px;
-   margin-right: 50px;
- }
+h2 {
+  text-align: left;
+  margin-top: 80px;
+}
 
- .totalPrice {
-   color: red;
- }
+.orderList {
+  height: 70px;
+  text-align: left;
 
- h2 {
-   text-align: left;
-   margin-top: 80px;
- }
+  p {
+    padding-top: 30px;
+  }
+}
 
- .orderList {
-   height: 70px;
-   text-align: left;
+#red {
+  color: red;
+}
 
-   p {
-     padding-top: 30px;
-   }
- }
+a {
+  text-decoration: none;
 
- #red {
-   color: red;
- }
+  b {
+    color: black;
+  }
+}
 
+.pagination {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+}
 
+.pagination .page-item {
+  margin: 0 5px;
+}
 
- a {
-   text-decoration: none;
+.pagination .page-link {
+  color: #ff84f4;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: all 0.2s ease-in-out;
+}
 
-   b {
-     color: black;
-   }
- }
+.pagination .page-link:hover {
+  background-color: #ffddfc;
+  color: white;
+}
 
- .pagination {
-   margin: 1rem;
-   display: flex;
-   justify-content: center;
- }
+.pagination .active .page-link {
+  background-color: #fec3fa;
+  color: white;
+  border: none;
+}
 
- .pagination .page-item {
-   margin: 0 5px;
- }
+.pagination .disabled .page-link {
+  color: #ccc;
+  pointer-events: none;
+  background-color: #f8f9fa;
+}
 
- .pagination .page-link {
-   color: #ffddfc;
-   border-radius: 8px;
-   padding: 8px 12px;
-   transition: all 0.2s ease-in-out;
- }
+.buttonAndTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
 
- .pagination .page-link:hover {
-   background-color: #ffddfc;
-   color: white;
- }
+#checkoutCode {
+  color: #000;
+  font-weight: 600;
+}
 
- .pagination .active .page-link {
-   background-color: #fec3fa;
-   color: white;
-   border: none;
- }
-
- .pagination .disabled .page-link {
-   color: #ccc;
-   pointer-events: none;
-   background-color: #f8f9fa;
- }
-
- .buttonAndTotal {
-   display: flex;
-   justify-content: space-between;
-   margin-bottom: 0.5rem;
- }
-
- #checkoutCode {
-   color: #000;
-   font-weight: 600;
- }
-
- ul{
+ul {
   list-style: none;
- }
+}

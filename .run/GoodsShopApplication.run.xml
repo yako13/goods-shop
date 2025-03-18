@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GoodsShopApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="SPRING_PROFILES_ACTIVE" value="$SPRING_PROFILES_ACTIVE$" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="Spring.Goods_Shop.GoodsShopApplication" />
+    <module name="Goods-Shop.main" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="Spring.Goods_Shop.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

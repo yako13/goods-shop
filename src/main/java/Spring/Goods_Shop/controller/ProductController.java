@@ -119,11 +119,13 @@ public class ProductController {
 
     // 등록된 상품 리스트
     @GetMapping("/master/product/list")
-    public String masterProductList(Model model, @PageableDefault Pageable pageable) {
-        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(pageable);
+    public String masterProductList(@RequestParam(defaultValue = "0")int page,
+                                    @RequestParam(defaultValue = "10")int size,Model model) {
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(page, size);
         model.addAttribute("productList", productList.getContent());
         model.addAttribute("page", productList);
         model.addAttribute("currentPage", productList.getNumber());
+        model.addAttribute("size", size);
         return "product/master-product-list";
     }
 

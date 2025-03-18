@@ -11,7 +11,7 @@ $("#hiddenName").mouseover(function () {
     $("#hiddenNameArea").css("display", "none");
   })
 
-const name_check = /^[가-힣0-9]{2,10}|[a-zA-Z0-9]{2,10}$/;
+const name_check = /^[가-힣0-9]{2,10}$|^[a-zA-Z0-9]{2,10}$/;
 
   //기본결제카드 중복 여부 확인용
   let check_bol = 0;

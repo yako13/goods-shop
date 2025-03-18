@@ -15,10 +15,12 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "checkout")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Checkout extends BaseTime {
 
     @Id

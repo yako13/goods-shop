@@ -19,9 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -61,8 +59,8 @@ public class CheckoutService {
                     .id(checkout.getId())
                     .checkoutCode(checkout.getCheckoutCode())
                     .checkoutProductName(productInfo)
-                    .checkoutName(checkout.getCheckoutName())
-                    .checkoutDeliveryName(checkout.getCheckoutDeliveryName())
+                    .checkoutName(checkout.getMember().getName())
+                    .checkoutRecipientName(checkout.getCheckoutName())
                     .checkoutPostStep(Formatter.getDeliveryState(checkout.getCheckoutPostStep()))
                     .checkoutStep(Formatter.getCheckoutState(checkout.getCheckoutStep()))
                     .checkoutTotalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
@@ -100,6 +98,27 @@ public class CheckoutService {
             ordererPhoneNumber = Formatter.changePhoneNumber(checkout.getMember().getPhoneNumber());
         }
 
+        List<ProductListResponseDto> productListResponseDtos = new ArrayList<>();
+
+        //주문 상세 리스트의 제품 찾기
+        for(CheckoutDetails checkoutDetails1 : checkoutDetailsList){
+
+            //주문한 상품 수량을 BigDecimal 형변환
+            BigDecimal productCount = new BigDecimal(checkoutDetails1.getCheckoutDetailCnt());
+
+
+            ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
+                    .id(checkoutDetails1.getProduct().getId())
+                    .name(checkoutDetails1.getProduct().getName())
+                    .count(checkoutDetails1.getCheckoutDetailCnt())
+                    .price(Formatter.changeBigDecimalFormat(checkoutDetails1.getProduct().getPrice()))
+                    .totalPrice(Formatter.changeBigDecimalFormat(checkoutDetails1.getProduct().getPrice().multiply(productCount))) //상품 총 가격 = 구매개수 X 상품 개당 가격
+                    .mainImagePath(productImageManager.createImageUrl(checkoutDetails1.getProduct().getProductImage().getImageFullName()))
+                    .build();
+
+            productListResponseDtos.add(productListResponseDto);
+        }
+
 
         return CheckoutDetailsResponseDto.builder()
                 .id(checkout.getId())
@@ -110,10 +129,10 @@ public class CheckoutService {
                 .checkoutDate(Formatter.getLocalDate(checkout.getCreatedAt()))
                 .deliveryCode(checkout.getCheckoutDeliveryCode())
                 .totalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
-                .totalProductCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay().subtract(checkout.getCheckoutDeliveryCost())))
+                .totalProductCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutDeliveryCost().subtract(checkout.getCheckoutTotalPay())))
                 .deliveryCost(Formatter.changeBigDecimalFormat(checkout.getCheckoutDeliveryCost()))
                 .cardCode(Formatter.changeCardNumber(checkout.getCheckoutCardNum()))
-                .productList(productList)
+                .productList(productListResponseDtos)
                 .ordererName(checkout.getMember().getName())
                 .ordererPhoneNumber(ordererPhoneNumber)
                 .ordererId(checkout.getMember().getUserId())
@@ -202,8 +221,10 @@ public class CheckoutService {
 
 
             checkoutResponseDtos.add(checkoutResponseDto);
-        }
 
+        }
+        //id기준 내림차순
+        checkoutResponseDtos.sort(Comparator.comparing(CheckoutResponseDto::getId).reversed());
         return checkoutResponseDtos;
     }
 }

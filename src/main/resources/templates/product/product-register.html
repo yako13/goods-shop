@@ -71,7 +71,7 @@
                 <option value="#" disabled="disabled" selected>
                   카테고리를 선택해주세요
                 </option>
-                <option value="PHOTO_CARD">포토카드</option>
+                <option value="PHOTO_CARD">포토카드홀더</option>
                 <option value="MEMO">메모지</option>
                 <option value="STICKER">스티커</option>
                 <option value="POSTCARD">엽서</option>
@@ -307,42 +307,53 @@
       let checkDescImageContainer = document.querySelectorAll(
         ".descImage-image-container"
       );
-      console.log("sub: " + Number(checkSubImageContainer.length));
-      console.log("desc: " + Number(checkDescImageContainer.length));
 
       let cPrice = /^[0-9]+$/;
 
       if (checkProductName.value.length === 0) {
         alert("상품명은 필수 입력 사항입니다.");
         return false;
-      } else if (checkCategory.value === "#") {
+      }
+      if (checkCategory.value === "#") {
         alert("상품 카테고리는 필수 입력 사항입니다.");
         return false;
-      } else if (checkPrice.value.length === 0) {
+      }
+      if (checkPrice.value.length === 0) {
         alert("판매 가격은 필수 입력 사항입니다.");
         return false;
-      } else if (!cPrice.test(checkPrice.value)) {
+      }
+      if (!cPrice.test(checkPrice.value)) {
         alert("판매 가격은 숫자만 입력 가능합니다.");
         return false;
-      } else if (checkPrice.value < 100) {
+      }
+      if (Number(checkPrice.value) < 100) {
         alert("최소 판매 금액은 100원입니다.");
         return false;
-      } else if (checkCount.value === 0) {
+      }
+      if (checkCount.value.length === 0) {
         alert("재고 수량은 필수 입력 사항입니다.");
         return false;
-      } else if (!cPrice.test(checkCount.value)) {
+      }
+      if (!cPrice.test(checkCount.value)) {
         alert("재고 수량은 숫자만 입력 가능합니다.");
         return false;
-      } else if (checkMainImage.files.length === 0) {
+      }
+      if (checkMainImage.files.length === 0) {
         alert("상품 메인 이미지는 필수 입력 사항입니다.");
         return false;
-      } else if (Number(checkSubImageContainer.length) > 3) {
+      }
+      if (Number(checkSubImageContainer.length) > 3) {
         alert("상품 서브이미지는 최대 3장까지 등록 가능합니다.");
         return false;
-      } else if (Number(checkDescImageContainer.length) > 5) {
+      }
+      if (Number(checkDescImageContainer.length) > 5) {
         alert("상품 설명 이미지는 최대 5장까지 등록 가능합니다.");
         return false;
       }
+      if (!confirm("상품 정보를 저장하시겠습니까?")) {
+        return false;
+      }
+      alert("상품정보가 저장되었습니다.");
       return true;
     }
   </script>

@@ -7,7 +7,8 @@ import org.hibernate.annotations.Comment;
 
 
 @Table(name = "delivery")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
