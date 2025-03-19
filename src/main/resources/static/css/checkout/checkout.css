@@ -1097,7 +1097,7 @@
   /* 내용이 넘칠 경우 스크롤 표시 */
   overflow-y: auto;
 
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 
   animation: fadeIn 0.3s ease;
   /* 모달 등장 애니메이션 */
