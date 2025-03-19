@@ -84,6 +84,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .count(product.getCount())
+                .sellingCount(product.getSellingCount())
                 .mainImagePath(productMainImagePath)
                 .productCategory(Formatter.getProductCategory(product.getProductCategory()))
                 .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
