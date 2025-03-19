@@ -63,8 +63,17 @@ public class ProductService {
     }
 
     // 등록된 상품 리스트 조회 호출 (관리자)
-    public Page<MasterProductListResponseDto> getMasterProductListDto (int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt")); // 등록최신순 정렬
+    public Page<MasterProductListResponseDto> getMasterProductListDto (int page, int size, String sort) {
+
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
+//        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt")); // 등록최신순 정렬
         Page<Product> productPage = productRepository.findAll(pageable);
         return productPage.map(this::toMasterProductListResponseDto);
     }
@@ -173,7 +182,7 @@ public class ProductService {
         } else if ("price_desc".equals(sort)) {
             pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
         } else {
-            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
         }
         Page<Product> productList = productRepository.findAll(pageable);
         return productList.map(this::toProductListResponseDto);

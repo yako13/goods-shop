@@ -120,12 +120,15 @@ public class ProductController {
     // 등록된 상품 리스트
     @GetMapping("/master/product/list")
     public String masterProductList(@RequestParam(defaultValue = "0")int page,
-                                    @RequestParam(defaultValue = "10")int size,Model model) {
-        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(page, size);
+                                    @RequestParam(defaultValue = "10")int size,
+                                    @RequestParam(defaultValue = "default")String sort,
+                                    Model model) {
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(page, size, sort);
         model.addAttribute("productList", productList.getContent());
         model.addAttribute("page", productList);
         model.addAttribute("currentPage", productList.getNumber());
         model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
         return "product/master-product-list";
     }
 

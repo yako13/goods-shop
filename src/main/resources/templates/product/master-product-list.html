@@ -193,13 +193,37 @@
               <b>등록 내역</b> : <b id="red">[[${page.totalElements}]]</b>건
             </p>
           </div>
+          <div class="buttonAndTotal">
+            <a href="/master/product/register">
+              <button class="btn btn-green">등록하기</button>
+            </a>
+          </div>
           <div th:if="${page.totalElements != 0}">
-            <div class="buttonAndTotal">
-              <a href="/master/product/register">
-                <button class="btn btn-green">등록하기</button>
-              </a>
-            </div>
+            <div class="container__sort">
+              <select name="sizetSelect" id="sizeSelect" onchange="">
+                <option value="5" th:selected="${size==5}">5개</option>
+                <option value="10" th:selected="${size==10}">10개</option>
+                <option value="15" th:selected="${size==15}">15개</option>
+              </select>
 
+              <select name="sortSelect" id="sortSelect" onchange="">
+                <option
+                  value="default"
+                  th:selected="${sortSelect == 'default'}">
+                  최신순
+                </option>
+                <option
+                  value="price_asc"
+                  th:selected="${sortSelect == 'price_asc'}">
+                  가격낮은순
+                </option>
+                <option
+                  value="price_desc"
+                  th:selected="${sortSelect == 'price_desc'}">
+                  가격높은순
+                </option>
+              </select>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -350,5 +374,21 @@
     document.getElementById("topBtn").onclick = function () {
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
+
+    const sizeSelect = document.getElementById("sizeSelect");
+    const sortSelect = document.getElementById("sortSelect");
+
+    const currentSize = `[[${size}]]`;
+    const currentSort = `[[${sortSelect}]]`;
+
+    sizeSelect.addEventListener("change", function () {
+      const selectedSize = this.value;
+      window.location.href = `/master/product/list?page=0&size=${selectedSize}&sort=${currentSort}`;
+    });
+
+    sortSelect.addEventListener("change", function () {
+      const selectedSort = this.value;
+      window.location.href = `/master/product/list?page=0&size=${currentSize}&sort=${selectedSort}`;
+    });
   </script>
 </html>
