@@ -43,7 +43,7 @@
       .form__search {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 1.5rem;
+        align-items: baseline;
       }
       #checkoutStateSelect {
         font-size: 1rem;
@@ -57,6 +57,9 @@
       #searchSelect {
         border: 0px;
         font-size: 0.9rem;
+      }
+      #searchSelect:focus {
+        outline: none;
       }
       #HanSerachForm {
         border: 1px solid #111111;
@@ -118,56 +121,61 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
+            <div class="container__sort">
+              <select name="checkoutState" id="checkoutStateSelect" onchange="">
+                <option value="ALL" th:selected="${checkoutState=='ALL'}">
+                  전체주문
+                </option>
+                <option
+                  value="CONFIRM"
+                  th:selected="${checkoutState=='CONFIRM'}">
+                  주문완료
+                </option>
+                <option value="WAIT" th:selected="${checkoutState=='WAIT'}">
+                  주문보류
+                </option>
+                <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}">
+                  주문취소
+                </option>
+              </select>
+              <select name="sizeSelect" id="sizeSelect" onchange="">
+                <option value="5" th:selected="${size==5}">5개</option>
+                <option value="10" th:selected="${size==10}">10개</option>
+                <option value="15" th:selected="${size==15}">15개</option>
+              </select>
+
+              <select name="sortSelect" id="sortSelect" onchange="">
+                <option
+                  value="default"
+                  th:selected="${sortSelect == 'default'}">
+                  최신순
+                </option>
+                <option value="past" th:selected="${sortSelect == 'past'}">
+                  오래된순
+                </option>
+                <option
+                  value="price_asc"
+                  th:selected="${sortSelect == 'price_asc'}">
+                  판매가격 낮은순
+                </option>
+                <option
+                  value="price_desc"
+                  th:selected="${sortSelect == 'price_desc'}">
+                  판매가격 높은순
+                </option>
+              </select>
+              <span class="text__right">
+                <span th:text="${paging.totalElements + '건의 상품 / '}"></span>
+                <span
+                  th:text="${(paging.number + 1) + (paging.number * size) - paging.totalPages + (paging.totalPages - paging.number)}"></span>
+                -
+                <span
+                  th:text="${(paging.number * size) + #lists.size(paging.content) + '건'}"></span>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="container__sort">
-          <select name="checkoutState" id="checkoutStateSelect" onchange="">
-            <option value="ALL" th:selected="${checkoutState=='ALL'}">
-              전체주문
-            </option>
-            <option value="CONFIRM" th:selected="${checkoutState=='CONFIRM'}">
-              주문완료
-            </option>
-            <option value="WAIT" th:selected="${checkoutState=='WAIT'}">
-              주문보류
-            </option>
-            <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}">
-              주문취소
-            </option>
-          </select>
-          <select name="sizeSelect" id="sizeSelect" onchange="">
-            <option value="5" th:selected="${size==5}">5개</option>
-            <option value="10" th:selected="${size==10}">10개</option>
-            <option value="15" th:selected="${size==15}">15개</option>
-          </select>
 
-          <select name="sortSelect" id="sortSelect" onchange="">
-            <option value="default" th:selected="${sortSelect == 'default'}">
-              최신순
-            </option>
-            <option value="past" th:selected="${sortSelect == 'past'}">
-              오래된순
-            </option>
-            <option
-              value="price_asc"
-              th:selected="${sortSelect == 'price_asc'}">
-              판매가격 낮은순
-            </option>
-            <option
-              value="price_desc"
-              th:selected="${sortSelect == 'price_desc'}">
-              판매가격 높은순
-            </option>
-          </select>
-          <span class="text__right">
-            <span th:text="${paging.totalElements + '건의 상품 / '}"></span>
-            <span
-              th:text="${(paging.number + 1) + (paging.number * size) - paging.totalPages + (paging.totalPages - paging.number)}"></span>
-            -
-            <span
-              th:text="${(paging.number * size) + #lists.size(paging.content) + '건'}"></span>
-          </span>
-        </div>
         <h1 th:if="${total ==0}">주문내역이 없습니다.</h1>
 
         <table class="rwd-table" th:if="${total >0}">
