@@ -220,6 +220,10 @@
         margin-left: 1.5rem;
         width: 500px;
       }
+      .qwer .active {
+        font-size: 1.2rem;
+        color: #fb68af;
+      }
     </style>
   </head>
   <body>
@@ -257,11 +261,7 @@
               </form>
             </div>
             <div class="qwer">
-              <a
-                th:href="@{/master/product/list}"
-                style="color: #fb68af; font-size: 1.2rem"
-                >전체상품</a
-              >
+              <a th:href="@{/master/product/list}">전체상품</a>
               <a
                 th:href="@{/master/product/list/category(category='photo_card')}"
                 th:classappend="${categoryQuery == 'photo_card'} ? 'active' : ''"
@@ -390,7 +390,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=0, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=0, size=${size})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -402,7 +402,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage - 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -416,7 +416,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${pageNum}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -426,7 +426,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage + 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -436,7 +436,7 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${page.totalPages - 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
@@ -474,6 +474,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
 
+    const categoryQuery = encodeURIComponent(`[[${categoryQuery}]]`);
     const sizeSelect = document.getElementById("sizeSelect");
     const sortSelect = document.getElementById("sortSelect");
 
@@ -482,12 +483,12 @@
 
     sizeSelect.addEventListener("change", function () {
       const selectedSize = this.value;
-      window.location.href = `/master/product/list?page=0&size=${selectedSize}&sort=${currentSort}`;
+      window.location.href = `/master/product/list/category?category=${categoryQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
     });
 
     sortSelect.addEventListener("change", function () {
       const selectedSort = this.value;
-      window.location.href = `/master/product/list?page=0&size=${currentSize}&sort=${selectedSort}`;
+      window.location.href = `/master/product/list/category?category=${categoryQuery}&page=0&size=${currentSize}&sort=${selectedSort}`;
     });
   </script>
 </html>
