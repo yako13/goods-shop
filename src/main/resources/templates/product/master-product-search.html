@@ -100,6 +100,8 @@
         border-radius: 7px;
         color: #74cc6c;
         background-color: #ffffff;
+        font-size: 1.5rem;
+        cursor: pointer;
       }
       .btn-green:hover {
         background-color: #74cc6c;
@@ -178,6 +180,42 @@
         display: none;
         /* 기본적으로 버튼 숨김 */
       }
+      .btn-submit {
+        background-color: #ffffff;
+        border: 0px;
+      }
+      .form__search {
+        display: flex;
+        border: 1px solid #111111;
+        border-radius: 7px;
+        width: 12rem;
+        height: 1.7rem;
+        margin-bottom: 0.5rem;
+        justify-content: center;
+      }
+      .searchForm {
+        width: 9rem;
+        border: 0px;
+        height: 1.5rem;
+        font-size: 1rem;
+      }
+      .searchForm:focus {
+        outline: none;
+      }
+      .container__sort {
+        position: absolute;
+        top: 270px;
+        right: 50px;
+      }
+      #sizeSelect {
+        font-size: 1rem;
+      }
+      #sortSelect {
+        font-size: 1rem;
+      }
+      table {
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
@@ -198,16 +236,21 @@
               <button class="btn btn-green">등록하기</button>
             </a>
           </div>
-          <form
-            action="/master/product/search/index"
-            method="get"
-            role="search">
-            <input
-              type="text"
-              placeholder="검색어를 입력해주세요."
-              name="keyword" />
-            <button type="submit">search</button>
-          </form>
+          <div class="form__search">
+            <form
+              action="/master/product/search/index"
+              method="get"
+              role="search">
+              <input
+                type="text"
+                class="searchForm"
+                placeholder="상품명을 입력하세요."
+                name="keyword" />
+              <button class="btn-submit" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+          </div>
           <div th:if="${page.totalElements != 0}">
             <div class="container__sort">
               <select name="sizetSelect" id="sizeSelect" onchange="">
@@ -233,6 +276,14 @@
                   가격높은순
                 </option>
               </select>
+              <span class="text__right">
+                <span th:text="${page.totalElements + '건의 상품 / '}"></span>
+                <span
+                  th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
+                -
+                <span
+                  th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+              </span>
             </div>
 
             <table>
