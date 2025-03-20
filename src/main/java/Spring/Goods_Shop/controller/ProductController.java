@@ -33,8 +33,10 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
             Model model, HttpServletRequest request) {
-
-
+        // url에서 50 을 초과할시 25의 값을 줌
+        if (size < 50) {
+            size = 25;
+        }
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
             model.addAttribute("name", member.getName());
@@ -134,7 +136,7 @@ public class ProductController {
 
     // 등록된 상품 리스트 검색
     @GetMapping("/master/product/search/index")
-    public String masterProductListSearch(@RequestParam(value = "keyword", required = false, defaultValue = "") String name,
+    public String masterProductListSearch(@RequestParam(value = "keyword", required = false, defaultValue = "검색어를 입력해주세요.") String name,
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size,
                                            @RequestParam(defaultValue = "default") String sort,

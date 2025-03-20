@@ -189,7 +189,7 @@
         border: 1px solid #111111;
         border-radius: 7px;
         width: 12rem;
-        height: 1.7rem;
+        height: 2rem;
         margin-bottom: 1.5rem;
         justify-content: center;
         flex-direction: column;
@@ -222,10 +222,6 @@
       .text__center {
         text-align: center;
       }
-      .trPointer{
-        cursor:pointer;
-      }
-
     </style>
   </head>
   <body>
@@ -343,7 +339,7 @@
               </thead>
 
               <tbody>
-                <tr th:each="productList : ${productList}" th:onclick="window.location.href='/product/details/' + [[${productList.id}]];" class="trPointer">
+                <tr th:each="productList : ${productList}">
                   <th th:text="${productList.id}"></th>
                   <td>
                     <img

@@ -190,7 +190,7 @@
         border: 1px solid #111111;
         border-radius: 7px;
         width: 12rem;
-        height: 1.7rem;
+        height: 2rem;
         margin-bottom: 1.5rem;
         justify-content: center;
         flex-direction: column;
@@ -223,9 +223,6 @@
       .text__center {
         text-align: center;
       }
-      .trPointer{
-        cursor:pointer;
-      }
     </style>
   </head>
   <body>
@@ -234,7 +231,7 @@
     <main id="main">
       <section class="master__product">
         <div class="table__product">
-          <h1 th:text="${categoryQuery}">등록된 상품 리스트</h1>
+          <h1>등록된 상품 리스트</h1>
           <hr />
           <div class="orderList">
             <p>
@@ -263,14 +260,6 @@
               </form>
               </div>
             </div>
-            <!-- <div th:switch="${categoryQuery}" class="search-name">
-              <span th:case="photo_card">포토카드홀더</span>
-              <span th:case="memo">메모지</span>
-              <span th:case="sticker">스티커</span>
-              <span th:case="postcard">엽서</span>
-              <span th:case="etc">기타</span>
-              <span th:case="*">전체상품</span>
-            </div> -->
           </div>
           <div class="container__sort">
             <select name="categorySelect" id="categorySelect" onchange="">
@@ -352,7 +341,7 @@
 
               <tbody>
 
-                <tr th:each="productList : ${productList}" th:onclick="window.location.href='/product/details/' + [[${productList.id}]];" class="trPointer">
+                <tr th:each="productList : ${productList}">
                   <th th:text="${productList.id}"></th>
                   <td>
                     <img
