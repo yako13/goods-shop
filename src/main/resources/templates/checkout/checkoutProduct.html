@@ -1,9 +1,9 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CloudStar WorkShop</title>
+    <title>☁️CloudStar WorkShop 주문</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}"/>
     <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}"/>
@@ -91,12 +91,14 @@
 <!-- 헤더 시작 -->
 
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
-
+<input type="hidden" th:value="${alert}" id="dataAlert">
 <!-- 헤더 끝 -->
 
 <!-- 본문 -->
 
 <div class="HanOrderMainBody">
+
+
     <!--배송지 선택 모달창 시작-->
 
     <div class="HanAddressPopMain" id="addressModal" style="display: none">
@@ -669,8 +671,18 @@
                                     th:value="${PayList.id}"/>
 
                             <label th:for="|selectedCard${PayList.id}|">
+
+                                <!--기본 결제 카드일시-->
                                 <img
                                         th:src="@{/images/card6on.svg}"
+                                        th:if="${PayList.defaultCard}"
+                                        alt=""
+                                        width="65px"
+                                        height="65px"/>
+                                <!--기본 결제 카드 아닐시-->
+                                <img
+                                        th:src="@{/images/card6off.svg}"
+                                        th:unless="${PayList.defaultCard}"
                                         alt=""
                                         width="65px"
                                         height="65px"/>
@@ -857,9 +869,10 @@
                             class="HanOrderListCard"
                             th:each="CheckoutCartDto : ${checkoutPageDto.CheckoutCartDto}">
                         <div class="HanOrderListCardImgDiv">
-                            <img
-                                    th:src="@{/productImages/{url}(url=${CheckoutCartDto.productImage.getImageFullName})}"
-                                    alt="Product Image"/>
+
+                            <img th:src="@{'/productImages/'+ ${CheckoutCartDto.productImage.getImageFullName}}"
+                                 alt="Product Image">
+
                         </div>
                         <div class="HanOrderListCardTextDiv">
                             <div class="HanOrderListCardTextDiv2">
@@ -900,7 +913,7 @@
         <!-- 결제 카드 -->
         <div class="HanOrderRight">
             <div class="HanOrderRightTitle">
-                <img th:src="@{/images/card7.svg}" width="40px" height="auto"/>
+                <img th:src="@{/images/card7.svg}" width="40px" height="auto">
                 <p style="font-size: 30px; color: black; font-weight: bold">
                     결제수단
                 </p>
@@ -1078,7 +1091,7 @@
 <!-- 푸터 끝 -->
 </body>
 </html>
-
+<script th:src="@{/js/member/alert.js}"></script>
 <script>
     // 스크롤 이벤트 감지
     window.onscroll = function () {
@@ -1895,7 +1908,7 @@
           })
             .then((response) => {
               if (response.ok) {
-                alert("배송지가 삭제되었습니다.");
+
                 // 현재 삭제된 배송지의 부모 요소 찾기
                 let addressCard = this.closest(".HanAddressPopCard");
                 if (addressCard) {
@@ -1929,7 +1942,7 @@
           })
             .then((response) => {
               if (response.ok) {
-                alert("카드 정보가 삭제되었습니다.");
+
 
                 // 현재 삭제된 카드정보의 부모 요소 찾기
 

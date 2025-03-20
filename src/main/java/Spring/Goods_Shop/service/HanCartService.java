@@ -56,12 +56,25 @@ public class HanCartService {
     }
 
     //  상품 개수 업데이트
-    public String updateQuantity(Long cartId, int cartCnt) {
-        Optional<Cart> cart = hanCartRepository.findById(cartId);
-        if (cart.isPresent()) {
-            Cart item = cart.get();
-            item.setCartCnt(cartCnt);
-            hanCartRepository.save(item);
+    public String updateQuantity(Long cartId, int cartCntUpdate) {
+        Cart cart = hanCartRepository.findById(cartId).orElse(null);
+        if (cart != null) {
+
+            //상품의 재고
+            int productCnt = cart.getProduct().getCount();
+
+            log.info("db에 저장된 상품 수량" + productCnt);
+            log.info("ajax로 온 상품 수량" + cartCntUpdate);
+
+            //상품 재고보다 장바구니에 담긴 상품 수량이 많을경우 실패
+            if (productCnt < cartCntUpdate) {
+
+                return "상품 재고 보다 많이 담을수 없습니다";
+            }
+
+
+            cart.setCartCnt(cartCntUpdate);
+            hanCartRepository.save(cart);
             return "상품 수량이 업데이트되었습니다.";
         }
         return "상품을 찾을 수 없습니다.";
@@ -80,6 +93,9 @@ public class HanCartService {
         }
 
 
+        //맴버에서 장바구니 리스트를 가져온다
+        List<Cart> cartList = memberEntity.getCartList();
+
         //상품 pk로 상품 엔티티 찾아옴
         Product product = productRepository.findById(form.getProductPk()).orElse(null);
 
@@ -89,27 +105,81 @@ public class HanCartService {
             return "상품 정보가 없습니다";
         }
 
+        //form에 담긴 장바구니의 상품 개수를 추출한다
+        int formProductCnt = form.getProductCnt();
+
+        //장바구니에 담긴 물건이 중복되는지 체크하는 변수
+        int cartOverlap = 0;
+
+        //중복된 장바구니의 pk
+        long cartOverlapPk = 0L;
+
+        if (cartList != null && !cartList.isEmpty()) {
+
+            for (Cart cart : cartList) {
+
+                Long cartProductPk = cart.getProduct().getId();
+
+                Long formProductPk = form.getProductPk();
+
+                //장바구니에 담긴 물건이 중복되는지 검사
+                if (cartProductPk == formProductPk) {
+
+                    formProductCnt = formProductCnt + cart.getCartCnt();
+
+                    //장바구니의 물건 중복
+                    cartOverlap = 1;
+
+                    cartOverlapPk = cart.getId();
+
+                }
+            }
+
+
+        }
+
+
         //상품 재고보다 구매할려는 상품 개수가 클경우 실패
-        int count = product.getCount() - form.getProductCnt();
+        int count = product.getCount() - formProductCnt;
 
         if (count < 0) {
 
             return "죄송합니다 상품 재고가 부족합니다";
         }
 
+        //카트에 있는 상품이 중복 안될경우
+        if (cartOverlap == 0) {
 
-        Cart cart = Cart.builder()
-                .member(memberEntity)
-                .product(product)
-                .cartCnt(form.getProductCnt())
-                .build();
 
-        Cart cartEntity = hanCartRepository.save(cart);
+            Cart cart = Cart.builder()
+                    .member(memberEntity)
+                    .product(product)
+                    .cartCnt(form.getProductCnt())
+                    .build();
 
-        //저장이 안됐을경우
-        if (cartEntity == null) {
+            Cart cartEntity = hanCartRepository.save(cart);
 
-            return "장바구니 생성에 오류가 발생했습니다";
+            //저장이 안됐을경우
+            if (cartEntity == null) {
+
+                return "장바구니 생성에 오류가 발생했습니다";
+            }
+
+            //카트에 있는 상품이 중복 될경우
+        } else {
+
+            Cart cartOverlapEntity = hanCartRepository.findById(cartOverlapPk).orElse(null);
+
+            cartOverlapEntity.setCartCnt(formProductCnt);
+
+            Cart cartEntity = hanCartRepository.save(cartOverlapEntity);
+
+            //저장이 안됐을경우
+            if (cartEntity == null) {
+
+                return "장바구니 생성에 오류가 발생했습니다";
+            }
+
         }
 
 

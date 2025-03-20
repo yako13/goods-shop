@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>☁️CloudStar WorkShop 관리자 상품목록</title>
+
     <link rel="stylesheet" href="/css/master/masterHeader.css" />
     <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
@@ -219,6 +220,11 @@
       #categorySelect {
         font-size: 1rem;
       }
+
+
+              .trPointer{
+        cursor:pointer;
+        }
     </style>
   </head>
   <body>
@@ -345,7 +351,8 @@
               </thead>
 
               <tbody>
-                <tr th:each="productList : ${productList}">
+
+                <tr th:each="productList : ${productList}" th:onclick="window.location.href='/product/details/' + [[${productList.id}]];" class="trPointer">
                   <th th:text="${productList.id}"></th>
                   <td>
                     <img

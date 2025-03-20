@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE REPLACE(p.name, ' ', '') LIKE %:keyword%")
     Page<Product> findByNameContaining(@Param("keyword") String name, Pageable pageable);
 
-    List<Product>  findTop3ByOrderBySellingCountDescIdDesc();
+    List<Product>  findTop4ByOrderBySellingCountDescIdDesc();
 
-    List<Product> findTop3ByOrderByIdDesc();
+    List<Product> findTop4ByOrderByIdDesc();
 }

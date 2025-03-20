@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar Workshop</title>
+    <title>☁️CloudStar WorkShop 장바구니</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/cart/cart.css}">
@@ -32,7 +32,7 @@
 
         <!-- 장바구니에 물품이 있을때 시작-->
 
-        <div th:unless="${cartNo}">
+        <div th:unless="${cartNo}" id="cartItemsContainer">
 
             <div class="HanCartTop">
                 <div class="HanCartTopTitle HanCartCheckbox">
@@ -51,9 +51,7 @@
                         <button type="button" onclick="submitRemoveSelected()">선택 삭제</button>
                     </form>
 
-                    <form id="removeAllForm" action="/cart/clear" method="post">
-                        <button type="submit">전체 삭제</button>
-                    </form>
+                    <button id="removeAllButton">전체 삭제</button>
 
                 </div>
             </div>
@@ -73,8 +71,8 @@
 
                         <div class="HanCartInfo">
                             <div class="HanCartImgDiv">
-                                <img th:src="@{/thumbImg/{url}(url=${cartList.product.productImage.getImageFullName})}"
-                                     alt="">
+                               <a th:href="@{'/product/details/'+${cartList.product.id}}"> <img th:src="@{'/productImages/'+${cartList.product.productImage.getImageFullName}}"
+                                     alt=""></a>
                             </div>
 
                             <div class="HanCartProductName">
@@ -188,23 +186,64 @@
 
 
     document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".product-item").forEach(item => {
-        let priceAttr = item.querySelector(".item").getAttribute("data-price");
+        document.querySelectorAll(".product-item").forEach(item => {
+            let priceAttr = item.querySelector(".item").getAttribute("data-price");
 
-        if (priceAttr) {
-            let productPrice = parseFloat(priceAttr);  //  소수점 포함된 숫자 변환
-            item.querySelector(".product-price").textContent = productPrice.toLocaleString() + "원";
-        } else {
-            console.warn(" 가격 값이 존재하지 않습니다.");
-        }
+            if (priceAttr) {
+                let productPrice = parseFloat(priceAttr);  //  소수점 포함된 숫자 변환
+                item.querySelector(".product-price").textContent = productPrice.toLocaleString() + "원";
+            } else {
+                console.warn(" 가격 값이 존재하지 않습니다.");
+            }
+        });
     });
-});
 
     //---------------가격을 원단위로 바꿔주는 코드 끝------------------------------------------
 
 </script>
 
 <script>
+
+    $(document).ready(function () {
+        $("#removeAllButton").click(function () {
+
+            $.ajax({
+                url: "/cart/clear",
+                type: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content") // CSRF 토큰 필요 시
+                },
+                success: function (response) {
+
+
+                    // 1. 기존 장바구니 목록 숨기기
+                    $("#cartItemsContainer").hide();
+
+                    // 2. "장바구니가 비어 있음" 메시지 표시
+                    $(".HanCartMain").append(`
+                    <div style="padding-bottom:55px">
+                        <div class="HanCartPDiv">
+                            <img src="/images/info.svg" width="40" height="40px">
+                            <p class="HanCartPDivP1">장바구니에 담긴 상품이 없습니다.</p>
+                            <p class="HanCartPDivP2">원하는 상품을 장바구니에 담아보세요!</p>
+                        </div>
+                    </div>
+                `);
+                },
+                error: function (xhr, status, error) {
+                    alert("삭제 중 오류가 발생했습니다.");
+                    console.error("Error:", error);
+                }
+            });
+
+        });
+    });
+
+
+
+
+
+
     function toggleCheckboxes(source) {
         let checkboxes = document.querySelectorAll('.item');
         checkboxes.forEach(checkbox => {
@@ -231,23 +270,23 @@
         });
 
 
-            if (selectedCount > 0) {  //  체크박스가 하나라도 선택되었을 때만 실행
+        if (selectedCount > 0) {  //  체크박스가 하나라도 선택되었을 때만 실행
 
-        if (total >= 50000) {
-            shippingFee = 0;
+            if (total >= 50000) {
+                shippingFee = 0;
+            }
+
+            let finalPrice = total + shippingFee;
+
+            document.getElementById('totalPrice').textContent = `${total.toLocaleString()}원`;
+            document.getElementById('shippingFee').textContent = `${shippingFee.toLocaleString()}원`;
+            document.getElementById('finalPrice').textContent = `${finalPrice.toLocaleString()}원`;
+            //  선택된 항목이 없으면 0원으로 초기화
+        } else {
+            document.getElementById('totalPrice').textContent = "0원";
+            document.getElementById('shippingFee').textContent = "0원";
+            document.getElementById('finalPrice').textContent = "0원";
         }
-
-        let finalPrice = total + shippingFee;
-
-        document.getElementById('totalPrice').textContent = `${total.toLocaleString()}원`;
-        document.getElementById('shippingFee').textContent = `${shippingFee.toLocaleString()}원`;
-        document.getElementById('finalPrice').textContent = `${finalPrice.toLocaleString()}원`;
-        //  선택된 항목이 없으면 0원으로 초기화
-    } else {
-        document.getElementById('totalPrice').textContent = "0원";
-        document.getElementById('shippingFee').textContent = "0원";
-        document.getElementById('finalPrice').textContent = "0원";
-    }
 
 
         let checkoutButton = document.getElementById('checkoutButton');
@@ -262,11 +301,14 @@
         let quantityInput = productItem.querySelector('.quantity');
         let totalItemPrice = productItem.querySelector('.total-item-price');
         let unitPrice = parseInt(productItem.querySelector('.item').getAttribute('data-price'));
-        let cartId = productItem.getAttribute('data-id'); // 변경된 부분
+        let cartId = productItem.getAttribute('data-id');
+
+
 
         let currentQuantity = parseInt(quantityInput.value);
-        currentQuantity += change;
+        let previousQuantity = currentQuantity; // 기존 값 백업
 
+        currentQuantity += change;
         if (currentQuantity < 1) {
             currentQuantity = 1;
         }
@@ -275,27 +317,35 @@
         totalItemPrice.textContent = (unitPrice * currentQuantity).toLocaleString() + "원";
         calculateTotal();
 
-        //  AJAX 요청: DTO 구조로 서버에 전송
-        updateQuantityOnServer(cartId, currentQuantity);
+
+
+        // AJAX 요청: 실패하면 원래 수량으로 되돌리기
+        updateQuantityOnServer(cartId, currentQuantity, quantityInput, previousQuantity);
     }
 
-    function updateQuantityOnServer(cartId, cartCnt) {
-    $.ajax({
-        type: "POST",
-        url: "/cart/update/quantity",  //  URL 경로가 서버 컨트롤러와 일치해야 함
-        contentType: "application/json",
-        data: JSON.stringify({
-            cartId: cartId,
-            cartCnt: cartCnt
-        }),
-        success: function (response) {
-            console.log("수량 업데이트 성공:", response);
-        },
-        error: function (xhr) {
-            console.error("수량 업데이트 실패:", xhr.status, xhr.responseText);
-        }
-    });
-}
+    function updateQuantityOnServer(cartId, cartCnt, quantityInput, previousQuantity) {
+        $.ajax({
+            type: "POST",
+            url: "/cart/update/quantity",
+            contentType: "application/json",
+            data: JSON.stringify({
+                cartId: cartId,
+                cartCnt: cartCnt
+            }),
+
+            success: function (response) {
+                console.log("수량 업데이트 성공:", response);
+
+            },
+            error: function (xhr) {
+                console.error("수량 업데이트 실패:", xhr.status, xhr.responseText);
+                quantityInput.value = previousQuantity; // 실패 시 원래 값으로 복구
+
+            }
+        });
+    }
+
+
 
 
     function submitRemoveSelected() {
