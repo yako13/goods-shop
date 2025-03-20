@@ -83,38 +83,40 @@
         </div>
         <div>
           <div class="form__search">
-            <form
-              action="/master/checkout/search/index"
-              method="get"
-              role="search"
-              id="HanSerachForm">
-              <select name="search" id="searchSelect" onchange="">
-                <option
-                  value="ordererName"
-                  th:selected="${searchSelect=='ordererName'}">
-                  주문자 이름
-                </option>
-                <option
-                  value="recipientName"
-                  th:selected="${searchSelect=='recipientName'}">
-                  받는분 이름
-                </option>
-                <option
-                  value="productName"
-                  th:selected="${searchSelect=='productName'}">
-                  상품명
-                </option>
-              </select>
-              <input
-                type="text"
-                id="searchInput"
-                class="searchForm"
-                name="keyword"
-                placeholder="검색어를 입력하세요." />
-              <button type="submit" class="btn-submit" form="HanSerachForm">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </form>
+            <div class="form__search">
+              <form
+                action="/master/checkout/search/index"
+                method="get"
+                role="search"
+                id="HanSerachForm">
+                <select name="search" id="searchSelect" onchange="">
+                  <option
+                    value="ordererName"
+                    th:selected="${searchSelect=='ordererName'}">
+                    주문자 이름
+                  </option>
+                  <option
+                    value="recipientName"
+                    th:selected="${searchSelect=='recipientName'}">
+                    받는분 이름
+                  </option>
+                  <option
+                    value="productName"
+                    th:selected="${searchSelect=='productName'}">
+                    상품명
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  class="searchForm"
+                  id="searchInput"
+                  name="keyword"
+                  placeholder="검색어를 입력하세요." />
+                <button type="submit" class="btn-submit" form="HanSerachForm">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </form>
+            </div>
             <div class="container__sort">
               <select name="checkoutState" id="checkoutStateSelect" onchange="">
                 <option value="ALL" th:selected="${checkoutState=='ALL'}">
