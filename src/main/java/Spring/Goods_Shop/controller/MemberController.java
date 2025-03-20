@@ -46,7 +46,7 @@ public class MemberController {
 
     //회원 가입
     @PostMapping("/join")
-    String join(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model) throws IOException {
+    String join(@Valid MemberAuthDto memberAuthDto, Errors errors, Model model,RedirectAttributes rttr) throws IOException {
 
         model.addAttribute("userId", memberAuthDto.getUserId());
         model.addAttribute("name", memberAuthDto.getName());
@@ -68,6 +68,8 @@ public class MemberController {
             model.addAttribute("valid_phoneNumber","이미 등록되어있는 휴대폰 번호입니다. 다른 연락처를 입력하세요.");
             return "member/join";
         }
+
+        rttr.addFlashAttribute("alert","회원가입이 완료되었습니다.");
         return "redirect:/login";
     }
 

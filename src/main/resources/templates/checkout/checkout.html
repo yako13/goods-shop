@@ -2,199 +2,222 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudStar WorkShop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudStar WorkShop</title>
 
-    <link rel="stylesheet" th:href="@{/css/mainPage.css}">
-    <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}">
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+  <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}">
 
 </head>
 <style>
-    .error {
-      color: red;
-      font-size: 12px;
-    }
-
-    #hiddenNameArea {
-      display: none;
-      border: 1px #ccc solid;
-      position: absolute;
-      right: 520px;
-      background-color: white;
-      z-index: 10;
-      width: 200px;
-      padding: 20px;
-    }
+  .error {
+    color: red;
+    font-size: 12px;
+  }
 
 
-    .HanCardNewDiv input.HanRed {
-      border: 1px solid #fc4545;
-      box-shadow: 0 0 0 1px #fc4545;
+  .HanCardNewDiv input.HanRed {
+    border: 1px solid #fc4545;
+    box-shadow: 0 0 0 1px #fc4545;
 
-    }
+  }
 
-    .HanRed p {
-      margin: 3px 0;
-      color: #fc4545;
-      font-size: 12px;
+  .HanRed p {
+    margin: 3px 0;
+    color: #fc4545;
+    font-size: 12px;
 
-    }
+  }
 
-    .hanNone .HanSignUpInfo {
-      display: none;
-    }
+  .hanNone .HanSignUpInfo {
+    display: none;
+  }
 
-    .HanSignUpInfo {
-      margin: 3px 0;
-      color: #fc4545;
-      font-size: 12px;
+  .HanSignUpInfo {
+    margin: 3px 0;
+    color: #fc4545;
+    font-size: 12px;
 
-    }
+  }
 
-    #hiddenNameArea,
-    #hiddenDeliveryNameArea,
-    #hiddenPhoneArea {
-      display: none;
-      border: 1px #ccc solid;
-      position: absolute;
-      right: 520px;
-      background-color: white;
-      z-index: 10;
-      width: 200px;
-      padding: 20px;
-    }
+  .hiddenAreaTopDiv {
+    position: relative;
+
+  }
+
+
+  #hiddenDeliveryNameArea {
+    display: none;
+    border: 1px #ccc solid;
+    position: absolute;
+    top: 80px;
+    right: -60px;
+    background-color: white;
+    z-index: 16000;
+    width: 200px;
+    padding: 20px;
+
+  }
+
+  #hiddenNameArea{
+    display: none;
+    border: 1px #ccc solid;
+    position: absolute;
+    top: 240px;
+    right: -60px;
+    background-color: white;
+    z-index: 16000;
+    width: 200px;
+    padding: 20px;
+
+  }
+
+  #hiddenPhoneArea {
+    display: none;
+    border: 1px #ccc solid;
+    position: absolute;
+    top: 420px;
+    right: -60px;
+    background-color: white;
+    z-index: 16000;
+    width: 200px;
+    padding: 20px;
+  }
+
+
+
+
 </style>
 
 <body>
 
-<!-- 헤더 시작 -->
+  <!-- 헤더 시작 -->
 
-<header th:replace="/fragments/memberHeader::memberHeader"></header>
+  <header th:replace="/fragments/memberHeader::memberHeader"></header>
 
-<!-- 헤더 끝 -->
+  <!-- 헤더 끝 -->
 
 
-<!-- 본문 -->
+  <!-- 본문 -->
 
-<div class="HanOrderMainBody">
+  <div class="HanOrderMainBody">
 
     <!--배송지 선택 모달창 시작-->
 
 
     <div class="HanAddressPopMain" id="addressModal" style="display: none;">
 
-        <div class="HanAddressPopContainer">
+      <div class="HanAddressPopContainer">
 
-            <div class="HanAddressPopDiv">
+        <div class="HanAddressPopDiv">
 
-                <div class="">
+          <div class="">
 
-                    <div class="HanCardNewLogoDiv" style="">
+            <div class="HanCardNewLogoDiv" style="">
 
-                        <img th:src="@{/images/logo600px.png}" alt="" width="400px" height="auto">
-
-                    </div>
-
-                    <h1>CloudStar Workshop</h1>
-
-                </div>
-
-                <!-- <p class="HanAddressPopTitle">배송지 목록</p> -->
-
-                <!-- 배송지 목록 -->
-
-                <div class="HanAddressPopCardContainer">
-
-                    <!-- 배송지 카드 -->
-                    <div th:if="${deliveryEmpty}">
-                    </div>
-
-
-                    <div th:unless="${deliveryEmpty}" class="HanAddressPopCard HanAddressPopCardCheck"
-                         th:each="DeliveryList : ${checkoutCartPageDto.DeliveryList}">
-
-                        <input type="radio" name="selectedAddress" th:id="|selectedAddress${DeliveryList.id}|"
-                               th:value="${DeliveryList.id}">
-
-
-                        <label class="HanAddressPopRadio" th:for="|selectedAddress${DeliveryList.id}|">
-
-
-                            <div class="HanAddressPopCardTextDiv">
-
-                                <div class="HanAddressPopCardTextTagDiv">
-
-                                    <p class="HanAddressPopCardTextTag" th:text="${DeliveryList.name}">집</p>
-
-                                    <p class="HanAddressPopCardTextP1" th:if="${DeliveryList.defaultDelivery}">기본
-                                        배송지</p>
-                                    <p class="HanAddressPopCardTextP1" th:unless="${DeliveryList.defaultDelivery}">
-                                        배송지</p>
-
-                                    <a href="" class="delete-address-btn" th:data-id="${DeliveryList.id}">
-                                        <img th:src="@{/images/close.svg}" alt="삭제">
-                                    </a>
-
-                                </div>
-
-
-                                <div class="HanAddressPopCardTextDiv2">
-
-                                    <p class="HanAddressPopCardTextP2">([[${DeliveryList.postalCode}]])</p>
-                                    <p class="HanAddressPopCardTextP2"
-                                       th:text="|${DeliveryList.address}${DeliveryList.addressDetail}|">
-                                        부산시 금곡동 101호</p>
-
-                                </div>
-
-                                <div class="HanAddressPopCardTextDiv3">
-                                    <p class="HanAddressPopCardTextName" th:text="${DeliveryList.recipientName}">
-                                        홍길동</p>
-                                    <p class="HanAddressPopCardTextName" th:text="${DeliveryList.recipientPhoneNumber}">
-                                        010-1234-1234
-                                    </p>
-                                </div>
-
-                                <div class="HanAddressPopCardTextDiv4">
-
-                                    <p>배송 요청 사항 : </p>
-                                    <p class="HanAddressPopCardTextMemo" th:text="${DeliveryList.memo}">빨리갖다주삼3</p>
-                                </div>
-
-                            </div>
-
-                        </label>
-
-                    </div>
-
-           
-                    <!-- 배송지 카드 끝 -->
-
-
-                </div>
-
-                <div>
-
-                    <div class="HanAddressPopNewButton">
-
-                        <img th:src="@{/images/plus.svg}" alt="">
-                        <button id="openNewAddressModal" class="HanNew" type="button"> 배송지 신규 입력</button>
-
-                    </div>
-
-                    <div class="HanAddressPopListButton">
-
-                        <button class="HanSubmit" id="selectAddressButton">확인</button>
-                        <button class="HanClose" id="closeAddressModal">닫기</button>
-
-                    </div>
-
-                </div>
+              <img th:src="@{/images/logo600px.png}" alt="" width="400px" height="auto">
 
             </div>
 
+            <h1>CloudStar Workshop</h1>
+
+          </div>
+
+          <!-- <p class="HanAddressPopTitle">배송지 목록</p> -->
+
+          <!-- 배송지 목록 -->
+
+          <div class="HanAddressPopCardContainer">
+
+            <!-- 배송지 카드 -->
+            <div th:if="${deliveryEmpty}">
+            </div>
+
+
+            <div th:unless="${deliveryEmpty}" class="HanAddressPopCard HanAddressPopCardCheck"
+              th:each="DeliveryList : ${checkoutCartPageDto.DeliveryList}">
+
+              <input type="radio" name="selectedAddress" th:id="|selectedAddress${DeliveryList.id}|"
+                th:value="${DeliveryList.id}">
+
+
+              <label class="HanAddressPopRadio" th:for="|selectedAddress${DeliveryList.id}|">
+
+
+                <div class="HanAddressPopCardTextDiv">
+
+                  <div class="HanAddressPopCardTextTagDiv">
+
+                    <p class="HanAddressPopCardTextTag" th:text="${DeliveryList.name}">집</p>
+
+                    <p class="HanAddressPopCardTextP1" th:if="${DeliveryList.defaultDelivery}">기본
+                      배송지</p>
+                    <p class="HanAddressPopCardTextP1" th:unless="${DeliveryList.defaultDelivery}">
+                      배송지</p>
+
+                    <a href="" class="delete-address-btn" th:data-id="${DeliveryList.id}">
+                      <img th:src="@{/images/close.svg}" alt="삭제">
+                    </a>
+
+                  </div>
+
+
+                  <div class="HanAddressPopCardTextDiv2">
+
+                    <p class="HanAddressPopCardTextP2">([[${DeliveryList.postalCode}]])</p>
+                    <p class="HanAddressPopCardTextP2" th:text="|${DeliveryList.address}${DeliveryList.addressDetail}|">
+                      부산시 금곡동 101호</p>
+
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv3">
+                    <p class="HanAddressPopCardTextName" th:text="${DeliveryList.recipientName}">
+                      홍길동</p>
+                    <p class="HanAddressPopCardTextName" th:text="${DeliveryList.recipientPhoneNumber}">
+                      010-1234-1234
+                    </p>
+                  </div>
+
+                  <div class="HanAddressPopCardTextDiv4">
+
+                    <p>배송 요청 사항 : </p>
+                    <p class="HanAddressPopCardTextMemo" th:text="${DeliveryList.memo}">빨리갖다주삼3</p>
+                  </div>
+
+                </div>
+
+              </label>
+
+            </div>
+
+
+            <!-- 배송지 카드 끝 -->
+
+
+          </div>
+
+          <div>
+
+            <div class="HanAddressPopNewButton">
+
+              <img th:src="@{/images/plus.svg}" alt="">
+              <button id="openNewAddressModal" class="HanNew" type="button"> 배송지 신규 입력</button>
+
+            </div>
+
+            <div class="HanAddressPopListButton">
+
+              <button class="HanSubmit" id="selectAddressButton">확인</button>
+              <button class="HanClose" id="closeAddressModal">닫기</button>
+
+            </div>
+
+          </div>
+
         </div>
+
+      </div>
 
     </div>
 
@@ -205,149 +228,187 @@
 
     <div class="HanAddressPopMain" id="newAddressModal" style="display: none;">
 
-        <div class="HanAddressNewPopContainer">
+      <div class="hiddenAreaTopDiv">
+
+        <div id="hiddenDeliveryNameArea">
+          <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+        </div>
+
+        <div id="hiddenNameArea">
+          <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+        </div>
+
+        <div id="hiddenPhoneArea">
+          <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+            합니다.
+          </p>
+        </div>
+
+      </div>
+      <div class="HanAddressNewPopContainer">
 
 
-            <div class="HanSignUpBody">
+        <div class="HanSignUpBody">
 
-                <div class="HanSignUpDiv">
+          <div class="HanSignUpDiv">
 
-                    <div class="">
+            <div class="">
 
-                        <div class="HanDeliveryPopNewLogoDiv">
+              <div class="HanDeliveryPopNewLogoDiv">
 
-                            <img th:src="@{/images/logoMain.png}" alt="" width="450px" height="auto">
+                <img th:src="@{/images/logoMain.png}" alt="" width="450px" height="auto">
 
-                        </div>
+              </div>
 
-                        <h1>CloudStar Workshop</h1>
-
-                    </div>
-
-                    <ul>
-
-
-                        <form action="/checkout/cart/delivery/submit" method="post" id="HanDeliveryForm">
-
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanDeliveryName">배송지 별칭</label>
-                                <input type="text" id="HanDeliveryName" name="name" placeholder="배송지 별칭을 입력해주세요"
-                                       class="HanSignUpInput2">
-
-                                <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
-
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanDeliveryUserName">받는분 성함</label>
-                                <input type="text" id="HanDeliveryUserName" name="recipientName"
-                                       placeholder="성함을 입력해주세요"
-                                       class="HanSignUpInput2">
-
-                                <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
-
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanDeliveryUserPhone">받는분 연락처</label>
-                                <input type="text" id="HanDeliveryUserPhone" name="recipientPhoneNumber"
-                                       placeholder="연락처를 입력해주세요"
-                                       class="HanSignUpInput2" maxlength="11"
-                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-                                <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
-
-                            </li>
-
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanZipcodeValue">우편번호</label>
-                                <input type="text" id="HanZipcodeValue" name="postalCode" placeholder="우편번호를 입력해주세요"
-                                       readonly
-                                       class="HanSignUpInput2">
-
-                                <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
-
-                                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
-
-                            </li>
-
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanAddressValue">도로명 주소,지번 주소</label>
-                                <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
-                                       class="HanSignUpInput2">
-
-                                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-
-                                <label for="HanDetailAddress">상세 주소</label>
-                                <input type="tel" id="HanDetailAddress" name="addressDetail" placeholder="상세 주소를 입력해주세요"
-                                       class="HanSignUpInput2">
-
-                                <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
-
-                            </li>
-
-
-                            <li class="HanSignUpLi hanNone ">
-
-                                <label for="HanDeliveryMemo">배송 요청 사항</label>
-                                <input type="tel" id="HanDeliveryMemo" name="memo" placeholder="배송 요청 사항을 입력해주세요"
-                                       maxlength="50">
-
-
-                            </li>
-
-
-                            <li class="HanSignUpLi hanNone LiCheck2 HanCheckboxLi ">
-
-                                <div class="HanMemberDeliveryCheckDiv ">
-
-                                    <input type="checkbox" id="HanDeliveryCheckbox" name="defaultDelivery"
-                                           class="HanSignUpInput2">
-                                    <label for="HanDeliveryCheckbox"></label>
-                                    <p>기본 배송지로 등록</p>
-
-
-                                </div>
-
-                                <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
-
-                            </li>
-
-                            <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                                <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
-                                <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
-
-                            </div>
-
-                        </form>
-
-                    </ul>
-
-                    <div class="HanSignUpButton">
-
-                        <button class="HanCancel" type="button" id="closeNewAddressModal">취소</button>
-                        <button class="HanSubmit" type="submit" form="HanDeliveryForm" id="HanDeliverySubmit">등록
-                        </button>
-
-                    </div>
-
-                </div>
+              <h1>CloudStar Workshop</h1>
 
             </div>
 
+            <ul>
+
+
+              <form th:action="@{/checkout/cart/delivery/submit}" th:method="post" id="HanDeliveryForm">
+
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenDeliveryNameArea">
+                    <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+                  </div> -->
+
+                  <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="text" id="deliveryName" name="name" placeholder="배송지 별칭을 입력해주세요" class="HanSignUpInput2"
+                    maxlength="10" th:value="${deliveryName}">
+
+                  <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_deliveryName!=null}">
+                    <p class="error" th:text="${valid_deliveryName}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenNameArea">
+                    <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+                  </div> -->
+
+                  <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
+                    placeholder="성함을 입력해주세요" class="HanSignUpInput2" maxlength="21">
+
+                  <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_recipientName!=null}">
+                    <p class="error" th:text="${valid_recipientName}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenPhoneArea">
+                    <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+                      합니다.
+                    </p>
+                  </div> -->
+
+                  <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput2"
+                    id="recipientPhoneNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="11"
+                    th:value="${recipientPhoneNumber}">
+
+                  <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_recipientPhoneNumber!=null}">
+                    <p class="error" th:text="${valid_recipientPhoneNumber}"></p>
+                  </div>
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>우편번호</label>
+                  <input type="text" id="HanZipcodeValue" name="postalCode" placeholder="우편번호를 입력해주세요" readonly
+                    class="HanSignUpInput2" th:value="${postCode}">
+
+                  <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
+
+                  <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>도로명 주소,지번 주소</label>
+                  <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
+                    class="HanSignUpInput2" th:value="${address}">
+
+                  <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                  <div class="errorArea" th:if="${valid_postCode!=null}">
+                    <p class="error" th:text="${valid_postCode}"></p>
+                  </div>
+                  <div class="errorArea" th:if="${valid_address!=null}">
+                    <p class="error" th:text="${valid_address}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>상세 주소</label>
+                  <input type="tel" id="HanDetailAddress" name="addressDetail" placeholder="상세 주소를 입력해주세요"
+                    class="HanSignUpInput2" th:value="${detailAddress}">
+
+                  <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_detailAddress!=null}">
+                    <p class="error" th:text="${valid_detailAddress}"></p>
+                  </div>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone ">
+
+                  <label>배송 요청 사항</label>
+                  <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50" th:value="${memo}">
+                  <div class="errorArea" th:if="${valid_memo!=null}">
+                    <p class="error" th:text="${valid_memo}"></p>
+                  </div>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone HanCheckboxLi ">
+
+                  <div class="HanMemberDeliveryCheckDiv ">
+
+                    <input type="checkbox" id="HanDeliveryCheckbox" name="defaultDelivery" class="HanSignUpInput">
+                    <label for="HanDeliveryCheckbox"></label>
+                    <p>기본 배송지로 등록</p>
+
+
+                  </div>
+
+                  <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
+
+                </li>
+
+                <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+
+                  <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
+                  <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
+
+                </div>
+              </form>
+
+            </ul>
+
+            <div class="HanSignUpButton">
+
+              <button class="HanCancel" type="button" id="closeNewAddressModal">취소</button>
+              <button class="HanSubmit" type="submit" form="HanDeliveryForm" id="HanDeliverySubmit">등록
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
+
+      </div>
 
     </div>
 
@@ -358,168 +419,153 @@
 
     <div class="HanAddressPopMain" id="cardNewModal" style="display: none;">
 
-        <div class="HanCardNewPopContainer" id="">
+      <div class="HanCardNewPopContainer" id="">
 
-            <div class="HanCardNewBody">
+        <div class="HanCardNewBody">
 
-                <div class="HanCardNewDiv">
+          <div class="HanCardNewDiv">
 
-                    <div class="">
+            <div class="">
 
-                        <div class="HanCardNewLogoDiv">
+              <div class="HanCardNewLogoDiv">
 
-                            <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
+                <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
 
-                        </div>
+              </div>
 
-                        <h1>CloudStar Workshop</h1>
-
-                    </div>
-
-                    <ul>
-                        <form th:action="@{/checkout/cart/pay/submit}" th:method="post" id="HanCardNewForm">
-                            <input type="hidden" th:value="${session.memberId}" id="sessionId" name="memberId">
-
-
-                            <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiTitle">
-                                <div id="hiddenNameArea">
-                                    <p>카드 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
-                                </div>
-
-                                <label for="HanSignUpPw1" id="hiddenName">카드 별칭 <i class="fa-solid fa-circle-info"></i></label>
-                                <input type="text" name="nickName" id="HanCardNewLiTitleInput"
-                                       placeholder="카드 별칭을 입력해주세요"
-                                       class="HanSignUpInput" maxlength="10" th:value="${nickName}">
-
-                                <p class="HanSignUpInfo">카드 별칭을 입력해주세요</p>
-                                <div class="errorArea" th:if="${valid_nickName!=null}">
-                                    <p class="error" th:text="${valid_nickName}"></p>
-                                </div>
-
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiNum">
-
-                                <label for="HanSignUpPw1">카드 번호</label>
-
-                                <div class="HanCard">
-
-                                    <input type="text" id="cardNum1" name="cardNum" placeholder="0000"
-                                           class="HanSignUpInput"
-                                           maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                           th:value="${cardNum1}">
-
-                                    <input type="text" id="cardNum2" name="cardNum" placeholder="0000"
-                                           class="HanSignUpInput"
-                                           maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                           th:value="${cardNum2}">
-
-                                    <input type="password" id="cardNum3" name="cardNum" placeholder="0000"
-                                           class="HanSignUpInput"
-                                           maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                           th:value="${cardNum3}">
-
-                                    <input type="password" id="cardNum4" name="cardNum" placeholder="0000"
-                                           class="HanSignUpInput"
-                                           maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                           th:value="${cardNum4}">
-
-                                </div>
-
-                                <p class="HanSignUpInfo">카드 번호를 입력해주세요</p>
-                                <div class="errorArea" th:if="${valid_cardNum!=null}">
-                                    <p class="error" th:text="${valid_cardNum}"></p>
-                                </div>
-
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck ">
-
-                                <div class="HanCardDateCvc">
-
-
-                                    <div>
-
-                                        <label>유효기간</label>
-
-                                        <div class="HanCardDate">
-                                            <input type="text" id="expPeriod1" name="expPeriod" placeholder="MM"
-                                                   required
-                                                   class="HanSignUpInput" maxlength="2" oninput="validateMonth(this)"
-                                                   th:value="${expPeriod1}">
-
-                                            <input type="text" id="expPeriod2" name="expPeriod" placeholder="YY"
-                                                   required
-                                                   class="HanSignUpInput" maxlength="2" oninput="validateYear(this)"
-                                                   th:value="${expPeriod2}">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div>
-
-                                        <label for="HanSignUpPw3">CVC</label>
-
-                                        <div class="HanCVC">
-
-                                            <input type="password" id="HanSignUpPw3" name="cvc"
-                                                   placeholder="카드 뒷면 3자리 숫자" required
-                                                   class="HanSignUpInput" maxlength="3"
-                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                   th:value="${cvc}">
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                                <p class="HanSignUpInfo">유효기간과 cvc번호를 입력해주세요</p>
-                                <div class="errorArea" th:if="${valid_expPeriod!=null}">
-                                    <p class="error" th:text="${valid_expPeriod}"></p>
-                                </div>
-                                <div class="errorArea" th:if="${valid_cvc!=null}">
-                                    <p class="error" th:text="${valid_cvc}"></p>
-                                </div>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone  HanCheckboxLi">
-
-                                <div class="HanCardCheckDiv">
-
-                                    <input type="checkbox" id="HanCheckbox" name="defaultCard" class="">
-                                    <label for="HanCheckbox"></label>
-                                    <p>기본 결제 카드로 등록</p>
-                                </div>
-
-                                <p class="HanSignUpInfo">기본 결제 카드로 등록버튼을 눌러주세요</p>
-
-                            </li>
-
-                            <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                                <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
-                                <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
-
-                            </div>
-
-
-                        </form>
-
-                    </ul>
-
-                    <div class="HanCardNewButton">
-                        <button class="HanCancel" type="button" id="closeCreditModal">취소</button>
-                        <button class="HanSubmit" type="submit" form="HanCardNewForm" id="HanCardSubmit">등록</button>
-                    </div>
-
-                </div>
+              <h1>CloudStar Workshop</h1>
 
             </div>
 
+            <ul>
+              <form th:action="@{/checkout/cart/pay/submit}" th:method="post" id="HanCardNewForm">
+                <input type="hidden" th:value="${session.memberId}" id="sessionId" name="memberId">
+
+
+                <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiTitle">
+                  <div id="hiddenNameArea">
+                    <p>카드 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+                  </div>
+
+                  <label for="HanSignUpPw1" id="hiddenName">카드 별칭 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="text" name="nickName" id="HanCardNewLiTitleInput" placeholder="카드 별칭을 입력해주세요"
+                    class="HanSignUpInput" maxlength="10" th:value="${nickName}">
+
+                  <p class="HanSignUpInfo">카드 별칭을 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_nickName!=null}">
+                    <p class="error" th:text="${valid_nickName}"></p>
+                  </div>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck" id="HanCardNewLiNum">
+
+                  <label for="HanSignUpPw1">카드 번호</label>
+
+                  <div class="HanCard">
+
+                    <input type="text" id="cardNum1" name="cardNum" placeholder="0000" class="HanSignUpInput"
+                      maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum1}">
+
+                    <input type="text" id="cardNum2" name="cardNum" placeholder="0000" class="HanSignUpInput"
+                      maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum2}">
+
+                    <input type="password" id="cardNum3" name="cardNum" placeholder="0000" class="HanSignUpInput"
+                      maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum3}">
+
+                    <input type="password" id="cardNum4" name="cardNum" placeholder="0000" class="HanSignUpInput"
+                      maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" th:value="${cardNum4}">
+
+                  </div>
+
+                  <p class="HanSignUpInfo">카드 번호를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_cardNum!=null}">
+                    <p class="error" th:text="${valid_cardNum}"></p>
+                  </div>
+
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck ">
+
+                  <div class="HanCardDateCvc">
+
+
+                    <div>
+
+                      <label>유효기간</label>
+
+                      <div class="HanCardDate">
+                        <input type="text" id="expPeriod1" name="expPeriod" placeholder="MM" required
+                          class="HanSignUpInput" maxlength="2" oninput="validateMonth(this)" th:value="${expPeriod1}">
+
+                        <input type="text" id="expPeriod2" name="expPeriod" placeholder="YY" required
+                          class="HanSignUpInput" maxlength="2" oninput="validateYear(this)" th:value="${expPeriod2}">
+
+                      </div>
+
+                    </div>
+
+                    <div>
+
+                      <label for="HanSignUpPw3">CVC</label>
+
+                      <div class="HanCVC">
+
+                        <input type="password" id="HanSignUpPw3" name="cvc" placeholder="카드 뒷면 3자리 숫자" required
+                          class="HanSignUpInput" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                          th:value="${cvc}">
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <p class="HanSignUpInfo">유효기간과 cvc번호를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_expPeriod!=null}">
+                    <p class="error" th:text="${valid_expPeriod}"></p>
+                  </div>
+                  <div class="errorArea" th:if="${valid_cvc!=null}">
+                    <p class="error" th:text="${valid_cvc}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone  HanCheckboxLi">
+
+                  <div class="HanCardCheckDiv">
+
+                    <input type="checkbox" id="HanCheckbox" name="defaultCard" class="">
+                    <label for="HanCheckbox"></label>
+                    <p>기본 결제 카드로 등록</p>
+                  </div>
+
+                  <p class="HanSignUpInfo">기본 결제 카드로 등록버튼을 눌러주세요</p>
+
+                </li>
+
+                <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+
+                  <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
+                  <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
+
+                </div>
+
+
+              </form>
+
+            </ul>
+
+            <div class="HanCardNewButton">
+              <button class="HanCancel" type="button" id="closeCreditModal">취소</button>
+              <button class="HanSubmit" type="submit" form="HanCardNewForm" id="HanCardSubmit">등록</button>
+            </div>
+
+          </div>
+
         </div>
+
+      </div>
 
     </div>
 
@@ -532,102 +578,101 @@
 
     <div class="HanAddressPopMain" id="cardListModal" style="display: none;">
 
-        <div class="HanCardPopContainer" id="">
+      <div class="HanCardPopContainer" id="">
 
-            <div class="HanCardMain">
+        <div class="HanCardMain">
 
-                <div class="HanCardLogoMain">
+          <div class="HanCardLogoMain">
 
-                    <div class="HanCardLogoDiv">
+            <div class="HanCardLogoDiv">
 
-                        <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
-
-                    </div>
-
-                    <h1>CloudStar Workshop</h1>
-
-                </div>
-
-                <!-- 카드 목록 -->
-                <div class="HanCardContainer">
-
-
-                    <!-- 카드 시작 -->
-                    <div th:if="${payEmpty}">
-                    </div>
-
-
-                    <div class="HanCard HanCardCheck" th:unless="${payEmpty}"
-                         th:each="PayList : ${checkoutCartPageDto.PayList}">
-
-                        <div class="HanCardRadio">
-
-                            <input type="radio" name="selectedCard" th:id="|selectedCard${PayList.id}|"
-                                   th:value="${PayList.id}">
-
-                            <label th:for="|selectedCard${PayList.id}|">
-
-                                <img th:src="@{/images/card6on.svg}" alt="" width="65px" height="65px">
-
-                                <div class="HanCardTextDiv">
-
-                                    <div class="HanCardTextTagDiv">
-
-                                        <p class="HanCardTextTag" th:text="${PayList.nickname}">국민카드</p>
-
-                                        <p class="HanCardTextP1" th:if="${PayList.defaultCard}">기본
-                                            결제카드</p>
-
-                                        <p class="HanCardTextP1" th:unless="${PayList.defaultCard}"></p>
-
-                                        <a href="" class="deleteCardBtn" th:data-id="${PayList.id}">
-                                            <img th:src="@{/images/close.svg}" alt="삭제">
-                                        </a>
-
-                                    </div>
-
-                                    <div class="HanCardTextDiv2">
-
-
-                                        <p class="HanCardTextP2" th:text="${PayList.number}">
-                                            11111-2222-3333-4444</p>
-
-                                    </div>
-
-                                </div>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- 카드 끝 -->
-
-
-                </div>
-
-                <div>
-
-                    <div class="HanNewButton">
-
-                        <img th:src="@{/images/plus.svg}" alt="">
-                        <button id="openNewCardModal4" class="HanNew" type="button">카드 등록하기</button>
-
-                    </div>
-
-                    <div class="HanCardButton">
-
-                        <button class="HanSubmit" id="selectCardButton">확인</button>
-                        <button class="HanClose" id="closeCreditListModal">닫기</button>
-
-                    </div>
-
-                </div>
+              <img th:src="@{/images/logoMain.png}" alt="" width="600px" height="auto">
 
             </div>
+
+            <h1>CloudStar Workshop</h1>
+
+          </div>
+
+          <!-- 카드 목록 -->
+          <div class="HanCardContainer">
+
+
+            <!-- 카드 시작 -->
+            <div th:if="${payEmpty}">
+            </div>
+
+
+            <div class="HanCard HanCardCheck" th:unless="${payEmpty}"
+              th:each="PayList : ${checkoutCartPageDto.PayList}">
+
+              <div class="HanCardRadio">
+
+                <input type="radio" name="selectedCard" th:id="|selectedCard${PayList.id}|" th:value="${PayList.id}">
+
+                <label th:for="|selectedCard${PayList.id}|">
+
+                  <img th:src="@{/images/card6on.svg}" alt="" width="65px" height="65px">
+
+                  <div class="HanCardTextDiv">
+
+                    <div class="HanCardTextTagDiv">
+
+                      <p class="HanCardTextTag" th:text="${PayList.nickname}">국민카드</p>
+
+                      <p class="HanCardTextP1" th:if="${PayList.defaultCard}">기본
+                        결제카드</p>
+
+                      <p class="HanCardTextP1" th:unless="${PayList.defaultCard}"></p>
+
+                      <a href="" class="deleteCardBtn" th:data-id="${PayList.id}">
+                        <img th:src="@{/images/close.svg}" alt="삭제">
+                      </a>
+
+                    </div>
+
+                    <div class="HanCardTextDiv2">
+
+
+                      <p class="HanCardTextP2" th:text="${PayList.number}">
+                        11111-2222-3333-4444</p>
+
+                    </div>
+
+                  </div>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- 카드 끝 -->
+
+
+          </div>
+
+          <div>
+
+            <div class="HanNewButton">
+
+              <img th:src="@{/images/plus.svg}" alt="">
+              <button id="openNewCardModal4" class="HanNew" type="button">카드 등록하기</button>
+
+            </div>
+
+            <div class="HanCardButton">
+
+              <button class="HanSubmit" id="selectCardButton">확인</button>
+              <button class="HanClose" id="closeCreditListModal">닫기</button>
+
+            </div>
+
+          </div>
+
         </div>
+      </div>
 
 
     </div>
@@ -641,342 +686,340 @@
     <!-- 메인 시작 -->
 
     <div class="HanOrderRightTopPDiv">
-        <p class="">장바구니</p>
-        <p class="">></p>
-        <p class="Bold">주문/결제</p>
-        <p class="">></p>
-        <p class="">완료</p>
+      <p class="">장바구니</p>
+      <p class="">></p>
+      <p class="Bold">주문/결제</p>
+      <p class="">></p>
+      <p class="">완료</p>
     </div>
 
     <div class="HanOrderMain">
 
 
-        <!-- 주소지 주문목록 -->
+      <!-- 주소지 주문목록 -->
 
+
+      <div>
+        <div>
+
+
+          <div class="HanOrderTitleDeliveryDiv">
+            <img th:src="@{/images/DeliveryIcon.svg}" width="52px" height="auto">
+            <p style="font-size: 30px; color: black; font-weight: bold;">배송지</p>
+
+          </div>
+
+          <!-- 주소지 있을시 시작 -->
+
+          <div th:unless="${deliveryEmpty}" class="HanOrderAddressCard">
+            <div class="HanOrderCardTextDiv">
+
+              <p class="HanOrderAddressName" th:text="|${deliveryInfo.recipientName} (${deliveryInfo.name})|">
+                홍길동 </p>
+              <p class="HanOrderPhoneP" th:text="${deliveryInfoPhone}">010-1234-1234</p>
+
+              <div class="HanOrderAddressTextValueDiv">
+
+                <span id="selectedAddressZip" class="HanOrderAddressNum">([[${deliveryInfo.postalCode}]])</span>
+
+                <span id="selectedAddressFull" class="HanOrderAddressP"
+                  th:text="|${deliveryInfo.address} ${deliveryInfo.addressDetail}|">부산시 금곡동 101호</span>
+
+              </div>
+
+              <hr class="HanMemoHr1">
+
+              <div class="selectedAddressMemoDiv">
+
+                <p class="selectedAddressMemoTitle">배송 요청 사항 : </p>
+                <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}">빨리갖다주삼</p>
+
+              </div>
+
+
+            </div>
+
+            <div class="HanOrderChangeButtonContainer">
+              <button type="button" id="openAddressModal" class="HanOrderChangeButton">
+                변경
+              </button>
+            </div>
+
+
+          </div>
+
+
+          <!-- 주소지 있을시 끝 -->
+
+
+          <!-- 주소지 없을시 시작 -->
+
+
+          <div th:if="${deliveryEmpty}" class="HanOrderAddressCard2">
+            <div class="HanOrderCardTextDiv3">
+
+              <div class="HanOrderCardTextDiv4">
+                <img th:src="@{/images/plus.svg}" width="40px" height="40px">
+                <p class="HanOrderCardTextP4">새 배송지를 등록해 주세요</p>
+              </div>
+
+              <div class="HanOrderNewButtonContainer">
+
+                <button type="button" id="openNewAddressModal2" class="HanOrderChangeButton">
+                  새 배송지 등록하기
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- 주소지 없을시 끝 -->
+
+
+        </div>
+
+
+        <!-- 주문 목록 -->
 
         <div>
+          <div>
             <div>
 
+              <div class="HanOrderCntProductTitle">
+                <img th:src="@{/images/product_icon.svg}" width="40px" height="auto">
+                <p class="HanOrderCntProductP">주문상품</p>
 
-                <div class="HanOrderTitleDeliveryDiv">
-                    <img th:src="@{/images/DeliveryIcon.svg}" width="52px" height="auto">
-                    <p style="font-size: 30px; color: black; font-weight: bold;">배송지</p>
+                <div class="HanOrderTitleDiv">
+                  <span class="HanOrderCntSpan1">총</span>
 
+                  <span class="HanOrderCntSpan1" th:text="${checkoutCartDtoListCnt}">2</span>
+                  <span class="HanOrderCntP">건</span>
                 </div>
-
-                <!-- 주소지 있을시 시작 -->
-
-                <div th:unless="${deliveryEmpty}" class="HanOrderAddressCard">
-                    <div class="HanOrderCardTextDiv">
-
-                        <p class="HanOrderAddressName" th:text="|${deliveryInfo.recipientName} (${deliveryInfo.name})|">
-                            홍길동 </p>
-                        <p class="HanOrderPhoneP" th:text="${deliveryInfoPhone}">010-1234-1234</p>
-
-                        <div class="HanOrderAddressTextValueDiv">
-
-                            <span id="selectedAddressZip"
-                                  class="HanOrderAddressNum">([[${deliveryInfo.postalCode}]])</span>
-
-                            <span id="selectedAddressFull" class="HanOrderAddressP"
-                                  th:text="|${deliveryInfo.address} ${deliveryInfo.addressDetail}|">부산시 금곡동 101호</span>
-
-                        </div>
-
-                        <hr class="HanMemoHr1">
-
-                        <div class="selectedAddressMemoDiv">
-
-                            <p class="selectedAddressMemoTitle">배송 요청 사항 : </p>
-                            <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}">빨리갖다주삼</p>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="HanOrderChangeButtonContainer">
-                        <button type="button" id="openAddressModal" class="HanOrderChangeButton">
-                            변경
-                        </button>
-                    </div>
-
-
-                </div>
-
-
-                <!-- 주소지 있을시 끝 -->
-
-
-                <!-- 주소지 없을시 시작 -->
-
-
-                <div th:if="${deliveryEmpty}" class="HanOrderAddressCard2">
-                    <div class="HanOrderCardTextDiv3">
-
-                        <div class="HanOrderCardTextDiv4">
-                            <img th:src="@{/images/plus.svg}" width="40px" height="40px">
-                            <p class="HanOrderCardTextP4">새 배송지를 등록해 주세요</p>
-                        </div>
-
-                        <div class="HanOrderNewButtonContainer">
-
-                            <button type="button" id="openNewAddressModal2" class="HanOrderChangeButton">
-                                새 배송지 등록하기
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- 주소지 없을시 끝 -->
+              </div>
 
 
             </div>
 
 
-            <!-- 주문 목록 -->
-
-            <div>
-                <div>
-                    <div>
-
-                        <div class="HanOrderCntProductTitle">
-                            <img th:src="@{/images/product_icon.svg}" width="40px" height="auto">
-                            <p class="HanOrderCntProductP">주문상품</p>
-
-                            <div class="HanOrderTitleDiv">
-                                <span class="HanOrderCntSpan1">총</span>
-
-                                <span class="HanOrderCntSpan1" th:text="${checkoutCartDtoListCnt}">2</span>
-                                <span class="HanOrderCntP">건</span>
-                            </div>
-                        </div>
+            <!-- 주문 목록 카드 시작-->
 
 
-                    </div>
+            <div class="HanOrderListCard" th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
 
+              <div class="HanOrderListCardImgDiv">
 
-                    <!-- 주문 목록 카드 시작-->
+                <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}"
+                  alt="Product Image">
 
+              </div>
+              <div class="HanOrderListCardTextDiv">
+                <div class="HanOrderListCardTextDiv2">
 
-                    <div class="HanOrderListCard"
-                         th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                        <div class="HanOrderListCardImgDiv">
-
-                            <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}"
-                                 alt="Product Image">
-
-                        </div>
-                        <div class="HanOrderListCardTextDiv">
-                            <div class="HanOrderListCardTextDiv2">
-
-                                <p class="HanOrderListCardPrdNameP" th:text="${CheckoutCartDtoList.productName}">동화 일러스트
-                                    키캡 4종</p>
-
-                            </div>
-
-                            <div class="HanOrderPrdPriceTextDiv">
-
-                                <div>
-                                    <p class="HanOrderPrdCntP" th:text="${CheckoutCartDtoList.cartCnt}">
-                                        3</p>
-                                    <span class="HanOrderPrdCntSpan">개</span>
-                                </div>
-
-                                <div class="HanOrderPrdPriceDiv">
-                                    <p class="HanOrderPrdPrice" th:text="${CheckoutCartDtoList.productSumPrise}">
-                                        80,000</p>
-                                    <!--                                    <p class="HanOrderPrdPriceWan">원</p>-->
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- 주문 목록 카드 끝-->
+                  <p class="HanOrderListCardPrdNameP" th:text="${CheckoutCartDtoList.productName}">동화 일러스트
+                    키캡 4종</p>
 
                 </div>
 
+                <div class="HanOrderPrdPriceTextDiv">
+
+                  <div>
+                    <p class="HanOrderPrdCntP" th:text="${CheckoutCartDtoList.cartCnt}">
+                      3</p>
+                    <span class="HanOrderPrdCntSpan">개</span>
+                  </div>
+
+                  <div class="HanOrderPrdPriceDiv">
+                    <p class="HanOrderPrdPrice" th:text="${CheckoutCartDtoList.productSumPrise}">
+                      80,000</p>
+                    <!--                                    <p class="HanOrderPrdPriceWan">원</p>-->
+
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            <!-- 주문 목록 카드 끝-->
+
+          </div>
 
         </div>
 
-        <!-- 결제 카드 -->
-        <div class="HanOrderRight">
-            <div class="HanOrderRightTitle">
-                <img th:src="@{/images/card7.svg}" width="40px" height="auto">
-                <p style="font-size: 30px; color: black; font-weight: bold;">결제수단</p>
+      </div>
+
+      <!-- 결제 카드 -->
+      <div class="HanOrderRight">
+        <div class="HanOrderRightTitle">
+          <img th:src="@{/images/card7.svg}" width="40px" height="auto">
+          <p style="font-size: 30px; color: black; font-weight: bold;">결제수단</p>
+        </div>
+
+        <!-- 결제 카드가 있을시 보이는 div 시작 -->
+
+        <div class="HanOrderCreditDiv" th:unless="${payEmpty}">
+
+          <p class="HanOrderCreditNameT">카드명</p>
+          <p class="HanOrderCreditName" th:text="${payInfo.nickname}">국민카드</p>
+          <p class="HanOrderCreditNumT">카드번호</p>
+          <p class="HanOrderCreditNum" th:text="${payInfoCardNum}">1111-2222-****-****</p>
+
+          <div class="HanOrderButtonContainer">
+
+            <button id="openCardListModal" class="HanNew" type="button">결제 카드 변경</button>
+
+            <button id="openCreditModal" class="HanOrderButton" type="button">결제 카드 등록</button>
+
+
+          </div>
+
+        </div>
+
+        <!-- 결제 카드가 있을시 보이는 div 끝 -->
+
+
+        <!-- 결제 카드가 없을시 보이는 div 시작 -->
+
+        <div class="HanOrderCreditDiv2" th:if="${payEmpty}">
+
+          <div class="HanOrderCreditDiv2Title">
+
+            <img th:src="@{/images/plus.svg}" width="30px" height="30px">
+
+            <p>새 결제 카드를 등록해 주세요</p>
+
+          </div>
+
+          <div class="HanOrderButtonContainer3">
+
+            <button id="openCreditModal2" class="" type="button">새 결제 카드 등록하기</button>
+
+          </div>
+
+        </div>
+
+        <!-- 결제 카드가 없을시 보이는 div 끝 -->
+
+        <div class="HanOrderDetail">
+          <p class="HanOrderDetailT">결제 상세</p>
+          <hr class="HanOrderHr1">
+
+          <div class="HanOrderTotalPrice">
+            <p class="HanOrderValue">정가 :</p>
+            <div>
+              <p class="HanOrderValueP1" id="HanOrderValueP1" style="margin-right: -10px;"
+                th:text="${checkoutCartPageDto.totalCartSumPrise}">90,000
+              </p>
+
+              <!--                        <p class="HanOrderValueP">원</p>-->
             </div>
+          </div>
+          <div class="HanOrderTotalPrice">
+            <p class="HanOrderDetailSale">배송비 :</p>
+            <div>
+              <p class="HanOrderDetailSalePlus">+</p>
 
-            <!-- 결제 카드가 있을시 보이는 div 시작 -->
+              <p class="HanOrderDetailSale1" id="HanOrderDetailSaleP1" style="margin-right: -10px;"
+                th:text="${checkoutCartPageDto.DeliveryCost}">3,000</p>
 
-            <div class="HanOrderCreditDiv" th:unless="${payEmpty}">
-
-                <p class="HanOrderCreditNameT">카드명</p>
-                <p class="HanOrderCreditName" th:text="${payInfo.nickname}">국민카드</p>
-                <p class="HanOrderCreditNumT">카드번호</p>
-                <p class="HanOrderCreditNum" th:text="${payInfoCardNum}">1111-2222-****-****</p>
-
-                <div class="HanOrderButtonContainer">
-
-                    <button id="openCardListModal" class="HanNew" type="button">결제 카드 변경</button>
-
-                    <button id="openCreditModal" class="HanOrderButton" type="button">결제 카드 등록</button>
-
-
-                </div>
-
+              <!--                        <p class="HanOrderDetailSale2">원</p>-->
             </div>
+          </div>
+          <hr class="HanOrderHr1">
 
-            <!-- 결제 카드가 있을시 보이는 div 끝 -->
 
+          <div class="HanOrderTotalPrice HanOrderMargin1">
+            <p>총 결제 가격 :</p>
+            <div>
 
-            <!-- 결제 카드가 없을시 보이는 div 시작 -->
+              <p id="HanOrderTotalPriceP" style="margin-right: -10px;"
+                th:text="${checkoutCartPageDto.totalPaySumPrise}">93,000</p>
 
-            <div class="HanOrderCreditDiv2" th:if="${payEmpty}">
-
-                <div class="HanOrderCreditDiv2Title">
-
-                    <img th:src="@{/images/plus.svg}" width="30px" height="30px">
-
-                    <p>새 결제 카드를 등록해 주세요</p>
-
-                </div>
-
-                <div class="HanOrderButtonContainer3">
-
-                    <button id="openCreditModal2" class="" type="button">새 결제 카드 등록하기</button>
-
-                </div>
-
+              <!--                        <p class="HanOrderMarginP1">원</p>-->
             </div>
-
-            <!-- 결제 카드가 없을시 보이는 div 끝 -->
-
-            <div class="HanOrderDetail">
-                <p class="HanOrderDetailT">결제 상세</p>
-                <hr class="HanOrderHr1">
-
-                <div class="HanOrderTotalPrice">
-                    <p class="HanOrderValue">정가 :</p>
-                    <div>
-                        <p class="HanOrderValueP1" id="HanOrderValueP1" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.totalCartSumPrise}">90,000
-                        </p>
-
-                        <!--                        <p class="HanOrderValueP">원</p>-->
-                    </div>
-                </div>
-                <div class="HanOrderTotalPrice">
-                    <p class="HanOrderDetailSale">배송비 :</p>
-                    <div>
-                        <p class="HanOrderDetailSalePlus">+</p>
-
-                        <p class="HanOrderDetailSale1" id="HanOrderDetailSaleP1" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.DeliveryCost}">3,000</p>
-
-                        <!--                        <p class="HanOrderDetailSale2">원</p>-->
-                    </div>
-                </div>
-                <hr class="HanOrderHr1">
-
-
-                <div class="HanOrderTotalPrice HanOrderMargin1">
-                    <p>총 결제 가격 :</p>
-                    <div>
-
-                        <p id="HanOrderTotalPriceP" style="margin-right: -10px;"
-                           th:text="${checkoutCartPageDto.totalPaySumPrise}">93,000</p>
-
-                        <!--                        <p class="HanOrderMarginP1">원</p>-->
-                    </div>
-                </div>
-
-
-            </div>
-
-            <form action="/checkout/cart/submit" method="post" id="payment">
-
-                <!--주문페이지 들어올때 보낸 맴버 pk-->
-                <input type="hidden" name="memberPk" th:value="${checkoutCartPageDto.memberPk}" id="paymentMemberKey">
-
-                <!--기본 배송지가 있을경우-->
-                <div th:if="${deliveryInfo}">
-                    <!--배송지 pk (초기세팅은 타임리프로 가져온 기본 배송지 정보)-->
-                    <input type="hidden" name="deliveryPk" th:value="${deliveryInfo.id}" id="paymentDelivery">
-                </div>
-
-                <!--기본 배송지가 없을경우-->
-                <div th:unless="${deliveryInfo}">
-                    <input type="hidden" name="deliveryPk" id="paymentDelivery">
-                </div>
-
-                <!--기본 결제카드가 있을 경우-->
-                <div th:if="${payInfo}">
-                    <!--카드 pk (초기세팅은 타임리프로 가져온 기본 결제 카드 정보)-->
-                    <input type="hidden" name="payPk" th:value="${payInfo.id}" id="paymentCard">
-                </div>
-
-                <!--기본 결제카드가 없을 경우-->
-                <div th:unless="${payInfo}">
-                    <input type="hidden" name="payPk" id="paymentCard">
-                </div>
-
-
-                <!--장바구니 pk 를 담아준다-->
-                <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                    <input type="hidden" name="cartPk" th:value="${CheckoutCartDtoList.CartId}">
-
-                </div>
-
-            </form>
-
-            <div class="HanOrderPriceDiv">
-
-                <div class="HanOrderPriceSumDiv">
-
-                    <p class="HanOrderPriceP" th:text="${checkoutCartPageDto.totalPaySumPrise}">
-                        93,000</p>
-                    <!--                    <p class="HanOrderPriceWan">원</p>-->
-                </div>
-
-
-                <div class="HanOrderButtonContainer2">
-                    <button class="HanOrderSubmitButton" type="submit" form="payment">
-                        결제 하기
-                    </button>
-                </div>
-
-            </div>
+          </div>
 
 
         </div>
+
+        <form action="/checkout/cart/submit" method="post" id="payment">
+
+          <!--주문페이지 들어올때 보낸 맴버 pk-->
+          <input type="hidden" name="memberPk" th:value="${checkoutCartPageDto.memberPk}" id="paymentMemberKey">
+
+          <!--기본 배송지가 있을경우-->
+          <div th:if="${deliveryInfo}">
+            <!--배송지 pk (초기세팅은 타임리프로 가져온 기본 배송지 정보)-->
+            <input type="hidden" name="deliveryPk" th:value="${deliveryInfo.id}" id="paymentDelivery">
+          </div>
+
+          <!--기본 배송지가 없을경우-->
+          <div th:unless="${deliveryInfo}">
+            <input type="hidden" name="deliveryPk" id="paymentDelivery">
+          </div>
+
+          <!--기본 결제카드가 있을 경우-->
+          <div th:if="${payInfo}">
+            <!--카드 pk (초기세팅은 타임리프로 가져온 기본 결제 카드 정보)-->
+            <input type="hidden" name="payPk" th:value="${payInfo.id}" id="paymentCard">
+          </div>
+
+          <!--기본 결제카드가 없을 경우-->
+          <div th:unless="${payInfo}">
+            <input type="hidden" name="payPk" id="paymentCard">
+          </div>
+
+
+          <!--장바구니 pk 를 담아준다-->
+          <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+
+            <input type="hidden" name="cartPk" th:value="${CheckoutCartDtoList.CartId}">
+
+          </div>
+
+        </form>
+
+        <div class="HanOrderPriceDiv">
+
+          <div class="HanOrderPriceSumDiv">
+
+            <p class="HanOrderPriceP" th:text="${checkoutCartPageDto.totalPaySumPrise}">
+              93,000</p>
+            <!--                    <p class="HanOrderPriceWan">원</p>-->
+          </div>
+
+
+          <div class="HanOrderButtonContainer2">
+            <button class="HanOrderSubmitButton" type="submit" form="payment">
+              결제 하기
+            </button>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- ========================= scroll-top ========================= -->
-<button id="scrollToTopBtn">
+  <!-- ========================= scroll-top ========================= -->
+  <button id="scrollToTopBtn">
 
-</button>
-
-
-<!-- 메인 끝 -->
+  </button>
 
 
-<!-- 푸터 시작 -->
-
-<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
-
-<!-- 푸터 끝 -->
+  <!-- 메인 끝 -->
 
 
-<script>
+  <!-- 푸터 시작 -->
+
+  <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+
+  <!-- 푸터 끝 -->
+
+
+  <script>
 
 
     // 스크롤 이벤트 감지
@@ -999,269 +1042,298 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-</script>
+  </script>
 
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-<script>
+  <script>
 
     // -------------------------배송지 등록 부분 자바 스크립트 시작------------------------------------------
-
     let check_bol2 = 0;
+    let check_exp = 1;
 
     $("#HanDeliveryCheckbox").click(function () {
       if ($("#HanDeliveryCheckbox").is(":checked")) {
-
         var params = {
-          memberId: $("#sessionId").val()
-        }
-
-
+          memberId: $("#sessionId").val(),
+        };
 
         // ajax 통신
         $.ajax({
-          type: "POST",            // HTTP method type(GET, POST) 형식
-          url: "/check/defaultDelivery",      // 컨트롤러에서 대기중인 URL 주소
-          data: params,            // Json 형식의 데이터
-          success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
+          type: "POST", // HTTP method type(GET, POST) 형식
+          url: "/check/defaultDelivery", // 컨트롤러에서 대기중인 URL 주소
+          data: params, // Json 형식의 데이터
+          success: function (res) {
+            // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
             if (res == "false") {
               alert("이미 기본 배송지가 존재합니다.");
               $("#HanDeliveryCheckbox").val(false);
               $("#HanDeliveryCheckbox").prop("checked", false);
               check_bol2 = 0;
-            }
-            else {
-
-
+            } else {
               $("#HanDeliveryCheckbox").val(true);
               check_bol2 = 1;
               $("#HanDeliveryCheckbox").prop("checked", true);
             }
           },
-          error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옴
-            alert("통신 실패.")
-          }
-        })
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            // 비동기 통신이 실패할경우 error 콜백으로 들어옴
+            alert("통신 실패.");
+          },
+        });
       }
-    }
-    )
+    });
 
-    const delivery_name_check = /^[가-힣0-9]{2,10}|[a-zA-Z0-9]{2,10}$/;
-    const name_check = /^[가-힣]{2,5}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+    const delivery_name_check = /^[가-힣0-9]{2,10}$|^[a-zA-Z0-9]{2,10}$/;
+    const name_check = /^[가-힣]{2,5}$|^[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
     const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
-
-
     //필수 입력칸의 LiCheck 클래스가있는 li
-    const HanSignUpLiList2 = document.querySelectorAll('.LiCheck2');
+    const HanSignUpLiList2 = document.querySelectorAll(".LiCheck2");
 
     //필수 입력칸 HanSignUpInput 클래스가 있는 input
-    const HanSignUpInputList2 = document.querySelectorAll('.HanSignUpInput2');
+    const HanSignUpInputList2 = document.querySelectorAll(".HanSignUpInput2");
 
-    //HanSignUpSubmit 폼의 submit 버튼
-    const HanSignUpSubmit2 = document.querySelector('#HanDeliverySubmit');
+    //HanSignUpSubmit 폼의 submit 버튼 
+    const HanSignUpSubmit2 = document.querySelector("#HanDeliverySubmit");
 
-    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
-    function HanSignUpValueCheckAll() {
-
-      let value1 = 0;
-
-      for (let i = 0; i < HanSignUpLiList2.length; i++) {
-
-        if (HanSignUpInputList2[i].value === "") {
-          //input박스를 빨간색으로 보여주고
-          //경고 문자를 보여준다
-          HanSignUpLiList2[i].classList.add('HanRed');
-          HanSignUpLiList2[i].classList.remove('hanNone');
-          value1 = value1 + 1;
-
-        } else {
-          //input박스의 빨간색제거
-          //경고 문자 안보이게
-          HanSignUpLiList2[i].classList.remove('HanRed');
-          HanSignUpLiList2[i].classList.add('hanNone');
-        }
-      };
-
-      return value1;
-    };
 
     //창 로드시 필수 입력칸에 이벤트 걸어준다
-    window.addEventListener('load', focusEvent);
-
+    window.addEventListener("load", focusEvent);
 
     function focusEvent() {
       // 필수 입력칸에 focusout시 값이 다 있는지 체크
       for (let i = 0; i < HanSignUpLiList2.length; i++) {
-
-        HanSignUpInputList2[i].addEventListener('focusout', function () {
-
+        HanSignUpInputList2[i].addEventListener("focusout", function () {
           HanSignUpValueCheck(i);
-
         });
-
-
       }
     }
 
     function HanSignUpValueCheck(i) {
-
       if (HanSignUpInputList2[i].value === "") {
         //input박스를 빨간색으로 보여주고
         //경고 문자를 보여준다
-        HanSignUpLiList2[i].classList.add('HanRed');
-        HanSignUpLiList2[i].classList.remove('hanNone');
+        HanSignUpLiList2[i].classList.add("HanRed");
+        HanSignUpLiList2[i].classList.remove("hanNone");
       } else {
         //input박스의 빨간색제거
         //경고 문자 안보이게
-        HanSignUpLiList2[i].classList.remove('HanRed');
-        HanSignUpLiList2[i].classList.add('hanNone');
+        HanSignUpLiList2[i].classList.remove("HanRed");
+        HanSignUpLiList2[i].classList.add("hanNone");
       }
-
-
     }
-
 
     $("#hiddenDeliveryName").mouseover(function () {
       $("#hiddenDeliveryNameArea").css("display", "block");
-    })
+    });
 
     $("#hiddenDeliveryName").mouseout(function () {
       $("#hiddenDeliveryNameArea").css("display", "none");
-    })
+    });
 
     $("#deliveryName").focus(function () {
       $("#hiddenDeliveryNameArea").css("display", "none");
-    })
+    });
 
     $("#hiddenName").mouseover(function () {
       $("#hiddenNameArea").css("display", "block");
-    })
+    });
 
     $("#hiddenName").mouseout(function () {
       $("#hiddenNameArea").css("display", "none");
-    })
+    });
     $("#recipientName").focus(function () {
       $("#hiddenNameArea").css("display", "none");
-    })
+    });
 
     $("#hiddenPhone").mouseover(function () {
       $("#hiddenPhoneArea").css("display", "block");
-    })
+    });
 
     $("#hiddenPhone").mouseout(function () {
       $("#hiddenPhoneArea").css("display", "none");
-    })
+    });
 
     $("#recipientPhoneNumber").focus(function () {
       $("#hiddenPhoneArea").css("display", "none");
-    })
-
+    });
 
     //회원가입버튼 누를시 검사하는 메서드 호출
-    HanSignUpSubmit2.addEventListener('click', HanSignUpSubmitCheck);
+    HanSignUpSubmit2.addEventListener("click", HanSignUpSubmitCheck);
+
+
+
+
+
 
     //회원가입버튼 누를시 검사하고 submit 하는 메서드
 
-
     //1. 필수입력창에 값을 다 입력했는지
 
-    function HanSignUpSubmitCheck(e) {
+    function HanSignUpSubmitCheck(e) { // 폼 제출 방지
 
-      e.preventDefault(); // 폼 제출 방지
+
+
+      e.preventDefault();
+      check_exp = 1;
 
       if (!delivery_name_check.test($("#deliveryName").val())) {
+        check_exp = 0;
         $("#deliveryName").addClass("HanRed");
         $("#hiddenDeliveryNameArea").css("display", "block");
-
-
-      }
-      else {
+      } else {
         $("#deliveryName").removeClass("HanRed");
       }
 
       if (!name_check.test($("#recipientName").val())) {
         $("#hiddenNameArea").css("display", "block");
         $("#recipientName").addClass("HanRed");
-
-      }
-      else {
+        check_exp = 0;
+      } else {
         $("#recipientName").removeClass("HanRed");
       }
 
       if (!phone_check.test($("#recipientPhoneNumber").val())) {
         $("#hiddenPhoneArea").css("display", "block");
         $("#recipientPhoneNumber").addClass("HanRed");
-
-      }
-      else {
+        check_exp = 0;
+      } else {
         $("#recipientPhoneNumber").removeClass("HanRed");
       }
 
 
-      
 
-    };
 
-    function HanSignUpSubmitCheck(e) {
-<!--    e.preventDefault(); // 기본 제출 방지-->
+      //1. 필수입력창에 값을 다 입력했는지
+      let ValueCheck1 = HanSignUpValueCheckAll2();
 
-    let ValueCheck = HanSignUpValueCheckAll(); // 필수 입력 체크
 
-    if (!$("#HanDeliveryCheckbox").is(":checked")) {
-        var params = { memberId: $("#sessionId").val() };
 
+      if (!$("#HanDeliveryCheckbox").is(":checked")) {
+        var params = {
+          memberId: $("#sessionId").val(),
+
+        };
+
+
+
+        // ajax 통신
         $.ajax({
-            type: "POST",
-            url: "/check/defaultDelivery",
-            data: params,
-            success: function (res) {
-                if (res == "false") {
-                    check_bol2 = 1;
-                    $("#HanDeliveryCheckbox").prop("checked", true); // 🚀 기본 배송지 자동 체크
+          type: "POST",
+          url: "/check/defaultDelivery",
+          data: params,
+          success: function (res) {
+            if (res == "false") {
+              if (ValueCheck1 === 0 && check_exp == 1) {
 
-                    if (ValueCheck === 0) {
-                        setTimeout(function () {
-                            document.getElementById("HanDeliveryForm").submit();
-                        }, 500);
+                check_bol2 = 1;
+                document.getElementById("HanDeliveryForm").submit();
+              } else {
 
-                    }
-                } else {
-                    alert("기본 배송지는 반드시 하나는 필요합니다.");
-                    $("#HanDeliveryCheckbox").prop("checked", false);
-                }
-            },
-            error: function () {
-                alert("통신 실패.");
+              }
+            } else {
+              alert("기본 배송지는 반드시 하나는 필요합니다.");
+              $("#HanDeliveryCheckbox").trigger("click");
             }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("통신 실패.");
+          },
         });
+      }
+
+      if (ValueCheck1 == 0 && check_bol2 == 1 && check_exp == 1) {
+        document.getElementById("HanDeliveryForm").submit();
+      }
     }
-}
-
-// `disabled` 상태가 있으면 제거
-$("#HanDeliverySubmit").prop("disabled", false);
-
 
     //HanSignUpLiList에  값을 쓸때 빨간색 테두리와 경고문자 제거하는 함수 호출
     HanSignUpLiList2.forEach((input, i) => {
-      input.addEventListener('input', () => HanSignUpWrite(i));
+      input.addEventListener("input", () => HanSignUpWrite(i));
     });
 
     //input에 값을 쓸때 빨간색 테두리와 경고문자 제거
     function HanSignUpWrite(i) {
+      HanSignUpLiList2[i].classList.remove("HanRed");
+      HanSignUpLiList2[i].classList.add("hanNone");
+    }
 
-      HanSignUpLiList2[i].classList.remove('HanRed');
-      HanSignUpLiList2[i].classList.add('hanNone');
 
+    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
+    // function HanSignUpValueCheckAll2() {
+
+    //   let value1 = 0;
+
+
+
+    //   for (let i = 0; i < HanSignUpLiList2.length; i++) {
+
+    //     if (HanSignUpInputList2[i].value === "") {
+    //       //input박스를 빨간색으로 보여주고
+    //       //경고 문자를 보여준다
+    //       HanSignUpLiList2[i].classList.add("HanRed");
+    //       HanSignUpLiList2[i].classList.remove("hanNone");
+    //       value1 = value1 + 1;
+
+    //     } else {
+    //       //input박스의 빨간색제거
+    //       //경고 문자 안보이게
+    //       HanSignUpLiList2[i].classList.remove("HanRed");
+    //       HanSignUpLiList2[i].classList.add("hanNone");
+    //     }
+
+    //   }
+
+
+
+    //   return value1;
+    // }
+
+    function HanSignUpValueCheckAll2() {
+      let value1 = 0;
+
+      console.log("🚀 [DEBUG] 함수 시작됨!");
+
+      // 배열 요소가 올바르게 선언되었는지 확인
+      if (!HanSignUpLiList2 || !HanSignUpInputList2) {
+        console.error("🚨 [ERROR] HanSignUpLiList2 또는 HanSignUpInputList2가 정의되지 않음!");
+        return;
+      }
+
+      console.log("✅ [DEBUG] 리스트 크기 확인: ", HanSignUpLiList2.length, HanSignUpInputList2.length);
+
+      for (let i = 0; i < HanSignUpLiList2.length; i++) {
+        console.log(`🔍 [DEBUG] ${i}번째 필드 검사 중...`);
+
+        if (!HanSignUpInputList2[i]) {
+          console.error(`🚨 [ERROR] HanSignUpInputList2[${i}]가 존재하지 않음!`);
+          continue;
+        }
+
+        if (HanSignUpInputList2[i].value === "") {
+          console.log(`⚠️ [DEBUG] ${i}번째 필드가 비어 있음`);
+          HanSignUpLiList2[i].classList.add("HanRed");
+          HanSignUpLiList2[i].classList.remove("hanNone");
+          value1 = value1 + 1;
+        } else {
+          HanSignUpLiList2[i].classList.remove("HanRed");
+          HanSignUpLiList2[i].classList.add("hanNone");
+        }
+      }
+
+      console.log("✅ [DEBUG] 모든 필드 검사 완료!");
+
+      return value1;
     }
 
     // -------------------------배송지 등록 부분 자바 스크립트 끝------------------------------------------
-</script>
+  </script>
 
 
-<script>
+  <script>
 
     // ------------------------------------결제 카트 등록 자바 스크립트 시작--------------------------------------------------------
 
@@ -1434,9 +1506,9 @@ $("#HanDeliverySubmit").prop("disabled", false);
     });
 
     // ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
-</script>
+  </script>
 
-<script>
+  <script>
 
 
     function validateMonth(input) {
@@ -1459,10 +1531,10 @@ $("#HanDeliverySubmit").prop("disabled", false);
     }
 
     // ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
-</script>
+  </script>
 
 
-<script>
+  <script>
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -1816,10 +1888,10 @@ $("#HanDeliverySubmit").prop("disabled", false);
 
 
     });
-</script>
+  </script>
 
 
-<script>
+  <script>
 
     // -------------------------------배송지 삭제 카드 삭제 ajax ---------------------------------------------------
 
@@ -1897,12 +1969,12 @@ $("#HanDeliverySubmit").prop("disabled", false);
 
 
     });
-</script>
+  </script>
 
 
-<!-- 다음 우편번호 주소찾기 API연결 사이트.-->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+  <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
 
 
     //우편번호 및 주소찾기, 다음 API이용
@@ -1954,7 +2026,7 @@ $("#HanDeliverySubmit").prop("disabled", false);
         }
       }).open();
     }
-</script>
+  </script>
 
 </body>
 
