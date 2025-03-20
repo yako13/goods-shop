@@ -219,6 +219,9 @@
       #categorySelect {
         font-size: 1rem;
       }
+      .text__center {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -314,7 +317,7 @@
                 th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
             </span>
           </div>
-          <div th:unless="${page.totalElements != 0}">
+          <div th:unless="${page.totalElements != 0}" class="text__center">
             <h1>등록하신 상품이 없습니다.</h1>
           </div>
           <div th:if="${page.totalElements != 0}">
