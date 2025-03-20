@@ -36,36 +36,44 @@ public class CheckoutController {
 
     @GetMapping("/master/checkout/list")
     public String masterCheckoutListPage(
+            @RequestParam(defaultValue = "ordererName") String search, //검색 기준
             @RequestParam(defaultValue = "0") int page, // 페이지 시작
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
+            @RequestParam(defaultValue = "ALL") String checkoutState, //주문 상태
  Model model) {
-        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(page,size,sort);
+        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(page,size,sort,checkoutState);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
         model.addAttribute("total", responseDtos.getTotalElements());
         model.addAttribute("currentPage", responseDtos.getNumber());
         model.addAttribute("size", size);
         model.addAttribute("sortSelect", sort);
+        model.addAttribute("searchSelect",search);
+        model.addAttribute("checkoutState",checkoutState);
 
         return "checkout/masterList";
     }
 
     @GetMapping("/master/checkout/search/index")
     public String masterSearchCheckoutListPage(
-            @RequestParam(value = "keyword", required = false, defaultValue = "주문자 이름을 입력해주세요.") String name,
+            @RequestParam(value = "keyword", required = false, defaultValue = "검색어를 입력해주세요.") String keyword,
+            @RequestParam(defaultValue = "ordererName") String search,
             @RequestParam(defaultValue = "0") int page, // 페이지 시작
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
+            @RequestParam(defaultValue = "ALL") String checkoutState, //주문 상태
             Model model) {
-        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutSearchList(name,page,size,sort);
+        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutSearchList(search,keyword,page,size,sort,checkoutState);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
         model.addAttribute("total", responseDtos.getTotalElements());
         model.addAttribute("currentPage", responseDtos.getNumber());
         model.addAttribute("size", size);
-        model.addAttribute("keywordQuery", name);
+        model.addAttribute("keywordQuery", keyword);
         model.addAttribute("sortSelect", sort);
+        model.addAttribute("searchSelect",search);
+        model.addAttribute("checkoutState",checkoutState);
 
         return "checkout/masterSearchList";
     }
@@ -87,12 +95,6 @@ public class CheckoutController {
         return "redirect:/master/checkout/details/" + checkoutDetailsDto.getId();
     }
 
-    @GetMapping("/master/checkout/{id}/delete")
-    public String deleteCheckout(@PathVariable Long id, RedirectAttributes rttr) {
-        checkoutService.deleteCheckout(id);
-        rttr.addFlashAttribute("alert", "삭제가 완료되었습니다.");
-        return "redirect:/master/checkout/list";
-    }
 
     @GetMapping("/member/checkout/list")
     public String createMemberCheckoutList(HttpServletRequest request, Model model) {

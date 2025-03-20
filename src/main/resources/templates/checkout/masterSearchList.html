@@ -35,19 +35,30 @@
     <main id="main">
         <div class="container">
             <h2 th:if="${keywordQuery==null}">전체 주문 목록</h2>
-            <div th:text="${keywordQuery}" class="search-name"></div>
+            <h2 th:if="${keywordQuery!=null}" th:text="'검색어 : '+ ${keywordQuery}" class="search-name"></h2>
             <hr>
             <div class="orderList">
                 <p><b>주문 내역</b> : 총 <b id="red">[[${total}]]</b>건</p>
             </div>
             <div>
                 <form action="/master/checkout/search/index" method="get" role="search" id="HanSerachForm">
-                    <input type="text" id="searchInput" name="keyword" placeholder="주문자를 검색해주세요." />
+                    <select name="search" id="searchSelect" onchange="">
+                        <option value="ordererName" th:selected="${searchSelect=='ordererName'}">주문자 이름</option>
+                        <option value="recipientName" th:selected="${searchSelect=='recipientName'}">받는분 이름</option>
+                        <option value="productName" th:selected="${searchSelect=='productName'}">상품명</option>
+                    </select>
+                    <input type="text" id="searchInput" name="keyword" placeholder="검색어를 입력해주세요." />
                     <button type="submit" form="HanSerachForm"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
 
             </div>
             <div class="container__sort">
+                <select name="checkoutState" id="checkoutStateSelect" onchange="">
+                    <option value="ALL" th:selected="${checkoutState=='ALL'}">전체주문</option>
+                    <option value="CONFIRM" th:selected="${checkoutState=='CONFIRM'}">주문완료</option>
+                    <option value="WAIT" th:selected="${checkoutState=='WAIT'}">주문보류</option>
+                    <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}">주문취소</option>
+                </select>
                 <select name="sizeSelect" id="sizeSelect" onchange="">
                     <option value="5" th:selected="${size==5}">5개</option>
                     <option value="10" th:selected="${size==10}">10개</option>
@@ -165,22 +176,29 @@
     <script th:src="@{/js/master/checkout.js}"></script>
     <script>
         // 검색 단어기준 상품개수 정렬
+        const searchSelect = document.getElementById("searchSelect");
         const sizeSelect = document.getElementById("sizeSelect");
         const sortSelect = document.getElementById("sortSelect");
+        const checkoutStateSelect = document.getElementById("checkoutStateSelect");
 
         const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
+        const currentSearch = `[[${searchSelect}]]` //현재 검색 기준
         const currentSize = `[[${size}]]`; // 현재 사이즈
         const currentSort = `[[${sortSelect}]]`; // 현재 정렬 방식
-
+        const currentCheckoutState = `[[${checkoutState}]]` //현재 주문상태
+        checkoutStateSelect.addEventListener("change",function(){
+            const selectedCheckoutState = this.value;
+            window.location.href = `/master/checkout/search/index?keyword=${keywordQuery}&page=0&search=${currentSearch}&checkoutState=${selectedCheckoutState}&size=${currentSize}&sort=${currentSort}`;
+        })
 
         sizeSelect.addEventListener("change", function () {
             const selectedSize = this.value;
-            window.location.href = `/master/checkout/search/index?keyword=${keywordQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
+            window.location.href = `/master/checkout/search/index?keyword=${keywordQuery}&page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${selectedSize}&sort=${currentSort}`;
         });
 
         sortSelect.addEventListener("change", function () {
             const selectedSort = this.value;
-            window.location.href = `/master/checkout/search/index?keyword=${keywordQuery}&page=0&size=${currentSize}&sort=${selectedSort}`;
+            window.location.href = `/master/checkout/search/index?keyword=${keywordQuery}&page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${currentSize}&sort=${selectedSort}`;
         });
     </script>
 </body>
