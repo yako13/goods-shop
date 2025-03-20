@@ -216,9 +216,8 @@
       #sortSelect {
         font-size: 1rem;
       }
-      .qwer {
-        margin-left: 1.5rem;
-        width: 500px;
+      #categorySelect {
+        font-size: 1rem;
       }
     </style>
   </head>
@@ -256,37 +255,37 @@
                 </button>
               </form>
             </div>
-            <div class="qwer">
-              <a th:href="@{/master/product/list}">전체상품</a>
-              <a
-                th:href="@{/master/product/list/category(category='photo_card')}"
-                th:classappend="${categoryQuery == 'photo_card'} ? 'active' : ''"
-                >포토카드홀더</a
-              >
-              <a
-                th:href="@{/master/product/list/category(category='memo')}"
-                th:classappend="${categoryQuery == 'memo'} ? 'active' : ''"
-                >메모지</a
-              >
-              <a
-                th:href="@{/master/product/list/category(category='sticker')}"
-                th:classappend="${categoryQuery == 'sticker'} ? 'active' : ''"
-                >스티커</a
-              >
-              <a
-                th:href="@{/master/product/list/category(category='postcard')}"
-                th:classappend="${categoryQuery == 'postcard'} ? 'active' : ''"
-                >엽서</a
-              >
-              <a
-                th:href="@{/master/product/list/category(category='etc')}"
-                th:classappend="${categoryQuery == 'etc'} ? 'active' : ''"
-                >기타</a
-              >
-            </div>
           </div>
           <div th:if="${page.totalElements != 0}">
             <div class="container__sort">
+              <select name="categorySelect" id="categorySelect" onchange="">
+                <option
+                  value="default"
+                  th:selected="${categoryQuery == default}">
+                  전체상품
+                </option>
+                <option
+                  value="photo_card"
+                  th:selected="${categoryQuery == 'photo_card'}">
+                  포토카드홀더
+                </option>
+                <option value="memo" th:selected="${categoryQuery == 'memo'}">
+                  메모지
+                </option>
+                <option
+                  value="sticker"
+                  th:selected="${categoryQuery == 'sticker'}">
+                  스티커
+                </option>
+                <option
+                  value="postcard"
+                  th:selected="${categoryQuery == 'postcard'}">
+                  엽서
+                </option>
+                <option value="etc" th:selected="${categoryQuery == 'etc'}">
+                  기타
+                </option>
+              </select>
               <select name="sizetSelect" id="sizeSelect" onchange="">
                 <option value="5" th:selected="${size==5}">5개</option>
                 <option value="10" th:selected="${size==10}">10개</option>
