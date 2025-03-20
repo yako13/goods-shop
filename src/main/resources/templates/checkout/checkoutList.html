@@ -14,6 +14,11 @@
             margin-right : 10px;
         }
 
+        .payDate{
+            display: flex;
+            justify-content: end;
+        }
+
     </style>
 </head>
 
@@ -76,6 +81,9 @@
                         </div>
 
                     </div>
+                    <div class="payDate">
+                        <p class="HanCkListProductDate">[[${checkout.createdAt}]] 결제</p>
+                    </div>
 
                     <!-- 카트 아이템 항목 시작 -->
                     <div>
@@ -92,14 +100,14 @@
 
                                 <div class="HanCkListProductName">
 
-                                    <p class="HanCkListProductDate">[[${checkout.createdAt}]] 결제</p>
+                                    
 
                                     <div class="HanCkListProductNameDiv">
 
                                         <b><p class="HanCkListProductNameP" th:text="${product.name}"></p></b>
 
-                                        <div><span class="HanCkListProductPriceP priceText" th:text="${product.price}"></span>(<span th:text="${product.count}+'개'"></span>)</div>
-                                       <p th:text="'총 '+${product.totalPrice}" class="HanCkListProductPriceP"></p>
+                                        <div><span class="HanCkListProductPriceP priceText" >[[${product.price}]] X [[${product.count}]] </span></div>
+                                       <p th:text="'= ' + ${product.totalPrice}" class="HanCkListProductPriceP"></p>
                                     </div>
 
                                 </div>

@@ -138,6 +138,53 @@ public class ProductService {
                 .build();
     }
 
+    // 등록된 상품 리스트 검색 조회 호출 (관리자)
+    public Page<MasterProductListResponseDto> getMasterProductCategoryListDto (int page, int size, String sort, String category) {
+
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
+
+        ProductCategory productCategory = convertToProductCategory(category);
+
+        Page<Product> products;
+        if (productCategory == null) {
+            products = productRepository.findAll(pageable);
+        } else {
+            products = productRepository.findByProductCategory(productCategory, pageable);
+        }
+
+        return products.map(this::toMasterProductCategoryListResponseDto);
+    }
+
+    // 상품 리스트 조회 (관리자)
+    public MasterProductListResponseDto toMasterProductCategoryListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return MasterProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
+                .sellingCount(product.getSellingCount())
+                .mainImagePath(productMainImagePath)
+                .productCategory(Formatter.getProductCategory(product.getProductCategory()))
+                .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
+                .modifiedAt(Formatter.getLocalDate(product.getModifiedAt()))
+                .build();
+    }
+
     // 등록된 상품 삭제
     @Transactional
     public void delete(Long id) {

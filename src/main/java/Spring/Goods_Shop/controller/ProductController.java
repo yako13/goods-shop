@@ -150,6 +150,23 @@ public class ProductController {
         return "product/master-product-search";
     }
 
+    // 등록된 상품 리스트 카테고리
+    @GetMapping("/master/product/list/category")
+    public String masterProductListCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size,
+                                          @RequestParam(defaultValue = "default") String sort,
+                                          Model model) {
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductCategoryListDto(page, size, sort, category);
+        model.addAttribute("productList", productList.getContent());
+        model.addAttribute("page", productList);
+        model.addAttribute("currentPage", productList.getNumber());
+        model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
+        model.addAttribute("categoryQuery", category);
+        return "product/master-product-category";
+    }
+
     // 상품 등록 페이지 이동
     @GetMapping("/master/product/register")
     public String productRegister() {
