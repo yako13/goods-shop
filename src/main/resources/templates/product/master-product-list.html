@@ -209,6 +209,7 @@
                   <th>카테고리</th>
                   <th>판매가격</th>
                   <th>재고수량</th>
+                  <th>누적판매</th>
                   <th>등록일자</th>
                   <th>수정일자</th>
                   <th>상품수정</th>
@@ -232,6 +233,7 @@
                   <td th:text="${productList.productCategory}"></td>
                   <td th:text="${productList.price}"></td>
                   <td th:text="${productList.count + '개'}"></td>
+                  <td th:text="${productList.sellingCount + '개'}"></td>
                   <td th:text="${productList.createdAt}"></td>
                   <td th:text="${productList.modifiedAt}"></td>
                   <td>

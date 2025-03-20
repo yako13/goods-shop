@@ -15,7 +15,9 @@ import Spring.Goods_Shop.util.Formatter;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -35,7 +37,26 @@ public class CheckoutService {
     /**
      * 관리자 주문리스트
      */
-    public Page<CheckoutResponseDto> getCheckoutList(Pageable pageable) {
+    public Page<CheckoutResponseDto> getCheckoutList(int page, int size, String sort) {
+
+        //페이지당 주문 수 50개이상 불러올 때
+        if (size >= 50) {
+            throw new RuntimeException("올바르지 않은 접근");
+        }
+
+
+        Pageable pageable;
+
+        if ("price_asc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "checkoutTotalPay"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "checkoutTotalPay"));
+        } else if ("past".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createdAt"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        }
+
         Page<Checkout> checkoutList = checkoutRepository.findAll(pageable);
         return checkoutList.map((checkout -> {
             int length = checkout.getCheckoutDetailsList().size();
@@ -47,13 +68,9 @@ public class CheckoutService {
             }
             //2개 이상일 경우
             else {
-                productInfo = productName + "외 " + (length - 1) + "종";
+                productInfo = productName + "외 " + (length - 1) + "건";
             }
 
-            String modifiedAt = "";
-            if (checkout.getModifiedAt() != null) {
-                modifiedAt = Formatter.getLocalDate(checkout.getModifiedAt());
-            }
 
             return CheckoutResponseDto.builder()
                     .id(checkout.getId())
@@ -65,7 +82,66 @@ public class CheckoutService {
                     .checkoutStep(Formatter.getCheckoutState(checkout.getCheckoutStep()))
                     .checkoutTotalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
                     .createdAt(Formatter.getLocalDate(checkout.getCreatedAt()))
-                    .modifiedAt(modifiedAt)
+                    .modifiedAt(Formatter.getLocalDate(checkout.getModifiedAt()))
+                    .build();
+        }));
+    }
+
+
+    /**
+     * 관리자 주문리스트
+     */
+    public Page<CheckoutResponseDto> getCheckoutSearchList(String name,int page, int size, String sort) {
+
+        //페이지당 주문 수 50개이상 불러올 때
+        if (size >= 50) {
+            throw new RuntimeException("올바르지 않은 접근");
+        }
+
+
+        Pageable pageable;
+
+        if ("price_asc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "checkoutTotalPay"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "checkoutTotalPay"));
+        } else if ("past".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createdAt"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        }
+
+        if (name == null || name.isBlank()) return Page.empty();
+
+        String trimName = name.trim();
+
+        Page<Checkout> checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpace(trimName,pageable);
+
+        return checkoutList.map((checkout -> {
+            int length = checkout.getCheckoutDetailsList().size();
+            String productName = checkout.getCheckoutDetailsList().get(0).getProduct().getName();
+            String productInfo = "";
+            //주문한 상품이 1개일 경우
+            if (length == 1) {
+                productInfo = productName;
+            }
+            //2개 이상일 경우
+            else {
+                productInfo = productName + "외 " + (length - 1) + "건";
+            }
+
+
+            return CheckoutResponseDto.builder()
+                    .id(checkout.getId())
+                    .checkoutCode(checkout.getCheckoutCode())
+                    .checkoutProductName(productInfo)
+                    .checkoutName(checkout.getMember().getName())
+                    .checkoutRecipientName(checkout.getCheckoutName())
+                    .checkoutPostStep(Formatter.getDeliveryState(checkout.getCheckoutPostStep()))
+                    .checkoutStep(Formatter.getCheckoutState(checkout.getCheckoutStep()))
+                    .checkoutTotalPay(Formatter.changeBigDecimalFormat(checkout.getCheckoutTotalPay()))
+                    .createdAt(Formatter.getLocalDate(checkout.getCreatedAt()))
+                    .modifiedAt(Formatter.getLocalDate(checkout.getModifiedAt()))
                     .build();
         }));
     }
@@ -101,7 +177,7 @@ public class CheckoutService {
         List<ProductListResponseDto> productListResponseDtos = new ArrayList<>();
 
         //주문 상세 리스트의 제품 찾기
-        for(CheckoutDetails checkoutDetails1 : checkoutDetailsList){
+        for (CheckoutDetails checkoutDetails1 : checkoutDetailsList) {
 
             //주문한 상품 수량을 BigDecimal 형변환
             BigDecimal productCount = new BigDecimal(checkoutDetails1.getCheckoutDetailCnt());
@@ -184,7 +260,6 @@ public class CheckoutService {
         List<CheckoutResponseDto> checkoutResponseDtos = new ArrayList<>();
 
 
-
         //로그인한 회원의 주문목록 가져옴
         for (Checkout checkout : checkoutList) {
             List<ProductListResponseDto> productListResponseDtos = new ArrayList<>();
@@ -192,7 +267,7 @@ public class CheckoutService {
             List<CheckoutDetails> checkoutDetails = checkoutDetailsRepository.findALLByCheckoutId(checkout.getId());
 
             //주문 상세 리스트의 제품 찾기
-            for(CheckoutDetails checkoutDetails1 : checkoutDetails){
+            for (CheckoutDetails checkoutDetails1 : checkoutDetails) {
 
                 //주문한 상품 수량을 BigDecimal 형변환
                 BigDecimal productCount = new BigDecimal(checkoutDetails1.getCheckoutDetailCnt());
@@ -201,6 +276,8 @@ public class CheckoutService {
                 ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
                         .id(checkoutDetails1.getProduct().getId())
                         .name(checkoutDetails1.getProduct().getName())
+                        .price(Formatter.changeBigDecimalFormat(checkoutDetails1.getProduct().getPrice()))
+                        .count(checkoutDetails1.getCheckoutDetailCnt())
                         .totalPrice(Formatter.changeBigDecimalFormat(checkoutDetails1.getProduct().getPrice().multiply(productCount))) //상품 총 가격 = 구매개수 X 상품 개당 가격
                         .mainImagePath(productImageManager.createImageUrl(checkoutDetails1.getProduct().getProductImage().getImageFullName()))
                         .build();
