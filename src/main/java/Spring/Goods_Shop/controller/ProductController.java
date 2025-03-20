@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -104,8 +102,9 @@ public class ProductController {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
         }
-
-        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size, sort);
+        // 검색어에 공백을 지움
+        String cleanName = name.replace(" ", "");
+        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(cleanName, page, size, sort);
 
         model.addAttribute("searchList", productCategoryAndSearchResponseDtoPage.getContent());
         model.addAttribute("page", productCategoryAndSearchResponseDtoPage);
@@ -119,14 +118,36 @@ public class ProductController {
 
     // 등록된 상품 리스트
     @GetMapping("/master/product/list")
-    public String masterProductList(@RequestParam(defaultValue = "0")int page,
-                                    @RequestParam(defaultValue = "10")int size,Model model) {
-        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(page, size);
+    public String masterProductList(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "default") String sort,
+                                    Model model) {
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductListDto(page, size, sort);
         model.addAttribute("productList", productList.getContent());
         model.addAttribute("page", productList);
         model.addAttribute("currentPage", productList.getNumber());
         model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
         return "product/master-product-list";
+    }
+
+    // 등록된 상품 리스트 검색
+    @GetMapping("/master/product/search/index")
+    public String masterProductListSearch(@RequestParam(value = "keyword", required = false, defaultValue = "") String name,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size,
+                                           @RequestParam(defaultValue = "default") String sort,
+                                           Model model) {
+        // 검색어에 공백을 지움
+        String cleanName = name.replace(" ", "");
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductSearchListDto(page, size, sort, cleanName);
+        model.addAttribute("productList", productList.getContent());
+        model.addAttribute("page", productList);
+        model.addAttribute("currentPage", productList.getNumber());
+        model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
+        model.addAttribute("keywordQuery", name);
+        return "product/master-product-search";
     }
 
     // 상품 등록 페이지 이동

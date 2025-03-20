@@ -144,8 +144,8 @@
         background-color: #f8f9fa;
       }
       .buttonAndTotal {
-        /* display: flex;
-        justify-content: space-between; */
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 0.5rem;
       }
       table tr:hover {
@@ -190,7 +190,7 @@
         border-radius: 7px;
         width: 12rem;
         height: 1.7rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem;
         justify-content: center;
       }
       .searchForm {
@@ -212,6 +212,9 @@
       }
       #sortSelect {
         font-size: 1rem;
+      }
+      table {
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -282,6 +285,7 @@
                   th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
               </span>
             </div>
+
             <table>
               <thead>
                 <tr>
@@ -349,7 +353,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=0, size=${size})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=0, size=${size}, sort=${sortSelec})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -361,7 +365,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage - 1}, size=${size})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage - 1}, size=${size}, sort=${sortSelec})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -375,7 +379,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${pageNum}, size=${size})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${pageNum}, size=${size}, sort=${sortSelec})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -385,7 +389,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage + 1}, size=${size})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage + 1}, size=${size}, sort=${sortSelec})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -395,7 +399,7 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${page.totalPages - 1}, size=${size})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${page.totalPages - 1}, size=${size}, sort=${sortSelec})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
@@ -436,17 +440,18 @@
     const sizeSelect = document.getElementById("sizeSelect");
     const sortSelect = document.getElementById("sortSelect");
 
+    const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
     const currentSize = `[[${size}]]`;
     const currentSort = `[[${sortSelect}]]`;
 
     sizeSelect.addEventListener("change", function () {
       const selectedSize = this.value;
-      window.location.href = `/master/product/list?page=0&size=${selectedSize}&sort=${currentSort}`;
+      window.location.href = `/master/product/search/index?keword=${keywordQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
     });
 
     sortSelect.addEventListener("change", function () {
       const selectedSort = this.value;
-      window.location.href = `/master/product/list?page=0&size=${currentSize}&sort=${selectedSort}`;
+      window.location.href = `/master/product/search/index?keyword=${keywordQuery}&page=0&size=${currentSize}&sort=${selectedSort}`;
     });
   </script>
 </html>
