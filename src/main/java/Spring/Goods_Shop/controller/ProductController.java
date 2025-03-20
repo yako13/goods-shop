@@ -47,6 +47,7 @@ public class ProductController {
         model.addAttribute("currentPage", productListResponseDtoPage.getNumber());
         model.addAttribute("size", size);
         model.addAttribute("sortSelect", sort);
+        model.addAttribute("check" ,"1");
 
         return "product/product-list";
     }

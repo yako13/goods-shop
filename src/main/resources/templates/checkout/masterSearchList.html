@@ -23,6 +23,10 @@
         .text__right {
             margin: 0 10px;
         }
+
+                .trPointer{
+        cursor:pointer;
+        }
     </style>
 </head>
 
@@ -108,7 +112,7 @@
                         <th>주문 날짜</th>
                         <th>수정 날짜</th>
                     </tr>
-                    <tr th:each="checkout : ${checkoutList}">
+                    <tr th:each="checkout : ${checkoutList}" th:onclick="window.location.href='/master/checkout/details/' + [[${checkout.id}]];" class="trPointer">
 
 
                         <td>
