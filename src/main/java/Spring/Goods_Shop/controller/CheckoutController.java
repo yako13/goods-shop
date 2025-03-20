@@ -3,8 +3,10 @@ package Spring.Goods_Shop.controller;
 import Spring.Goods_Shop.dto.checkout.CheckoutDetailsResponseDto;
 import Spring.Goods_Shop.dto.checkout.CheckoutDetailsDto;
 import Spring.Goods_Shop.dto.checkout.CheckoutResponseDto;
+import Spring.Goods_Shop.dto.checkout.HanPart.CheckoutListDetailDto;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.CheckoutService;
+import Spring.Goods_Shop.service.HanCheckoutService;
 import Spring.Goods_Shop.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class CheckoutController {
     private final CheckoutService checkoutService;
 
     private final MemberService memberService;
+
+    private final HanCheckoutService hanCheckoutService;
 
     @GetMapping("/master/checkout/list")
     public String masterCheckoutListPage(
@@ -102,6 +106,23 @@ public class CheckoutController {
         model.addAttribute("checkoutList", checkoutResponseDtos);
 
         return "checkout/checkoutList";
+    }
+
+    //    주문 목록 상세 페이지로 이동
+    @GetMapping("/member/checkout/details/{id}")
+    public String checkoutDetailsGo1(HttpServletRequest request, Model model, @PathVariable("id") Long id) {
+
+        Member member = memberService.getMemberEntity(request);
+
+        model.addAttribute("userId", member.getUserId());
+        model.addAttribute("name", member.getName());
+
+        //주문 목록 상세페이지 정보를 가져오고 변환 해주는 서비스
+        CheckoutListDetailDto checkoutListDetailDto = hanCheckoutService.hanCheckoutListDetail(request, id);
+
+        model.addAttribute("CheckoutListDetailDto", checkoutListDetailDto);
+
+        return "checkout/checkoutListDetail";
     }
 
 
