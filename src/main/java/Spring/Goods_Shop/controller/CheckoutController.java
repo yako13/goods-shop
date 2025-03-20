@@ -3,8 +3,10 @@ package Spring.Goods_Shop.controller;
 import Spring.Goods_Shop.dto.checkout.CheckoutDetailsResponseDto;
 import Spring.Goods_Shop.dto.checkout.CheckoutDetailsDto;
 import Spring.Goods_Shop.dto.checkout.CheckoutResponseDto;
+import Spring.Goods_Shop.dto.checkout.HanPart.CheckoutListDetailDto;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.CheckoutService;
+import Spring.Goods_Shop.service.HanCheckoutService;
 import Spring.Goods_Shop.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -29,14 +32,42 @@ public class CheckoutController {
 
     private final MemberService memberService;
 
+    private final HanCheckoutService hanCheckoutService;
+
     @GetMapping("/master/checkout/list")
-    public String masterCheckoutListPage(@PageableDefault(size = 10, page = 0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
-        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(pageable);
+    public String masterCheckoutListPage(
+            @RequestParam(defaultValue = "0") int page, // 페이지 시작
+            @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
+            @RequestParam(defaultValue = "default") String sort, // 상품 정렬
+ Model model) {
+        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutList(page,size,sort);
         model.addAttribute("checkoutList", responseDtos.getContent());
         model.addAttribute("paging", responseDtos);
         model.addAttribute("total", responseDtos.getTotalElements());
         model.addAttribute("currentPage", responseDtos.getNumber());
+        model.addAttribute("size", size);
+        model.addAttribute("sortSelect", sort);
+
         return "checkout/masterList";
+    }
+
+    @GetMapping("/master/checkout/search/index")
+    public String masterSearchCheckoutListPage(
+            @RequestParam(value = "keyword", required = false, defaultValue = "주문자 이름을 입력해주세요.") String name,
+            @RequestParam(defaultValue = "0") int page, // 페이지 시작
+            @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
+            @RequestParam(defaultValue = "default") String sort, // 상품 정렬
+            Model model) {
+        Page<CheckoutResponseDto> responseDtos = checkoutService.getCheckoutSearchList(name,page,size,sort);
+        model.addAttribute("checkoutList", responseDtos.getContent());
+        model.addAttribute("paging", responseDtos);
+        model.addAttribute("total", responseDtos.getTotalElements());
+        model.addAttribute("currentPage", responseDtos.getNumber());
+        model.addAttribute("size", size);
+        model.addAttribute("keywordQuery", name);
+        model.addAttribute("sortSelect", sort);
+
+        return "checkout/masterSearchList";
     }
 
     @GetMapping("/master/checkout/details/{id}")
@@ -75,6 +106,23 @@ public class CheckoutController {
         model.addAttribute("checkoutList", checkoutResponseDtos);
 
         return "checkout/checkoutList";
+    }
+
+    //    주문 목록 상세 페이지로 이동
+    @GetMapping("/member/checkout/details/{id}")
+    public String checkoutDetailsGo1(HttpServletRequest request, Model model, @PathVariable("id") Long id) {
+
+        Member member = memberService.getMemberEntity(request);
+
+        model.addAttribute("userId", member.getUserId());
+        model.addAttribute("name", member.getName());
+
+        //주문 목록 상세페이지 정보를 가져오고 변환 해주는 서비스
+        CheckoutListDetailDto checkoutListDetailDto = hanCheckoutService.hanCheckoutListDetail(request, id);
+
+        model.addAttribute("CheckoutListDetailDto", checkoutListDetailDto);
+
+        return "checkout/checkoutListDetail";
     }
 
 

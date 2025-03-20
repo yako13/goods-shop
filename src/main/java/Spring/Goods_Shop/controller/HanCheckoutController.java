@@ -4,6 +4,7 @@ import Spring.Goods_Shop.dto.cart.CartCheckoutDto;
 import Spring.Goods_Shop.dto.checkout.HanPart.*;
 import Spring.Goods_Shop.dto.product.Hanpart.ProductCheckoutResDto;
 import Spring.Goods_Shop.entity.Delivery;
+import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.HanCheckoutService;
 import Spring.Goods_Shop.util.Formatter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ import java.util.List;
 public class HanCheckoutController {
 
     private final HanCheckoutService hanCheckoutService;
+
+
 
 
     //-Han Part- 시작
@@ -664,18 +667,7 @@ public class HanCheckoutController {
     //    -----------------------구매목록 관련 컨트롤러---------------------------------------------
 
 
-    //    주문 목록 상세 페이지로 이동
-    @GetMapping("/member/checkout/details/{id}")
-    public String checkoutDetailsGo1(HttpServletRequest request, Model model, @PathVariable("id") Long id) {
 
-        //주문 목록 상세페이지 정보를 가져오고 변환 해주는 서비스
-        CheckoutListDetailDto checkoutListDetailDto = hanCheckoutService.hanCheckoutListDetail(request, id);
-
-        model.addAttribute("CheckoutListDetailDto", checkoutListDetailDto);
-
-
-        return "checkout/checkoutListDetail";
-    }
 
 
     //주문 완료 페이지로 이동

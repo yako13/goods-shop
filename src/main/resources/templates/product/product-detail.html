@@ -78,8 +78,7 @@
       }
 
       .product-info__count {
-        color: #434343;
-        font-weight: bolder;
+        color: #686868;
       }
 
       .product-info__p {
@@ -257,9 +256,6 @@
         display: none;
         /* 기본적으로 버튼 숨김 */
       }
-      .qw {
-        text-align: right;
-      }
     </style>
   </head>
 
@@ -289,13 +285,8 @@
           </span>
           <div class="product-info">
             <p th:text="${product.name}" class="product-info__name"></p>
-            <div class="qw">
-              <sapn>남은 개수</sapn>
-              <span
-                th:text="${product.count} + '개'"
-                id="productCount"
-                class="product-info__count"></span>
-            </div>
+            <span th:text="${product.count}" class="product-info__count"></span>
+            <sapn> 개 남았습니다.</sapn>
             <p
               th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
               class="product-info__price">
@@ -423,27 +414,22 @@
       //+-버튼에 따라 수량 증감을 보여준다
       currentQuantity += change;
 
-      // 1보다 작아지지 않게
-      if (currentQuantity < 1) {
-        currentQuantity = 1;
-      }
+    // 1보다 작아지지 않게
+    if (currentQuantity < 1) {
+      currentQuantity = 1;
+    }
 
-      //재고수 보다 많이 사는 거 막기
-      let productCount = document.querySelector(
-        ".product-info__count"
-      ).textContent;
-      if (
-        currentQuantity > parseInt(productCount) &&
-        parseInt(productCount) !== 0
-      ) {
-        alert("재고수보다 많이 구매할 수 없습니다.");
-        currentQuantity = parseInt(productCount);
-      }
+    //재고수 보다 많이 사는 거 막기
+    let productCount = document.querySelector(".product-info__count").textContent;
+    if (currentQuantity > parseInt(productCount) && parseInt(productCount) !==0 ) {
+      alert("재고수보다 많이 구매할 수 없습니다.");
+      currentQuantity = parseInt(productCount);
+    }
 
-      //구매하기와 장바구니 둘다 input hidden에 넣어줌
-      quantityInput.value = currentQuantity;
-      quantityInputHidden.value = currentQuantity;
-      quantityInputHidden2.value = currentQuantity;
+    //구매하기와 장바구니 둘다 input hidden에 넣어줌
+    quantityInput.value = currentQuantity;
+    quantityInputHidden.value = currentQuantity;
+    quantityInputHidden2.value = currentQuantity;
 
       //수량에 따라 가격 변동해주는 함수 호출
       updateTotalPrice(currentQuantity);
@@ -498,9 +484,5 @@
     document.getElementById("topBtn").onclick = function () {
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
-    const productCount = document.getElementById("productCount");
-    if (productCount.value <= "10") {
-      productCount.getAttribute();
-    }
   </script>
 </html>
