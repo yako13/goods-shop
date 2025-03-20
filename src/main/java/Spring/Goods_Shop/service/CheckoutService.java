@@ -4,6 +4,7 @@ import Spring.Goods_Shop.dto.product.ProductListResponseDto;
 import Spring.Goods_Shop.entity.Checkout;
 import Spring.Goods_Shop.dto.checkout.CheckoutDetailsResponseDto;
 import Spring.Goods_Shop.entity.Member;
+import Spring.Goods_Shop.enums.CheckoutState;
 import Spring.Goods_Shop.inter.ProductImageManager;
 import Spring.Goods_Shop.repository.CheckoutRepository;
 import Spring.Goods_Shop.entity.CheckoutDetails;
@@ -37,7 +38,7 @@ public class CheckoutService {
     /**
      * 관리자 주문리스트
      */
-    public Page<CheckoutResponseDto> getCheckoutList(int page, int size, String sort) {
+    public Page<CheckoutResponseDto> getCheckoutList(int page, int size, String sort, String checkoutState) {
 
         //페이지당 주문 수 50개이상 불러올 때
         if (size >= 50) {
@@ -47,17 +48,31 @@ public class CheckoutService {
 
         Pageable pageable;
 
+        //가격으로 sort
         if ("price_asc".equals(sort)) {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "checkoutTotalPay"));
         } else if ("price_desc".equals(sort)) {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "checkoutTotalPay"));
+
+            //주문 날짜별 sort
         } else if ("past".equals(sort)) {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createdAt"));
         } else {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         }
 
-        Page<Checkout> checkoutList = checkoutRepository.findAll(pageable);
+        //주문 상태 sort
+        Page<Checkout> checkoutList = null;
+        if (checkoutState.equals("CONFIRM")) {
+            checkoutList = checkoutRepository.findByCheckoutStep(CheckoutState.CONFIRM, pageable);
+        } else if (checkoutState.equals("CANCEL")) {
+            checkoutList = checkoutRepository.findByCheckoutStep(CheckoutState.CANCEL, pageable);
+        } else if (checkoutState.equals("WAIT")) {
+            checkoutList = checkoutRepository.findByCheckoutStep(CheckoutState.WAIT, pageable);
+        } else {
+            checkoutList = checkoutRepository.findAll(pageable);
+        }
+
         return checkoutList.map((checkout -> {
             int length = checkout.getCheckoutDetailsList().size();
             String productName = checkout.getCheckoutDetailsList().get(0).getProduct().getName();
@@ -89,9 +104,9 @@ public class CheckoutService {
 
 
     /**
-     * 관리자 주문리스트
+     * 관리자 검색 주문 리스트
      */
-    public Page<CheckoutResponseDto> getCheckoutSearchList(String name,int page, int size, String sort) {
+    public Page<CheckoutResponseDto> getCheckoutSearchList(String search, String keyword, int page, int size, String sort, String checkoutState) {
 
         //페이지당 주문 수 50개이상 불러올 때
         if (size >= 50) {
@@ -111,11 +126,56 @@ public class CheckoutService {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         }
 
-        if (name == null || name.isBlank()) return Page.empty();
+        if (keyword == null || keyword.isBlank()) return Page.empty();
 
-        String trimName = name.trim();
+        String trimKeyword = keyword.trim();
 
-        Page<Checkout> checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpace(trimName,pageable);
+        Page<Checkout> checkoutList = null;
+
+        //검색 기준이 주문자일때
+        if ("ordererName".equals(search)) {
+            //주문상태로 다시 sort
+            if (checkoutState.equals("CONFIRM")) {
+                checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CONFIRM);
+            } else if (checkoutState.equals("CANCEL")) {
+                checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CANCEL);
+            } else if (checkoutState.equals("WAIT")) {
+                checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.WAIT);
+            } else {
+                checkoutList = checkoutRepository.findByMemberNameContainingWithoutSpace(trimKeyword, pageable);
+            }
+        }
+        //검색 기준이 받는 분일때
+        else if ("recipientName".equals(search)) {
+            //주문상태로 다시 sort
+            if (checkoutState.equals("CONFIRM")) {
+                checkoutList = checkoutRepository.findByCheckoutNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CONFIRM);
+            } else if (checkoutState.equals("CANCEL")) {
+                checkoutList = checkoutRepository.findByCheckoutNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CANCEL);
+            } else if (checkoutState.equals("WAIT")) {
+                checkoutList = checkoutRepository.findByCheckoutNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.WAIT);
+            } else {
+                checkoutList = checkoutRepository.findByCheckoutNameContainingWithoutSpace(trimKeyword, pageable);
+            }
+
+        }
+        //검색 기준이 상품명일때
+        else if ("productName".equals(search)) {
+            //주문상태로 다시 sort
+            if (checkoutState.equals("CONFIRM")) {
+                checkoutList = checkoutRepository.findByProductNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CONFIRM);
+            } else if (checkoutState.equals("CANCEL")) {
+                checkoutList = checkoutRepository.findByProductNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.CANCEL);
+            } else if (checkoutState.equals("WAIT")) {
+                checkoutList = checkoutRepository.findByProductNameContainingWithoutSpaceAndCheckoutStep(trimKeyword, pageable, CheckoutState.WAIT);
+            } else {
+                checkoutList = checkoutRepository.findByProductNameContainingWithoutSpace(trimKeyword, pageable);
+            }
+
+        } else {
+            throw new RuntimeException("잘못된 접근");
+        }
+
 
         return checkoutList.map((checkout -> {
             int length = checkout.getCheckoutDetailsList().size();
@@ -235,20 +295,6 @@ public class CheckoutService {
         checkout.setCheckoutDeliveryCode(checkoutDetailsDto.getDeliveryCode());
 
         checkoutRepository.save(checkout);
-    }
-
-
-    /**
-     * 관리자 주문 삭제
-     */
-    public void deleteCheckout(Long id) {
-        Optional<Checkout> optionalCheckout = checkoutRepository.findById(id);
-
-        if (optionalCheckout.isEmpty()) throw new RuntimeException("존재하지 않는 주문");
-
-        Checkout checkout = optionalCheckout.get();
-
-        checkoutRepository.delete(checkout);
     }
 
     /**
