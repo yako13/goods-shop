@@ -144,8 +144,8 @@
         background-color: #f8f9fa;
       }
       .buttonAndTotal {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex;
+        justify-content: space-between; */
         margin-bottom: 0.5rem;
       }
       table tr:hover {
@@ -255,70 +255,76 @@
                 </button>
               </form>
             </div>
+            <!-- <div th:switch="${categoryQuery}" class="search-name">
+              <span th:case="photo_card">포토카드홀더</span>
+              <span th:case="memo">메모지</span>
+              <span th:case="sticker">스티커</span>
+              <span th:case="postcard">엽서</span>
+              <span th:case="etc">기타</span>
+              <span th:case="*">전체상품</span>
+            </div> -->
+          </div>
+          <div class="container__sort">
+            <select name="categorySelect" id="categorySelect" onchange="">
+              <option value="default" th:selected="${categoryQuery == default}">
+                전체상품
+              </option>
+              <option
+                value="photo_card"
+                th:selected="${categoryQuery == 'photo_card'}">
+                포토카드홀더
+              </option>
+              <option value="memo" th:selected="${categoryQuery == 'memo'}">
+                메모지
+              </option>
+              <option
+                value="sticker"
+                th:selected="${categoryQuery == 'sticker'}">
+                스티커
+              </option>
+              <option
+                value="postcard"
+                th:selected="${categoryQuery == 'postcard'}">
+                엽서
+              </option>
+              <option value="etc" th:selected="${categoryQuery == 'etc'}">
+                기타
+              </option>
+            </select>
+            <select name="sizetSelect" id="sizeSelect" onchange="">
+              <option value="5" th:selected="${size==5}">5개</option>
+              <option value="10" th:selected="${size==10}">10개</option>
+              <option value="15" th:selected="${size==15}">15개</option>
+            </select>
+
+            <select name="sortSelect" id="sortSelect" onchange="">
+              <option value="default" th:selected="${sortSelect == 'default'}">
+                최신순
+              </option>
+              <option
+                value="price_asc"
+                th:selected="${sortSelect == 'price_asc'}">
+                가격낮은순
+              </option>
+              <option
+                value="price_desc"
+                th:selected="${sortSelect == 'price_desc'}">
+                가격높은순
+              </option>
+            </select>
+            <span class="text__right">
+              <span th:text="${page.totalElements + '건의 상품 / '}"></span>
+              <span
+                th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
+              -
+              <span
+                th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+            </span>
+          </div>
+          <div th:unless="${page.totalElements != 0}">
+            <h1>등록하신 상품이 없습니다.</h1>
           </div>
           <div th:if="${page.totalElements != 0}">
-            <div class="container__sort">
-              <select name="categorySelect" id="categorySelect" onchange="">
-                <option
-                  value="default"
-                  th:selected="${categoryQuery == default}">
-                  전체상품
-                </option>
-                <option
-                  value="photo_card"
-                  th:selected="${categoryQuery == 'photo_card'}">
-                  포토카드홀더
-                </option>
-                <option value="memo" th:selected="${categoryQuery == 'memo'}">
-                  메모지
-                </option>
-                <option
-                  value="sticker"
-                  th:selected="${categoryQuery == 'sticker'}">
-                  스티커
-                </option>
-                <option
-                  value="postcard"
-                  th:selected="${categoryQuery == 'postcard'}">
-                  엽서
-                </option>
-                <option value="etc" th:selected="${categoryQuery == 'etc'}">
-                  기타
-                </option>
-              </select>
-              <select name="sizetSelect" id="sizeSelect" onchange="">
-                <option value="5" th:selected="${size==5}">5개</option>
-                <option value="10" th:selected="${size==10}">10개</option>
-                <option value="15" th:selected="${size==15}">15개</option>
-              </select>
-
-              <select name="sortSelect" id="sortSelect" onchange="">
-                <option
-                  value="default"
-                  th:selected="${sortSelect == 'default'}">
-                  최신순
-                </option>
-                <option
-                  value="price_asc"
-                  th:selected="${sortSelect == 'price_asc'}">
-                  가격낮은순
-                </option>
-                <option
-                  value="price_desc"
-                  th:selected="${sortSelect == 'price_desc'}">
-                  가격높은순
-                </option>
-              </select>
-              <span class="text__right">
-                <span th:text="${page.totalElements + '건의 상품 / '}"></span>
-                <span
-                  th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
-                -
-                <span
-                  th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
-              </span>
-            </div>
-
             <table>
               <thead>
                 <tr>
@@ -386,7 +392,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=0, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=0, size=${size})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -398,7 +404,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage - 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -412,7 +418,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${pageNum}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -422,7 +428,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage + 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -432,13 +438,14 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${page.totalPages - 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
           </li>
         </ul>
       </nav>
+
       <button id="topBtn" title="Go to top">▲</button>
     </main>
   </body>
@@ -470,21 +477,27 @@
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
 
+    const categoryQuery = encodeURIComponent(`[[${categoryQuery}]]`);
     const sizeSelect = document.getElementById("sizeSelect");
     const sortSelect = document.getElementById("sortSelect");
+    const categorySelect = document.getElementById("categorySelect");
 
-    const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
     const currentSize = `[[${size}]]`;
     const currentSort = `[[${sortSelect}]]`;
+    const currentCategory = `[[${categorySelect}]]`;
 
     sizeSelect.addEventListener("change", function () {
       const selectedSize = this.value;
-      window.location.href = `/master/product/search/index?keword=${keywordQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
+      window.location.href = `/master/product/list/category?category=${currentCategory}&page=0&size=${selectedSize}&sort=${currentSort}`;
     });
 
     sortSelect.addEventListener("change", function () {
       const selectedSort = this.value;
-      window.location.href = `/master/product/search/index?keyword=${keywordQuery}&page=0&size=${currentSize}&sort=${selectedSort}`;
+      window.location.href = `/master/product/list/category?category=${currentCategory}&page=0&size=${currentSize}&sort=${selectedSort}`;
+    });
+    categorySelect.addEventListener("change", function () {
+      const selectedCategory = this.value;
+      window.location.href = `/master/product/list/category?category=${selectedCategory}&page=0&size=${currentSize}&sort=${currentSort}`;
     });
   </script>
 </html>

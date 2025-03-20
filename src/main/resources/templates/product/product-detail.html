@@ -78,7 +78,6 @@
       }
 
       .product-info__count {
-        color: #686868;
       }
 
       .product-info__p {
@@ -256,8 +255,12 @@
         display: none;
         /* 기본적으로 버튼 숨김 */
       }
-      .qw {
+      .countInfo {
         text-align: right;
+      }
+      .countInfo__deadline {
+        color: #ff0000;
+        font-weight: bolder;
       }
     </style>
   </head>
@@ -288,13 +291,22 @@
           </span>
           <div class="product-info">
             <p th:text="${product.name}" class="product-info__name"></p>
-            <div class="qw">
+            <!-- 재고 수량 알림 -->
+            <div th:if="${product.count > 5}" class="countInfo">
               <sapn>남은 개수</sapn>
               <span
                 th:text="${product.count} + '개'"
-                id="productCount"
                 class="product-info__count"></span>
             </div>
+            <div
+              th:unless="${product.count > 5}"
+              class="countInfo countInfo__deadline">
+              <span>품절임박!</span>
+              <span
+                th:text="${product.count} + '개'"
+                class="product-info__count"></span>
+            </div>
+            <!-- /재고 수량 알림 -->
             <p
               th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
               class="product-info__price">
@@ -362,8 +374,8 @@
                   class="btn btn__order"
                   type="submit"
                   form="checkoutForm">
-                  <i class="fa-solid fa-credit-card" style="color: #f5c724"
-                    >주문하기</i
+                  <i class="fa-solid fa-credit-card" style="color: #a8a80f">
+                    주문하기</i
                   >
                 </button>
               </form>
@@ -379,8 +391,8 @@
                   name="productCnt"
                   value="1" />
                 <button class="btn btn__cart" type="submit" form="cartForm">
-                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c"
-                    >장바구니</i
+                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c">
+                    장바구니</i
                   >
                 </button>
               </form>
