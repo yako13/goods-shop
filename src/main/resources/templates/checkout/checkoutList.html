@@ -8,7 +8,13 @@
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/checkout/checkoutList.css}">
+    <style>
+        .priceText{
+            display : inline-block;
+            margin-right : 10px;
+        }
 
+    </style>
 </head>
 
 <body>
@@ -90,10 +96,10 @@
 
                                     <div class="HanCkListProductNameDiv">
 
-                                        <p class="HanCkListProductNameP" th:text="${product.name}"></p>
-                                        <p class="HanCkListProductPriceP" th:text="${product.price}"></p>
-                                        <p th:text="${product.count}+'개'"></p>
-                                       <b><p th:text="'총 '+${product.totalPrice}" class="HanCkListProductPriceP"></p></b>
+                                        <b><p class="HanCkListProductNameP" th:text="${product.name}"></p></b>
+
+                                        <div><span class="HanCkListProductPriceP priceText" th:text="${product.price}"></span>(<span th:text="${product.count}+'개'"></span>)</div>
+                                       <p th:text="'총 '+${product.totalPrice}" class="HanCkListProductPriceP"></p>
                                     </div>
 
                                 </div>
@@ -110,7 +116,7 @@
 
                     <div class="HanCkSubmitA">
 
-                        <p class="HanCheckoutList" >총 결제 가격: [[${checkout.checkoutTotalPay}]]</p>
+                        <p class="HanCheckoutList totalPay" >총 결제 가격: [[${checkout.checkoutTotalPay}]]</p>
                         <a class="HanHome"  th:href="@{'/member/checkout/details/'+${checkout.id}}">상세보기</a>
 
                     </div>

@@ -9,7 +9,6 @@ $(".XBtn").click(function (event) {
             url: "/member/delivery/delete/" + params,      // 컨트롤러에서 대기중인 URL 주소
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
                 if (res == 1000) {
-                    alert("등록된 배송지가 삭제되었습니다.");
                     $("#deliveryBody" + params).remove();
                 }
                 else {
