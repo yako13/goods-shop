@@ -45,7 +45,7 @@ public class ProductService {
     public void save(ProductRequestDto requestDto) {
         Product product = productRepository.save(requestDto.toEntity());
 
-        if (requestDto.getMainImage() != null & !requestDto.getMainImage().isEmpty()) {
+        if (requestDto.getMainImage() != null && !requestDto.getMainImage().isEmpty()) {
             ProductImage mainProductImage = productImageService.create(requestDto, product);
             product.setProductImage(mainProductImage);
         }
@@ -84,6 +84,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .count(product.getCount())
+                .sellingCount(product.getSellingCount())
                 .mainImagePath(productMainImagePath)
                 .productCategory(Formatter.getProductCategory(product.getProductCategory()))
                 .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
