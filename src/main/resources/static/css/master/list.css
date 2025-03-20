@@ -203,3 +203,47 @@ a {
 ul {
   list-style: none;
 }
+
+.container__sort {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+}
+
+#sizeSelect,
+.text__right {
+  margin: 0 10px;
+}
+
+select {
+  font-size: 1rem;
+}
+
+.form__search {
+  display: flex;
+  justify-content: start;
+}
+
+.searchForm {
+  width: 9rem;
+  border: 0px;
+  height: 1.5rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.searchForm:focus {
+  outline: none;
+}
+
+.btn-submit {
+  background-color: #ffffff;
+  border: 0px;
+}
+
+.searchArea {
+  margin-left: 10px;
+  border: 1px solid #111111;
+  width: 12rem;
+  height: 1.7rem;
+}
