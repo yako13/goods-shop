@@ -322,6 +322,7 @@
             </span>
           </div>
           <div th:unless="${page.totalElements != 0}">
+            <hr />
             <h1>등록하신 상품이 없습니다.</h1>
           </div>
           <div th:if="${page.totalElements != 0}">
@@ -477,7 +478,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
 
-    const categoryQuery = encodeURIComponent(`[[${categoryQuery}]]`);
     const sizeSelect = document.getElementById("sizeSelect");
     const sortSelect = document.getElementById("sortSelect");
     const categorySelect = document.getElementById("categorySelect");
