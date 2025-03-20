@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>☁️CloudStar WorkShop 관리자 상품목록</title>
+
     <link rel="stylesheet" href="/css/master/masterHeader.css" />
     <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
@@ -220,6 +221,7 @@
         font-size: 1rem;
       }
 
+
               .trPointer{
         cursor:pointer;
         }
@@ -347,6 +349,7 @@
               </thead>
 
               <tbody>
+
                 <tr th:each="productList : ${productList}" th:onclick="window.location.href='/product/details/' + [[${productList.id}]];" class="trPointer">
                   <th th:text="${productList.id}"></th>
                   <td>
