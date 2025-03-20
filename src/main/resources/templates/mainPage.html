@@ -4,19 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구름별 공방 : 홈</title>
+    <title>☁️CloudStar WorkShop 홈</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
 
     <style>
-        .HanMainNewDiv {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(-300px);
-            transition: all 1.5s ease-in-out
-        }
-
         .HanMainBodyTitle a {
             text-decoration: none;
             color: black;
@@ -36,25 +28,45 @@
 
         }
 
+        .HanSection {
+            /* 화면 전체 높이 */
+            height: 90vh;
+        }
 
+        body {
 
-        .active {
+            /* 부드러운 스크롤 효과 */
+            scroll-snap-type: y mandatory;
+
+        }
+
+        /* 초기 상태: 숨겨진 상태 */
+        .HanMainNewDivCard {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* 스크롤해서 보이면 적용할 클래스 */
+        .show {
             opacity: 1;
-            transform: translateX(0);
-            z-index: 1;
+            transform: translateY(0);
         }
 
-
-        .hidden {
-            opacity: 0;
-            transform: translateX(300px);
-            z-index: 0;
+        .HanMainNewDivCard:nth-child(1) {
+            transition-delay: 0s;
         }
 
-        .hidden2 {
-            opacity: 0;
-            transform: translateX(300px);
-            z-index: 0;
+        .HanMainNewDivCard:nth-child(2) {
+            transition-delay: 0.4s;
+        }
+
+        .HanMainNewDivCard:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+
+        .HanMainNewDivCard:nth-child(4) {
+            transition-delay: 0.8s;
         }
     </style>
 
@@ -62,10 +74,10 @@
 </head>
 
 <body>
-
+<div id="topSection" class="HanSection">
     <!--헤더 네비-->
 
-    <header th:replace="/fragments/memberHeader::memberHeader"></header>
+    <header th:replace="/fragments/memberHeader::memberHeader" class="HanSection"></header>
 
     <!-- 헤더 끝 -->
 
@@ -118,22 +130,86 @@
 
     <!-- 캐러셀 끝 -->
 
-    <div class="HanMainBody">
+</div>
+
+<div class="HanMainBody">
+
+
+    <!--  베스트 상품 순  -->
+
+    <div id="bestProducts" class="HanSection">
+
+
+        <div class="HanMainBodyTitle">
+
+            <a id="showBest">베스트</a>
+
+        </div>
+        <hr class="HanProductHr">
+
+
+
+
+        <div class="HanMainNewDiv ">
+
+            <div class="HanMainNewDivCard" th:each="productCount : ${productListCount}">
+                <div class="HanMainNewDivCardSort">
+
+                    <p>[[${productCount.sort}]].</p>
+
+
+                </div>
+
+                <div class="HanMainNewDivCardImg">
+                    <a th:href="@{'/product/details/'+${productCount.id}}">
+                        <img th:src="@{${productCount.mainImagePath}}" alt="상품이미지">
+                    </a>
+
+                </div>
+
+                <div class="HanMainNewDivCardPDiv">
+
+                    <p class="HanMainNewDivCardPDivName" th:text="${productCount.name}">동화 일러스트 키캡 4종</p>
+                    <p class="HanMainNewDivCardPDivPrice" th:text="${productCount.price}">20,000원</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <!--  /베스트 상품 순  -->
+
+
+
+    <!--  신상품 순  -->
+
+    <div id="newProducts" class="HanSection">
 
         <div class="HanMainBodyTitle">
 
             <a id="showNew">신상품</a>
-            <a id="showBest">베스트</a>
 
         </div>
+        <hr class="HanProductHr">
+
+
         <div class="HanMainNewDivAera">
 
+            <div class="HanMainNewDiv ">
 
-
-            <!--  신상품 순  -->
-
-            <div class="HanMainNewDiv  active" id="newProducts">
                 <div class="HanMainNewDivCard" th:each="productId : ${productListId}">
+                    <div class="HanMainNewDivCardSort">
+
+                        <p style="text-align: left;">[[${productId.sort}]].</p>
+
+
+                    </div>
 
                     <div class="HanMainNewDivCardImg">
 
@@ -153,234 +229,96 @@
                 </div>
 
             </div>
-            <!--  /신상품 순  -->
-
-            <!--  베스트 상품 순  -->
-            <div class="HanMainNewDiv hidden" id="bestProducts">
-
-                <div class="HanMainNewDivCard" th:each="productCount : ${productListCount}">
-
-                    <div class="HanMainNewDivCardImg">
-                        <a th:href="@{'/product/details/'+${productCount.id}}">
-                            <img th:src="@{${productCount.mainImagePath}}" alt="상품이미지">
-                        </a>
-
-                    </div>
-
-                    <div class="HanMainNewDivCardPDiv">
-
-                        <p class="HanMainNewDivCardPDivName" th:text="${productCount.name}">동화 일러스트 키캡 4종</p>
-                        <p class="HanMainNewDivCardPDivPrice" th:text="${productCount.price}">20,000원</p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!--  /베스트 상품 순  -->
-
         </div>
     </div>
 
-    <!-- 메인 끝 -->
-
-
-    <!-- 푸터 시작 -->
-
-    <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
+    <!--  /신상품 순  -->
 
 
 
-    <!-- 푸터 끝 -->
+</div>
 
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const bestProducts = document.getElementById("bestProducts");
-            const newProducts = document.getElementById("newProducts");
-            const newBtn = document.getElementById("showNew");
-            const bestBtn = document.getElementById("showBest");
-
-            newBtn.addEventListener("click", function () {
-
-                bestProducts.classList.remove("active");
-                bestProducts.classList.add("hidden");
+<!-- 메인 끝 -->
 
 
-                newProducts.classList.add("active");
-                newProducts.classList.remove("hidden");
+<!-- 푸터 시작 -->
+
+<footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 
 
+<!-- 푸터 끝 -->
 
-            });
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const topSection = document.getElementById("topSection"); // 맨 위
 
-            bestBtn.addEventListener("click", function () {
+        const bestProductSection = document.getElementById("bestProducts"); // 베스트
+        const newProductSection = document.getElementById("newProducts"); // 신상품
 
-                newProducts.classList.remove("active");
-                newProducts.classList.add("hidden");
+        let currentSection = 0; // 현재 위치 (0: 맨 위, 1: 신상품, 2: 베스트)
+        let isScrolling = false; // 연속 실행 방지
 
-                bestProducts.classList.add("active");
-                bestProducts.classList.remove("hidden");
+        window.addEventListener("wheel", function (event) {
+            if (isScrolling) return;
+            isScrolling = true;
 
+            setTimeout(() => {
+                isScrolling = false;
+            }, 2000); // 2초 동안 추가 스크롤 방지 (부드러운 애니메이션 효과)
 
-            });
+            if (event.deltaY > 0) {
+                // 아래로 스크롤
+                if (currentSection === 0) {
+                    bestProductSection
+                    bestProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                    currentSection = 1;
+                } else if (currentSection === 1) {
+                    newProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                    currentSection = 2;
+                }
+            } else {
+                // 위로 스크롤
+                if (currentSection === 2) {
+                    bestProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                    currentSection = 1;
+                } else if (currentSection === 1) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    currentSection = 0;
+                }
+            }
         });
-    </script>
+    });
 
-    <script>
-        function toggleDropdown(event, dropdownId) {
-            event.preventDefault();
-            event.stopPropagation(); // 클릭한 요소에서 이벤트 전파 중지
+    document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".HanMainNewDivCard"); // 모든 카드 선택
 
-            // 모든 드롭다운 닫기 (현재 선택된 것 제외)
-            document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
-                if (menu.id !== dropdownId) {
-                    menu.classList.remove("HanHeadershow");
+        function handleScroll() {
+            const windowHeight = window.innerHeight; // 현재 브라우저 창 높이
+
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top; // 카드의 현재 위치
+                if (cardTop < windowHeight * 0.85) { // 85% 이상 화면에 들어오면
+                    setTimeout(() => {
+                    }, 300); // 0.3초 동안 추가 스크롤 방지
+                    card.classList.add("show");
                 }
             });
-
-            // 현재 드롭다운 열기/닫기
-            const dropdown = document.getElementById(dropdownId);
-            dropdown.classList.toggle("HanHeadershow");
         }
 
-        // 다른 곳을 클릭하면 드롭다운 닫기
-        document.addEventListener("click", function () {
-            document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
-                menu.classList.remove("HanHeadershow");
-            });
-        });
-
-        // 드롭다운 안에서 클릭해도 닫히지 않도록 설정
-        document.querySelectorAll(".HandropdownBox, .HanDrodBoxName").forEach(menu => {
-            menu.addEventListener("click", function (event) {
-                event.stopPropagation();
-            });
-        });
-
-
-        const track = document.querySelector(".HanTrack");
-        const slides = document.querySelectorAll(".HanTrackSlide");
-        const prevBtn = document.querySelector(".HanArrowLeft");
-        const nextBtn = document.querySelector(".HanArrowRight");
-        const dotsContainer = document.querySelector(".HanDots");
-
-        let index = 0;
-        const totalSlides = slides.length;
-
-        // 인디케이터 생성
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement("div");
-            dot.classList.add("HanDot");
-            if (i === 0) dot.classList.add("HanActive");
-            dotsContainer.appendChild(dot);
-        }
-        const dots = document.querySelectorAll(".HanDot");
-
-        //움직이는지 체크
-        let move = 1;
-
-        // 초기 스타일 설정
-        slides.forEach((slide, i) => {
-            slide.style.position = "absolute";
-            slide.style.top = "0";
-            slide.style.left = "0";
-            slide.style.width = "100%";
-            slide.style.opacity = i === 0 ? "1" : "0";
-            slide.style.transition = "opacity 1.8s ease";
-            slide.style.zIndex = i === 0 ? "1" : "0";
-        });
-
-        function updateSlide(newIndex) {
-            slides.forEach((slide, i) => {
-                slide.style.opacity = i === newIndex ? "1" : "0";
-                slide.style.zIndex = i === newIndex ? "1" : "0";
-            });
-        }
-
-        function updateDots() {
-            dots.forEach((dot, i) => {
-                dot.classList.toggle("HanActive", i === index);
-            });
-        }
-
-        //다음 페이지
-        function nextSlide() {
-
-            if (move == 2) {
-                return;
-            }
-
-            move = 2;
-
-            restartAutoPlay();
-
-            //화면 전환 시간보다 빠르게 넘기지 못하도록 딜레이주는 함수
-            setTimeout(() => {
-
-                index = (index + 1) % totalSlides;
-                move = 1;
-            }, 800);
-
-            updateSlide(index);
-            updateDots();
-        }
-
-        //이전 페이지
-        function prevSlide() {
-
-
-            if (move == 2) {
-                return;
-            }
-
-            move = 2;
-
-            restartAutoPlay();
-
-            //화면 전환 시간보다 빠르게 넘기지 못하도록 딜레이주는 함수
-            setTimeout(() => {
-                index = (index - 1 + totalSlides) % totalSlides;
-                move = 1;
-            }, 800);
-
-            updateSlide(index);
-            updateDots();
-        }
-
-        function goToSlide(i) {
-            restartAutoPlay();
-            index = i;
-            updateSlide(index);
-            updateDots();
-        }
-
-        nextBtn.addEventListener("click", nextSlide);
-        prevBtn.addEventListener("click", prevSlide);
-        dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
-
-        // 자동 슬라이드
-        let autoPlay = setInterval(nextSlide, 5000);
-        let autoPlayTimeout;
-
-        function restartAutoPlay() {
-            clearInterval(autoPlay);
-            clearTimeout(autoPlayTimeout);
-            autoPlayTimeout = setInterval(nextSlide, 5000);
-        }
+        window.addEventListener("scroll", handleScroll); // 스크롤 감지
+        handleScroll(); // 페이지 로드 시 초기 실행
+    });
 
 
 
 
+</script>
 
 
-    </script>
 
 
-    <script th:src="@{/js/member/alert.js}"></script>
+<script th:src="@{/js/member/alert.js}"></script>
 
 </body>
 

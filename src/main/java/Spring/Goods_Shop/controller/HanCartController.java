@@ -5,6 +5,7 @@ import Spring.Goods_Shop.entity.Cart;
 import Spring.Goods_Shop.service.HanCartService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,14 +75,17 @@ public class HanCartController {
         return "redirect:/cart";  //  삭제 후 장바구니 페이지로 리다이렉트
     }
 
-    // 전체 삭제 (Form 방식)
+    // 전체 삭제 (ajax 방식)
     @PostMapping("/cart/clear")
-    public String removeAllItems(HttpServletRequest request) {
-
-        hanCartService.removeAllItems(request);
-
-        return "redirect:/cart";  //  삭제 후 장바구니 페이지로 리다이렉트
+    public ResponseEntity<String> removeAllItems(HttpServletRequest request) {
+        try {
+            hanCartService.removeAllItems(request);
+            return ResponseEntity.ok("장바구니가 비워졌습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("장바구니 삭제 실패");
+        }
     }
+
 
 
 }

@@ -62,4 +62,23 @@ public class ChartService {
 
 
     }
+
+    public Map<String,BigDecimal> getCheckoutChart(){
+        List<Checkout> checkoutList = checkoutRepository.findAll();
+
+        Map<String, BigDecimal> chart = new HashMap<>();
+
+        //월+일로 map key 생성
+        for (Checkout checkout : checkoutList) {
+            //key를 'Month'월'Day'일 로 만듦
+            String monthDay = String.valueOf(checkout.getCreatedAt().getMonthValue()) + "월" + String.valueOf(checkout.getCreatedAt().getDayOfMonth()) +"일";
+
+            chart.merge(monthDay, checkout.getCheckoutTotalPay(), (a, b) -> b.add(a));
+
+        }
+
+        return chart;
+
+
+    }
 }
