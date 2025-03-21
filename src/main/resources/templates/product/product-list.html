@@ -27,6 +27,11 @@
       }
       .p__small {
         font-size: 0.8rem;
+        margin: 0;
+      }
+      .p__normal {
+        margin: 0;
+        margin-top: 0.5rem;
       }
       .container__product-image {
         display: flex;
@@ -38,6 +43,10 @@
       .card__product-image {
         width: 15rem;
         height: 21rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
       .product-image {
         width: 15rem;
@@ -119,6 +128,13 @@
       .noProductImage {
         height: 50rem;
       }
+      .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        flex-grow: 1;
+        justify-content: space-between;
+      }
     </style>
   </head>
   <body>
@@ -172,8 +188,10 @@
               <img
                 class="product-image"
                 th:src="${productList.mainImagePath}" />
-              <p th:text="${productList.name}"></p>
-              <p th:text="${productList.price}" class="p__small"></p>
+              <div class="product-info">
+                <p th:text="${productList.name}" class="p__normal"></p>
+                <p th:text="${productList.price}" class="p__small"></p>
+              </div>
             </div>
           </a>
         </div>
