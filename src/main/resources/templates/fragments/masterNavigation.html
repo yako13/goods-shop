@@ -24,8 +24,9 @@
         <div id="mySidenav" class="sidenav">
 
             <div>
-                <a th:href="@{/master/product/list}">상품 관리</a>
-                <a th:href="@{/master/checkout/list}">주문 관리</a>
+                <a th:href="@{/master/product/list}" id="barMenuProduct">상품 관리</a>
+                <a th:href="@{/master/checkout/list}" id="barMenuCheckout">주문 관리</a>
+                <a th:href="@{/master/chart}" id="barMenuSales">매출 현황</a>
             </div>
             <div class="SlideNavCloseDiv">
                 <i class="fa-xl fa-solid fa-bars SlideClose" onclick="closeNav()" style="transform:rotate(90deg);"></i>

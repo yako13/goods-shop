@@ -45,7 +45,7 @@ public class ProductService {
     public void save(ProductRequestDto requestDto) {
         Product product = productRepository.save(requestDto.toEntity());
 
-        if (requestDto.getMainImage() != null & !requestDto.getMainImage().isEmpty()) {
+        if (requestDto.getMainImage() != null && !requestDto.getMainImage().isEmpty()) {
             ProductImage mainProductImage = productImageService.create(requestDto, product);
             product.setProductImage(mainProductImage);
         }
@@ -63,8 +63,16 @@ public class ProductService {
     }
 
     // 등록된 상품 리스트 조회 호출 (관리자)
-    public Page<MasterProductListResponseDto> getMasterProductListDto (int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt")); // 등록최신순 정렬
+    public Page<MasterProductListResponseDto> getMasterProductListDto (int page, int size, String sort) {
+
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
         Page<Product> productPage = productRepository.findAll(pageable);
         return productPage.map(this::toMasterProductListResponseDto);
     }
@@ -84,6 +92,92 @@ public class ProductService {
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                 .count(product.getCount())
+                .sellingCount(product.getSellingCount())
+                .mainImagePath(productMainImagePath)
+                .productCategory(Formatter.getProductCategory(product.getProductCategory()))
+                .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
+                .modifiedAt(Formatter.getLocalDate(product.getModifiedAt()))
+                .build();
+    }
+
+    // 등록된 상품 리스트 검색 조회 호출 (관리자)
+    public Page<MasterProductListResponseDto> getMasterProductSearchListDto (int page, int size, String sort, String name) {
+
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
+        Page<Product> productPage = productRepository.findByNameContaining(name, pageable);
+        return productPage.map(this::toMasterProductSearchListResponseDto);
+    }
+
+    // 상품 리스트 조회 (관리자)
+    public MasterProductListResponseDto toMasterProductSearchListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return MasterProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
+                .sellingCount(product.getSellingCount())
+                .mainImagePath(productMainImagePath)
+                .productCategory(Formatter.getProductCategory(product.getProductCategory()))
+                .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
+                .modifiedAt(Formatter.getLocalDate(product.getModifiedAt()))
+                .build();
+    }
+
+    // 등록된 상품 리스트 검색 조회 호출 (관리자)
+    public Page<MasterProductListResponseDto> getMasterProductCategoryListDto (int page, int size, String sort, String category) {
+
+        Pageable pageable;
+        if ("price_asc".equals(sort)){
+            pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "price"));
+        } else if ("price_desc".equals(sort)) {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
+        }
+
+        ProductCategory productCategory = convertToProductCategory(category);
+
+        Page<Product> products;
+        if (productCategory == null) {
+            products = productRepository.findAll(pageable);
+        } else {
+            products = productRepository.findByProductCategory(productCategory, pageable);
+        }
+
+        return products.map(this::toMasterProductCategoryListResponseDto);
+    }
+
+    // 상품 리스트 조회 (관리자)
+    public MasterProductListResponseDto toMasterProductCategoryListResponseDto(Product product) {
+        ProductImage productMainImage = product.getProductImage();
+
+        String productMainImagePath = null;
+
+        if (productMainImage != null) {
+            productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+        }
+
+        return MasterProductListResponseDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
+                .sellingCount(product.getSellingCount())
                 .mainImagePath(productMainImagePath)
                 .productCategory(Formatter.getProductCategory(product.getProductCategory()))
                 .createdAt(Formatter.getLocalDate(product.getCreatedAt()))
@@ -172,7 +266,7 @@ public class ProductService {
         } else if ("price_desc".equals(sort)) {
             pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "price"));
         } else {
-            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+            pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, "createdAt"));
         }
         Page<Product> productList = productRepository.findAll(pageable);
         return productList.map(this::toProductListResponseDto);
@@ -191,6 +285,7 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
@@ -212,6 +307,7 @@ public class ProductService {
                 .build();
     }
 
+    // 카테고리기준으로 상품리스트 호출 (멤버)
     public Page<ProductCategoryAndSearchResponseDto> getProductCategoryResponseListDto(String category, int page, int size, String sort) {
 
         Pageable pageable;
@@ -236,6 +332,7 @@ public class ProductService {
         return products.map(this::toProductCategoryResponseDto);
     }
 
+    // 카테고리 기준 상품리스트
     public ProductCategoryAndSearchResponseDto toProductCategoryResponseDto(Product product) {
         ProductImage productMainImage = product.getProductImage();
         String productMainImagePath = null;
@@ -249,10 +346,12 @@ public class ProductService {
                 .productCategory(product.getProductCategory().name())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
 
+    // 검색어 기준 상품 리스트 호출 (멤버)
     public Page<ProductCategoryAndSearchResponseDto> getProductNameResponseListDto(String name, int page, int size, String sort) {
 
         Pageable pageable;
@@ -273,6 +372,7 @@ public class ProductService {
         return productPage.map(this::toProductNameResponseDto);
     }
 
+    // 검색어 기준 상품 리스트
     public ProductCategoryAndSearchResponseDto toProductNameResponseDto(Product product) {
         ProductImage productMainImage = product.getProductImage();
         String productMainImagePath = null;
@@ -285,44 +385,20 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
 
-    //판매 개수가 제일 높은 3개의 항목 가져옴
-    public List<ProductListResponseDto> getSellingTop3Product(){
-         List<Product> productList =productRepository.findTop3ByOrderBySellingCountDescIdDesc();
-
-         List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
-
-         for(Product product : productList){
-             ProductImage productMainImage = product.getProductImage();
-             String productMainImagePath = null;
-
-             if (productMainImage != null) {
-                 productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
-             }
-
-             ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
-                     .id(product.getId())
-                     .name(product.getName())
-                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
-                     .mainImagePath(productMainImagePath)
-                     .build();
-
-             productListResponseDtoList.add(productListResponseDto);
-         }
-
-        return productListResponseDtoList;
-    }
-
-    //신상품 3개의 항목 가져옴(PK 높은순)
-    public List<ProductListResponseDto> getTop3NewProduct(){
-        List<Product> productList =productRepository.findTop3ByOrderByIdDesc();
+    //판매 개수가 제일 높은 4개의 항목 가져옴
+    public List<ProductListResponseDto> getSellingTop4Product() {
+        List<Product> productList = productRepository.findTop4ByOrderBySellingCountDescIdDesc();
 
         List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
 
-        for(Product product : productList){
+        int index =1;
+
+        for (Product product : productList) {
             ProductImage productMainImage = product.getProductImage();
             String productMainImagePath = null;
 
@@ -335,9 +411,44 @@ public class ProductService {
                     .name(product.getName())
                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                     .mainImagePath(productMainImagePath)
+                    .sort(index)
                     .build();
 
             productListResponseDtoList.add(productListResponseDto);
+            index++;
+        }
+
+
+
+        return productListResponseDtoList;
+    }
+
+    //신상품 4개의 항목 가져옴(PK 높은순)
+    public List<ProductListResponseDto> getTop4NewProduct() {
+        List<Product> productList = productRepository.findTop4ByOrderByIdDesc();
+
+        List<ProductListResponseDto> productListResponseDtoList = new ArrayList<>();
+
+        int index =1;
+
+        for (Product product : productList) {
+            ProductImage productMainImage = product.getProductImage();
+            String productMainImagePath = null;
+
+            if (productMainImage != null) {
+                productMainImagePath = productImageManager.createImageUrl(productMainImage.getImageFullName());
+            }
+
+            ProductListResponseDto productListResponseDto = ProductListResponseDto.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                    .mainImagePath(productMainImagePath)
+                    .sort(index)
+                    .build();
+
+            productListResponseDtoList.add(productListResponseDto);
+            index++;
         }
 
         return productListResponseDtoList;

@@ -16,6 +16,7 @@ public class MasterProductListResponseDto {
     private String name;
     private String price;
     private int count;
+    private Long sellingCount;
     private String mainImagePath;
     private String productCategory;
     private String createdAt;

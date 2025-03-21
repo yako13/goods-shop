@@ -3,73 +3,102 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CloudStar WorkShop</title>
+    <title>☁️CloudStar WorkShop 주문</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}"/>
     <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}"/>
 </head>
 <style>
+
     .error {
-      color: red;
-      font-size: 12px;
-    }
+   color: red;
+   font-size: 12px;
+ }
 
-    #hiddenNameArea {
-      display: none;
-      border: 1px #ccc solid;
-      position: absolute;
-      right: 520px;
-      background-color: white;
-      z-index: 10;
-      width: 200px;
-      padding: 20px;
-    }
 
-    .HanCardNewDiv input.HanRed {
-      border: 1px solid #fc4545;
-      box-shadow: 0 0 0 1px #fc4545;
-    }
+ .HanCardNewDiv input.HanRed {
+   border: 1px solid #fc4545;
+   box-shadow: 0 0 0 1px #fc4545;
 
-    .HanRed p {
-      margin: 3px 0;
-      color: #fc4545;
-      font-size: 12px;
-    }
+ }
 
-    .hanNone .HanSignUpInfo {
-      display: none;
-    }
+ .HanRed p {
+   margin: 3px 0;
+   color: #fc4545;
+   font-size: 12px;
 
-    .HanSignUpInfo {
-      margin: 3px 0;
-      color: #fc4545;
-      font-size: 12px;
-    }
+ }
 
-    #hiddenNameArea,
-    #hiddenDeliveryNameArea,
-    #hiddenPhoneArea {
-      display: none;
-      border: 1px #ccc solid;
-      position: absolute;
-      right: 520px;
-      background-color: white;
-      z-index: 10;
-      width: 200px;
-      padding: 20px;
-    }
+ .hanNone .HanSignUpInfo {
+   display: none;
+ }
+
+ .HanSignUpInfo {
+   margin: 3px 0;
+   color: #fc4545;
+   font-size: 12px;
+
+ }
+
+ .hiddenAreaTopDiv {
+   position: relative;
+
+ }
+
+
+ #hiddenDeliveryNameArea {
+   display: none;
+   border: 1px #ccc solid;
+   position: absolute;
+   top: 80px;
+   right: -60px;
+   background-color: white;
+   z-index: 16000;
+   width: 200px;
+   padding: 20px;
+
+ }
+
+ #hiddenNameArea{
+   display: none;
+   border: 1px #ccc solid;
+   position: absolute;
+   top: 240px;
+   right: -60px;
+   background-color: white;
+   z-index: 16000;
+   width: 200px;
+   padding: 20px;
+
+ }
+
+ #hiddenPhoneArea {
+   display: none;
+   border: 1px #ccc solid;
+   position: absolute;
+   top: 420px;
+   right: -60px;
+   background-color: white;
+   z-index: 16000;
+   width: 200px;
+   padding: 20px;
+ }
+
+
 </style>
 
 <body>
 <!-- 헤더 시작 -->
 
 <header th:replace="/fragments/memberHeader::memberHeader"></header>
-
+<input type="hidden" th:value="${alert}" id="dataAlert">
 <!-- 헤더 끝 -->
 
 <!-- 본문 -->
 
 <div class="HanOrderMainBody">
+
+
     <!--배송지 선택 모달창 시작-->
 
     <div class="HanAddressPopMain" id="addressModal" style="display: none">
@@ -163,7 +192,7 @@
                                     <p
                                             class="HanAddressPopCardTextMemo"
                                             th:text="${DeliveryList.memo}">
-                                        빨리갖다주삼3
+
                                     </p>
                                 </div>
                             </div>
@@ -194,137 +223,170 @@
 
     <!--배송지 작성 모달창 시작-->
 
-    <div class="HanAddressPopMain" id="newAddressModal" style="display: none">
+    <div class="HanAddressPopMain" id="newAddressModal" style="display: none;">
+
+        <div class="hiddenAreaTopDiv">
+
+            <div id="hiddenDeliveryNameArea">
+                <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+            </div>
+
+            <div id="hiddenNameArea">
+                <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+            </div>
+
+            <div id="hiddenPhoneArea">
+                <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+                    합니다.
+                </p>
+            </div>
+
+        </div>
         <div class="HanAddressNewPopContainer">
+
+
             <div class="HanSignUpBody">
+
                 <div class="HanSignUpDiv">
+
                     <div class="">
+
                         <div class="HanDeliveryPopNewLogoDiv">
-                            <img
-                                    th:src="@{/images/logoMain.png}"
-                                    alt=""
-                                    width="450px"
-                                    height="auto"/>
+
+                            <img th:src="@{/images/logoMain.png}" alt="" width="450px" height="auto">
+
                         </div>
 
                         <h1>CloudStar Workshop</h1>
+
                     </div>
 
                     <ul>
-                        <form
-                                th:action="@{/checkout/delivery/submit}"
-                                th:method="post"
-                                id="HanDeliveryForm">
+
+
+                        <form th:action="@{/checkout/delivery/submit}" th:method="post" id="HanDeliveryForm">
+
+
                             <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanDeliveryName">배송지 별칭</label>
-                                <input
-                                        type="text"
-                                        id="HanDeliveryName"
-                                        name="name"
-                                        placeholder="배송지 별칭을 입력해주세요"
-                                        class="HanSignUpInput2"/>
+                                <!-- <div id="hiddenDeliveryNameArea">
+                                  <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+                                </div> -->
+
+                                <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
+                                <input type="text" id="deliveryName" name="name" placeholder="배송지 별칭을 입력해주세요"
+                                       class="HanSignUpInput2"
+                                       maxlength="10" th:value="${deliveryName}">
 
                                 <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
+                                <div class="errorArea" th:if="${valid_deliveryName!=null}">
+                                    <p class="error" th:text="${valid_deliveryName}"></p>
+                                </div>
                             </li>
 
                             <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanDeliveryUserName">받는분 성함</label>
-                                <input
-                                        type="text"
-                                        id="HanDeliveryUserName"
-                                        name="recipientName"
-                                        placeholder="성함을 입력해주세요"
-                                        class="HanSignUpInput2"/>
+                                <!-- <div id="hiddenNameArea">
+                                  <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+                                </div> -->
+
+                                <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
+                                <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
+                                       placeholder="성함을 입력해주세요" class="HanSignUpInput2" maxlength="21">
 
                                 <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
+                                <div class="errorArea" th:if="${valid_recipientName!=null}">
+                                    <p class="error" th:text="${valid_recipientName}"></p>
+                                </div>
                             </li>
 
                             <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanDeliveryUserPhone">받는분 연락처</label>
-                                <input
-                                        type="text"
-                                        id="HanDeliveryUserPhone"
-                                        name="recipientPhoneNumber"
-                                        placeholder="연락처를 입력해주세요"
-                                        class="HanSignUpInput2"
-                                        maxlength="11"
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                                <!-- <div id="hiddenPhoneArea">
+                                  <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+                                    합니다.
+                                  </p>
+                                </div> -->
+
+                                <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
+                                <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요"
+                                       class="HanSignUpInput2"
+                                       id="recipientPhoneNumber"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="11"
+                                       th:value="${recipientPhoneNumber}">
 
                                 <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
+                                <div class="errorArea" th:if="${valid_recipientPhoneNumber!=null}">
+                                    <p class="error" th:text="${valid_recipientPhoneNumber}"></p>
+                                </div>
+                            </li>
+
+
+                            <li class="HanSignUpLi hanNone LiCheck2">
+
+                                <label>우편번호</label>
+                                <input type="text" id="HanZipcodeValue" name="postalCode" placeholder="우편번호를 입력해주세요"
+                                       readonly
+                                       class="HanSignUpInput2" th:value="${postCode}">
+
+                                <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
+
+                                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                            </li>
+
+
+                            <li class="HanSignUpLi hanNone LiCheck2">
+
+                                <label>도로명 주소,지번 주소</label>
+                                <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
+                                       class="HanSignUpInput2" th:value="${address}">
+
+                                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                                <div class="errorArea" th:if="${valid_postCode!=null}">
+                                    <p class="error" th:text="${valid_postCode}"></p>
+                                </div>
+                                <div class="errorArea" th:if="${valid_address!=null}">
+                                    <p class="error" th:text="${valid_address}"></p>
+                                </div>
                             </li>
 
                             <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanZipcodeValue">우편번호</label>
-                                <input
-                                        type="text"
-                                        id="HanZipcodeValue"
-                                        name="postalCode"
-                                        placeholder="우편번호를 입력해주세요"
-                                        readonly
-                                        class="HanSignUpInput2"/>
 
-                                <a
-                                ><i
-                                        class="HanAddressPopNewIcon"
-                                        onclick="sample6_execDaumPostcode()"></i
-                                ></a>
-
-                                <p class="HanSignUpInfo">
-                                    돋보기 버튼으로 우편번호 찾기를 실행해주세요
-                                </p>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanAddressValue">도로명 주소,지번 주소</label>
-                                <input
-                                        type="text"
-                                        id="HanAddressValue"
-                                        name="address"
-                                        placeholder="주소를 입력해주세요"
-                                        readonly
-                                        class="HanSignUpInput2"/>
-
-                                <p class="HanSignUpInfo">
-                                    돋보기 버튼으로 우편번호 찾기를 실행해주세요
-                                </p>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2">
-                                <label for="HanDetailAddress">상세 주소</label>
-                                <input
-                                        type="tel"
-                                        id="HanDetailAddress"
-                                        name="addressDetail"
-                                        placeholder="상세 주소를 입력해주세요"
-                                        class="HanSignUpInput2"/>
+                                <label>상세 주소</label>
+                                <input type="tel" id="HanDetailAddress" name="addressDetail" placeholder="상세 주소를 입력해주세요"
+                                       class="HanSignUpInput2" th:value="${detailAddress}">
 
                                 <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone">
-                                <label for="HanDeliveryMemo">배송 요청 사항</label>
-                                <input
-                                        type="tel"
-                                        id="HanDeliveryMemo"
-                                        name="memo"
-                                        placeholder="배송 요청 사항을 입력해주세요"
-                                        maxlength="50"/>
-                            </li>
-
-                            <li class="HanSignUpLi hanNone LiCheck2 HanCheckboxLi">
-                                <div class="HanMemberDeliveryCheckDiv">
-                                    <input
-                                            type="checkbox"
-                                            id="HanDeliveryCheckbox"
-                                            name="defaultDelivery"
-                                            class="HanSignUpInput2"/>
-                                    <label for="HanDeliveryCheckbox"></label>
-                                    <p>기본 배송지로 등록</p>
+                                <div class="errorArea" th:if="${valid_detailAddress!=null}">
+                                    <p class="error" th:text="${valid_detailAddress}"></p>
                                 </div>
 
-                                <p class="HanSignUpInfo" style="margin-left: 45px">
-                                    기본 배송지를 체크해주세요
-                                </p>
+                            </li>
+
+
+                            <li class="HanSignUpLi hanNone ">
+
+                                <label>배송 요청 사항</label>
+                                <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50"
+                                       th:value="${memo}">
+                                <div class="errorArea" th:if="${valid_memo!=null}">
+                                    <p class="error" th:text="${valid_memo}"></p>
+                                </div>
+
+                            </li>
+
+
+                            <li class="HanSignUpLi hanNone HanCheckboxLi ">
+
+                                <div class="HanMemberDeliveryCheckDiv ">
+
+                                    <input type="checkbox" id="HanDeliveryCheckbox" name="defaultDelivery"
+                                           class="HanSignUpInput">
+                                    <label for="HanDeliveryCheckbox"></label>
+                                    <p>기본 배송지로 등록</p>
+
+
+                                </div>
+
+                                <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
+
                             </li>
 
                             <!--리다이렉트 하기위한 상품 pk-->
@@ -338,27 +400,25 @@
                                     type="hidden"
                                     th:value="${checkoutPageDto.productCheckoutResDto.productCnt}"
                                     name="productCnt"/>
+
                         </form>
+
                     </ul>
 
                     <div class="HanSignUpButton">
-                        <button
-                                class="HanCancel"
-                                type="button"
-                                id="closeNewAddressModal">
-                            취소
+
+                        <button class="HanCancel" type="button" id="closeNewAddressModal">취소</button>
+                        <button class="HanSubmit" type="submit" form="HanDeliveryForm" id="HanDeliverySubmit">등록
                         </button>
-                        <button
-                                class="HanSubmit"
-                                type="submit"
-                                form="HanDeliveryForm"
-                                id="HanDeliverySubmit">
-                            등록
-                        </button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
     <!--배송지 작성 모달창 끝-->
@@ -611,8 +671,18 @@
                                     th:value="${PayList.id}"/>
 
                             <label th:for="|selectedCard${PayList.id}|">
+
+                                <!--기본 결제 카드일시-->
                                 <img
                                         th:src="@{/images/card6on.svg}"
+                                        th:if="${PayList.defaultCard}"
+                                        alt=""
+                                        width="65px"
+                                        height="65px"/>
+                                <!--기본 결제 카드 아닐시-->
+                                <img
+                                        th:src="@{/images/card6off.svg}"
+                                        th:unless="${PayList.defaultCard}"
                                         alt=""
                                         width="65px"
                                         height="65px"/>
@@ -728,7 +798,7 @@
 
                         <div class="selectedAddressMemoDiv">
                             <p class="selectedAddressMemoTitle">배송 요청 사항 :</p>
-                            <p id="selectedAddressMemo">빨리갖다주삼</p>
+                            <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}">빨리갖다주삼</p>
                         </div>
                     </div>
 
@@ -799,9 +869,10 @@
                             class="HanOrderListCard"
                             th:each="CheckoutCartDto : ${checkoutPageDto.CheckoutCartDto}">
                         <div class="HanOrderListCardImgDiv">
-                            <img
-                                    th:src="@{/productImages/{url}(url=${CheckoutCartDto.productImage.getImageFullName})}"
-                                    alt="Product Image"/>
+
+                            <img th:src="@{'/productImages/'+ ${CheckoutCartDto.productImage.getImageFullName}}"
+                                 alt="Product Image">
+
                         </div>
                         <div class="HanOrderListCardTextDiv">
                             <div class="HanOrderListCardTextDiv2">
@@ -842,7 +913,7 @@
         <!-- 결제 카드 -->
         <div class="HanOrderRight">
             <div class="HanOrderRightTitle">
-                <img th:src="@{/images/card7.svg}" width="40px" height="auto"/>
+                <img th:src="@{/images/card7.svg}" width="40px" height="auto">
                 <p style="font-size: 30px; color: black; font-weight: bold">
                     결제수단
                 </p>
@@ -1020,7 +1091,7 @@
 <!-- 푸터 끝 -->
 </body>
 </html>
-
+<script th:src="@{/js/member/alert.js}"></script>
 <script>
     // 스크롤 이벤트 감지
     window.onscroll = function () {
@@ -1046,259 +1117,283 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
-
     // -------------------------배송지 등록 부분 자바 스크립트 시작------------------------------------------
-
     let check_bol2 = 0;
+    let check_exp = 1;
 
     $("#HanDeliveryCheckbox").click(function () {
       if ($("#HanDeliveryCheckbox").is(":checked")) {
-
         var params = {
-          memberId: $("#sessionId").val()
-        }
-
-        alert("1111");
+          memberId: $("#sessionId").val(),
+        };
 
         // ajax 통신
         $.ajax({
-          type: "POST",            // HTTP method type(GET, POST) 형식
-          url: "/check/defaultDelivery",      // 컨트롤러에서 대기중인 URL 주소
-          data: params,            // Json 형식의 데이터
-          success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
+          type: "POST", // HTTP method type(GET, POST) 형식
+          url: "/check/defaultDelivery", // 컨트롤러에서 대기중인 URL 주소
+          data: params, // Json 형식의 데이터
+          success: function (res) {
+            // 비동기통신의 성공일경우 success콜백으로 들어옴. 'res'는 응답받은 데이터
             if (res == "false") {
               alert("이미 기본 배송지가 존재합니다.");
               $("#HanDeliveryCheckbox").val(false);
               $("#HanDeliveryCheckbox").prop("checked", false);
               check_bol2 = 0;
-            }
-            else {
-              alert("112");
-
+            } else {
               $("#HanDeliveryCheckbox").val(true);
               check_bol2 = 1;
               $("#HanDeliveryCheckbox").prop("checked", true);
             }
           },
-          error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옴
-            alert("통신 실패.")
-          }
-        })
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            // 비동기 통신이 실패할경우 error 콜백으로 들어옴
+            alert("통신 실패.");
+          },
+        });
       }
-    }
-    )
+    });
 
-    const delivery_name_check = /^[가-힣0-9]{2,10}|[a-zA-Z0-9]{2,10}$/;
-    const name_check = /^[가-힣]{2,5}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+    const delivery_name_check = /^[가-힣0-9]{2,10}$|^[a-zA-Z0-9]{2,10}$/;
+    const name_check = /^[가-힣]{2,5}$|^[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
     const phone_check = /^(010|011|016|017|018|019)[0-9]{7,8}$/;
 
-
-
     //필수 입력칸의 LiCheck 클래스가있는 li
-    const HanSignUpLiList2 = document.querySelectorAll('.LiCheck2');
+    const HanSignUpLiList2 = document.querySelectorAll(".LiCheck2");
 
     //필수 입력칸 HanSignUpInput 클래스가 있는 input
-    const HanSignUpInputList2 = document.querySelectorAll('.HanSignUpInput2');
+    const HanSignUpInputList2 = document.querySelectorAll(".HanSignUpInput2");
 
     //HanSignUpSubmit 폼의 submit 버튼
-    const HanSignUpSubmit2 = document.querySelector('#HanDeliverySubmit');
+    const HanSignUpSubmit2 = document.querySelector("#HanDeliverySubmit");
 
-    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
-    function HanSignUpValueCheckAll() {
-
-      let value1 = 0;
-
-      for (let i = 0; i < HanSignUpLiList2.length; i++) {
-
-        if (HanSignUpInputList2[i].value === "") {
-          //input박스를 빨간색으로 보여주고
-          //경고 문자를 보여준다
-          HanSignUpLiList2[i].classList.add('HanRed');
-          HanSignUpLiList2[i].classList.remove('hanNone');
-          value1 = value1 + 1;
-
-        } else {
-          //input박스의 빨간색제거
-          //경고 문자 안보이게
-          HanSignUpLiList2[i].classList.remove('HanRed');
-          HanSignUpLiList2[i].classList.add('hanNone');
-        }
-      };
-
-      return value1;
-    };
 
     //창 로드시 필수 입력칸에 이벤트 걸어준다
-    window.addEventListener('load', focusEvent);
-
+    window.addEventListener("load", focusEvent);
 
     function focusEvent() {
       // 필수 입력칸에 focusout시 값이 다 있는지 체크
       for (let i = 0; i < HanSignUpLiList2.length; i++) {
-
-        HanSignUpInputList2[i].addEventListener('focusout', function () {
-
+        HanSignUpInputList2[i].addEventListener("focusout", function () {
           HanSignUpValueCheck(i);
-
         });
-
-
       }
     }
 
     function HanSignUpValueCheck(i) {
-
       if (HanSignUpInputList2[i].value === "") {
         //input박스를 빨간색으로 보여주고
         //경고 문자를 보여준다
-        HanSignUpLiList2[i].classList.add('HanRed');
-        HanSignUpLiList2[i].classList.remove('hanNone');
+        HanSignUpLiList2[i].classList.add("HanRed");
+        HanSignUpLiList2[i].classList.remove("hanNone");
       } else {
         //input박스의 빨간색제거
         //경고 문자 안보이게
-        HanSignUpLiList2[i].classList.remove('HanRed');
-        HanSignUpLiList2[i].classList.add('hanNone');
+        HanSignUpLiList2[i].classList.remove("HanRed");
+        HanSignUpLiList2[i].classList.add("hanNone");
       }
-
-
     }
-
 
     $("#hiddenDeliveryName").mouseover(function () {
       $("#hiddenDeliveryNameArea").css("display", "block");
-    })
+    });
 
     $("#hiddenDeliveryName").mouseout(function () {
       $("#hiddenDeliveryNameArea").css("display", "none");
-    })
+    });
 
     $("#deliveryName").focus(function () {
       $("#hiddenDeliveryNameArea").css("display", "none");
-    })
+    });
 
     $("#hiddenName").mouseover(function () {
       $("#hiddenNameArea").css("display", "block");
-    })
+    });
 
     $("#hiddenName").mouseout(function () {
       $("#hiddenNameArea").css("display", "none");
-    })
+    });
     $("#recipientName").focus(function () {
       $("#hiddenNameArea").css("display", "none");
-    })
+    });
 
     $("#hiddenPhone").mouseover(function () {
       $("#hiddenPhoneArea").css("display", "block");
-    })
+    });
 
     $("#hiddenPhone").mouseout(function () {
       $("#hiddenPhoneArea").css("display", "none");
-    })
+    });
 
     $("#recipientPhoneNumber").focus(function () {
       $("#hiddenPhoneArea").css("display", "none");
-    })
-
+    });
 
     //회원가입버튼 누를시 검사하는 메서드 호출
-    HanSignUpSubmit2.addEventListener('click', HanSignUpSubmitCheck);
+    HanSignUpSubmit2.addEventListener("click", HanSignUpSubmitCheck);
+
+
+
+
+
 
     //회원가입버튼 누를시 검사하고 submit 하는 메서드
 
-
     //1. 필수입력창에 값을 다 입력했는지
 
-    function HanSignUpSubmitCheck(e) {
+    function HanSignUpSubmitCheck(e) { // 폼 제출 방지
 
-      e.preventDefault(); // 폼 제출 방지
+
+
+      e.preventDefault();
+      check_exp = 1;
 
       if (!delivery_name_check.test($("#deliveryName").val())) {
+        check_exp = 0;
         $("#deliveryName").addClass("HanRed");
         $("#hiddenDeliveryNameArea").css("display", "block");
-
-
-      }
-      else {
+      } else {
         $("#deliveryName").removeClass("HanRed");
       }
 
       if (!name_check.test($("#recipientName").val())) {
         $("#hiddenNameArea").css("display", "block");
         $("#recipientName").addClass("HanRed");
-
-      }
-      else {
+        check_exp = 0;
+      } else {
         $("#recipientName").removeClass("HanRed");
       }
 
       if (!phone_check.test($("#recipientPhoneNumber").val())) {
         $("#hiddenPhoneArea").css("display", "block");
         $("#recipientPhoneNumber").addClass("HanRed");
-
-      }
-      else {
+        check_exp = 0;
+      } else {
         $("#recipientPhoneNumber").removeClass("HanRed");
       }
 
 
 
 
-    };
+      //1. 필수입력창에 값을 다 입력했는지
+      let ValueCheck1 = HanSignUpValueCheckAll2();
 
-    function HanSignUpSubmitCheck(e) {
-    e.preventDefault(); // 기본 제출 방지
 
-    let ValueCheck = HanSignUpValueCheckAll(); // 필수 입력 체크
 
-    if (!$("#HanDeliveryCheckbox").is(":checked")) {
-        var params = { memberId: $("#sessionId").val() };
+      if (!$("#HanDeliveryCheckbox").is(":checked")) {
+        var params = {
+          memberId: $("#sessionId").val(),
 
+        };
+
+
+
+        // ajax 통신
         $.ajax({
-            type: "POST",
-            url: "/check/defaultDelivery",
-            data: params,
-            success: function (res) {
-                if (res == "false") {
-                    check_bol2 = 1;
+          type: "POST",
+          url: "/check/defaultDelivery",
+          data: params,
+          success: function (res) {
+            if (res == "false") {
+              if (ValueCheck1 === 0 && check_exp == 1) {
 
+                check_bol2 = 1;
+                document.getElementById("HanDeliveryForm").submit();
+              } else {
 
-                    if (ValueCheck === 0) {
-                        setTimeout(function () {
-                            document.getElementById("HanDeliveryForm").submit();
-                        }, 500);
-                    }
-                } else {
-                    alert("기본 배송지는 반드시 하나는 필요합니다.");
-                    $("#HanDeliveryCheckbox").prop("checked", false);
-                }
-            },
-            error: function () {
-                alert("통신 실패.");
+              }
+            } else {
+              alert("기본 배송지는 반드시 하나는 필요합니다.");
+              $("#HanDeliveryCheckbox").trigger("click");
             }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("통신 실패.");
+          },
         });
-    } else {
-        // 체크박스가 이미 체크되어 있으면 바로 제출
-        if (ValueCheck === 0) {
-            document.getElementById("HanDeliveryForm").submit();
-        }
+      }
+
+      if (ValueCheck1 == 0 && check_bol2 == 1 && check_exp == 1) {
+        document.getElementById("HanDeliveryForm").submit();
+      }
     }
-}
-
-// `disabled` 상태가 있으면 제거
-$("#HanDeliverySubmit").prop("disabled", false);
-
 
     //HanSignUpLiList에  값을 쓸때 빨간색 테두리와 경고문자 제거하는 함수 호출
     HanSignUpLiList2.forEach((input, i) => {
-      input.addEventListener('input', () => HanSignUpWrite(i));
+      input.addEventListener("input", () => HanSignUpWrite(i));
     });
 
     //input에 값을 쓸때 빨간색 테두리와 경고문자 제거
     function HanSignUpWrite(i) {
+      HanSignUpLiList2[i].classList.remove("HanRed");
+      HanSignUpLiList2[i].classList.add("hanNone");
+    }
 
-      HanSignUpLiList2[i].classList.remove('HanRed');
-      HanSignUpLiList2[i].classList.add('hanNone');
 
+    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
+    // function HanSignUpValueCheckAll2() {
+
+    //   let value1 = 0;
+
+
+
+    //   for (let i = 0; i < HanSignUpLiList2.length; i++) {
+
+    //     if (HanSignUpInputList2[i].value === "") {
+    //       //input박스를 빨간색으로 보여주고
+    //       //경고 문자를 보여준다
+    //       HanSignUpLiList2[i].classList.add("HanRed");
+    //       HanSignUpLiList2[i].classList.remove("hanNone");
+    //       value1 = value1 + 1;
+
+    //     } else {
+    //       //input박스의 빨간색제거
+    //       //경고 문자 안보이게
+    //       HanSignUpLiList2[i].classList.remove("HanRed");
+    //       HanSignUpLiList2[i].classList.add("hanNone");
+    //     }
+
+    //   }
+
+
+
+    //   return value1;
+    // }
+
+    function HanSignUpValueCheckAll2() {
+      let value1 = 0;
+
+      console.log("🚀 [DEBUG] 함수 시작됨!");
+
+      // 배열 요소가 올바르게 선언되었는지 확인
+      if (!HanSignUpLiList2 || !HanSignUpInputList2) {
+        console.error("🚨 [ERROR] HanSignUpLiList2 또는 HanSignUpInputList2가 정의되지 않음!");
+        return;
+      }
+
+      console.log("✅ [DEBUG] 리스트 크기 확인: ", HanSignUpLiList2.length, HanSignUpInputList2.length);
+
+      for (let i = 0; i < HanSignUpLiList2.length; i++) {
+        console.log(`🔍 [DEBUG] ${i}번째 필드 검사 중...`);
+
+        if (!HanSignUpInputList2[i]) {
+          console.error(`🚨 [ERROR] HanSignUpInputList2[${i}]가 존재하지 않음!`);
+          continue;
+        }
+
+        if (HanSignUpInputList2[i].value === "") {
+          console.log(`⚠️ [DEBUG] ${i}번째 필드가 비어 있음`);
+          HanSignUpLiList2[i].classList.add("HanRed");
+          HanSignUpLiList2[i].classList.remove("hanNone");
+          value1 = value1 + 1;
+        } else {
+          HanSignUpLiList2[i].classList.remove("HanRed");
+          HanSignUpLiList2[i].classList.add("hanNone");
+        }
+      }
+
+      console.log("✅ [DEBUG] 모든 필드 검사 완료!");
+
+      return value1;
     }
 
     // -------------------------배송지 등록 부분 자바 스크립트 끝------------------------------------------
@@ -1813,7 +1908,7 @@ $("#HanDeliverySubmit").prop("disabled", false);
           })
             .then((response) => {
               if (response.ok) {
-                alert("배송지가 삭제되었습니다.");
+
                 // 현재 삭제된 배송지의 부모 요소 찾기
                 let addressCard = this.closest(".HanAddressPopCard");
                 if (addressCard) {
@@ -1847,7 +1942,7 @@ $("#HanDeliverySubmit").prop("disabled", false);
           })
             .then((response) => {
               if (response.ok) {
-                alert("카드 정보가 삭제되었습니다.");
+
 
                 // 현재 삭제된 카드정보의 부모 요소 찾기
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -26,11 +27,14 @@ public class MainPageController {
     @GetMapping("/")
     String createHomePage(Model model, HttpServletRequest request){
 
-        List<ProductListResponseDto> productOrderBySellingCount = productService.getSellingTop3Product();
-        List<ProductListResponseDto> productOrderById = productService.getTop3NewProduct();
+        List<ProductListResponseDto> productOrderBySellingCount = productService.getSellingTop4Product();
+        List<ProductListResponseDto> productOrderById = productService.getTop4NewProduct();
 
         model.addAttribute("productListCount",productOrderBySellingCount);
         model.addAttribute("productListId",productOrderById);
+
+        List<Integer> sortList = Arrays.asList(1, 2, 3, 4);
+        model.addAttribute("sort",sortList);
 
 
         Member member = memberService.getMemberEntity(request);

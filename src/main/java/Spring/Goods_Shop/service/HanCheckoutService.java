@@ -1010,7 +1010,8 @@ public class HanCheckoutService {
                     .productImage(checkoutDetails.getProduct().getProductImage())
                     //상품 이름
                     .productName(checkoutDetails.getProduct().getName())
-
+                    //상품 가격 (Formatter를 통해 원단위 랑 원 을 붙여준다)
+                    .productPrise(Formatter.changeBigDecimalFormat(price) )
                     //상품 합계 가격 ( 상품 가격 * 상품 개수) (Formatter를 통해 원단위 랑 원 을 붙여준다)
                     .productSumPrise(Formatter.changeBigDecimalFormat(sumPrice))
                     //상품 개수

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>☁️CloudStar WorkShop 상품</title>
 
     <link rel="stylesheet" href="/css/mainPage.css" />
     <link
@@ -78,7 +78,6 @@
       }
 
       .product-info__count {
-        color: #686868;
       }
 
       .product-info__p {
@@ -256,6 +255,13 @@
         display: none;
         /* 기본적으로 버튼 숨김 */
       }
+      .countInfo {
+        text-align: right;
+      }
+      .countInfo__deadline {
+        color: #ff0000;
+        font-weight: bolder;
+      }
     </style>
   </head>
 
@@ -285,8 +291,27 @@
           </span>
           <div class="product-info">
             <p th:text="${product.name}" class="product-info__name"></p>
-            <span th:text="${product.count}" class="product-info__count"></span>
-            <sapn> 개 남았습니다.</sapn>
+            <!-- 재고 수량 알림 -->
+            <!-- <div th:if="${product.count == 0}">
+            </div> -->
+            <div th:if="${product.count > 5}" class="countInfo">
+              <sapn>남은 개수</sapn>
+              <span
+                th:text="${product.count} + '개'"
+                class="product-info__count"></span>
+            </div>
+            <div
+              th:unless="${product.count > 5}"
+              class="countInfo countInfo__deadline">
+              <div th:unless="${product.count == 0}">
+                <span>품절임박!</span>
+                <span
+                  th:text="${product.count} + '개'"
+                  class="product-info__count"></span>
+              </div>
+              <div th:if="${product.count == 0}">상품이 품절되었습니다.</div>
+            </div>
+            <!-- /재고 수량 알림 -->
             <p
               th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
               class="product-info__price">
@@ -354,8 +379,8 @@
                   class="btn btn__order"
                   type="submit"
                   form="checkoutForm">
-                  <i class="fa-solid fa-credit-card" style="color: #f5c724"
-                    >주문하기</i
+                  <i class="fa-solid fa-credit-card" style="color: #a8a80f">
+                    주문하기</i
                   >
                 </button>
               </form>
@@ -371,8 +396,8 @@
                   name="productCnt"
                   value="1" />
                 <button class="btn btn__cart" type="submit" form="cartForm">
-                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c"
-                    >장바구니</i
+                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c">
+                    장바구니</i
                   >
                 </button>
               </form>
@@ -414,22 +439,27 @@
       //+-버튼에 따라 수량 증감을 보여준다
       currentQuantity += change;
 
-    // 1보다 작아지지 않게
-    if (currentQuantity < 1) {
-      currentQuantity = 1;
-    }
+      // 1보다 작아지지 않게
+      if (currentQuantity < 1) {
+        currentQuantity = 1;
+      }
 
-    //재고수 보다 많이 사는 거 막기
-    let productCount = document.querySelector(".product-info__count").textContent;
-    if (currentQuantity > parseInt(productCount) && parseInt(productCount) !==0 ) {
-      alert("재고수보다 많이 구매할 수 없습니다.");
-      currentQuantity = parseInt(productCount);
-    }
+      //재고수 보다 많이 사는 거 막기
+      let productCount = document.querySelector(
+        ".product-info__count"
+      ).textContent;
+      if (
+        currentQuantity > parseInt(productCount) &&
+        parseInt(productCount) !== 0
+      ) {
+        alert("재고수보다 많이 구매할 수 없습니다.");
+        currentQuantity = parseInt(productCount);
+      }
 
-    //구매하기와 장바구니 둘다 input hidden에 넣어줌
-    quantityInput.value = currentQuantity;
-    quantityInputHidden.value = currentQuantity;
-    quantityInputHidden2.value = currentQuantity;
+      //구매하기와 장바구니 둘다 input hidden에 넣어줌
+      quantityInput.value = currentQuantity;
+      quantityInputHidden.value = currentQuantity;
+      quantityInputHidden2.value = currentQuantity;
 
       //수량에 따라 가격 변동해주는 함수 호출
       updateTotalPrice(currentQuantity);

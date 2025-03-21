@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>☁️CloudStar WorkShop 관리자 상품목록</title>
+
     <link rel="stylesheet" href="/css/master/masterHeader.css" />
     <link rel="stylesheet" href="/css/master/masterNavigation.css" />
     <style>
@@ -257,7 +258,6 @@
               </form>
             </div>
           </div>
-
           <div class="container__sort">
             <select name="categorySelect" id="categorySelect" onchange="">
               <option value="default" th:selected="${categoryQuery == default}">
@@ -285,7 +285,7 @@
                 기타
               </option>
             </select>
-            <select name="sizeSelect" id="sizeSelect" onchange="">
+            <select name="sizetSelect" id="sizeSelect" onchange="">
               <option value="5" th:selected="${size==5}">5개</option>
               <option value="10" th:selected="${size==10}">10개</option>
               <option value="15" th:selected="${size==15}">15개</option>
@@ -338,7 +338,6 @@
                   <th>상품삭제</th>
                 </tr>
               </thead>
-
               <tbody>
                 <tr th:each="productList : ${productList}">
                   <th th:text="${productList.id}"></th>
@@ -389,7 +388,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=0, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=0, size=${size})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -401,7 +400,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage - 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage - 1}, size=${size})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -415,7 +414,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${pageNum}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${pageNum}, size=${size})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -425,7 +424,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${currentPage + 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${currentPage + 1}, size=${size})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -435,13 +434,14 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/list(page=${page.totalPages - 1}, size=${size})}"
+              th:href="@{/master/product/list/category(category=${categoryQuery}, page=${page.totalPages - 1}, size=${size})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
           </li>
         </ul>
       </nav>
+
       <button id="topBtn" title="Go to top">▲</button>
     </main>
   </body>
@@ -483,12 +483,12 @@
 
     sizeSelect.addEventListener("change", function () {
       const selectedSize = this.value;
-      window.location.href = `/master/product/list?page=0&size=${selectedSize}&sort=${currentSort}`;
+      window.location.href = `/master/product/list/category?category=${currentCategory}&page=0&size=${selectedSize}&sort=${currentSort}`;
     });
 
     sortSelect.addEventListener("change", function () {
       const selectedSort = this.value;
-      window.location.href = `/master/product/list?page=0&size=${currentSize}&sort=${selectedSort}`;
+      window.location.href = `/master/product/list/category?category=${currentCategory}&page=0&size=${currentSize}&sort=${selectedSort}`;
     });
     categorySelect.addEventListener("change", function () {
       const selectedCategory = this.value;

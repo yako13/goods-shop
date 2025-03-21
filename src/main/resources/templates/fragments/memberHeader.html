@@ -1,155 +1,168 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StarCloud Workshop</title>
-    <link rel="stylesheet" href="css/mainPage.css" />
-  </head>
 
-  <body>
-    <header th:fragment="memberHeader">
-      <!-- 헤더 시작 -->
-      <div class="HanHeaderBodyDiv">
-        <img th:src="@{/images/mainLeft.png}" width="auto" height="70px" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarCloud Workshop</title>
+  <link rel="stylesheet" href="css/mainPage.css">
 
-        <div class="HanHeaderBody">
-          <div class="HanHeaderLeft">
-            <!-- <p>카테고리</p>
-                <p>쇼핑몰 정보</p> -->
+</head>
+
+<body>
+
+<header th:fragment="memberHeader">
+
+
+  <!-- 헤더 시작 -->
+  <div class="HanHeaderBodyDiv">
+
+    <img th:src="@{/images/mainLeft.png}" width="auto" height="80px">
+
+    <div class="HanHeaderBody">
+
+      <div class="HanHeaderLeft">
+
+        <!-- <p>카테고리</p>
+    <p>쇼핑몰 정보</p> -->
+
+      </div>
+
+
+      <div class="HanNaviLogoDiv">
+        <a href="/">
+          <img th:src="@{/images/mainLogoTitle.png}" width="auto" height="90px">
+        </a>
+
+
+      </div>
+
+
+      <div class="HanHeaderBottom">
+
+        <div class="HanHeaderBottomLeft">
+
+        </div>
+
+        <div class="HanHeaderRight">
+
+          <div class="HanSerachForm">
+
+            <form action="/product/search/index" method="get" role="search" id="HanSerachForm">
+
+              <input type="text" id="cardName" name="keyword" placeholder="검색어를 입력해주세요">
+              <button type="submit" form="HanSerachForm"></button>
+
+            </form>
+
           </div>
 
-          <div class="HanNaviLogoDiv">
-            <a href="/">
-              <img
-                th:src="@{/images/mainLogoTitle.png}"
-                width="auto"
-                height="70px" />
-            </a>
+
+          <!-- 로그아웃시 나타나는 헤더부분 시작-->
+
+
+          <div class="HanHeaderButton" th:if="${session.memberId==null}">
+            <a th:href="@{/login}">로그인</a>
+            <a th:href="@{/join}">회원가입</a>
           </div>
 
-          <div class="HanHeaderBottom">
-            <div class="HanHeaderBottomLeft"></div>
+          <!-- 로그아웃시 나타나는 헤더부분 끝-->
 
-            <div class="HanHeaderRight">
-              <div class="HanSerachForm">
-                <form
-                  action="/product/search/index"
-                  method="get"
-                  role="search"
-                  id="HanSerachForm">
-                  <input
-                    type="text"
-                    id="cardName"
-                    name="keyword"
-                    placeholder="검색어를 입력해주세요" />
-                  <button type="submit" form="HanSerachForm"></button>
-                </form>
-              </div>
-
-              <!-- 로그아웃시 나타나는 헤더부분 시작-->
-
-              <div class="HanHeaderButton" th:if="${session.memberId==null}">
-                <a th:href="@{/login}">로그인</a>
-                <a th:href="@{/join}">회원가입</a>
-              </div>
-
-              <!-- 로그아웃시 나타나는 헤더부분 끝-->
-
-              <!-- 로그인시 나타나는 헤더부분 시작-->
-              <div class="HanHeaderButton" th:if="${session.memberId!=null}">
-                <div class="Handropdown">
-                  <a
-                    class="dropbtn HanHeaderButtonA"
-                    onclick="toggleDropdown(event, 'mypageDropdown')">
-                    <img
-                      th:src="@{/images/user1.svg}"
-                      alt=""
-                      width="24px"
-                      height="auto"
-                      class="HanHeaderHover"
-                  /></a>
-                  <div class="HanDrodBoxName" id="mypageDropdown">
-                    <div class="HanDrodBoxNameBox">
-                      <img th:src="@{/images/user1.svg}" alt="" />
-                      <div class="HanDrodBoxNameDiv">
-                        <div>
-                          <p class="HanHeaderUserName" th:if="${name!=null}">
-                            [[${name}]]님
-                          </p>
-                        </div>
-                        <p class="HanHeaderUserId" th:text="${userId}"></p>
-                      </div>
+          <!-- 로그인시 나타나는 헤더부분 시작-->
+          <div class="HanHeaderButton" th:if="${session.memberId!=null}">
+            <div class="Handropdown">
+              <a class="dropbtn HanHeaderButtonA" onclick="toggleDropdown(event, 'mypageDropdown')">
+                <img th:src="@{/images/user1.svg}" alt="" width="30px" height="auto"
+                     class="HanHeaderHover"></a>
+              <div class="HanDrodBoxName" id="mypageDropdown">
+                <div class="HanDrodBoxNameBox">
+                  <img th:src="@{/images/user1.svg}" alt="">
+                  <div class="HanDrodBoxNameDiv">
+                    <div>
+                      <p class="HanHeaderUserName" th:if="${name!=null}">[[${name}]]님</p>
                     </div>
-                    <div class="HandropdownBoxLogout">
-                      <a href="/logout" id="logoutLink">
-                        <img
-                          th:src="@{/images/logout.svg}"
-                          width="20px"
-                          height="auto" />로그아웃</a
-                      >
-                    </div>
-                    <div class="HandropdownBox" id="">
-                      <a th:href="@{/member/checkout/list}">마이페이지</a>
-                      <a th:href="@{/member/checkout/list}">주문목록</a>
-                      <a th:href="@{/member/pay/create}">결제 등록</a>
-                      <a th:href="@{/member/delivery/create}">배송지 등록</a>
-                    </div>
+                    <p class="HanHeaderUserId" th:text="${userId}"></p>
                   </div>
                 </div>
-                <a href="/cart" class="HanHeaderButtonA"
-                  ><img
-                    th:src="@{/images/cart4.svg}"
-                    width="29px"
-                    height="auto"
-                    class="HanHeaderHover"
-                /></a>
+                <div class="HandropdownBoxLogout">
+                  <a href="/logout" id="logoutLink">
+                    <img th:src="@{/images/logout.svg}" width="20px" height="auto">로그아웃</a>
+                </div>
+                <div class="HandropdownBox" id="">
+                  <a th:href="@{/member/checkout/list}">마이페이지</a>
+                  <a th:href="@{/member/checkout/list}">주문목록</a>
+                  <a th:href="@{/member/pay/create}">결제 등록</a>
+                  <a th:href="@{/member/delivery/create}">배송지 등록</a>
+                </div>
               </div>
-              <!-- 로그인시 나타나는 헤더부분 끝-->
             </div>
+            <a href="/cart" class="HanHeaderButtonA"><img th:src="@{/images/cart4.svg}" width="35px"
+                                                          height="auto" class="HanHeaderHover"></a>
           </div>
-        </div>
+          <!-- 로그인시 나타나는 헤더부분 끝-->
 
-        <img th:src="@{/images/mainRight.png}" width="auto" height="70px" />
+        </div>
       </div>
 
-      <!-- 네비 시작 -->
+    </div>
 
-      <div class="HanNaviMain">
-        <div class="HanNaviBar">
-          <a th:href="@{/product/list}">전체상품</a>
-          <a
-            th:href="@{/product/list/category(category='photo_card')}"
-            th:classappend="${categoryQuery == 'photo_card'} ? 'active' : ''"
-            >포토카드</a
-          >
-          <a
-            th:href="@{/product/list/category(category='memo')}"
-            th:classappend="${categoryQuery == 'memo'} ? 'active' : ''"
-            >메모지</a
-          >
-          <a
-            th:href="@{/product/list/category(category='sticker')}"
-            th:classappend="${categoryQuery == 'sticker'} ? 'active' : ''"
-            >스티커</a
-          >
-          <a
-            th:href="@{/product/list/category(category='postcard')}"
-            th:classappend="${categoryQuery == 'postcard'} ? 'active' : ''"
-            >엽서</a
-          >
-          <a
-            th:href="@{/product/list/category(category='etc')}"
-            th:classappend="${categoryQuery == 'etc'} ? 'active' : ''"
-            >기타</a
-          >
-        </div>
-        <hr class="HanHeaderHr2" />
+    <img th:src="@{/images/mainRight.png}" width="auto" height="70px">
+  </div>
+
+
+  <!-- 네비 시작 -->
+
+  <div class="HanNaviMain">
+
+    <div class="HanNaviBar">
+      <div class="HanNaviBarADiv"
+           th:classappend="${check != null} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list}">전체상품</a>
       </div>
 
-      <!-- 네비 끝 -->
+      <div class="HanNaviBarADiv"
+           th:classappend="${categoryQuery == 'photo_card'} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list/category(category='photo_card')}"
+           th:classappend="${categoryQuery == 'photo_card'} ? 'active' : ''">포토카드홀더</a>
+      </div>
 
-      <!-- 헤더 끝 -->
-    </header>
-  </body>
+      <div class="HanNaviBarADiv"
+           th:classappend="${categoryQuery == 'memo'} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list/category(category='memo')}"
+           th:classappend="${categoryQuery == 'memo'} ? 'active' : ''">메모지</a>
+      </div>
+
+      <div class="HanNaviBarADiv"
+           th:classappend="${categoryQuery == 'sticker'} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list/category(category='sticker')}"
+           th:classappend="${categoryQuery == 'sticker'} ? 'active' : ''">스티커</a>
+      </div>
+
+      <div class="HanNaviBarADiv"
+           th:classappend="${categoryQuery == 'postcard'} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list/category(category='postcard')}"
+           th:classappend="${categoryQuery == 'postcard'} ? 'active' : ''">엽서</a>
+      </div>
+
+      <div class="HanNaviBarADiv"
+           th:classappend="${categoryQuery == 'etc'} ? 'HanStorng' : ''">
+        <a th:href="@{/product/list/category(category='etc')}"
+           th:classappend="${categoryQuery == 'etc'} ? 'active' : ''">기타</a>
+      </div>
+    </div>
+
+    <hr class="HanHeaderHr2">
+
+  </div>
+
+
+  <!-- 네비 끝 -->
+
+  <!-- 헤더 끝 -->
+
+</header>
+
+</body>
+
+
 </html>
