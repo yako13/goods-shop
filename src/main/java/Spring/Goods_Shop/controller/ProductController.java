@@ -34,7 +34,7 @@ public class ProductController {
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
             Model model, HttpServletRequest request) {
         // url에서 50 을 초과할시 25의 값을 줌
-        if (size < 50) {
+        if (size > 50) {
             size = 25;
         }
         Member member = memberService.getMemberEntity(request);

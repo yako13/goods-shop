@@ -18,10 +18,13 @@ public class ChartService {
 
     private final CheckoutRepository checkoutRepository;
 
+
     public Map<String, BigDecimal> getCheckoutChartDay(Integer month, Integer year) {
+
         List<Checkout> checkoutList = checkoutRepository.findAll();
 
         Map<String, BigDecimal> chart = new LinkedHashMap<>();
+
 
         // 매개변수로 주어진 월과 연도의 길이 구하기
         LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
@@ -29,6 +32,7 @@ public class ChartService {
 
         // 일 매출 초기화 (1일부터 31일까지)
         for (int day = 1; day <= lengthOfMonth; day++) {
+
             String dayKey = day + "일";
             chart.put(dayKey, BigDecimal.ZERO); // 모든 일 매출을 0으로 초기화
         }
@@ -47,6 +51,7 @@ public class ChartService {
         List<Checkout> checkoutList = checkoutRepository.findAll();
 
         Map<String, BigDecimal> chart = new LinkedHashMap<>();
+
 
         // 월 매출 초기화 (1월부터 12월까지)
         for (int month = 1; month <= 12; month++) {
@@ -81,6 +86,7 @@ public class ChartService {
         }
 
         return chart;
+
     }
 
 }

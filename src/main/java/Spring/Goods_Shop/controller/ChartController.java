@@ -27,6 +27,7 @@ public class ChartController {
 
         int currentMonth = (month != null) ? month : LocalDate.now().getMonthValue();
 
+
         int currentYear = (month != null) ? year : LocalDate.now().getYear();
 
         Map<String,BigDecimal> dayChart = chartService.getCheckoutChartDay(currentMonth,currentYear);

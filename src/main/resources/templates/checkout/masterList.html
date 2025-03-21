@@ -1,206 +1,267 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>☁️CloudStar WorkShop 관리자 주문 리스트</title>
+    <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet" />
+    <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/master/list.css}" />
+    <script
+      src="https://kit.fontawesome.com/f3f72a2177.js"
+      crossorigin="anonymous"></script>
+  </head>
 
-  <title>☁️CloudStar WorkShop 관리자 주문 리스트</title>
-  <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet" />
-  <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet" />
-  <link rel="stylesheet" th:href="@{/css/master/list.css}" />
-  <script src="https://kit.fontawesome.com/f3f72a2177.js" crossorigin="anonymous"></script>
-</head>
+  <body>
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
+    <input type="hidden" th:value="${alert}" id="dataAlert" />
 
-<body>
-  <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
-  <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
-  <input type="hidden" th:value="${alert}" id="dataAlert" />
+    <main id="main">
+      <div class="container">
+        <h2 th:if="${keywordQuery==null}">전체 주문 목록</h2>
+        <h2
+          th:if="${keywordQuery!=null}"
+          th:text="'검색어 : '+ ${keywordQuery}"
+          class="search-name"></h2>
+        <hr />
+        <div class="orderList">
+          <p><b>주문 내역</b> : 총 <b id="red">[[${total}]]</b>건</p>
+        </div>
+        <div>
+          <div class="form__search">
+            <form
+              action="/master/checkout/search/index"
+              method="get"
+              role="search"
+              id="HanSerachForm">
+              <select name="search" id="searchSelect" onchange="">
+                <option
+                  value="ordererName"
+                  th:selected="${searchSelect=='ordererName'}">
+                  주문자 이름
+                </option>
+                <option
+                  value="recipientName"
+                  th:selected="${searchSelect=='recipientName'}">
+                  받는분 이름
+                </option>
+                <option
+                  value="productName"
+                  th:selected="${searchSelect=='productName'}">
+                  상품명
+                </option>
+              </select>
+              <input
+                type="text"
+                class="searchForm"
+                id="searchInput"
+                name="keyword"
+                placeholder="검색어를 입력하세요." />
+              <button type="submit" class="btn-submit" form="HanSerachForm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+            <div class="container__sort2">
+              <select name="checkoutState" id="checkoutStateSelect" onchange="">
+                <option value="ALL" th:selected="${checkoutState=='ALL'}">
+                  전체주문
+                </option>
+                <option
+                  value="CONFIRM"
+                  th:selected="${checkoutState=='CONFIRM'}"
+                  style="color: blue">
+                  주문완료
+                </option>
+                <option
+                  value="WAIT"
+                  th:selected="${checkoutState=='WAIT'}"
+                  style="color: green">
+                  주문보류
+                </option>
+                <option
+                  value="CANCEL"
+                  th:selected="${checkoutState=='CANCEL'}"
+                  style="color: red">
+                  주문취소
+                </option>
+              </select>
+              <select name="sizeSelect" id="sizeSelect" onchange="">
+                <option value="5" th:selected="${size==5}">5개</option>
+                <option value="10" th:selected="${size==10}">10개</option>
+                <option value="15" th:selected="${size==15}">15개</option>
+              </select>
 
-  <main id="main">
-    <div class="container">
-      <h2 th:if="${keywordQuery==null}">전체 주문 목록</h2>
-      <h2 th:if="${keywordQuery!=null}" th:text="'검색어 : '+ ${keywordQuery}" class="search-name"></h2>
-      <hr />
-      <div class="orderList">
-        <p><b>주문 내역</b> : 총 <b id="red">[[${total}]]</b>건</p>
-      </div>
-      <div>
-        <div class="form__search">
-          <form action="/master/checkout/search/index" method="get" role="search" id="HanSerachForm">
-            <select name="search" id="searchSelect" onchange="">
-              <option value="ordererName" th:selected="${searchSelect=='ordererName'}">
-                주문자 이름
-              </option>
-              <option value="recipientName" th:selected="${searchSelect=='recipientName'}">
-                받는분 이름
-              </option>
-              <option value="productName" th:selected="${searchSelect=='productName'}">
-                상품명
-              </option>
-            </select>
-            <input type="text" class="searchForm" id="searchInput" name="keyword" placeholder="검색어를 입력하세요." />
-            <button type="submit" class="btn-submit" form="HanSerachForm">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
-          <div class="container__sort2">
-            <select name="checkoutState" id="checkoutStateSelect" onchange="">
-              <option value="ALL" th:selected="${checkoutState=='ALL'}">
-                전체주문
-              </option>
-              <option value="CONFIRM" th:selected="${checkoutState=='CONFIRM'}" style="color: blue">
-                주문완료
-              </option>
-              <option value="WAIT" th:selected="${checkoutState=='WAIT'}" style="color: green">
-                주문보류
-              </option>
-              <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}" style="color: red">
-                주문취소
-              </option>
-            </select>
-            <select name="sizeSelect" id="sizeSelect" onchange="">
-              <option value="5" th:selected="${size==5}">5개</option>
-              <option value="10" th:selected="${size==10}">10개</option>
-              <option value="15" th:selected="${size==15}">15개</option>
-            </select>
-
-            <select name="sortSelect" id="sortSelect" onchange="">
-              <option value="default" th:selected="${sortSelect == 'default'}">
-                최신순
-              </option>
-              <option value="past" th:selected="${sortSelect == 'past'}">
-                오래된순
-              </option>
-              <option value="price_asc" th:selected="${sortSelect == 'price_asc'}">
-                판매가격 낮은순
-              </option>
-              <option value="price_desc" th:selected="${sortSelect == 'price_desc'}">
-                판매가격 높은순
-              </option>
-            </select>
-            <span class="text__right">
-              <span th:text="${paging.totalElements + '건의 상품 / '}"></span>
-              <span
-                th:text="${(paging.number + 1) + (paging.number * size) - paging.totalPages + (paging.totalPages - paging.number)}"></span>
-              -
-              <span th:text="${(paging.number * size) + #lists.size(paging.content) + '건'}"></span>
-            </span>
+              <select name="sortSelect" id="sortSelect" onchange="">
+                <option
+                  value="default"
+                  th:selected="${sortSelect == 'default'}">
+                  최신순
+                </option>
+                <option value="past" th:selected="${sortSelect == 'past'}">
+                  오래된순
+                </option>
+                <option
+                  value="price_asc"
+                  th:selected="${sortSelect == 'price_asc'}">
+                  결제가격 낮은순
+                </option>
+                <option
+                  value="price_desc"
+                  th:selected="${sortSelect == 'price_desc'}">
+                  결제가격 높은순
+                </option>
+              </select>
+              <span class="text__right">
+                <span th:text="${paging.totalElements + '건의 상품 / '}"></span>
+                <span
+                  th:text="${(paging.number + 1) + (paging.number * size) - paging.totalPages + (paging.totalPages - paging.number)}"></span>
+                -
+                <span
+                  th:text="${(paging.number * size) + #lists.size(paging.content) + '건'}"></span>
+              </span>
+            </div>
           </div>
         </div>
+
+        <h1 th:if="${total ==0}">주문내역이 없습니다.</h1>
+
+        <table class="rwd-table" th:if="${total >0}">
+          <tbody>
+            <tr>
+              <th>주문번호</th>
+              <th>주문자</th>
+              <th>받는이</th>
+              <th>주문 상품</th>
+              <th>총 결제 금액</th>
+              <th>결제수단</th>
+              <th>주문 상태</th>
+              <th>배송 상태</th>
+              <th>주문 날짜</th>
+              <th>수정 날짜</th>
+            </tr>
+            <tr
+              th:each="checkout : ${checkoutList}"
+              th:onclick="window.location.href='/master/checkout/details/' + [[${checkout.id}]];"
+              class="trPointer">
+              <td th:text="${checkout.checkoutCode}" id="checkoutCode"></td>
+              <td th:text="${checkout.checkoutName}"></td>
+              <td th:text="${checkout.checkoutRecipientName}"></td>
+              <td th:text="${checkout.checkoutProductName}"></td>
+              <td th:text="${checkout.checkoutTotalPay}" class="totalPrice">
+                <b></b>
+              </td>
+              <td>카드</td>
+              <td th:text="${checkout.checkoutStep}" class="checkoutStep"></td>
+              <td th:text="${checkout.checkoutPostStep}" class="postStep"></td>
+              <td th:text="${checkout.createdAt}"></td>
+              <td th:text="${checkout.modifiedAt}"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <!-- 페이지네이션 -->
+      <nav
+        aria-label="Page navigation"
+        th:unless="${paging.totalElements == 0}">
+        <ul class="pagination">
+          <!-- 첫 페이지 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${paging.first} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/checkout/list(page=0, size=${size})}"
+              aria-label="First">
+              <span>&laquo;</span>
+            </a>
+          </li>
 
-      <h1 th:if="${total ==0}">주문내역이 없습니다.</h1>
+          <!-- 이전 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${paging.hasPrevious()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/master/checkout/list(page=${currentPage - 1}, size=${size})}"
+              aria-label="Previous">
+              <span>&lt;</span>
+            </a>
+          </li>
 
-      <table class="rwd-table" th:if="${total >0}">
-        <tbody>
-          <tr>
-            <th>주문번호</th>
-            <th>주문자</th>
-            <th>받는이</th>
-            <th>주문 상품</th>
-            <th>총 결제 금액</th>
-            <th>결제수단</th>
-            <th>주문 상태</th>
-            <th>배송 상태</th>
-            <th>주문 날짜</th>
-            <th>수정 날짜</th>
-          </tr>
-          <tr th:each="checkout : ${checkoutList}"
-            th:onclick="window.location.href='/master/checkout/details/' + [[${checkout.id}]];" class="trPointer">
-            <td th:text="${checkout.checkoutCode}" id="checkoutCode"></td>
-            <td th:text="${checkout.checkoutName}"></td>
-            <td th:text="${checkout.checkoutRecipientName}"></td>
-            <td th:text="${checkout.checkoutProductName}"></td>
-            <td th:text="${checkout.checkoutTotalPay}" class="totalPrice">
-              <b></b>
-            </td>
-            <td>카드</td>
-            <td th:text="${checkout.checkoutStep}" class="checkoutStep"></td>
-            <td th:text="${checkout.checkoutPostStep}" class="postStep"></td>
-            <td th:text="${checkout.createdAt}"></td>
-            <td th:text="${checkout.modifiedAt}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- 페이지네이션 -->
-    <nav aria-label="Page navigation" th:unless="${paging.totalElements == 0}">
-      <ul class="pagination">
-        <!-- 첫 페이지 버튼 -->
-        <li class="page-item" th:classappend="${paging.first} ? 'disabled' : ''">
-          <a class="page-link" th:href="@{/master/checkout/list(page=0, size=${size})}" aria-label="First">
-            <span>&laquo;</span>
-          </a>
-        </li>
-
-        <!-- 이전 버튼 -->
-        <li class="page-item" th:classappend="${paging.hasPrevious()} ? '' : 'disabled'">
-          <a class="page-link" th:href="@{/master/checkout/list(page=${currentPage - 1}, size=${size})}"
-            aria-label="Previous">
-            <span>&lt;</span>
-          </a>
-        </li>
-
-        <!-- 페이지 번호 -->
-        <li class="page-item"
-          th:each="pageNum : ${#numbers.sequence(currentPage - 2 > 0 ? currentPage - 2 : 0,
+          <!-- 페이지 번호 -->
+          <li
+            class="page-item"
+            th:each="pageNum : ${#numbers.sequence(currentPage - 2 > 0 ? currentPage - 2 : 0,
                                                  currentPage + 2 < paging.totalPages - 1 ? currentPage + 2 : paging.totalPages - 1)}"
-          th:classappend="${pageNum == currentPage} ? 'active' : ''">
-          <a class="page-link" th:href="@{/master/checkout/list(page=${pageNum}, size=${size})}"
-            th:text="${pageNum + 1}"></a>
-        </li>
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/checkout/list(page=${pageNum}, size=${size})}"
+              th:text="${pageNum + 1}"></a>
+          </li>
 
-        <!-- 다음 버튼 -->
-        <li class="page-item" th:classappend="${paging.hasNext()} ? '' : 'disabled'">
-          <a class="page-link" th:href="@{/master/checkout/list(page=${currentPage + 1}, size=${size})}"
-            aria-label="Next">
-            <span>&gt;</span>
-          </a>
-        </li>
+          <!-- 다음 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${paging.hasNext()} ? '' : 'disabled'">
+            <a
+              class="page-link"
+              th:href="@{/master/checkout/list(page=${currentPage + 1}, size=${size})}"
+              aria-label="Next">
+              <span>&gt;</span>
+            </a>
+          </li>
 
-        <!-- 마지막 페이지 버튼 -->
-        <li class="page-item" th:classappend="${paging.last} ? 'disabled' : ''">
-          <a class="page-link" th:href="@{/master/checkout/list(page=${paging.totalPages - 1}, size=${size})}"
-            aria-label="Last">
-            <span>&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </main>
-  <script th:src="@{/js/master/masterNavigation.js}"></script>
-  <script th:src="@{/js/master/checkout.js}"></script>
-  <script>
-    // 검색 단어기준 상품개수 정렬
-    const searchSelect = document.getElementById("searchSelect");
-    const sizeSelect = document.getElementById("sizeSelect");
-    const sortSelect = document.getElementById("sortSelect");
-    const checkoutStateSelect = document.getElementById("checkoutStateSelect");
+          <!-- 마지막 페이지 버튼 -->
+          <li
+            class="page-item"
+            th:classappend="${paging.last} ? 'disabled' : ''">
+            <a
+              class="page-link"
+              th:href="@{/master/checkout/list(page=${paging.totalPages - 1}, size=${size})}"
+              aria-label="Last">
+              <span>&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    <script th:src="@{/js/master/masterNavigation.js}"></script>
+    <script th:src="@{/js/master/checkout.js}"></script>
+    <script>
+      // 검색 단어기준 상품개수 정렬
+      const searchSelect = document.getElementById("searchSelect");
+      const sizeSelect = document.getElementById("sizeSelect");
+      const sortSelect = document.getElementById("sortSelect");
+      const checkoutStateSelect = document.getElementById(
+        "checkoutStateSelect"
+      );
 
-    const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
-    const currentSearch = `[[${searchSelect}]]`; //현재 검색 기준
-    const currentSize = `[[${size}]]`; // 현재 사이즈
-    const currentSort = `[[${sortSelect}]]`; // 현재 정렬 방식
-    const currentCheckoutState = `[[${checkoutState}]]`; //현재 주문상태
+      const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
+      const currentSearch = `[[${searchSelect}]]`; //현재 검색 기준
+      const currentSize = `[[${size}]]`; // 현재 사이즈
+      const currentSort = `[[${sortSelect}]]`; // 현재 정렬 방식
+      const currentCheckoutState = `[[${checkoutState}]]`; //현재 주문상태
 
-    checkoutStateSelect.addEventListener("change", function () {
-      const selectedCheckoutState = this.value;
-      window.location.href = `?page=0&search=${currentSearch}&checkoutState=${selectedCheckoutState}&size=${currentSize}&sort=${currentSort}`;
-    });
+      checkoutStateSelect.addEventListener("change", function () {
+        const selectedCheckoutState = this.value;
+        window.location.href = `?page=0&search=${currentSearch}&checkoutState=${selectedCheckoutState}&size=${currentSize}&sort=${currentSort}`;
+      });
 
-    sizeSelect.addEventListener("change", function () {
-      const selectedSize = this.value;
-      window.location.href = `?page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${selectedSize}&sort=${currentSort}`;
-    });
+      sizeSelect.addEventListener("change", function () {
+        const selectedSize = this.value;
+        window.location.href = `?page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${selectedSize}&sort=${currentSort}`;
+      });
 
-    sortSelect.addEventListener("change", function () {
-      const selectedSort = this.value;
-      window.location.href = `?page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${currentSize}&sort=${selectedSort}`;
-    });
-  </script>
-</body>
-
+      sortSelect.addEventListener("change", function () {
+        const selectedSort = this.value;
+        window.location.href = `?page=0&search=${currentSearch}&checkoutState=${currentCheckoutState}&size=${currentSize}&sort=${selectedSort}`;
+      });
+    </script>
+  </body>
 </html>
