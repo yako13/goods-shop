@@ -285,6 +285,7 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
@@ -345,6 +346,7 @@ public class ProductService {
                 .productCategory(product.getProductCategory().name())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
@@ -383,6 +385,7 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .price(Formatter.changeBigDecimalFormat(product.getPrice()))
+                .count(product.getCount())
                 .mainImagePath(productMainImagePath)
                 .build();
     }
