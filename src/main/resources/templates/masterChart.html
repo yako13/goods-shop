@@ -17,20 +17,26 @@
             border: 1px #a39485 solid;
             font-size: 0.9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+
             width: 600px;
+
             border-collapse: collapse;
             border-radius: 5px;
             overflow: hidden;
             margin: 20px;
             text-align: center;
 
+
             td {
+
                 border-bottom: #ccc solid 1px;
                 padding: 5px;
             }
 
+
             td:first-child {
                 border-right: #ccc solid 1px;
+
             }
         }
 
@@ -40,10 +46,13 @@
             background-color: #33415c;
         }
 
+
         .tableArea {
+
             display: flex;
             padding: 10px;
         }
+
 
         .tH {
             width: 100px;
@@ -146,12 +155,14 @@
             opacity: 0.7;
             cursor: not-allowed;
         }
+
     </style>
 </head>
 
 <body>
     <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
     <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
+
 
 
     <main id="main">
@@ -162,6 +173,7 @@
         </div>
 
         <div>
+
 
             <select name="year" id="yearSelect" onchange=""></select>
             <select name="month" id="monthSelect" onchange="">
@@ -179,6 +191,7 @@
                 <option value="12" th:selected="${monthSelect==12}">12월</option>
             </select>
         </div>
+
         <div class="radioArea">
             <label for="yearTotalSales">일간</label>
             <input type="radio" id="dayTotalSales" name="sales" checked>
@@ -367,6 +380,7 @@
     </script>
 
 
+
     <script th:src="@{/js/master/masterNavigation.js}"></script>
     <script>
         ////// year 동적으로 생성
@@ -390,7 +404,9 @@
 
         // select 엘리먼트 참조
 
+
         for (let year = 2020; year <= currentYear; year++) {
+
             const isSelected = (year === currentYear); // 현재 년도에 해당하는 option을 selected로 설정
             createOptionEl(year);
         }
@@ -405,6 +421,7 @@
         dayPriceElements.forEach((dayPriceElement, index) => {
             const dayPrice = parseFloat(dayPriceElement.textContent);
             dayPriceElement.textContent = formatPrice(dayPrice) + "원";
+
         });
 
         //// select 선택
@@ -465,6 +482,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             checkRadio(); // 페이지가 로드되면 체크된 라디오 버튼 상태에 맞게 초기화
         });
+
 
     </script>
 
