@@ -31,15 +31,14 @@ public class ChartController {
 
         Map<String,BigDecimal> dayChart = chartService.getCheckoutChartDay(currentMonth,currentYear);
         Map<String,BigDecimal> monthChart = chartService.getCheckoutChartMonth(currentYear);
-
-        String totalSales = chartService.totalMonthSales(currentMonth,currentYear);
+        Map<String,BigDecimal> yearChart = chartService.getCheckoutChartYear();
 
         model.addAttribute("monthSelect",currentMonth);
         model.addAttribute("yearSelect",currentYear);
-        model.addAttribute("totalSales",totalSales);
 
         model.addAttribute("month",monthChart);
         model.addAttribute("day",dayChart);
+        model.addAttribute("year",yearChart);
 
 
         return "masterChart";
