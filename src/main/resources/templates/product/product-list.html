@@ -135,6 +135,9 @@
         flex-grow: 1;
         justify-content: space-between;
       }
+      .text__red {
+        color: #ff1c1c;
+      }
     </style>
   </head>
   <body>
@@ -190,7 +193,14 @@
                 th:src="${productList.mainImagePath}" />
               <div class="product-info">
                 <p th:text="${productList.name}" class="p__normal"></p>
-                <p th:text="${productList.price}" class="p__small"></p>
+                <div>
+                  <span th:text="${productList.price}" class="p__small"></span>
+                  <span
+                    th:unless="${productList.count > 5}"
+                    class="p__small text__red"
+                    >품절 임박!!</span
+                  >
+                </div>
               </div>
             </div>
           </a>

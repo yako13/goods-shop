@@ -16,5 +16,6 @@ public class ProductCategoryAndSearchResponseDto {
     private String price;
     private String mainImagePath;
     private String productCategory;
+    private int count;
 
 }
