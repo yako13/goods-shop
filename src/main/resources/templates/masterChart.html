@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>☁️CloudStar WorkShop 매출 통계</title>
-    <p th:text="${date}" id="date"></p>
-    <p th:text="${price}" id="price"></p>
+    <p th:text="${day}" id="day"></p>
+    <p th:text="${dayPrice}" id="dayPrice"></p>
+    <p th:text="${totalDayPrice}"></p>
+    <p th:text="${month}"></p>
+    <p th:text="${monthPrice}"></p>
+    <p th:text="${totalMonthPrice}"></p>
 </head>
 
 <body>
@@ -15,41 +19,7 @@
     <canvas id="line-chart" width="300" height="250"></canvas>
     
     <script>
-        // date와 price 값을 HTML에서 가져오기
-        var dateText = document.getElementById("date").textContent;
-        console.log("Date Text: ", dateText); // dateText 값 출력 확인
-
-        // price가 배열처럼 출력되는 경우 대괄호 및 공백 제거
-        var priceText = document.getElementById("price").textContent;
-        console.log("Price Text: ", priceText); // priceText 값 출력 확인
-
-        // price 처리: 숫자와 쉼표만 남기고, 쉼표로 나누어 배열로 변환
-        var price = priceText.replace(/[^\d,]/g, '').split(',');
-        console.log("Price Array: ", price); // price 배열 출력 확인
-
-        // date 처리: "년"은 제거하고 "월", "일"은 그대로 남기기
-        var date = dateText.replace(/년/g, '').split(',');
-        console.log("Date Array: ", date); // date 배열 출력 확인
-
-        // Chart.js로 그래프 그리기
-        new Chart(document.getElementById("line-chart"), {
-            type: 'line',
-            data: {
-                labels: date, // date 배열을 라벨로 사용
-                datasets: [{
-                    data: price, // price 배열을 데이터로 사용
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'World population per region (in millions)'
-                }
-            }
-        });
+      
     </script>
 </body>
 

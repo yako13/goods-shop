@@ -1,7 +1,6 @@
 package Spring.Goods_Shop.controller;
 
 
-import Spring.Goods_Shop.dto.checkout.TotalSalesResponseDto;
 import Spring.Goods_Shop.service.ChartService;
 import Spring.Goods_Shop.util.Formatter;
 import lombok.RequiredArgsConstructor;
@@ -23,22 +22,39 @@ public class ChartController {
     @GetMapping("/master/chart")
     public String chartPage(Model model){
 
-//        List<TotalSalesResponseDto> totalSalesResponseDtoList = chartService.getChart();
-//
-//        model.addAttribute("salesList",totalSalesResponseDtoList);
+        //현재 달의 일별 매출 가져옴
+        Map<String, BigDecimal> chartDay =chartService.getCheckoutChartDay();
 
-        Map<String, BigDecimal> chart =chartService.getCheckoutChart();
+        List<String> day = new ArrayList<>();
+        List<String> dayPrice = new ArrayList<>();
+        long totalDayPrice = 0L;
 
-        List<String> date = new ArrayList<>();
-        List<String> price = new ArrayList<>();
-
-        for(String key : chart.keySet()){
-            date.add(key);
-            price.add(Formatter.changeBigDecimalFormat(chart.get(key)));
+        for(String key : chartDay.keySet()){
+            day.add(key);
+            dayPrice.add(Formatter.changeBigDecimalFormat(chartDay.get(key)));
+            totalDayPrice +=  chartDay.get(key).longValue();
         }
 
-        model.addAttribute("date",date);
-        model.addAttribute("price",price);
+        model.addAttribute("day",day);
+        model.addAttribute("dayPrice",dayPrice);
+        model.addAttribute("totalDayPrice",totalDayPrice+"원");
+        
+        Map<String,BigDecimal> chartMonth = chartService.getCheckoutChartMonth();
+
+        List<String> month = new ArrayList<>();
+        List<String> monthPrice = new ArrayList<>() ;
+        long totalMonthPrice = 0L;
+
+        for(String key : chartMonth.keySet()){
+            month.add(key);
+            monthPrice.add(Formatter.changeBigDecimalFormat(chartMonth.get(key)));
+            totalMonthPrice +=  chartMonth.get(key).longValue();
+        }
+
+        model.addAttribute("month",month);
+        model.addAttribute("monthPrice",monthPrice);
+        model.addAttribute("totalMonthPrice",totalMonthPrice+"원");
+
 
         return "masterChart";
     }
