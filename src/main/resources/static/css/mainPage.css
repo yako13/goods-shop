@@ -786,20 +786,6 @@ body {
   background: white;
 }
 
-.HanCarouselButton {
-  pointer-events: none; /* 전체 버튼 영역은 클릭 차단 */
-}
-
-.HanArrow {
-  pointer-events: auto; /* 버튼만 클릭 가능하게 복구 */
-}
-
-.HanTrackSlide a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 
 
 
