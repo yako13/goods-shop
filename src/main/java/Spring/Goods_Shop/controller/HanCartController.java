@@ -2,7 +2,9 @@ package Spring.Goods_Shop.controller;
 
 import Spring.Goods_Shop.dto.product.Hanpart.ProductCheckoutResDto;
 import Spring.Goods_Shop.entity.Cart;
+import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.HanCartService;
+import Spring.Goods_Shop.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +25,17 @@ public class HanCartController {
 
     private final HanCartService hanCartService;
 
+    private final MemberService memberService;
+
     //장바구니 페이지로 이동
     @GetMapping("/cart")
     public String CartGo(HttpServletRequest request, Model model) {
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+        }
 
         List<Cart> cartList = hanCartService.cartListGo(request);
 

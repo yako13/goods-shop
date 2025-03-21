@@ -140,13 +140,20 @@
                 </option>
                 <option
                   value="CONFIRM"
-                  th:selected="${checkoutState=='CONFIRM'}">
+                  th:selected="${checkoutState=='CONFIRM'}"
+                  style="color: blue">
                   주문완료
                 </option>
-                <option value="WAIT" th:selected="${checkoutState=='WAIT'}">
+                <option
+                  value="WAIT"
+                  th:selected="${checkoutState=='WAIT'}"
+                  style="color: green">
                   주문보류
                 </option>
-                <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}">
+                <option
+                  value="CANCEL"
+                  th:selected="${checkoutState=='CANCEL'}"
+                  style="color: red">
                   주문취소
                 </option>
               </select>
