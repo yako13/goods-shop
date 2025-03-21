@@ -2,15 +2,14 @@ package Spring.Goods_Shop.controller;
 
 
 import Spring.Goods_Shop.service.ChartService;
-import Spring.Goods_Shop.util.Formatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Map;
 
 
@@ -19,41 +18,28 @@ import java.util.Map;
 public class ChartController {
     private final ChartService chartService;
 
+
     @GetMapping("/master/chart")
-    public String chartPage(Model model){
+    public String chartPage(
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer year,
+            Model model){
 
-        //현재 달의 일별 매출 가져옴
-        Map<String, BigDecimal> chartDay =chartService.getCheckoutChartDay();
+        int currentMonth = (month != null) ? month : LocalDate.now().getMonthValue();
 
-        List<String> day = new ArrayList<>();
-        List<String> dayPrice = new ArrayList<>();
-        long totalDayPrice = 0L;
+        int currentYear = (month != null) ? year : LocalDate.now().getYear();
 
-        for(String key : chartDay.keySet()){
-            day.add(key);
-            dayPrice.add(Formatter.changeBigDecimalFormat(chartDay.get(key)));
-            totalDayPrice +=  chartDay.get(key).longValue();
-        }
+        Map<String,BigDecimal> dayChart = chartService.getCheckoutChartDay(currentMonth,currentYear);
+        Map<String,BigDecimal> monthChart = chartService.getCheckoutChartMonth(currentYear);
 
-        model.addAttribute("day",day);
-        model.addAttribute("dayPrice",dayPrice);
-        model.addAttribute("totalDayPrice",totalDayPrice+"원");
-        
-        Map<String,BigDecimal> chartMonth = chartService.getCheckoutChartMonth();
+        String totalSales = chartService.totalMonthSales(currentMonth,currentYear);
 
-        List<String> month = new ArrayList<>();
-        List<String> monthPrice = new ArrayList<>() ;
-        long totalMonthPrice = 0L;
+        model.addAttribute("monthSelect",currentMonth);
+        model.addAttribute("yearSelect",currentYear);
+        model.addAttribute("totalSales",totalSales);
 
-        for(String key : chartMonth.keySet()){
-            month.add(key);
-            monthPrice.add(Formatter.changeBigDecimalFormat(chartMonth.get(key)));
-            totalMonthPrice +=  chartMonth.get(key).longValue();
-        }
-
-        model.addAttribute("month",month);
-        model.addAttribute("monthPrice",monthPrice);
-        model.addAttribute("totalMonthPrice",totalMonthPrice+"원");
+        model.addAttribute("month",monthChart);
+        model.addAttribute("day",dayChart);
 
 
         return "masterChart";
