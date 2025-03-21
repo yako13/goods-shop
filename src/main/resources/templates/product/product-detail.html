@@ -292,6 +292,8 @@
           <div class="product-info">
             <p th:text="${product.name}" class="product-info__name"></p>
             <!-- 재고 수량 알림 -->
+            <!-- <div th:if="${product.count == 0}">
+            </div> -->
             <div th:if="${product.count > 5}" class="countInfo">
               <sapn>남은 개수</sapn>
               <span
@@ -301,10 +303,13 @@
             <div
               th:unless="${product.count > 5}"
               class="countInfo countInfo__deadline">
-              <span>품절임박!</span>
-              <span
-                th:text="${product.count} + '개'"
-                class="product-info__count"></span>
+              <div th:unless="${product.count == 0}">
+                <span>품절임박!</span>
+                <span
+                  th:text="${product.count} + '개'"
+                  class="product-info__count"></span>
+              </div>
+              <div th:if="${product.count == 0}">상품이 품절되었습니다.</div>
             </div>
             <!-- /재고 수량 알림 -->
             <p

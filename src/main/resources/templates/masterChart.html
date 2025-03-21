@@ -5,51 +5,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>☁️CloudStar WorkShop 매출 통계</title>
-    <p th:text="${date}" id="date"></p>
-    <p th:text="${price}" id="price"></p>
+    <link th:href="@{/css/master/masterNavigation.css}" rel="stylesheet" />
+    <link th:href="@{/css/master/masterHeader.css}" rel="stylesheet" />
+    <style>
+        #main {
+            padding: 70px 20px 0px 50px;
+
+        }
+
+        .rwd-table {
+            border: 1px #a39485 solid;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px;
+            text-align: center;
+
+            td{
+                border-bottom: #ccc solid 1px;
+                padding: 5px;
+            }
+
+            td:first-child{
+                border-right:#ccc solid 1px;
+            }
+        }
+
+        .rwd-table th {
+            border-top: none;
+            color: #fff;
+            background-color: #33415c;
+        }
+
+        .tableArea{
+            display: flex;
+            padding: 10px;
+        }
+
+        .tH{
+            width: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <canvas id="line-chart" width="300" height="250"></canvas>
-    
+    <header th:replace="~{/fragments/masterHeader::masterHeader}"></header>
+    <nav th:replace="~{/fragments/masterNavigation :: masterNav}"></nav>
+    <main id="main">
+        <div>
+            <h2>매출 현황</h2>
+            <hr>
+            <p>[[${yearSelect}]]년 [[${monthSelect}]]월 일일매출</p>
+            <p>총 매출 : [[${totalSales}]]</p>
+        </div>
+        <div>
+            <select name="year" id="yearSelect" onchange=""></select>
+            <select name="month" id="monthSelect" onchange="">
+                <option value="1" th:selected="${monthSelect==1}">1월</option>
+                <option value="2" th:selected="${monthSelect==2}">2월</option>
+                <option value="3" th:selected="${monthSelect==3}">3월</option>
+                <option value="4" th:selected="${monthSelect==4}">4월</option>
+                <option value="5" th:selected="${monthSelect==5}">5월</option>
+                <option value="6" th:selected="${monthSelect==6}">6월</option>
+                <option value="7" th:selected="${monthSelect==7}">7월</option>
+                <option value="8" th:selected="${monthSelect==8}">8월</option>
+                <option value="9" th:selected="${monthSelect==9}">9월</option>
+                <option value="10" th:selected="${monthSelect==10}">10월</option>
+                <option value="11" th:selected="${monthSelect==11}">11월</option>
+                <option value="12" th:selected="${monthSelect==12}">12월</option>
+            </select>
+        </div>
+        <div class="tableArea">
+            <table class="rwd-table">
+                <thead>
+                    <tr>
+                        <th class="tH">날짜</th>
+                        <th>일일 매출</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="day : ${day}">
+                        <td th:text="${day.key}"></td>
+                        <td th:text="${day.value}" class="dayPrice"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="rwd-table">
+                <thead>
+                    <tr>
+                        <th  class="tH">날짜</th>
+                        <th>월별 매출</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="month : ${month}">
+                        <td th:text="${month.key}"></td>
+                        <td th:text="${month.value}" class="dayPrice"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script th:src="@{/js/master/masterNavigation.js}"></script>
     <script>
-        // date와 price 값을 HTML에서 가져오기
-        var dateText = document.getElementById("date").textContent;
-        console.log("Date Text: ", dateText); // dateText 값 출력 확인
+        ////// year 동적으로 생성
+        const selectEl = document.querySelector("#yearSelect");
 
-        // price가 배열처럼 출력되는 경우 대괄호 및 공백 제거
-        var priceText = document.getElementById("price").textContent;
-        console.log("Price Text: ", priceText); // priceText 값 출력 확인
+        function createOptionEl(text) {
+            // option 엘리먼트 생성
+            const optionEl = document.createElement("option");
 
-        // price 처리: 숫자와 쉼표만 남기고, 쉼표로 나누어 배열로 변환
-        var price = priceText.replace(/[^\d,]/g, '').split(',');
-        console.log("Price Array: ", price); // price 배열 출력 확인
+            // 텍스트 넣기
+            optionEl.innerText = text;
+            optionEl.value = text;
+            optionEl.id = text;
 
-        // date 처리: "년"은 제거하고 "월", "일"은 그대로 남기기
-        var date = dateText.replace(/년/g, '').split(',');
-        console.log("Date Array: ", date); // date 배열 출력 확인
+            // select 엘리먼트에 option 엘리먼트 붙이기
+            selectEl.append(optionEl);
+        }
 
-        // Chart.js로 그래프 그리기
-        new Chart(document.getElementById("line-chart"), {
-            type: 'line',
-            data: {
-                labels: date, // date 배열을 라벨로 사용
-                datasets: [{
-                    data: price, // price 배열을 데이터로 사용
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'World population per region (in millions)'
-                }
-            }
+        // 현재 년도 가져오기
+        const currentYear = new Date(Date.now()).getFullYear();
+
+        // select 엘리먼트 참조
+
+        for (let year = 2024; year <= currentYear; year++) {
+            const isSelected = (year === currentYear); // 현재 년도에 해당하는 option을 selected로 설정
+            createOptionEl(year);
+        }
+
+        //// 매출 포맷
+        const dayPriceElements = document.querySelectorAll(".dayPrice");
+
+        function formatPrice(price) {
+            return price.toLocaleString(); //1000단위로 콤마 추가
+        }
+
+        dayPriceElements.forEach((dayPriceElement, index) => {
+            const dayPrice = parseFloat(dayPriceElement.textContent);
+            dayPriceElement.textContent = formatPrice(dayPrice) + "원";
         });
+
+        //// select 선택
+        const monthSelect = document.getElementById("monthSelect");
+        const yearSelect = document.getElementById("yearSelect");
+
+        const currentYear2 = `[[${yearSelect}]]`;
+        const currentMonth = `[[${monthSelect}]]`;
+
+        monthSelect.addEventListener("change", function () {
+            const selectedMonth = this.value;
+            window.location.href = `/master/chart?page=0&month=${selectedMonth}&year=${currentYear2}`;
+        })
+
+        yearSelect.addEventListener("change", function () {
+            const selectedYear = yearSelect.value;
+            window.location.href = `/master/chart?page=0&month=${currentMonth}&year=${selectedYear}`;
+
+        })
+        window.addEventListener('load', function () {
+            document.getElementById(currentYear2).selected = true;
+        })
+
     </script>
 </body>
 
