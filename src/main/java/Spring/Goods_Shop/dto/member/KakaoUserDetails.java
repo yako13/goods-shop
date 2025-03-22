@@ -1,0 +1,38 @@
+package Spring.Goods_Shop.dto.member;
+
+import Spring.Goods_Shop.inter.OAuth2UserInfo;
+
+import java.util.Map;
+
+public class KakaoUserDetails  implements OAuth2UserInfo {
+    private Map<String,Object> attributes;
+
+    public KakaoUserDetails(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+    @Override
+    public String getProvider() {
+        return "kakao";
+    }
+
+    @Override
+    public String getProviderId() {
+        return attributes.get("id").toString();
+    }
+
+    @Override
+    public String getEmail() {
+        return (String) ((Map) attributes.get("kakao_account")).get("email");
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
+
+    @Override
+    public String getPhoneNumber() {
+        return "";
+    }
+}
