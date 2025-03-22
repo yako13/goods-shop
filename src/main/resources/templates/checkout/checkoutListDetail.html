@@ -11,6 +11,42 @@
 
 </head>
 
+<style>
+    /* .HanCkListDetailPriseDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+    } */
+
+    .HanCkListDetailPrise {
+        display: flex;
+        justify-content: flex-start;
+        gap: 30px;
+
+    }
+
+    .HanCkListDetailProductPriceP2 {
+        margin: 0;
+        margin-top: 30px;
+        font-size: 23px;
+
+    }
+
+    .HanCkListDetailTitleDiv2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+
+    }
+    .HanCheckoutP{
+        display: flex;
+        align-items: center;
+
+    }
+</style>
+
 <body>
 
 <!-- 헤더 시작 -->
@@ -57,37 +93,59 @@
             <li>
 
                 <div class="HanCkListDetailTitleDiv">
-                    <img th:src="@{/images/product_icon.svg}" width="25px" height="25px">
-                    <p class="HanCkListDetailTitleP">주문상품</p>
+                    <div class="HanCheckoutP">
+
+                        <img th:src="@{/images/product_icon.svg}" width="25px" height="25px"
+                             style="padding-right: 8px;">
+
+                        <p class="HanCkListDetailTitleP" style="margin: 0; ">주문상품</p>
+                    </div>
+                    <p class="HanCkListDetailProductDate">[[${CheckoutListDetailDto.checkoutCreatedAt}]] 결제</p>
                 </div>
                 <!-- 카트 아이템 항목 시작 -->
 
-                <div class="HanPadding" th:each="CheckoutCartDtoList : ${CheckoutListDetailDto.CheckoutCartDtoList}">
+                <div class="HanPadding"
+                     th:each="CheckoutCartDtoList : ${CheckoutListDetailDto.CheckoutCartDtoList}">
 
                     <div class="HanCkListDetailInfoDiv">
 
                         <div class="HanCkListDetailInfo">
 
                             <div class="HanCkListDetailImgDiv">
-
-                                <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}" alt="">
-
+                                <a th:href="@{/product/details/{id}(id=${CheckoutCartDtoList.cartId})}">
+                                    <img th:src="@{'/productImages/'+ ${CheckoutCartDtoList.productImage.getImageFullName}}"
+                                         alt="Product Image">
+                                </a>
                             </div>
 
                             <div class="HanCkListDetailProductName">
 
-                                <p class="HanCkListDetailProductDate">[[${CheckoutListDetailDto.checkoutCreatedAt}]] 결제</p>
 
                                 <div class="HanCkListDetailProductNameDiv">
 
-                                    <p class="HanCkListDetailProductNameP">[[${CheckoutCartDtoList.productName}]]</p>
-                                    <p class="HanCkListDetailProductPriceP">[[${CheckoutCartDtoList.productSumPrise}]]</p>
+                                    <p class="HanCkListDetailProductNameP">[[${CheckoutCartDtoList.productName}]]
+                                    </p>
+
+                                    <div class="HanCkListDetailPriseDiv">
+
+                                        <div class="HanCkListDetailPrise">
+
+                                            <p class="HanCkListDetailProductPriceP">
+                                                [[${CheckoutCartDtoList.productPrise}]]</p>
+                                            <p class="HanCkListDetailProductPriceP">
+                                                [[${CheckoutCartDtoList.cartCnt}]] 개</p>
+
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
 
                         </div>
 
+                        <p class="HanCkListDetailProductPriceP2">
+                            [[${CheckoutCartDtoList.productSumPrise}]]</p>
 
                     </div>
 
@@ -101,7 +159,7 @@
 
             <li>
 
-                <div class="HanCkListDetailTitleDiv">
+                <div class="HanCkListDetailTitleDiv2">
 
                     <img th:src="@{/images/DeliveryIcon.svg}" width="30px" height="30px">
                     <p class="HanCkListDetailTitleP">배송지</p>
@@ -111,7 +169,9 @@
                 <div class="HanPadding">
 
                     <div class="HanCkListDetailDelivery">
-                        <p class="HanCkListDetailDeliveryName">[[${CheckoutListDetailDto.checkout.checkoutName}]]([[${CheckoutListDetailDto.checkout.checkoutDeliveryName}]])</p>
+                        <p class="HanCkListDetailDeliveryName">
+                            [[${CheckoutListDetailDto.checkout.checkoutName}]]([[${CheckoutListDetailDto.checkout.checkoutDeliveryName}]])
+                        </p>
                         <p class="HanCkListDetailDeliveryPhone">[[${CheckoutListDetailDto.checkoutPhoneNumber}]]</p>
 
                         <div class="HanCkListDetailDeliveryText">
@@ -129,7 +189,7 @@
 
             <li>
 
-                <div class="HanCkListDetailTitleDiv">
+                <div class="HanCkListDetailTitleDiv2">
 
                     <img th:src="@{/images/card7.svg}" width="30px" height="30px">
                     <p class="HanCkListDetailTitleP">결제정보</p>
@@ -154,7 +214,7 @@
                     <div class="HanCkListDetailCheckoutDiv">
 
                         <p>[[${CheckoutListDetailDto.checkoutProductSum}]]</p>
-                        <p>[[${CheckoutListDetailDto.checkoutDeliveryCost}]]</p> 
+                        <p>[[${CheckoutListDetailDto.checkoutDeliveryCost}]]</p>
                         <p>[[${CheckoutListDetailDto.checkout.checkoutCardName}]]</p>
 
                         <div class="HanCkListDetailCheckoutP1">
@@ -186,7 +246,7 @@
 <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
 <!-- 푸터 끝 -->
-<script th:src="/js/member/alert.js"></script>
+
 
 </body>
 

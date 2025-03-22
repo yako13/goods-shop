@@ -4,19 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구름별 공방 : 홈</title>
+    <title>☁️CloudStar WorkShop 홈</title>
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
 
     <style>
-        .HanMainNewDiv {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(-300px);
-            transition: all 1.5s ease-in-out
-        }
-
         .HanMainBodyTitle a {
             text-decoration: none;
             color: black;
@@ -36,25 +28,45 @@
 
         }
 
+        .HanSection {
+            /* 화면 전체 높이 */
+            height: 90vh;
+        }
 
+        body {
 
-        .active {
+            /* 부드러운 스크롤 효과 */
+            scroll-snap-type: y mandatory;
+
+        }
+
+        /* 초기 상태: 숨겨진 상태 */
+        .HanMainNewDivCard {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* 스크롤해서 보이면 적용할 클래스 */
+        .show {
             opacity: 1;
-            transform: translateX(0);
-            z-index: 1;
+            transform: translateY(0);
         }
 
-
-        .hidden {
-            opacity: 0;
-            transform: translateX(300px);
-            z-index: 0;
+        .HanMainNewDivCard:nth-child(1) {
+            transition-delay: 0s;
         }
 
-        .hidden2 {
-            opacity: 0;
-            transform: translateX(300px);
-            z-index: 0;
+        .HanMainNewDivCard:nth-child(2) {
+            transition-delay: 0.4s;
+        }
+
+        .HanMainNewDivCard:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+
+        .HanMainNewDivCard:nth-child(4) {
+            transition-delay: 0.8s;
         }
     </style>
 
@@ -62,103 +74,94 @@
 </head>
 
 <body>
+    <div id="topSection" class="HanSection">
+        <!--헤더 네비-->
 
-    <!--헤더 네비-->
+        <header th:replace="/fragments/memberHeader::memberHeader" class="HanSection"></header>
 
-    <header th:replace="/fragments/memberHeader::memberHeader"></header>
+        <!-- 헤더 끝 -->
 
-    <!-- 헤더 끝 -->
+        <!--알람-->
 
-    <!--알람-->
-
-    <input type="hidden" th:value="${alert}" id="dataAlert">
-
-
-    <!-- 메인 시작 -->
-
-    <!-- 캐러셀 시작 -->
+        <input type="hidden" th:value="${alert}" id="dataAlert">
 
 
+        <!-- 메인 시작 -->
+
+        <!-- 캐러셀 시작 -->
 
 
 
-    <div class="HanCarouselBody">
 
 
-        <div class="HanCarousel">
+        <div class="HanCarouselBody">
 
 
-            <div class="HanCarouselButton">
-
-                <!-- 왼쪽 버튼 -->
-                <button class="HanArrow HanArrowLeft"></button>
-
-                <!-- 오른쪽 버튼 -->
-                <button class="HanArrow HanArrowRight"></button>
-
-            </div>
+            <div class="HanCarousel">
 
 
-            <div class="HanTrack">
+                <div class="HanCarouselButton">
 
-                <div class="HanTrackSlide"><img th:src="@{images/carousel1.png}" alt="1"></div>
-                <div class="HanTrackSlide"><img th:src="@{images/carousel2.png}" alt="2"></div>
-                <div class="HanTrackSlide"><img th:src="@{images/carousel3.png}" alt="3"></div>
+                    <!-- 왼쪽 버튼 -->
+                    <button class="HanArrow HanArrowLeft"></button>
 
-            </div>
-
-            <!-- 인디케이터 -->
-
-            <div class="HanDots"></div>
-
-        </div>
-
-
-    </div>
-
-    <!-- 캐러셀 끝 -->
-
-    <div class="HanMainBody">
-
-        <div class="HanMainBodyTitle">
-
-            <a id="showNew">신상품</a>
-            <a id="showBest">베스트</a>
-
-        </div>
-        <div class="HanMainNewDivAera">
-
-
-
-            <!--  신상품 순  -->
-
-            <div class="HanMainNewDiv  active" id="newProducts">
-                <div class="HanMainNewDivCard" th:each="productId : ${productListId}">
-
-                    <div class="HanMainNewDivCardImg">
-
-                        <a th:href="@{'/product/details/'+${productId.id}}">
-                            <img th:src="@{${productId.mainImagePath}}" alt="상품이미지">
-                        </a>
-
-                    </div>
-
-                    <div class="HanMainNewDivCardPDiv">
-
-                        <p class="HanMainNewDivCardPDivName" th:text="${productId.name}">동화 일러스트 키캡 4종</p>
-                        <p class="HanMainNewDivCardPDivPrice" th:text="${productId.price}">20,000원</p>
-
-                    </div>
+                    <!-- 오른쪽 버튼 -->
+                    <button class="HanArrow HanArrowRight"></button>
 
                 </div>
 
-            </div>
-            <!--  /신상품 순  -->
 
-            <!--  베스트 상품 순  -->
-            <div class="HanMainNewDiv hidden" id="bestProducts">
+                <div class="HanTrack">
+
+                    <div class="HanTrackSlide"><a href="/product/details/7"><img th:src="@{images/carousel1.png}"
+                                alt="1"></a></div>
+                    <div class="HanTrackSlide"><a href="/product/details/8"><img th:src="@{images/carousel2.png}"
+                                alt="2"></a></div>
+                    <div class="HanTrackSlide"><a href="/product/details/9"><img th:src="@{images/carousel3.png}"
+                                alt="3"></a></div>
+
+                </div>
+
+                <!-- 인디케이터 -->
+
+                <div class="HanDots"></div>
+
+            </div>
+
+
+        </div>
+
+        <!-- 캐러셀 끝 -->
+
+    </div>
+
+    <div class="HanMainBody">
+
+
+        <!--  베스트 상품 순  -->
+
+        <div id="bestProducts" class="HanSection">
+
+
+            <div class="HanMainBodyTitle">
+
+                <a id="showBest">베스트</a>
+
+            </div>
+            <hr class="HanProductHr">
+
+
+
+
+            <div class="HanMainNewDiv ">
 
                 <div class="HanMainNewDivCard" th:each="productCount : ${productListCount}">
+                    <div class="HanMainNewDivCardSort">
+
+                        <p>[[${productCount.sort}]].</p>
+
+
+                    </div>
 
                     <div class="HanMainNewDivCardImg">
                         <a th:href="@{'/product/details/'+${productCount.id}}">
@@ -178,9 +181,64 @@
 
             </div>
 
-            <!--  /베스트 상품 순  -->
+
+
 
         </div>
+
+        <!--  /베스트 상품 순  -->
+
+
+
+        <!--  신상품 순  -->
+
+        <div id="newProducts" class="HanSection">
+
+            <div class="HanMainBodyTitle">
+
+                <a id="showNew">신상품</a>
+
+            </div>
+            <hr class="HanProductHr">
+
+
+            <div class="HanMainNewDivAera">
+
+                <div class="HanMainNewDiv ">
+
+                    <div class="HanMainNewDivCard" th:each="productId : ${productListId}">
+                        <div class="HanMainNewDivCardSort">
+
+                            <p style="text-align: left;">[[${productId.sort}]].</p>
+
+
+                        </div>
+
+                        <div class="HanMainNewDivCardImg">
+
+                            <a th:href="@{'/product/details/'+${productId.id}}">
+                                <img th:src="@{${productId.mainImagePath}}" alt="상품이미지">
+                            </a>
+
+                        </div>
+
+                        <div class="HanMainNewDivCardPDiv">
+
+                            <p class="HanMainNewDivCardPDivName" th:text="${productId.name}">동화 일러스트 키캡 4종</p>
+                            <p class="HanMainNewDivCardPDivPrice" th:text="${productId.price}">20,000원</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--  /신상품 순  -->
+
+
+
     </div>
 
     <!-- 메인 끝 -->
@@ -193,43 +251,6 @@
 
 
     <!-- 푸터 끝 -->
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const bestProducts = document.getElementById("bestProducts");
-            const newProducts = document.getElementById("newProducts");
-            const newBtn = document.getElementById("showNew");
-            const bestBtn = document.getElementById("showBest");
-
-            newBtn.addEventListener("click", function () {
-
-                bestProducts.classList.remove("active");
-                bestProducts.classList.add("hidden");
-
-
-                newProducts.classList.add("active");
-                newProducts.classList.remove("hidden");
-
-
-
-
-            });
-
-            bestBtn.addEventListener("click", function () {
-
-                newProducts.classList.remove("active");
-                newProducts.classList.add("hidden");
-
-                bestProducts.classList.add("active");
-                bestProducts.classList.remove("hidden");
-
-
-            });
-        });
-    </script>
-
     <script>
         function toggleDropdown(event, dropdownId) {
             event.preventDefault();
@@ -378,6 +399,90 @@
 
 
     </script>
+    <script>
+        // 페이지 스크롤링 스크립트
+
+        let isScrolling = false; // 공유 변수
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const topSection = document.getElementById("topSection");
+            const bestProductSection = document.getElementById("bestProducts");
+            const newProductSection = document.getElementById("newProducts");
+
+            let currentSection = 0;
+
+            const preventScroll = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            };
+
+            // 카드 애니메이션 함수 전역에서 접근 가능하도록
+
+
+            window.addEventListener("wheel", function (event) {
+                if (isScrolling) return;
+
+                isScrolling = true;
+                window.addEventListener('wheel', preventScroll, { passive: false });
+
+                setTimeout(() => {
+                    isScrolling = false;
+                    window.removeEventListener('wheel', preventScroll, { passive: false });
+
+                    handleScroll(); // 자동 스크롤 종료 후 카드 애니메이션 트리거
+                }, 800);
+
+                if (event.deltaY > 0) {
+                    if (currentSection === 0) {
+                        bestProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                        currentSection = 1;
+                    } else if (currentSection === 1) {
+                        newProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                        currentSection = 2;
+                    }
+                } else {
+                    if (currentSection === 2) {
+                        bestProductSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                        currentSection = 1;
+                    } else if (currentSection === 1) {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        currentSection = 0;
+                    }
+                }
+            }, { passive: false });
+
+            // 일반 스크롤에도 카드 애니메이션 감지
+            window.addEventListener("scroll", handleScroll);
+            handleScroll(); // 초기 진입 시 감지
+        });
+    </script>
+
+    <script>
+
+        // 상품 이미지 나오는 스크립트
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const cards = document.querySelectorAll(".HanMainNewDivCard");
+
+            // IntersectionObserver 설정
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");         // .show 클래스 추가
+                        observer.unobserve(entry.target);           // 한 번만 작동하게
+                    }
+                });
+            }, {
+                threshold: 0.05 // 요소의 5%만 보여도 작동
+            });
+
+            // 각 카드에 대해 옵저버 등록
+            cards.forEach(card => observer.observe(card));
+        });
+
+    </script>
+
+
 
 
     <script th:src="@{/js/member/alert.js}"></script>

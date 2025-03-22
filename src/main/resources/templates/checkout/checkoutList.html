@@ -8,7 +8,18 @@
 
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/checkout/checkoutList.css}">
+    <style>
+        .priceText{
+            display : inline-block;
+            margin-right : 10px;
+        }
 
+        .payDate{
+            display: flex;
+            justify-content: end;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -70,6 +81,9 @@
                         </div>
 
                     </div>
+                    <div class="payDate">
+                        <p class="HanCkListProductDate">[[${checkout.createdAt}]] 결제</p>
+                    </div>
 
                     <!-- 카트 아이템 항목 시작 -->
                     <div>
@@ -86,14 +100,14 @@
 
                                 <div class="HanCkListProductName">
 
-                                    <p class="HanCkListProductDate">[[${checkout.createdAt}]] 결제</p>
+                                    
 
                                     <div class="HanCkListProductNameDiv">
 
-                                        <p class="HanCkListProductNameP" th:text="${product.name}"></p>
-                                        <p class="HanCkListProductPriceP" th:text="${product.price}"></p>
-                                        <p th:text="${product.count}+'개'"></p>
-                                       <b><p th:text="'총 '+${product.totalPrice}" class="HanCkListProductPriceP"></p></b>
+                                        <b><p class="HanCkListProductNameP" th:text="${product.name}"></p></b>
+
+                                        <div><span class="HanCkListProductPriceP priceText" >[[${product.price}]] X [[${product.count}]] </span></div>
+                                       <p th:text="'= ' + ${product.totalPrice}" class="HanCkListProductPriceP"></p>
                                     </div>
 
                                 </div>
@@ -110,7 +124,7 @@
 
                     <div class="HanCkSubmitA">
 
-                        <p class="HanCheckoutList" >총 결제 가격: [[${checkout.checkoutTotalPay}]]</p>
+                        <p class="HanCheckoutList totalPay" >총 결제 가격: [[${checkout.checkoutTotalPay}]]</p>
                         <a class="HanHome"  th:href="@{'/member/checkout/details/'+${checkout.id}}">상세보기</a>
 
                     </div>

@@ -19,4 +19,5 @@ public class ProductListResponseDto {
     private String mainImagePath;
     private String totalPrice;
     private int count;
+    private int sort;
 }

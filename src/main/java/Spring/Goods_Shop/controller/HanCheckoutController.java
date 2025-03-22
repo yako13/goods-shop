@@ -4,7 +4,9 @@ import Spring.Goods_Shop.dto.cart.CartCheckoutDto;
 import Spring.Goods_Shop.dto.checkout.HanPart.*;
 import Spring.Goods_Shop.dto.product.Hanpart.ProductCheckoutResDto;
 import Spring.Goods_Shop.entity.Delivery;
+import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.service.HanCheckoutService;
+import Spring.Goods_Shop.service.MemberService;
 import Spring.Goods_Shop.util.Formatter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,21 +28,16 @@ public class HanCheckoutController {
 
     private final HanCheckoutService hanCheckoutService;
 
-
-    //-Han Part- 시작
-
-    //    테스트 페이지 이동 컨트롤러
-    @GetMapping("/test10")
-    public String test10Go(HttpServletRequest request, Model model) {
-
-
-        return "testPageUrl";
-    }
-
+    private final MemberService memberService;
 
     @GetMapping("/checkout/cart")
     public String checkoutCartGo(HttpServletRequest request, Model model, CartCheckoutDto form,
                                  HttpSession session, RedirectAttributes rttr) {
+
+        Member member = memberService.getMemberEntity(request);
+
+        model.addAttribute("userId", member.getUserId());
+        model.addAttribute("name", member.getName());
 
         //세션 값 가져옴
         CheckoutDeliveryResponseDto deliveryInfoNew = (CheckoutDeliveryResponseDto) session.getAttribute("deliveryNewCart");
@@ -325,6 +322,12 @@ public class HanCheckoutController {
     @PostMapping("/checkout/cart/submit")
     public String checkoutCartSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model, HttpSession session) {
 
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+        }
+
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutCartSubmit(request, form);
 
         model.addAttribute("checkout", CheckoutCompleteDto);
@@ -351,6 +354,10 @@ public class HanCheckoutController {
     public String checkoutGo1(HttpServletRequest request, Model model, ProductCheckoutResDto form
             , HttpSession session, RedirectAttributes rttr) {
 
+        Member member = memberService.getMemberEntity(request);
+
+        model.addAttribute("userId", member.getUserId());
+        model.addAttribute("name", member.getName());
         //세션 값 가져옴
         CheckoutDeliveryResponseDto deliveryInfoNew = (CheckoutDeliveryResponseDto) session.getAttribute("deliveryNew");
         CheckoutPayResponseDto payInfoNew = (CheckoutPayResponseDto) session.getAttribute("payNew");
@@ -632,6 +639,12 @@ public class HanCheckoutController {
     public String checkoutSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model,
                                  HttpSession session) {
 
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+        }
+
         //결제 서비스
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutSubmit(request, form);
 
@@ -660,39 +673,6 @@ public class HanCheckoutController {
         return "checkout/checkoutComplete";
     }
 
-
-    //    -----------------------구매목록 관련 컨트롤러---------------------------------------------
-
-
-    //    주문 목록 상세 페이지로 이동
-    @GetMapping("/member/checkout/details/{id}")
-    public String checkoutDetailsGo1(HttpServletRequest request, Model model, @PathVariable("id") Long id) {
-
-        //주문 목록 상세페이지 정보를 가져오고 변환 해주는 서비스
-        CheckoutListDetailDto checkoutListDetailDto = hanCheckoutService.hanCheckoutListDetail(request, id);
-
-        model.addAttribute("CheckoutListDetailDto", checkoutListDetailDto);
-
-
-        return "checkout/checkoutListDetail";
-    }
-
-
-    //주문 완료 페이지로 이동
-//    @GetMapping("/checkout/complete")
-//    public String checkoutCompleteGo1(HttpServletRequest request, Model model) {
-//
-//
-//        return "checkout/checkoutComplete";
-//    }
-
-    //주문 목록 페이지로 이동
-//    @GetMapping("/member/checkout/list")
-//    public String checkoutListGo1(HttpServletRequest request, Model model) {
-//
-//
-//        return "checkout/checkoutList";
-//    }
 
 
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>☁️CloudStar WorkShop 상품</title>
     <!--    <link rel="stylesheet" href="/css/memberHeader.css" />-->
     <!--    <link rel="stylesheet" href="/css/memberFooter.css" />-->
     <link rel="stylesheet" href="/css/mainPage.css" />
@@ -27,6 +27,11 @@
       }
       .p__small {
         font-size: 0.8rem;
+        margin: 0;
+      }
+      .p__normal {
+        margin: 0;
+        margin-top: 0.5rem;
       }
       .container__product-image {
         display: flex;
@@ -38,10 +43,15 @@
       .card__product-image {
         width: 15rem;
         height: 21rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
       .product-image {
         width: 15rem;
         height: 15rem;
+        border: 1px solid #e1dfdf;
       }
       /* .button__top {
           position: fixed;
@@ -119,6 +129,16 @@
       .noProductImage {
         height: 50rem;
       }
+      .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        flex-grow: 1;
+        justify-content: space-between;
+      }
+      .text__red {
+        color: #ff1c1c;
+      }
     </style>
   </head>
   <body>
@@ -172,8 +192,17 @@
               <img
                 class="product-image"
                 th:src="${productList.mainImagePath}" />
-              <p th:text="${productList.name}"></p>
-              <p th:text="${productList.price}" class="p__small"></p>
+              <div class="product-info">
+                <p th:text="${productList.name}" class="p__normal"></p>
+                <div>
+                  <span th:text="${productList.price}" class="p__small"></span>
+                  <span
+                    th:unless="${productList.count > 5}"
+                    class="p__small text__red"
+                    >품절 임박!!</span
+                  >
+                </div>
+              </div>
             </div>
           </a>
         </div>

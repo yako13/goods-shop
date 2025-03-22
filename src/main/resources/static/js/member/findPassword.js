@@ -19,13 +19,13 @@ function clickEye() {
 //눈 클릭 했을 경우
 eye.addEventListener("click", () => {
     if (checkEye) {
-        eye.className = "fa-solid fa-eye-slash";
+        eye.className = "fa-solid fa-eye";
         userPassword.type = "text";
         userPasswordCheck.type = "text";
         clickEye();
     }
     else {
-        eye.className = "fa-solid fa-eye"
+        eye.className = "fa-solid fa-eye-slash"
         userPassword.type = "password";
         userPasswordCheck.type = "password";
         clickEye();

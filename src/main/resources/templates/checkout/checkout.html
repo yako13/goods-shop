@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CloudStar WorkShop</title>
+  <title>☁️CloudStar WorkShop 주문</title>
 
   <link rel="stylesheet" th:href="@{/css/mainPage.css}">
   <link rel="stylesheet" th:href="@{/css/checkout/checkout.css}">
@@ -60,7 +60,7 @@
 
   }
 
-  #hiddenNameArea{
+  #hiddenNameArea {
     display: none;
     border: 1px #ccc solid;
     position: absolute;
@@ -85,12 +85,19 @@
     padding: 20px;
   }
 
+  .HanRed4 {
+    display: none;
+    margin: 3px 0;
+    color: #fc4545;
+    font-size: 12px;
+  }
 
 
 
 </style>
 
 <body>
+  <input type="hidden" th:value="${alert}" id="dataAlert">
 
   <!-- 헤더 시작 -->
 
@@ -182,7 +189,7 @@
                   <div class="HanAddressPopCardTextDiv4">
 
                     <p>배송 요청 사항 : </p>
-                    <p class="HanAddressPopCardTextMemo" th:text="${DeliveryList.memo}">빨리갖다주삼3</p>
+                    <p class="HanAddressPopCardTextMemo" th:text="${DeliveryList.memo}"></p>
                   </div>
 
                 </div>
@@ -272,8 +279,8 @@
 
                 <li class="HanSignUpLi hanNone LiCheck2">
                   <!-- <div id="hiddenDeliveryNameArea">
-                    <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
-                  </div> -->
+                  <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+                </div> -->
 
                   <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
                   <input type="text" id="deliveryName" name="name" placeholder="배송지 별칭을 입력해주세요" class="HanSignUpInput2"
@@ -287,8 +294,8 @@
 
                 <li class="HanSignUpLi hanNone LiCheck2">
                   <!-- <div id="hiddenNameArea">
-                    <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
-                  </div> -->
+                  <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+                </div> -->
 
                   <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
                   <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
@@ -302,10 +309,10 @@
 
                 <li class="HanSignUpLi hanNone LiCheck2">
                   <!-- <div id="hiddenPhoneArea">
-                    <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
-                      합니다.
-                    </p>
-                  </div> -->
+                  <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+                    합니다.
+                  </p>
+                </div> -->
 
                   <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
                   <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput2"
@@ -522,7 +529,18 @@
                   </div>
 
 
-                  <p class="HanSignUpInfo">유효기간과 cvc번호를 입력해주세요</p>
+                  <p class="HanSignUpInfo">
+                    유효기간과 cvc번호를 입력해주세요
+                  </p>
+                  <p class="HanRed4" id="HanMonth">
+                    유효한 월(MM)을 입력하세요 (01~12)
+                  </p>
+                  <p class="HanRed4" id="HanYear">
+                    유효한 연도(YY)를 입력하세요 (현재 연도 이상)
+                  </p>
+
+
+
                   <div class="errorArea" th:if="${valid_expPeriod!=null}">
                     <p class="error" th:text="${valid_expPeriod}"></p>
                   </div>
@@ -612,7 +630,13 @@
 
                 <label th:for="|selectedCard${PayList.id}|">
 
-                  <img th:src="@{/images/card6on.svg}" alt="" width="65px" height="65px">
+                  <!--기본 결제 카드일시-->
+                  <img th:src="@{/images/card6on.svg}" th:if="${PayList.defaultCard}" alt="" width="65px"
+                    height="65px" />
+
+                  <!--기본 결제 카드 아닐시-->
+                  <img th:src="@{/images/card6off.svg}" th:unless="${PayList.defaultCard}" alt="" width="65px"
+                    height="65px" />
 
                   <div class="HanCardTextDiv">
 
@@ -732,7 +756,7 @@
               <div class="selectedAddressMemoDiv">
 
                 <p class="selectedAddressMemoTitle">배송 요청 사항 : </p>
-                <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}">빨리갖다주삼</p>
+                <p id="selectedAddressMemo" th:text="${deliveryInfo.memo}"></p>
 
               </div>
 
@@ -810,8 +834,9 @@
 
               <div class="HanOrderListCardImgDiv">
 
-                <img th:src="@{/thumbImg/{url}(url=${CheckoutCartDtoList.productImage.getImageFullName})}"
+                <img th:src="@{'/productImages/'+ ${CheckoutCartDtoList.productImage.getImageFullName}}"
                   alt="Product Image">
+
 
               </div>
               <div class="HanOrderListCardTextDiv">
@@ -1017,7 +1042,7 @@
   <footer th:replace="/fragments/memberFooter::memberFooter"></footer>
 
   <!-- 푸터 끝 -->
-
+  <script th:src="@{/js/member/alert.js}"></script>
 
   <script>
 
@@ -1046,7 +1071,6 @@
 
 
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 
   <script>
 
@@ -1096,7 +1120,7 @@
     //필수 입력칸 HanSignUpInput 클래스가 있는 input
     const HanSignUpInputList2 = document.querySelectorAll(".HanSignUpInput2");
 
-    //HanSignUpSubmit 폼의 submit 버튼 
+    //HanSignUpSubmit 폼의 submit 버튼
     const HanSignUpSubmit2 = document.querySelector("#HanDeliverySubmit");
 
 
@@ -1511,24 +1535,45 @@
   <script>
 
 
-    function validateMonth(input) {
-      let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 입력 허용
+function validateMonth(input) {
+    let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 입력 허용
+    let expPeriod1Id = document.getElementById('expPeriod1');
+    let HanMonth = document.getElementById('HanMonth');
+    if (
+      value.length === 2 &&
+      (parseInt(value, 10) < 1 || parseInt(value, 10) > 12)
+    ) {
+      // alert("유효한 월(MM)을 입력하세요 (01~12)");
+      expPeriod1Id.classList.add("HanRed")
+      HanMonth.style.display = "block"
 
-      if (value.length === 2 && (parseInt(value, 10) < 1 || parseInt(value, 10) > 12)) {
-        alert("유효한 월(MM)을 입력하세요 (01~12)");
-        input.value = "";
-      }
+      input.value = "";
+    } else {
+      expPeriod1Id.classList.remove("HanRed");
+      HanMonth.style.display = "none"
     }
+  }
 
-    function validateYear(input) {
-      let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 입력 허용
-      let currentYear = new Date().getFullYear().toString().slice(-2); // 현재 연도의 마지막 두 자리
+  function validateYear(input) {
+    let value = input.value.replace(/[^0-9]/g, ""); // 숫자만 입력 허용
+    let currentYear = new Date().getFullYear().toString().slice(-2); // 현재 연도의 마지막 두 자리
 
-      if (value.length === 2 && parseInt(value, 10) < parseInt(currentYear, 10)) {
-        alert("유효한 연도(YY)를 입력하세요 (현재 연도 이상)");
-        input.value = "";
-      }
+    let expPeriod2Id = document.getElementById('expPeriod2');
+    let HanYear = document.getElementById('HanYear');
+
+    if (value.length === 2 && parseInt(value, 10) < parseInt(currentYear, 10)) {
+      // alert("유효한 연도(YY)를 입력하세요 (현재 연도 이상)");
+
+
+      expPeriod2Id.classList.add("HanRed")
+      HanYear.style.display = "block"
+      input.value = "";
+    } else {
+
+      expPeriod2Id.classList.remove("HanRed");
+      HanYear.style.display = "none"
     }
+  }
 
     // ------------------------------------결제 카트 등록 자바 스크립트 끝-------------------------------------------------------
   </script>
@@ -1916,7 +1961,7 @@
           })
             .then(response => {
               if (response.ok) {
-                alert("배송지가 삭제되었습니다.");
+
                 // 현재 삭제된 배송지의 부모 요소 찾기
                 let addressCard = this.closest(".HanAddressPopCard");
                 if (addressCard) {
@@ -1951,7 +1996,7 @@
           })
             .then(response => {
               if (response.ok) {
-                alert("카드 정보가 삭제되었습니다.");
+
 
                 // 현재 삭제된 카드정보의 부모 요소 찾기
 
@@ -2027,6 +2072,8 @@
       }).open();
     }
   </script>
+
+
 
 </body>
 
