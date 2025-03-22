@@ -322,6 +322,12 @@ public class HanCheckoutController {
     @PostMapping("/checkout/cart/submit")
     public String checkoutCartSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model, HttpSession session) {
 
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+        }
+
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutCartSubmit(request, form);
 
         model.addAttribute("checkout", CheckoutCompleteDto);
@@ -632,6 +638,12 @@ public class HanCheckoutController {
     @PostMapping("/checkout/submit")
     public String checkoutSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model,
                                  HttpSession session) {
+
+        Member member = memberService.getMemberEntity(request);
+        if (member != null) {
+            model.addAttribute("name", member.getName());
+            model.addAttribute("userId", member.getUserId());
+        }
 
         //결제 서비스
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutSubmit(request, form);
