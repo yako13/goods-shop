@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>☁️CloudStar WorkShop 상품</title>
 
-    <link rel="stylesheet" href="/css/mainPage.css" />
+    <link rel="stylesheet" href="/css/mainPage.css"/>
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer" />
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
     <style>
+        @font-face {
+     font-family: 'NIXGONM-Vb';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
       .container {
         justify-self: center;
       }
@@ -262,170 +269,184 @@
         color: #ff0000;
         font-weight: bolder;
       }
+
+      .btn__text{
+         font-family: 'NIXGONM-Vb';
+        font-weight:600;
+      }
+
+        .cart_text{
+            color: #2f648c;
+        }
+
+        .order_text{
+        color: #a8a80f;
+        }
+
     </style>
-  </head>
+</head>
 
-  <body>
-    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+<body>
+<header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+<!--    <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
 
-    <main class="container__main">
-      <div class="container__flex">
+<main class="container__main">
+    <div class="container__flex">
         <div class="flex">
-          <div th:each="product : ${product}"></div>
-          <span>
+            <div th:each="product : ${product}"></div>
+            <span>
             <img
-              class="image__main"
-              th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+                    class="image__main"
+                    th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}"/>
             <div class="flex__sub-image">
               <img
-                class="image__sub"
-                th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}" />
+                      class="image__sub"
+                      th:src="@{|/productImages/${product.mainImage.uuid}${product.mainImage.fileExtension}|}"/>
               <div th:each="subImage : ${product.subImage}">
                 <img
-                  class="image__sub"
-                  onclick="addEventListener(click, changepic)"
-                  th:src="@{|/productImages/${subImage.uuid}${subImage.fileExtension}|}" />
+                        class="image__sub"
+                        onclick="addEventListener(click, changepic)"
+                        th:src="@{|/productImages/${subImage.uuid}${subImage.fileExtension}|}"/>
               </div>
             </div>
           </span>
-          <div class="product-info">
-            <p th:text="${product.name}" class="product-info__name"></p>
-            <!-- 재고 수량 알림 -->
-            <!-- <div th:if="${product.count == 0}">
-            </div> -->
-            <div th:if="${product.count > 5}" class="countInfo">
-              <sapn>남은 개수</sapn>
-              <span
-                th:text="${product.count} + '개'"
-                class="product-info__count"></span>
-            </div>
-            <div
-              th:unless="${product.count > 5}"
-              class="countInfo countInfo__deadline">
-              <div th:unless="${product.count == 0}">
-                <span>품절임박!</span>
-                <span
-                  th:text="${product.count} + '개'"
-                  class="product-info__count"></span>
-              </div>
-              <div th:if="${product.count == 0}">상품이 품절되었습니다.</div>
-            </div>
-            <!-- /재고 수량 알림 -->
-            <p
-              th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
-              class="product-info__price">
-              <span class="text__black">원</span>
-            </p>
-            <div class="product-info__post">
-              택배 배송 | 3,000원
-              <div class="delivery__div">
-                <p class="deliveryNotice">주문시 결제</p>
-                <p class="deliveryCompany">대한통운</p>
-              </div>
-              <div>50,000원 이상 구매시 무료</div>
-            </div>
-            <!--              <p class="product-info__orderCount">수량</p>-->
-            <!--              <input type="number" min="0" />-->
-            <!-- 상품 가격 (할인가) -->
-            <input
-              type="hidden"
-              id="HanProductPriceSaleValue"
-              th:value="${product.price}" />
+            <div class="product-info">
+                <p th:text="${product.name}" class="product-info__name"></p>
+                <!-- 재고 수량 알림 -->
+                <!-- <div th:if="${product.count == 0}">
+                </div> -->
+                <div th:if="${product.count > 5}" class="countInfo">
+                    <sapn>남은 개수</sapn>
+                    <span
+                            th:text="${product.count} + '개'"
+                            class="product-info__count"></span>
+                </div>
+                <div
+                        th:unless="${product.count > 5}"
+                        class="countInfo countInfo__deadline">
+                    <div th:unless="${product.count == 0}">
+                        <span>품절임박!</span>
+                        <span
+                                th:text="${product.count} + '개'"
+                                class="product-info__count"></span>
+                    </div>
+                    <div th:if="${product.count == 0}">상품이 품절되었습니다.</div>
+                </div>
+                <!-- /재고 수량 알림 -->
+                <p
+                        th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'"
+                        class="product-info__price">
+                    <span class="text__black">원</span>
+                </p>
+                <div class="product-info__post">
+                    택배 배송 | 3,000원
+                    <div class="delivery__div">
+                        <p class="deliveryNotice">주문시 결제</p>
+                        <p class="deliveryCompany">대한통운</p>
+                    </div>
+                    <div>50,000원 이상 구매시 무료</div>
+                </div>
+                <!--              <p class="product-info__orderCount">수량</p>-->
+                <!--              <input type="number" min="0" />-->
+                <!-- 상품 가격 (할인가) -->
+                <input
+                        type="hidden"
+                        id="HanProductPriceSaleValue"
+                        th:value="${product.price}"/>
 
-            <div class="HanProductCntDiv">
-              <!-- 수량버튼 -->
-              <div class="HanProductSpinner">
-                <button onclick="changeQuantity(-1)" type="button">-</button>
-                <input type="text" id="HanProductValue" value="0" readonly />
-                <button id="plusBtn" onclick="changeQuantity(1)" type="button">
-                  +
-                </button>
-              </div>
+                <div class="HanProductCntDiv">
+                    <!-- 수량버튼 -->
+                    <div class="HanProductSpinner">
+                        <button onclick="changeQuantity(-1)" type="button">-</button>
+                        <input type="text" id="HanProductValue" value="0" readonly/>
+                        <button id="plusBtn" onclick="changeQuantity(1)" type="button">
+                            +
+                        </button>
+                    </div>
 
-              <div>
+                    <div>
                 <span class="HanProductSumCnt" style="padding: 30px"
-                  >총 금액</span
+                >총 금액</span
                 >
-                <span class="HanProductPriceSumCnt"></span>
+                        <span class="HanProductPriceSumCnt"></span>
 
-                <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
-                <span class="HanProductPriceSum" id="HanProductPriceSum"></span>
-                <span class="HanProductSpan3">원</span>
-              </div>
+                        <!-- 총 금액 보여주는 곳 자바스크립트로 처리 -->
+                        <span class="HanProductPriceSum" id="HanProductPriceSum"></span>
+                        <span class="HanProductSpan3">원</span>
+                    </div>
+                </div>
+
+                <!--              <div class="product-info__p">-->
+                <!--                <span>총 상품 금액</span>-->
+                <!--                <span class="product-info__totalPrice">30,000원</span>-->
+                <!--              </div>-->
+                <hr/>
+
+                <!-- button -->
+
+                <div th:unless="${product.count} == '0'" class="flex__btn">
+                    <form action="/checkout" method="get" id="checkoutForm">
+                        <input
+                                type="hidden"
+                                id="productPk1"
+                                name="productPk"
+                                th:value="${product.id}"/>
+                        <input
+                                type="hidden"
+                                id="productCnt1"
+                                name="productCnt"
+                                value="1"/>
+                        <button
+                                class="btn btn__order"
+                                type="submit"
+                                form="checkoutForm">
+                            <i class="fa-solid fa-credit-card" style="color: #a8a80f">
+                            </i
+                            > <span class="btn__text order_text">주문하기</span>
+                        </button>
+                    </form>
+                    <form action="/cart/submit" method="post" id="cartForm">
+                        <input
+                                type="hidden"
+                                id="productPk2"
+                                name="productPk"
+                                th:value="${product.id}"/>
+                        <input
+                                type="hidden"
+                                id="productCnt2"
+                                name="productCnt"
+                                value="1"/>
+                        <button class="btn btn__cart" type="submit" form="cartForm">
+                            <i class="fa-solid fa-cart-shopping" style="color: #2f648c">
+                            </i
+                            ><span class="btn__text cart_text">장바구니</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- sold out image -->
+
+                <div th:if="${product.count} == '0'" class="notice__product-cnt">
+                    <img class="image__notice" src="/images/soldout.png"/>
+                </div>
             </div>
-
-            <!--              <div class="product-info__p">-->
-            <!--                <span>총 상품 금액</span>-->
-            <!--                <span class="product-info__totalPrice">30,000원</span>-->
-            <!--              </div>-->
-            <hr />
-
-            <!-- button -->
-
-            <div th:unless="${product.count} == '0'" class="flex__btn">
-              <form action="/checkout" method="get" id="checkoutForm">
-                <input
-                  type="hidden"
-                  id="productPk1"
-                  name="productPk"
-                  th:value="${product.id}" />
-                <input
-                  type="hidden"
-                  id="productCnt1"
-                  name="productCnt"
-                  value="1" />
-                <button
-                  class="btn btn__order"
-                  type="submit"
-                  form="checkoutForm">
-                  <i class="fa-solid fa-credit-card" style="color: #a8a80f">
-                    주문하기</i
-                  >
-                </button>
-              </form>
-              <form action="/cart/submit" method="post" id="cartForm">
-                <input
-                  type="hidden"
-                  id="productPk2"
-                  name="productPk"
-                  th:value="${product.id}" />
-                <input
-                  type="hidden"
-                  id="productCnt2"
-                  name="productCnt"
-                  value="1" />
-                <button class="btn btn__cart" type="submit" form="cartForm">
-                  <i class="fa-solid fa-cart-shopping" style="color: #2f648c">
-                    장바구니</i
-                  >
-                </button>
-              </form>
-            </div>
-
-            <!-- sold out image -->
-
-            <div th:if="${product.count} == '0'" class="notice__product-cnt">
-              <img class="image__notice" src="/images/soldout.png" />
-            </div>
-          </div>
         </div>
-      </div>
-      <div th:text="${product.productDescription}" class="text__desc"></div>
-      <div class="image__desc">
+    </div>
+    <div th:text="${product.productDescription}" class="text__desc"></div>
+    <div class="image__desc">
         <div th:each="descImage : ${product.descImage}">
-          <img
-            class="desc-image"
-            th:src="@{|/productImages/${descImage.uuid}${descImage.fileExtension}}" />
+            <img
+                    class="desc-image"
+                    th:src="@{|/productImages/${descImage.uuid}${descImage.fileExtension}}"/>
         </div>
-      </div>
-    </main>
-    <aside>
-      <button id="topBtn" title="Go to top">▲</button>
-    </aside>
-    <footer th:replace="fragments/memberFooter::memberFooter"></footer>
-  </body>
-  <script>
+    </div>
+</main>
+<aside>
+    <button id="topBtn" title="Go to top">▲</button>
+</aside>
+<footer th:replace="fragments/memberFooter::memberFooter"></footer>
+</body>
+<script>
     const unitPrice = document.getElementById("HanProductPriceSaleValue").value;
     const quantityInput = document.getElementById("HanProductValue");
     const quantityInputHidden = document.getElementById("productCnt1");
@@ -514,5 +535,5 @@
     document.getElementById("topBtn").onclick = function () {
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
-  </script>
+</script>
 </html>
