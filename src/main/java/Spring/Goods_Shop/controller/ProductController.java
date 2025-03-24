@@ -32,7 +32,7 @@ public class ProductController {
     @GetMapping("/product/list")
     public String productList(
             @RequestParam(defaultValue = "0") int page, // 페이지 시작
-            @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
+            @RequestParam(defaultValue = "20") int size, // 상품 분류 기본 개수
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
             Model model, HttpServletRequest request) {
         // url 에서 50을 초과할시 에러페이지로 이동
@@ -40,10 +40,6 @@ public class ProductController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지 않은 접근입니다.");
         }
 
-        // url에서 50 을 초과할시 25의 값을 주고 리다이렉트
-//        if (size > 50) {
-//            return "redirect:/product/list?page=" + page + "&size=25&sort=" + sort;
-//        }
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
             model.addAttribute("name", member.getName());
@@ -78,9 +74,12 @@ public class ProductController {
     @GetMapping("/product/list/category")
     public String getProductCategory(@RequestParam(value = "category", required = false, defaultValue = "") String category,
                                      @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "10") int size,
+                                     @RequestParam(defaultValue = "20") int size,
                                      @RequestParam(defaultValue = "default") String sort,
                                      Model model, HttpServletRequest request) {
+        if (size > 50) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지않은 접근입니다.");
+        }
 
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
@@ -103,9 +102,12 @@ public class ProductController {
     @GetMapping("/product/search/index")
     public String getSearchProductName(@RequestParam(value = "keyword", required = false, defaultValue = "검색어를 입력해주세요.") String name,
                                        @RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "10") int size,
+                                       @RequestParam(defaultValue = "20") int size,
                                        @RequestParam(defaultValue = "default") String sort,
                                        Model model, HttpServletRequest request) {
+        if (size > 50) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지않은 접근입니다.");
+        }
 
         Member member = memberService.getMemberEntity(request);
         if (member != null) {

@@ -73,6 +73,7 @@
         margin: 1rem;
         display: flex;
         justify-content: center;
+        padding: 2rem 0;
       }
 
       .pagination .page-item {
@@ -117,7 +118,7 @@
       }
       #topBtn {
         width: 90px;
-         height: 90px;
+        height: 90px;
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -159,9 +160,9 @@
       <div th:unless="${page.totalElements == 0}" class="sort-product">
         <div class="container__sort">
           <select name="sizeSelect" id="sizeSelect" onchange="">
-            <option value="5" th:selected="${size==5}">5개</option>
-            <option value="10" th:selected="${size==10}">10개</option>
-            <option value="15" th:selected="${size==15}">15개</option>
+            <option value="20" th:selected="${size==20}">20개</option>
+            <option value="30" th:selected="${size==30}">30개</option>
+            <option value="40" th:selected="${size==40}">40개</option>
           </select>
 
           <select name="sortSelect" id="sortSelect" onchange="">
@@ -281,7 +282,7 @@
       <!-- /product card -->
     </main>
     <aside>
-      <img th:src="@{/images/upArrow1.svg}" id="topBtn">
+      <img th:src="@{/images/upArrow1.svg}" id="topBtn" />
     </aside>
     <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
   </body>
