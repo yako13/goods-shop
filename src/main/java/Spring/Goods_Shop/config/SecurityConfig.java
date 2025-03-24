@@ -46,7 +46,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/init/member", "/member/**","/checkout/**","/account/**","/cart/**").hasRole(MemberRole.USER.name())
                         .requestMatchers("/master/**").hasRole(MemberRole.ADMIN.name())
-//                .requestMatchers( "/my-page","/update", "/delete", "/logout").hasAnyRole(MemberRole.ADMIN.name())
                         .anyRequest().permitAll()
         );
 
