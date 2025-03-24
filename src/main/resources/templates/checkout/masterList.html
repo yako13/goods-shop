@@ -216,14 +216,13 @@
               <span>&gt;</span>
             </a>
           </li>
-
           <!-- 마지막 페이지 버튼 -->
           <li
             class="page-item"
             th:classappend="${paging.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=${paging.totalPages - 1}, size=${size})}"
+              th:href="@{/master/checkout/list?page=${paging.totalPages - 1} , size=${size}}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
