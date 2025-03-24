@@ -1,6 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GoodsShopApplication" type="Application" factoryName="Application" nameIsGenerated="true">
 <<<<<<< HEAD
+    <envs>
+      <env name="DBname" value="cloudstar" />
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     <envs>
@@ -17,10 +21,16 @@
 
     <envs>
 >>>>>>> 05fb0887fefd7f3df1cd33bd6402329de6f527fa
+>>>>>>> 01a2d95944e97672a9cee1217b1b72f53aa7cf8e
       <env name="GOOGLE_ID" value="595066049930-g7pnji7i8ptde6kn19t4dfb8p4qfa32e.apps.googleusercontent.com" />
       <env name="GOOGLE_PASSWORD" value="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" />
       <env name="NAVER_ID" value="eCzT9sJDKQXzSKRV2lUR" />
       <env name="NAVER_PASSWORD" value="KWu75uTaBE" />
+<<<<<<< HEAD
+      <env name="KAKAO_KEY" value="196095d0b8f478d37af4b585dc4f752d" />
+      <env name="KAKAO_SECRET_CODE" value="F103xZwlZrjZBAUOz1oOXZ4ZRwTZAENi" />
+    </envs>
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -41,6 +51,7 @@
     </envs>
 
 >>>>>>> 05fb0887fefd7f3df1cd33bd6402329de6f527fa
+>>>>>>> 01a2d95944e97672a9cee1217b1b72f53aa7cf8e
     <option name="MAIN_CLASS_NAME" value="Spring.Goods_Shop.GoodsShopApplication" />
     <module name="Goods-Shop.main" />
     <extension name="coverage">

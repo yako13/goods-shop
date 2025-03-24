@@ -165,13 +165,12 @@
         color: red;
       }
       #topBtn {
+        width: 90px;
+  height: 90px;
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: #007bff;
-        color: white;
         border: none;
-        border-radius: 4px;
         padding: 10px 15px;
         font-size: 18px;
         cursor: pointer;
@@ -442,7 +441,7 @@
           </li>
         </ul>
       </nav>
-      <button id="topBtn" title="Go to top">▲</button>
+      <img th:src="@{/images/upArrow1.svg}" id="topBtn">
     </main>
   </body>
   <script th:src="@{/js/master/masterNavigation.js}"></script>

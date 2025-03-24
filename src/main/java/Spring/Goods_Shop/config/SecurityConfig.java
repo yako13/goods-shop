@@ -1,6 +1,9 @@
 package Spring.Goods_Shop.config;
 
 import Spring.Goods_Shop.enums.MemberRole;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +12,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Configuration
@@ -38,7 +46,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/init/member", "/member/**","/checkout/**","/account/**","/cart/**").hasRole(MemberRole.USER.name())
                         .requestMatchers("/master/**").hasRole(MemberRole.ADMIN.name())
-//                .requestMatchers( "/my-page","/update", "/delete", "/logout").hasAnyRole(MemberRole.ADMIN.name())
                         .anyRequest().permitAll()
         );
 
