@@ -115,8 +115,7 @@ public class ProductController {
             model.addAttribute("userId", member.getUserId());
         }
         // 검색어에 공백을 지움
-        String cleanName = name.replace(" ", "");
-        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(cleanName, page, size, sort);
+        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size, sort);
 
         model.addAttribute("searchList", productCategoryAndSearchResponseDtoPage.getContent());
         model.addAttribute("page", productCategoryAndSearchResponseDtoPage);
@@ -145,14 +144,12 @@ public class ProductController {
 
     // 등록된 상품 리스트 검색
     @GetMapping("/master/product/search/index")
-    public String masterProductListSearch(@RequestParam(value = "keyword", required = false, defaultValue = "검색어를 입력해주세요.") String name,
+    public String masterProductListSearch(@RequestParam(value = "keyword", required = false, defaultValue = "") String name,
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size,
                                            @RequestParam(defaultValue = "default") String sort,
                                            Model model) {
-        // 검색어에 공백을 지움
-        String cleanName = name.replace(" ", "");
-        Page<MasterProductListResponseDto> productList = productService.getMasterProductSearchListDto(page, size, sort, cleanName);
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductSearchListDto(page, size, sort, name);
         model.addAttribute("productList", productList.getContent());
         model.addAttribute("page", productList);
         model.addAttribute("currentPage", productList.getNumber());

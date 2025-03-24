@@ -168,7 +168,7 @@
       }
       #topBtn {
         width: 90px;
-  height: 90px;
+        height: 90px;
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -220,9 +220,6 @@
       }
       .text__center {
         text-align: center;
-      }
-      .trPointer {
-        cursor: pointer;
       }
     </style>
   </head>
@@ -290,9 +287,9 @@
               </option>
             </select>
             <select name="sizeSelect" id="sizeSelect" onchange="">
-              <option value="5" th:selected="${size==5}">5개</option>
               <option value="10" th:selected="${size==10}">10개</option>
-              <option value="15" th:selected="${size==15}">15개</option>
+              <option value="20" th:selected="${size==20}">20개</option>
+              <option value="30" th:selected="${size==30}">30개</option>
             </select>
 
             <select name="sortSelect" id="sortSelect" onchange="">
@@ -393,7 +390,7 @@
             th:classappend="${page.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=0, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=0, size=${size}, sort=${sortSelect})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -405,7 +402,7 @@
             th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage - 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage - 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -419,7 +416,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${pageNum}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${pageNum}, size=${size}, sort=${sortSelect})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -429,7 +426,7 @@
             th:classappend="${page.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage + 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${currentPage + 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -439,14 +436,14 @@
           <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${page.totalPages - 1}, size=${size}, sort=${sortSelec})}"
+              th:href="@{/master/product/search/index(keyword=${keywordQuery}, page=${page.totalPages - 1}, size=${size}, sort=${sortSelect})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
           </li>
         </ul>
       </nav>
-      <img th:src="@{/images/upArrow1.svg}" id="topBtn">
+      <img th:src="@{/images/upArrow1.svg}" id="topBtn" />
     </main>
   </body>
   <script th:src="@{/js/master/masterNavigation.js}"></script>
@@ -484,11 +481,11 @@
     const keywordQuery = encodeURIComponent(`[[${keywordQuery}]]`);
     const currentSize = `[[${size}]]`;
     const currentSort = `[[${sortSelect}]]`;
-    const currentCategory = `[[${categorySelect}]]`;
+    // const currentCategory = `[[${categoryQuery}]]`;
 
     sizeSelect.addEventListener("change", function () {
       const selectedSize = this.value;
-      window.location.href = `/master/product/search/index?keword=${keywordQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
+      window.location.href = `/master/product/search/index?keyword=${keywordQuery}&page=0&size=${selectedSize}&sort=${currentSort}`;
     });
 
     sortSelect.addEventListener("change", function () {
