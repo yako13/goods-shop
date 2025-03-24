@@ -10,9 +10,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @Controller
@@ -33,10 +35,15 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size, // 상품 분류 기본 개수
             @RequestParam(defaultValue = "default") String sort, // 상품 정렬
             Model model, HttpServletRequest request) {
-        // url에서 50 을 초과할시 25의 값을 줌
-        if (size < 50) {
-            size = 25;
+        // url 에서 50을 초과할시 에러페이지로 이동
+        if (size > 50) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지 않은 접근입니다.");
         }
+
+        // url에서 50 을 초과할시 25의 값을 주고 리다이렉트
+//        if (size > 50) {
+//            return "redirect:/product/list?page=" + page + "&size=25&sort=" + sort;
+//        }
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
             model.addAttribute("name", member.getName());

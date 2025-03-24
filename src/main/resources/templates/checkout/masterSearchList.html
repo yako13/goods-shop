@@ -140,13 +140,20 @@
                 </option>
                 <option
                   value="CONFIRM"
-                  th:selected="${checkoutState=='CONFIRM'}">
+                  th:selected="${checkoutState=='CONFIRM'}"
+                  style="color: blue">
                   주문완료
                 </option>
-                <option value="WAIT" th:selected="${checkoutState=='WAIT'}">
+                <option
+                  value="WAIT"
+                  th:selected="${checkoutState=='WAIT'}"
+                  style="color: green">
                   주문보류
                 </option>
-                <option value="CANCEL" th:selected="${checkoutState=='CANCEL'}">
+                <option
+                  value="CANCEL"
+                  th:selected="${checkoutState=='CANCEL'}"
+                  style="color: red">
                   주문취소
                 </option>
               </select>
@@ -168,12 +175,12 @@
                 <option
                   value="price_asc"
                   th:selected="${sortSelect == 'price_asc'}">
-                  판매가격 낮은순
+                  결제가격 낮은순
                 </option>
                 <option
                   value="price_desc"
                   th:selected="${sortSelect == 'price_desc'}">
-                  판매가격 높은순
+                  결제가격 높은순
                 </option>
               </select>
               <span class="text__right">
@@ -238,7 +245,7 @@
             th:classappend="${paging.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=0, size=${size})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=0, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -250,7 +257,7 @@
             th:classappend="${paging.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=${currentPage - 1}, size=${size})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage - 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -264,7 +271,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=${pageNum}, size=${size})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${pageNum}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -274,7 +281,7 @@
             th:classappend="${paging.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=${currentPage + 1}, size=${size})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage + 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -286,7 +293,7 @@
             th:classappend="${paging.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/list(page=${paging.totalPages - 1}, size=${size})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${paging.totalPages - 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>

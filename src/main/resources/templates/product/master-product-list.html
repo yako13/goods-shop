@@ -144,8 +144,6 @@
         background-color: #f8f9fa;
       }
       .buttonAndTotal {
-        /* display: flex;
-        justify-content: space-between; */
         margin-bottom: 0.5rem;
       }
       table tr:hover {
@@ -167,13 +165,12 @@
         color: red;
       }
       #topBtn {
+        width: 90px;
+  height: 90px;
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: #007bff;
-        color: white;
         border: none;
-        border-radius: 4px;
         padding: 10px 15px;
         font-size: 18px;
         cursor: pointer;
@@ -190,7 +187,7 @@
         border-radius: 7px;
         width: 12rem;
         height: 2rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         justify-content: center;
         flex-direction: column;
         flex-wrap: wrap;
@@ -308,13 +305,16 @@
                 가격높은순
               </option>
             </select>
-            <span class="text__right">
+            <span th:if="${page.totalElements != 0}" class="text__right">
               <span th:text="${page.totalElements + '건의 상품 / '}"></span>
               <span
                 th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
               -
               <span
                 th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+            </span>
+            <span th:unless="${page.totalElements != 0}" class="text__right">
+              <span>0건의 상품</span>
             </span>
           </div>
           <div th:unless="${page.totalElements != 0}" class="text__center">
@@ -441,7 +441,7 @@
           </li>
         </ul>
       </nav>
-      <button id="topBtn" title="Go to top">▲</button>
+      <img th:src="@{/images/upArrow1.svg}" id="topBtn">
     </main>
   </body>
   <script th:src="@{/js/master/masterNavigation.js}"></script>
