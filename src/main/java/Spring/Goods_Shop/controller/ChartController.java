@@ -1,6 +1,7 @@
 package Spring.Goods_Shop.controller;
 
 
+import Spring.Goods_Shop.dto.SalesDto;
 import Spring.Goods_Shop.service.ChartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,9 +32,9 @@ public class ChartController {
 
         int currentYear = (month != null) ? year : LocalDate.now().getYear();
 
-        Map<String,BigDecimal> dayChart = chartService.getCheckoutChartDay(currentMonth,currentYear);
-        Map<String,BigDecimal> monthChart = chartService.getCheckoutChartMonth(currentYear);
-        Map<String,BigDecimal> yearChart = chartService.getCheckoutChartYear();
+        List<SalesDto> dayChart = chartService.getCheckoutChartDay(currentMonth,currentYear);
+        List<SalesDto> monthChart = chartService.getCheckoutChartMonth(currentYear);
+        List<SalesDto> yearChart = chartService.getCheckoutChartYear();
 
         model.addAttribute("monthSelect",currentMonth);
         model.addAttribute("yearSelect",currentYear);
