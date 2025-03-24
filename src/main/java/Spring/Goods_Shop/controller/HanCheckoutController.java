@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +29,7 @@ public class HanCheckoutController {
 
     private final MemberService memberService;
 
+    //수정한부분
     @GetMapping("/checkout/cart")
     public String checkoutCartGo(HttpServletRequest request, Model model, CartCheckoutDto form,
                                  HttpSession session, RedirectAttributes rttr) {
@@ -43,6 +43,9 @@ public class HanCheckoutController {
         CheckoutDeliveryResponseDto deliveryInfoNew = (CheckoutDeliveryResponseDto) session.getAttribute("deliveryNewCart");
         CheckoutPayResponseDto payInfoNew = (CheckoutPayResponseDto) session.getAttribute("payNewCart");
 
+        //리다이렉트를 위한 dto 세션
+        CartCheckoutDto redirectDto = (CartCheckoutDto) session.getAttribute("cartRedirectDto");
+
         CheckoutCartPageResponseDto checkoutCartPageDto = new CheckoutCartPageResponseDto();
 
         //신규 배송지 등록에서 왔거나 결제 카드에서 왔거나 장바구니에서 왔는지 체크
@@ -51,50 +54,27 @@ public class HanCheckoutController {
 
 
         //배송지 등록을 했을경우
-        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null) {
 
             deliveryNew = 1;
 
         }
 
         //결제 카드 등록을 했을경우
-        if (payInfoNew != null && payInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+        if (payInfoNew != null && payInfoNew.getId() != null) {
 
             payNew = 1;
 
         }
 
 
-        //결제카드 등록이나 배송지 등록을 했을경우 form에 맞게 보내준다
-        if (deliveryNew == 1 || payNew == 1) {
+        //배송지 등록이나 카드 등록으로 다시 이 페이지로 리다이렉트 할경우 그 컨트롤러에서 상품 pk와 상품 개수를 받아온다
+        if (redirectDto != null) {
 
-            List<Long> checkList = deliveryInfoNew.getCartIdList();
+            //상품을 CheckoutPageResDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
 
-            if (checkList == null) {
+            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, redirectDto);
 
-                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
-
-                return "redirect:/";
-
-            }
-
-            log.info("장바구니 pk 개수 : " + checkList.size());
-
-            for (int i = 0; i < checkList.size(); i++) {
-
-                log.info("장바구니 pk  : " + checkList.get(i));
-            }
-
-            //서비스에 넣을수있게 형식을 맞춰준다
-            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
-                    .cartIdList(checkList)
-                    .build();
-
-            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
-
-
-            //상품 상세 페이지에서 올경우
         } else {
 
             if (form.getCartIdList() == null || form.getCartIdList().isEmpty()) {
@@ -118,7 +98,110 @@ public class HanCheckoutController {
             //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
             checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, form);
 
+
         }
+
+
+//
+//
+//        //배송지 등록을 했을경우
+//        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+//
+//            deliveryNew = 1;
+//
+//        }
+//
+//        //결제 카드 등록을 했을경우
+//        if (payInfoNew != null && payInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
+//
+//            payNew = 1;
+//
+//        }
+//
+//
+//        //결제카드 등록이나 배송지 등록을 했을경우 form에 맞게 보내준다
+//
+//        //배송지 등록
+//        if (deliveryNew == 1) {
+//
+//            List<Long> checkList = deliveryInfoNew.getCartIdList();
+//
+//            if (checkList == null) {
+//
+//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
+//
+//                return "redirect:/";
+//
+//            }
+//
+//            log.info("장바구니 pk 개수 : " + checkList.size());
+//
+//            for (int i = 0; i < checkList.size(); i++) {
+//
+//                log.info("장바구니 pk  : " + checkList.get(i));
+//            }
+//
+//            //서비스에 넣을수있게 형식을 맞춰준다
+//            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
+//                    .cartIdList(checkList)
+//                    .build();
+//
+//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
+//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
+//
+//
+//            //결제 카드 등록
+//        } else if (payNew == 1) {
+//            List<Long> checkList = payInfoNew.getCartIdList();
+//
+//            if (checkList == null) {
+//
+//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
+//
+//                return "redirect:/";
+//
+//            }
+//
+//            log.info("장바구니 pk 개수 : " + checkList.size());
+//
+//            for (int i = 0; i < checkList.size(); i++) {
+//
+//                log.info("장바구니 pk  : " + checkList.get(i));
+//            }
+//
+//            //서비스에 넣을수있게 형식을 맞춰준다
+//            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
+//                    .cartIdList(checkList)
+//                    .build();
+//
+//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
+//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
+//
+//            //상품 상세 페이지에서 올경우
+//        } else {
+//
+//            if (form.getCartIdList() == null || form.getCartIdList().isEmpty()) {
+//
+//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
+//
+//                return "redirect:/";
+//
+//            }
+//
+//            List<Long> checkList = form.getCartIdList();
+//
+//
+//            log.info("장바구니 pk 개수 : " + checkList.size());
+//
+//            for (int i = 0; i < checkList.size(); i++) {
+//
+//                log.info("장바구니 pk  : " + checkList.get(i));
+//
+//            }
+//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
+//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, form);
+//
+//        }
 
 
         //오류 발생했을경우
@@ -254,7 +337,12 @@ public class HanCheckoutController {
 
 //        log.info("배송지 : " + checkoutCartPageDto.getDeliveryList().get(0).getAddress());
 
+        //리다이렉트 하기위해 사용했던 세션 제거
+        if (session.getAttribute("cartRedirectDto") != null) {
 
+            session.removeAttribute("cartRedirectDto");
+
+        }
         return "checkout/checkout";
     }
 
@@ -282,8 +370,18 @@ public class HanCheckoutController {
         }
 
         //장바구니에서 주문 / 결제 페이지 호출 컨트롤러에 값을 주기위해 session 값을 넣어둔다
-        //세션에 장바구니 pk 리스트 저장
+
         session.setAttribute("deliveryNewCart", checkoutCartPageDto);
+
+        //장바구니 pk리스트를 추출
+        List<Long> cartIdList = checkoutCartPageDto.getCartIdList();
+
+        CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
+                .cartIdList(cartIdList)
+                .build();
+
+        //리다이렉션으로 장바구니 pk리스트를 전해주기 위해 session에 값을 넣어둔다
+        session.setAttribute("cartRedirectDto", cartCheckoutDto);
 
 
         return "redirect:/checkout/cart";
@@ -311,8 +409,17 @@ public class HanCheckoutController {
         }
 
         //장바구니에서 주문 / 결제 페이지 호출 컨트롤러에 값을 주기위해 session 값을 넣어둔다
-        //세션에 장바구니 pk 리스트 저장
         session.setAttribute("payNewCart", payResponseDto);
+
+        //장바구니 pk리스트를 추출
+        List<Long> cartIdList = payResponseDto.getCartIdList();
+
+        CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
+                .cartIdList(cartIdList)
+                .build();
+
+        //리다이렉션으로 장바구니 pk리스트를 전해주기 위해 session에 값을 넣어둔다
+        session.setAttribute("cartRedirectDto", cartCheckoutDto);
 
         return "redirect:/checkout/cart";
     }
@@ -374,14 +481,14 @@ public class HanCheckoutController {
 
 
         //배송지 등록을 했을경우
-        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null ) {
+        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null) {
 
             deliveryNew = 1;
 
         }
 
         //결제 카드 등록을 했을경우
-        if (payInfoNew != null && payInfoNew.getId() != null ) {
+        if (payInfoNew != null && payInfoNew.getId() != null) {
 
             payNew = 1;
 
@@ -507,7 +614,7 @@ public class HanCheckoutController {
 
             } else {
 
-                                //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
+                //기본 결제카드가 없고 결제카드가 하나라도 등록되어있을경우 등록된 결제카드의 맨 처음걸 보여준다
                 if (checkoutPageDto.getDefaultPay() == null) {
 
                     model.addAttribute("payInfo", PayListDto.get(0));
@@ -534,6 +641,13 @@ public class HanCheckoutController {
 
         //배송지 목록, 결제 카드 목록, 배송비, 장바구니의 상품 가격 총합(정가), 장바구니의 상품 가격 총합+ 배송비 (총 결제 가격),맴버 pk
         model.addAttribute("checkoutPageDto", checkoutPageDto);
+
+        //리다이렉트 하기위해 사용했던 세션 제거
+        if (session.getAttribute("redirectDto") != null) {
+
+            session.removeAttribute("redirectDto");
+
+        }
 
 
         return "checkout/checkoutProduct";
@@ -672,7 +786,6 @@ public class HanCheckoutController {
 
         return "checkout/checkoutComplete";
     }
-
 
 
 }
