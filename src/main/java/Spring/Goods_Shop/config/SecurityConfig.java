@@ -1,6 +1,9 @@
 package Spring.Goods_Shop.config;
 
 import Spring.Goods_Shop.enums.MemberRole;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +12,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Configuration
@@ -50,7 +58,16 @@ public class SecurityConfig {
                 .failureUrl("/login?error")
                 .usernameParameter("userId")
                 .passwordParameter("userPassword")
-                .successHandler(authenticationSuccessHandler)
+//                .successHandler(authenticationSuccessHandler)
+                // 로그인 전 요청했던 화면이 있으면 해당하는 화면으로 이동 없으면 홈
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+                        String redirectUrl = (savedRequest != null) ? savedRequest.getRedirectUrl() : "/";
+                        response.sendRedirect(redirectUrl);
+                    }
+                })
                 .permitAll()
         );
 
@@ -60,7 +77,15 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .authorizationEndpoint(authorization -> authorization.baseUri("/oauth2/authorization"))
-                .successHandler(authenticationSuccessHandler)
+//                .successHandler(authenticationSuccessHandler)
+                        .successHandler(new AuthenticationSuccessHandler() {
+                            @Override
+                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                                SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+                                String redirectUrl = (savedRequest != null) ? savedRequest.getRedirectUrl() : "/";
+                                response.sendRedirect(redirectUrl);
+                            }
+                        })
                 .permitAll()
         );
 

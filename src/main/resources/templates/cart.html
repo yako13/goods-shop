@@ -128,7 +128,7 @@
 
                             <button class="HanOrderSubmitButton" type="submit" form="checkOut" id="checkoutButton"
                                     disabled>
-                                0개 결제하기
+                                0건 결제하기
                             </button>
 
                         </div>
@@ -290,7 +290,7 @@
 
 
         let checkoutButton = document.getElementById('checkoutButton');
-        checkoutButton.textContent = `${selectedCount}개 결제하기`;
+        checkoutButton.textContent = `${selectedCount}건 결제하기`;
         checkoutButton.disabled = selectedCount === 0;
 
 

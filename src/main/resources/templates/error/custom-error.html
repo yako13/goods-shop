@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>잘못된 요청</title>
+    <style>
+      body {
+        text-align: center;
+        padding: 200px;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #ff5555;
+      }
+      p {
+        font-size: 18px;
+      }
+      a {
+        text-decoration: none;
+        font-size: 30px;
+        border: 2px solid #ffbaee;
+        color: #ffbaee;
+        border-radius: 7px;
+        padding: 10px;
+        font-weight: bolder;
+      }
+      a:hover {
+        background-color: #ffbaee;
+        color: #ffffff;
+      }
+      .home {
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>잘못된 요청입니다!</h1>
+      <p><strong>에러 코드:</strong> <span th:text="${status}"></span></p>
+      <p><strong>에러 메시지:</strong> <span th:text="${message}"></span></p>
+      <div class="home">
+        <a href="/">메인 페이지로 이동</a>
+      </div>
+    </div>
+  </body>
+</html>
