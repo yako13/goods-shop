@@ -2,6 +2,7 @@ package Spring.Goods_Shop.service;
 
 import Spring.Goods_Shop.dto.member.CustomOauth2UserDetails;
 import Spring.Goods_Shop.dto.member.GoogleUserDetails;
+import Spring.Goods_Shop.dto.member.KakaoUserDetails;
 import Spring.Goods_Shop.dto.member.NaverUserDetails;
 import Spring.Goods_Shop.entity.Member;
 import Spring.Goods_Shop.enums.MemberRole;
@@ -46,10 +47,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new NaverUserDetails(oAuth2User.getAttributes());
         }
 
+        else if (provider.equals("kakao")) {
+            oAuth2UserInfo = new KakaoUserDetails(oAuth2User.getAttributes());
+        }
+
 
         String providerId = oAuth2UserInfo.getProviderId();
         String loginId = oAuth2UserInfo.getEmail();
-        String name = oAuth2UserInfo.getName();
+        String name = "";
+
+        //이름이 등록 안되어있을 경우
+        if(oAuth2UserInfo.getName()==null || oAuth2UserInfo.getName().equals("")){
+            name = provider + "회원";
+        }
+        else {
+            name =oAuth2UserInfo.getName();
+        }
 
         String phoneNumber = oAuth2UserInfo.getPhoneNumber();
 
@@ -58,13 +71,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             phoneNumber = phoneNumber.replace("-","");
         }
 
-        Optional<Member> findMember = memberRepository.findByUserId(loginId);
+        Optional<Member> findMember = memberRepository.findByUserIdAndProvider(loginId,provider);
 
         Member member;
         if (findMember.isEmpty()) {
 
-            //이름과 휴대폰 번호가 중복인 회원이 있을 경우 가입 안됨
-            Optional<Member> optionalMember = memberRepository.findByNameAndPhoneNumber(name,phoneNumber);
+            //소셜 로그인 계정이 아니며 이름과 휴대폰 번호가 중복인 회원이 있을 경우 가입 안됨
+            Optional<Member> optionalMember = memberRepository.findByNameAndPhoneNumberAndProvider(name,phoneNumber,null);
 
             if(optionalMember.isPresent()) throw new RuntimeException("이름과 휴대전화번호가 중복되어 가입이 불가합니다.");
 

@@ -94,7 +94,10 @@
 
                 <div class="HanCkListDetailTitleDiv">
                     <div class="HanCheckoutP">
-                        <img th:src="@{/images/product_icon.svg}" width="25px" height="25px" style="padding-right: 8px;">
+
+                        <img th:src="@{/images/product_icon.svg}" width="25px" height="25px"
+                             style="padding-right: 8px;">
+
                         <p class="HanCkListDetailTitleP" style="margin: 0; ">주문상품</p>
                     </div>
                     <p class="HanCkListDetailProductDate">[[${CheckoutListDetailDto.checkoutCreatedAt}]] 결제</p>
@@ -109,10 +112,10 @@
                         <div class="HanCkListDetailInfo">
 
                             <div class="HanCkListDetailImgDiv">
-
-                                <img th:src="@{'/productImages/'+ ${CheckoutCartDtoList.productImage.getImageFullName}}"
-                                     alt="Product Image">
-
+                                <a th:href="@{/product/details/{id}(id=${CheckoutCartDtoList.cartId})}">
+                                    <img th:src="@{'/productImages/'+ ${CheckoutCartDtoList.productImage.getImageFullName}}"
+                                         alt="Product Image">
+                                </a>
                             </div>
 
                             <div class="HanCkListDetailProductName">
