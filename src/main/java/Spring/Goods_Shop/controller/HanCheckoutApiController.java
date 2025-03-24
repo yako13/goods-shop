@@ -56,9 +56,6 @@ public class HanCheckoutApiController {
             }
 
 
-
-
-
             return ResponseEntity.ok("삭제 성공");
 
         } catch (Exception e) {

@@ -102,108 +102,6 @@ public class HanCheckoutController {
         }
 
 
-//
-//
-//        //배송지 등록을 했을경우
-//        if (deliveryInfoNew != null && deliveryInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
-//
-//            deliveryNew = 1;
-//
-//        }
-//
-//        //결제 카드 등록을 했을경우
-//        if (payInfoNew != null && payInfoNew.getId() != null && (form.getCartIdList() == null || form.getCartIdList().isEmpty())) {
-//
-//            payNew = 1;
-//
-//        }
-//
-//
-//        //결제카드 등록이나 배송지 등록을 했을경우 form에 맞게 보내준다
-//
-//        //배송지 등록
-//        if (deliveryNew == 1) {
-//
-//            List<Long> checkList = deliveryInfoNew.getCartIdList();
-//
-//            if (checkList == null) {
-//
-//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
-//
-//                return "redirect:/";
-//
-//            }
-//
-//            log.info("장바구니 pk 개수 : " + checkList.size());
-//
-//            for (int i = 0; i < checkList.size(); i++) {
-//
-//                log.info("장바구니 pk  : " + checkList.get(i));
-//            }
-//
-//            //서비스에 넣을수있게 형식을 맞춰준다
-//            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
-//                    .cartIdList(checkList)
-//                    .build();
-//
-//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
-//
-//
-//            //결제 카드 등록
-//        } else if (payNew == 1) {
-//            List<Long> checkList = payInfoNew.getCartIdList();
-//
-//            if (checkList == null) {
-//
-//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
-//
-//                return "redirect:/";
-//
-//            }
-//
-//            log.info("장바구니 pk 개수 : " + checkList.size());
-//
-//            for (int i = 0; i < checkList.size(); i++) {
-//
-//                log.info("장바구니 pk  : " + checkList.get(i));
-//            }
-//
-//            //서비스에 넣을수있게 형식을 맞춰준다
-//            CartCheckoutDto cartCheckoutDto = CartCheckoutDto.builder()
-//                    .cartIdList(checkList)
-//                    .build();
-//
-//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, cartCheckoutDto);
-//
-//            //상품 상세 페이지에서 올경우
-//        } else {
-//
-//            if (form.getCartIdList() == null || form.getCartIdList().isEmpty()) {
-//
-//                rttr.addFlashAttribute("data", "잘못된 접근 입니다");
-//
-//                return "redirect:/";
-//
-//            }
-//
-//            List<Long> checkList = form.getCartIdList();
-//
-//
-//            log.info("장바구니 pk 개수 : " + checkList.size());
-//
-//            for (int i = 0; i < checkList.size(); i++) {
-//
-//                log.info("장바구니 pk  : " + checkList.get(i));
-//
-//            }
-//            //장바구니 목록을 CheckoutCartDto 로 변환해주고 기본 배송지와 결제카드를 찾아주고 목록도 찾아준다
-//            checkoutCartPageDto = hanCheckoutService.prepareCheckout(request, form);
-//
-//        }
-
-
         //오류 발생했을경우
         if (checkoutCartPageDto == null) {
 
@@ -427,15 +325,38 @@ public class HanCheckoutController {
 
     //장바구니에서 주문/결제 페이지로 간후 결제하기 버튼 누를때
     @PostMapping("/checkout/cart/submit")
-    public String checkoutCartSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model, HttpSession session) {
+    public String checkoutCartSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model, HttpSession session, RedirectAttributes rttr) {
 
         Member member = memberService.getMemberEntity(request);
+
         if (member != null) {
             model.addAttribute("name", member.getName());
             model.addAttribute("userId", member.getUserId());
         }
 
+        //배송지 나 카드정보가 없을 경우
+        if (form == null) {
+
+            rttr.addFlashAttribute("data", "배송지 정보 혹은 결제 카드 정보를 입력하셔야 합니다");
+            return "redirect:/checkout/cart";
+        }
+
+        if (form.getPayPk() == null || form.getDeliveryPk() == null) {
+
+            rttr.addFlashAttribute("data", "배송지 정보 혹은 결제 카드 정보를 입력하셔야 합니다");
+            return "redirect:/checkout/cart";
+
+        }
+
+
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutCartSubmit(request, form);
+
+
+        if(CheckoutCompleteDto ==null){
+            rttr.addFlashAttribute("data", "오류가 발생했습니다");
+            return "redirect:/checkout/cart";
+
+        }
 
         model.addAttribute("checkout", CheckoutCompleteDto);
 
@@ -513,7 +434,7 @@ public class HanCheckoutController {
 
                 rttr.addFlashAttribute("data", "잘못된 접근 입니다");
 
-                return "redirect:/checkout/cart";
+                return "redirect:/";
 
             }
 
@@ -751,7 +672,7 @@ public class HanCheckoutController {
     // 주문/결제 페이지로 간후 결제하기 버튼 누를때
     @PostMapping("/checkout/submit")
     public String checkoutSubmit(HttpServletRequest request, CheckoutSubmitDto form, Model model,
-                                 HttpSession session) {
+                                 HttpSession session,RedirectAttributes rttr) {
 
         Member member = memberService.getMemberEntity(request);
         if (member != null) {
@@ -759,8 +680,31 @@ public class HanCheckoutController {
             model.addAttribute("userId", member.getUserId());
         }
 
+        //배송지 나 카드정보가 없을 경우
+        if (form == null) {
+
+            rttr.addFlashAttribute("data", "배송지 정보 혹은 결제 카드 정보를 입력하셔야 합니다");
+            log.info("form == null");
+            return "redirect:/checkout";
+        }
+
+        if (form.getPayPk() == null || form.getDeliveryPk() == null) {
+
+            rttr.addFlashAttribute("data", "배송지 정보 혹은 결제 카드 정보를 입력하셔야 합니다");
+            log.info("form.getCartPk() == null || form.getDeliveryPk() == null");
+            return "redirect:/checkout";
+
+        }
+
         //결제 서비스
         CheckoutCompleteResDto CheckoutCompleteDto = hanCheckoutService.checkoutSubmit(request, form);
+
+
+        if(CheckoutCompleteDto ==null){
+            rttr.addFlashAttribute("data", "오류가 발생했습니다");
+            return "redirect:/checkout";
+
+        }
 
         model.addAttribute("checkout", CheckoutCompleteDto);
 

@@ -285,141 +285,141 @@
 
             </div>
 
-            <form th:action="@{/checkout/cart/delivery/submit}" th:method="post" id="HanDeliveryForm"></form>
+
 
             <ul>
 
 
+              <form th:action="@{/checkout/cart/delivery/submit}" th:method="post" id="HanDeliveryForm">
 
 
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenDeliveryNameArea">
+                                  <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
+                                </div> -->
 
-              <li class="HanSignUpLi hanNone LiCheck2">
-                <!-- <div id="hiddenDeliveryNameArea">
-                                <p style="color: black; font-size: 16px;">배송지 별칭은 한글과 숫자조합으로 2~10자 또는 영문과 숫자 조합으로 2~10자리여야 합니다.</p>
-                              </div> -->
+                  <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="text" id="deliveryName" name="name" placeholder="배송지 별칭을 입력해주세요" class="HanSignUpInput2"
+                    maxlength="10" th:value="${deliveryName}">
 
-                <label id="hiddenDeliveryName">배송지 별칭 <i class="fa-solid fa-circle-info"></i></label>
-                <input type="text" id="deliveryName" name="name" placeholder="배송지 별칭을 입력해주세요" class="HanSignUpInput2"
-                  maxlength="10" th:value="${deliveryName}">
+                  <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_deliveryName!=null}">
+                    <p class="error" th:text="${valid_deliveryName}"></p>
+                  </div>
+                </li>
 
-                <p class="HanSignUpInfo">배송지 별칭을 입력해주세요</p>
-                <div class="errorArea" th:if="${valid_deliveryName!=null}">
-                  <p class="error" th:text="${valid_deliveryName}"></p>
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenNameArea">
+                                  <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
+                                </div> -->
+
+                  <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
+                    placeholder="성함을 입력해주세요" class="HanSignUpInput2" maxlength="21">
+
+                  <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_recipientName!=null}">
+                    <p class="error" th:text="${valid_recipientName}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+                  <!-- <div id="hiddenPhoneArea">
+                                  <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
+                                    합니다.
+                                  </p>
+                                </div> -->
+
+                  <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
+                  <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput2"
+                    id="recipientPhoneNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="11"
+                    th:value="${recipientPhoneNumber}">
+
+                  <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_recipientPhoneNumber!=null}">
+                    <p class="error" th:text="${valid_recipientPhoneNumber}"></p>
+                  </div>
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>우편번호</label>
+                  <input type="text" id="HanZipcodeValue" name="postalCode" placeholder="우편번호를 입력해주세요" readonly
+                    class="HanSignUpInput2" th:value="${postCode}">
+
+                  <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
+
+                  <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                </li>
+
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>도로명 주소,지번 주소</label>
+                  <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
+                    class="HanSignUpInput2" th:value="${address}">
+
+                  <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
+                  <div class="errorArea" th:if="${valid_postCode!=null}">
+                    <p class="error" th:text="${valid_postCode}"></p>
+                  </div>
+                  <div class="errorArea" th:if="${valid_address!=null}">
+                    <p class="error" th:text="${valid_address}"></p>
+                  </div>
+                </li>
+
+                <li class="HanSignUpLi hanNone LiCheck2">
+
+                  <label>상세 주소</label>
+                  <input type="tel" id="HanDetailAddress" name="addressDetail" placeholder="상세 주소를 입력해주세요"
+                    class="HanSignUpInput2" th:value="${detailAddress}">
+
+                  <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
+                  <div class="errorArea" th:if="${valid_detailAddress!=null}">
+                    <p class="error" th:text="${valid_detailAddress}"></p>
+                  </div>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone ">
+
+                  <label>배송 요청 사항</label>
+                  <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50" th:value="${memo}">
+                  <div class="errorArea" th:if="${valid_memo!=null}">
+                    <p class="error" th:text="${valid_memo}"></p>
+                  </div>
+
+                </li>
+
+
+                <li class="HanSignUpLi hanNone HanCheckboxLi ">
+
+                  <div class="HanMemberDeliveryCheckDiv ">
+
+                    <input type="checkbox" id="HanDeliveryCheckbox" name="defaultDelivery" class="HanSignUpInput">
+                    <label for="HanDeliveryCheckbox"></label>
+                    <p>기본 배송지로 등록</p>
+
+
+                  </div>
+
+                  <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
+
+                </li>
+
+                <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
+
+                  <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
+                  <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
+
                 </div>
-              </li>
 
-              <li class="HanSignUpLi hanNone LiCheck2">
-                <!-- <div id="hiddenNameArea">
-                                <p style="color: black; font-size: 16px;">받는분 성함은 한글 2~5자 또는 성과 이름을 구분하여 영문 1~10자리씩이여야 합니다.</p>
-                              </div> -->
-
-                <label id="hiddenName">받는분 성함 <i class="fa-solid fa-circle-info"></i></label>
-                <input type="text" id="recipientName" th:value="${recipientName}" name="recipientName"
-                  placeholder="성함을 입력해주세요" class="HanSignUpInput2" maxlength="21">
-
-                <p class="HanSignUpInfo">받는분 성함을 입력해주세요</p>
-                <div class="errorArea" th:if="${valid_recipientName!=null}">
-                  <p class="error" th:text="${valid_recipientName}"></p>
-                </div>
-              </li>
-
-              <li class="HanSignUpLi hanNone LiCheck2">
-                <!-- <div id="hiddenPhoneArea">
-                                <p style="color: black; font-size: 16px;">받는분 연락처는 010, 011, 016, 017, 018, 019로 시작하며, 숫자 10~11자리여야
-                                  합니다.
-                                </p>
-                              </div> -->
-
-                <label id="hiddenPhone">받는분 연락처 <i class="fa-solid fa-circle-info"></i></label>
-                <input type="tel" name="recipientPhoneNumber" placeholder="연락처를 입력해주세요" class="HanSignUpInput2"
-                  id="recipientPhoneNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="11"
-                  th:value="${recipientPhoneNumber}">
-
-                <p class="HanSignUpInfo">받는분 연락처를 입력해주세요</p>
-                <div class="errorArea" th:if="${valid_recipientPhoneNumber!=null}">
-                  <p class="error" th:text="${valid_recipientPhoneNumber}"></p>
-                </div>
-              </li>
-
-
-              <li class="HanSignUpLi hanNone LiCheck2">
-
-                <label>우편번호</label>
-                <input type="text" id="HanZipcodeValue" name="postalCode" placeholder="우편번호를 입력해주세요" readonly
-                  class="HanSignUpInput2" th:value="${postCode}">
-
-                <a><i class="HanAddressPopNewIcon" onclick="sample6_execDaumPostcode()"></i></a>
-
-                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
-              </li>
-
-
-              <li class="HanSignUpLi hanNone LiCheck2">
-
-                <label>도로명 주소,지번 주소</label>
-                <input type="text" id="HanAddressValue" name="address" placeholder="주소를 입력해주세요" readonly
-                  class="HanSignUpInput2" th:value="${address}">
-
-                <p class="HanSignUpInfo">돋보기 버튼으로 우편번호 찾기를 실행해주세요</p>
-                <div class="errorArea" th:if="${valid_postCode!=null}">
-                  <p class="error" th:text="${valid_postCode}"></p>
-                </div>
-                <div class="errorArea" th:if="${valid_address!=null}">
-                  <p class="error" th:text="${valid_address}"></p>
-                </div>
-              </li>
-
-              <li class="HanSignUpLi hanNone LiCheck2">
-
-                <label>상세 주소</label>
-                <input type="tel" id="HanDetailAddress" name="addressDetail" placeholder="상세 주소를 입력해주세요"
-                  class="HanSignUpInput2" th:value="${detailAddress}">
-
-                <p class="HanSignUpInfo">상세 주소를 입력해주세요</p>
-                <div class="errorArea" th:if="${valid_detailAddress!=null}">
-                  <p class="error" th:text="${valid_detailAddress}"></p>
-                </div>
-
-              </li>
-
-
-              <li class="HanSignUpLi hanNone ">
-
-                <label>배송 요청 사항</label>
-                <input type="tel" name="memo" placeholder="배송 요청 사항을 입력해주세요" maxlength="50" th:value="${memo}">
-                <div class="errorArea" th:if="${valid_memo!=null}">
-                  <p class="error" th:text="${valid_memo}"></p>
-                </div>
-
-              </li>
-
-
-              <li class="HanSignUpLi hanNone HanCheckboxLi ">
-
-                <div class="HanMemberDeliveryCheckDiv ">
-
-                  <input type="checkbox" id="HanDeliveryCheckbox" name="defaultDelivery" class="HanSignUpInput">
-                  <label for="HanDeliveryCheckbox"></label>
-                  <p>기본 배송지로 등록</p>
-
-
-                </div>
-
-                <p class="HanSignUpInfo" style="margin-left: 45px;">기본 배송지를 체크해주세요</p>
-
-              </li>
-
-              <div th:each="CheckoutCartDtoList : ${checkoutCartPageDto.CheckoutCartDtoList}">
-
-                <!--다시 돌아오기위한 장바구니 pk리스트를 넣어준다-->
-                <input type="hidden" th:value="${CheckoutCartDtoList.CartId}" name="cartIdList">
-
-              </div>
-
+              </form>
 
             </ul>
 
-            </form>
 
             <div class="HanSignUpButton">
 
@@ -1049,7 +1049,7 @@
 
 
           <div class="HanOrderButtonContainer2">
-            <button class="HanOrderSubmitButton" type="submit" form="payment">
+            <button class="HanOrderSubmitButton" type="submit" form="payment" id="HanOrderSubmitButton">
               결제 하기
             </button>
           </div>
@@ -1105,7 +1105,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-
+  <script th:src="@{/js/member/alert.js}"></script>
   <script>
 
     // -------------------------배송지 등록 부분 자바 스크립트 시작------------------------------------------
@@ -1304,6 +1304,11 @@
       }
 
       if (ValueCheck1 == 0 && check_bol2 == 1 && check_exp == 1) {
+
+
+
+
+
         document.getElementById("HanDeliveryForm").submit();
       }
     }
@@ -1320,35 +1325,6 @@
     }
 
 
-    // 필수 입력칸에 값이 다 있는지 모두 체크하는 함수
-    // function HanSignUpValueCheckAll2() {
-
-    //   let value1 = 0;
-
-
-
-    //   for (let i = 0; i < HanSignUpLiList2.length; i++) {
-
-    //     if (HanSignUpInputList2[i].value === "") {
-    //       //input박스를 빨간색으로 보여주고
-    //       //경고 문자를 보여준다
-    //       HanSignUpLiList2[i].classList.add("HanRed");
-    //       HanSignUpLiList2[i].classList.remove("hanNone");
-    //       value1 = value1 + 1;
-
-    //     } else {
-    //       //input박스의 빨간색제거
-    //       //경고 문자 안보이게
-    //       HanSignUpLiList2[i].classList.remove("HanRed");
-    //       HanSignUpLiList2[i].classList.add("hanNone");
-    //     }
-
-    //   }
-
-
-
-    //   return value1;
-    // }
 
     function HanSignUpValueCheckAll2() {
       let value1 = 0;
@@ -1623,6 +1599,67 @@
 
     //수정한 부분 끝
   </script>
+
+
+  <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <script>
+    //우편번호 및 주소찾기, 다음 API이용
+    function sample6_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var addr = ""; // 주소 변수
+          var extraAddr = ""; // 참고항목 변수
+
+          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === "R") {
+            // 사용자가 도로명 주소를 선택했을 경우
+            addr = data.roadAddress;
+          } else {
+            // 사용자가 지번 주소를 선택했을 경우(J)
+            addr = data.jibunAddress;
+          }
+
+          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+          if (data.userSelectedType === "R") {
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+              extraAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if (data.buildingName !== "" && data.apartment === "Y") {
+              extraAddr +=
+                extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if (extraAddr !== "") {
+              extraAddr = " (" + extraAddr + ")";
+            }
+            // 조합된 참고항목을 해당 필드에 넣는다.
+            //document.getElementById("sample6_extraAddress").value = extraAddr;
+          } else {
+            // document.getElementById("sample6_extraAddress").value = '';
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById("HanZipcodeValue").value = data.zonecode;
+          document.getElementById("HanAddressValue").value = addr;
+          // 커서를 상세주소 필드로 이동한다.
+          document.getElementById("HanDetailAddress").focus();
+
+
+        },
+      }).open();
+    }
+  </script>
+
+
 
   <script>
 
@@ -2039,11 +2076,20 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
+
       document.querySelectorAll(".delete-address-btn").forEach(button => {
         button.addEventListener("click", function (event) {
-          event.preventDefault(); // 기본 동작 막기
+          event.preventDefault();
 
-          let deliveryId = this.getAttribute("data-id");
+          const deliveryId = this.getAttribute("data-id");
+
+          //  남은 주소 수 확인 (삭제 전 기준)
+          const addressCards = document.querySelectorAll(".HanAddressPopCardCheck");
+          if (addressCards.length <= 1) {
+            alert("배송지는 최소 1개 이상 등록되어 있어야 합니다.");
+            return;
+          }
+
 
           // 사용자에게 삭제 확인 요청
           if (!confirm("정말 이 배송지를 삭제하시겠습니까?")) {
@@ -2127,8 +2173,13 @@
                       document.getElementById("paymentDelivery").value = newId;
 
                       //배송 메모 체크
-                      const memoTag = selectedCard.querySelector(".selectedAddressMemo2");
+                      const memoTag = newDefaultCard.querySelector(".selectedAddressMemo2");
                       const memoValue = memoTag ? memoTag.textContent.trim() : "요청사항 없음";
+
+                      document.querySelector("#selectedAddressMemo").textContent = memoValue;
+
+
+
 
                       document.querySelector("#selectedAddressMemo").textContent = "";
                       document.querySelector("#selectedAddressMemo").textContent = memoValue;
@@ -2155,6 +2206,13 @@
       document.querySelectorAll(".deleteCardBtn").forEach(button => {
         button.addEventListener("click", function (event) {
           event.preventDefault();
+
+          //  현재 카드 개수 확인
+          const cardElements = document.querySelectorAll(".HanCardCheck");
+          if (cardElements.length <= 1) {
+            alert("결제 카드는 최소 1개 이상 등록되어 있어야 합니다.");
+            return;
+          }
 
           let cardId = this.getAttribute("data-id");
 
@@ -2245,83 +2303,54 @@
     //수정한 부분 -------끝
   </script>
 
-
-  <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const submitBtn = document.getElementById("HanOrderSubmitButton");
+      const form = document.getElementById("payment");
 
+      submitBtn.addEventListener("click", function (e) {
+        const memberPk = document.getElementById("paymentMemberKey").value;
+        const deliveryPk = document.getElementById("paymentDelivery").value;
+        const payPk = document.getElementById("paymentCard").value;
+        const cartPks = document.querySelectorAll("input[name='cartPk']");
 
-    //우편번호 및 주소찾기, 다음 API이용
-    function sample6_execDaumPostcode() {
-      new daum.Postcode({
-        oncomplete: function (data) {
-          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+        let emptyFields = [];
 
-          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          var addr = ''; // 주소 변수
-          var extraAddr = ''; // 참고항목 변수
-
-          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-            addr = data.roadAddress;
-          } else { // 사용자가 지번 주소를 선택했을 경우(J)
-            addr = data.jibunAddress;
-          }
-
-          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-          if (data.userSelectedType === 'R') {
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-              extraAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if (data.buildingName !== '' && data.apartment === 'Y') {
-              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (extraAddr !== '') {
-              extraAddr = ' (' + extraAddr + ')';
-            }
-            // 조합된 참고항목을 해당 필드에 넣는다.
-            //document.getElementById("sample6_extraAddress").value = extraAddr;
-
-          } else {
-            // document.getElementById("sample6_extraAddress").value = '';
-          }
-
-          // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          document.getElementById("HanZipcodeValue").value = data.zonecode;
-          document.getElementById("HanAddressValue").value = addr;
-          // 커서를 상세주소 필드로 이동한다.
-          document.getElementById("HanDetailAddress").focus();
-
+        if (!memberPk) {
+          emptyFields.push("회원 정보");
         }
-      }).open();
-    }
+
+        if (!deliveryPk) {
+          emptyFields.push("배송지 정보");
+        }
+
+        if (!payPk) {
+          emptyFields.push("결제 카드 정보");
+        }
+
+        if (cartPks.length === 0) {
+          emptyFields.push("장바구니 정보");
+        } else {
+          let emptyCart = false;
+          cartPks.forEach(input => {
+            if (!input.value) {
+              emptyCart = true;
+            }
+          });
+          if (emptyCart) {
+            emptyFields.push("장바구니 정보");
+          }
+        }
+
+        if (emptyFields.length > 0) {
+          e.preventDefault(); // 폼 제출 막기
+          alert("다음 정보를 입력해주세요: " + emptyFields.join(", "));
+        }
+      });
+    });
   </script>
 
-  <script>
-    window.addEventListener('load', dataAlertFunction());
 
-    //플래시 어트리뷰트로 가져온 값을 알람창으로 보여주는 함수
-    function dataAlertFunction() {
-      let alertElement = document.querySelector("#dataAlert");
-      let alertElement2 = document.querySelector("#dataAlert2");
-
-      if (alertElement && alertElement.value.trim() !== "") { // 데이터가 존재하고 빈값 ""이 아닐경우 실행
-        let message = alertElement.value;
-
-        alert(message); // 기본 알람창 띄우기
-
-        // FlashAttribute 값이 URL에 남지 않도록 초기화
-        history.replaceState({}, document.title, window.location.pathname);
-
-      }
-    }
-
-  </script>
 
 
 </body>

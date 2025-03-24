@@ -918,7 +918,7 @@
           </div>
 
           <div class="HanOrderButtonContainer2">
-            <button class="HanOrderSubmitButton" type="submit" form="payment">
+            <button class="HanOrderSubmitButton" type="submit" form="payment" id="HanOrderSubmitButton">
               결제 하기
             </button>
           </div>
@@ -1836,11 +1836,20 @@
 
   document.addEventListener("DOMContentLoaded", function () {
 
+
     document.querySelectorAll(".delete-address-btn").forEach(button => {
       button.addEventListener("click", function (event) {
-        event.preventDefault(); // 기본 동작 막기
+        event.preventDefault();
 
-        let deliveryId = this.getAttribute("data-id");
+        const deliveryId = this.getAttribute("data-id");
+
+        //  남은 주소 수 확인 (삭제 전 기준)
+        const addressCards = document.querySelectorAll(".HanAddressPopCardCheck");
+        if (addressCards.length <= 1) {
+          alert("배송지는 최소 1개 이상 등록되어 있어야 합니다.");
+          return;
+        }
+
 
         // 사용자에게 삭제 확인 요청
         if (!confirm("정말 이 배송지를 삭제하시겠습니까?")) {
@@ -1924,8 +1933,13 @@
                     document.getElementById("paymentDelivery").value = newId;
 
                     //배송 메모 체크
-                    const memoTag = selectedCard.querySelector(".selectedAddressMemo2");
+                    const memoTag = newDefaultCard.querySelector(".selectedAddressMemo2");
                     const memoValue = memoTag ? memoTag.textContent.trim() : "요청사항 없음";
+
+                    document.querySelector("#selectedAddressMemo").textContent = memoValue;
+
+
+
 
                     document.querySelector("#selectedAddressMemo").textContent = "";
                     document.querySelector("#selectedAddressMemo").textContent = memoValue;
@@ -1952,6 +1966,13 @@
     document.querySelectorAll(".deleteCardBtn").forEach(button => {
       button.addEventListener("click", function (event) {
         event.preventDefault();
+
+        //  현재 카드 개수 확인
+        const cardElements = document.querySelectorAll(".HanCardCheck");
+        if (cardElements.length <= 1) {
+          alert("결제 카드는 최소 1개 이상 등록되어 있어야 합니다.");
+          return;
+        }
 
         let cardId = this.getAttribute("data-id");
 
@@ -2042,6 +2063,45 @@
   //수정한 부분 -------끝
 </script>
 
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById("HanOrderSubmitButton");
+
+    submitBtn.addEventListener("click", function (e) {
+      // 각 input 값 가져오기
+      const productPk = document.getElementById("productPk")?.value;
+      const productCnt = document.getElementById("productCnt")?.value;
+      const memberPk = document.getElementById("paymentMemberKey")?.value;
+      const deliveryPk = document.getElementById("paymentDelivery")?.value;
+      const payPk = document.getElementById("paymentCard")?.value;
+
+      const emptyFields = [];
+
+      if (!productPk) emptyFields.push("상품 정보");
+      if (!productCnt || productCnt === "0") emptyFields.push("상품 개수");
+      if (!memberPk) emptyFields.push("회원 정보");
+      if (!deliveryPk) emptyFields.push("배송지 정보");
+      if (!payPk) emptyFields.push("결제 카드 정보");
+
+      if (emptyFields.length > 0) {
+        e.preventDefault(); // 폼 제출 막기
+        alert("다음 정보를 입력해주세요: " + emptyFields.join(", "));
+        return;
+      }
+
+      // Optional: 중복 제출 방지 UX
+      // submitBtn.disabled = true;
+      // submitBtn.textContent = "결제 진행 중...";
+    });
+  });
+</script>
+
+
+
+
 <!-- 다음 우편번호 주소찾기 API연결 사이트.-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -2092,6 +2152,8 @@
         document.getElementById("HanAddressValue").value = addr;
         // 커서를 상세주소 필드로 이동한다.
         document.getElementById("HanDetailAddress").focus();
+
+
       },
     }).open();
   }
