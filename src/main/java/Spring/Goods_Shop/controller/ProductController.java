@@ -115,8 +115,7 @@ public class ProductController {
             model.addAttribute("userId", member.getUserId());
         }
         // 검색어에 공백을 지움
-        String cleanName = name.replace(" ", "");
-        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(cleanName, page, size, sort);
+        Page<ProductCategoryAndSearchResponseDto> productCategoryAndSearchResponseDtoPage = productService.getProductNameResponseListDto(name, page, size, sort);
 
         model.addAttribute("searchList", productCategoryAndSearchResponseDtoPage.getContent());
         model.addAttribute("page", productCategoryAndSearchResponseDtoPage);
@@ -150,9 +149,7 @@ public class ProductController {
                                            @RequestParam(defaultValue = "10") int size,
                                            @RequestParam(defaultValue = "default") String sort,
                                            Model model) {
-        // 검색어에 공백을 지움
-        String cleanName = name.trim();
-        Page<MasterProductListResponseDto> productList = productService.getMasterProductSearchListDto(page, size, sort, cleanName);
+        Page<MasterProductListResponseDto> productList = productService.getMasterProductSearchListDto(page, size, sort, name);
         model.addAttribute("productList", productList.getContent());
         model.addAttribute("page", productList);
         model.addAttribute("currentPage", productList.getNumber());

@@ -13,8 +13,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // 카테고리
     Page<Product> findByProductCategory(ProductCategory productCategory, Pageable pageable);
-    // 검색어 db에 저장된 상품명의 공백을 지우고 반환
-    @Query("SELECT p FROM Product p WHERE REPLACE(p.name, ' ', '') LIKE %:keyword%")
+    // 검색어 db에 저장된 상품명의 공백을 지우고 반환 대소문자 구분 없음
+    @Query("SELECT p FROM Product p WHERE LOWER(REPLACE(p.name, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:keyword, ' ', ''), '%'))")
     Page<Product> findByNameContaining(@Param("keyword") String name, Pageable pageable);
 
     List<Product>  findTop4ByOrderBySellingCountDescIdDesc();
