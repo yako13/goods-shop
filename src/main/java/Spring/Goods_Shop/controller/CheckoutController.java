@@ -124,6 +124,7 @@ public class CheckoutController {
 
         model.addAttribute("CheckoutListDetailDto", checkoutListDetailDto);
 
+
         return "checkout/checkoutListDetail";
     }
 

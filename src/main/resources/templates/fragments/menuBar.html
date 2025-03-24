@@ -1,39 +1,24 @@
-
-
 <!--마이페이지 메뉴바 시작 -->
-    <div th:fragment="menuBar" class="HanMenuBarBody">
+<div th:fragment="menuBar" class="HanMenuBarBody">
+  <div class="HanMenuBarMain">
+    <div>
+      <p class="HanMenuBarP1">마이페이지</p>
+    </div>
+    <hr class="HanMenuBarHr" />
 
-        <div class="HanMenuBarMain">
+    <div class="HanMenuBarDiv">
+      <a th:href="@{/member/checkout/list}" id="checkoutLink">주문 목록</a>
 
-            <div>
+      <a th:href="@{/init/member}" id="editLink">회원 수정</a>
 
-                <p class="HanMenuBarP1">마이페이지</p>
-            </div>
-            <hr class="HanMenuBarHr">
+      <a th:href="@{/member/delivery/list}" id="deliveryLink">배송지 관리</a>
 
-            <div class="HanMenuBarDiv">
-                <a th:href="@{/member/checkout/list}" id="checkoutLink">주문 목록</a>
+      <a th:href="@{/member/pay/list}" id="payLink">결제 관리</a>
+    </div>
 
-                <a th:href="@{/init/member}" id="editLink">회원 수정</a>
+    <div class="HanMenuBarA">
+      <a>회원 탈퇴</a>
+    </div>
+  </div>
 
-
-                <a th:href="@{/member/delivery/list}" id="deliveryLink">배송지 관리</a>
-
-
-                <a th:href="@{/member/pay/list}" id="payLink">결제 관리</a>
-
-
-            </div>
-
-            <div class="HanMenuBarA">
-
-                <a th:href="@{/account/cancellation}">회원 탈퇴</a>
-
-
-            </div>
-
-
-        </div>
-
-
-<!--마이페이지 메뉴바 끝 -->
+  <!--마이페이지 메뉴바 끝 -->

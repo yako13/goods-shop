@@ -24,5 +24,7 @@ public class CheckoutCartDto {
 
     private int cartCnt;                //상품 개수
 
+    private Long productId;
+
 
 }

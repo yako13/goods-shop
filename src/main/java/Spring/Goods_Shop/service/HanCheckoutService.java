@@ -1016,6 +1016,7 @@ public class HanCheckoutService {
                     .productSumPrise(Formatter.changeBigDecimalFormat(sumPrice))
                     //상품 개수
                     .cartCnt(checkoutDetails.getCheckoutDetailCnt())
+                    .productId(checkoutDetails.getProduct().getId())
 
 
                     .build();
