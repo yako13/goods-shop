@@ -9,65 +9,78 @@
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
 
     <style>
-        .HanMainBodyTitle a {
-            text-decoration: none;
-            color: black;
-            outline: none;
-            border: none;
-            background-color: none;
-            font-size: 30px;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
+        #topBtn {
+  width: 90px;
+height: 90px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: none;
+  /* 기본적으로 버튼 숨김 */
+}
+
+.HanMainBodyTitle a {
+    text-decoration: none;
+    color: black;
+    outline: none;
+    border: none;
+    background-color: none;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
 
 
-        }
+}
 
-        .HanMainBodyTitle a:hover {
+.HanMainBodyTitle a:hover {
 
-            transform: translateY(-3px);
+    transform: translateY(-3px);
 
-        }
+}
 
-        .HanSection {
-            /* 화면 전체 높이 */
-            height: 90vh;
-        }
+.HanSection {
+    /* 화면 전체 높이 */
+    height: 90vh;
+}
 
-        body {
+body {
 
-            /* 부드러운 스크롤 효과 */
-            scroll-snap-type: y mandatory;
+    /* 부드러운 스크롤 효과 */
+    scroll-snap-type: y mandatory;
 
-        }
+}
 
-        /* 초기 상태: 숨겨진 상태 */
-        .HanMainNewDivCard {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+/* 초기 상태: 숨겨진 상태 */
+.HanMainNewDivCard {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
 
-        /* 스크롤해서 보이면 적용할 클래스 */
-        .show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* 스크롤해서 보이면 적용할 클래스 */
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        .HanMainNewDivCard:nth-child(1) {
-            transition-delay: 0s;
-        }
+.HanMainNewDivCard:nth-child(1) {
+    transition-delay: 0s;
+}
 
-        .HanMainNewDivCard:nth-child(2) {
-            transition-delay: 0.4s;
-        }
+.HanMainNewDivCard:nth-child(2) {
+    transition-delay: 0.4s;
+}
 
-        .HanMainNewDivCard:nth-child(3) {
-            transition-delay: 0.6s;
-        }
+.HanMainNewDivCard:nth-child(3) {
+    transition-delay: 0.6s;
+}
 
-        .HanMainNewDivCard:nth-child(4) {
-            transition-delay: 0.8s;
-        }
+.HanMainNewDivCard:nth-child(4) {
+    transition-delay: 0.8s;
+}
     </style>
 
 
@@ -237,7 +250,7 @@
 
         <!--  /신상품 순  -->
 
-
+        <img th:src="@{/images/upArrow1.svg}" id="topBtn">
 
     </div>
 
@@ -480,6 +493,23 @@
             cards.forEach(card => observer.observe(card));
         });
 
+           // 스크롤을 내리면 버튼을 보여주기
+    window.onscroll = function () {
+      let topButton = document.getElementById("topBtn");
+      if (
+        document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 50
+      ) {
+        topButton.style.display = "block"; // 스크롤이 50px 이상 내려가면 버튼 표시
+      } else {
+        topButton.style.display = "none"; // 50px 이하로 올라가면 버튼 숨김
+      }
+    };
+
+    // 버튼 클릭 시 페이지 맨 위로 스크롤
+    document.getElementById("topBtn").onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
+    };
     </script>
 
 

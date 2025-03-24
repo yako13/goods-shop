@@ -58,16 +58,7 @@ public class SecurityConfig {
                 .failureUrl("/login?error")
                 .usernameParameter("userId")
                 .passwordParameter("userPassword")
-//                .successHandler(authenticationSuccessHandler)
-                // 로그인 전 요청했던 화면이 있으면 해당하는 화면으로 이동 없으면 홈
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
-                        String redirectUrl = (savedRequest != null) ? savedRequest.getRedirectUrl() : "/";
-                        response.sendRedirect(redirectUrl);
-                    }
-                })
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
         );
 
@@ -77,15 +68,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .authorizationEndpoint(authorization -> authorization.baseUri("/oauth2/authorization"))
-//                .successHandler(authenticationSuccessHandler)
-                        .successHandler(new AuthenticationSuccessHandler() {
-                            @Override
-                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
-                                String redirectUrl = (savedRequest != null) ? savedRequest.getRedirectUrl() : "/";
-                                response.sendRedirect(redirectUrl);
-                            }
-                        })
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
         );
 

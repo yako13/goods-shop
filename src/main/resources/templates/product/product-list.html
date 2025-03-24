@@ -1,287 +1,285 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>☁️CloudStar WorkShop 상품</title>
     <!--    <link rel="stylesheet" href="/css/memberHeader.css" />-->
     <!--    <link rel="stylesheet" href="/css/memberFooter.css" />-->
-    <link rel="stylesheet" href="/css/mainPage.css" />
+    <link rel="stylesheet" href="/css/mainPage.css"/>
 
     <style>
-      a {
-        text-decoration: none;
-        color: #111111;
-      }
+        a {
+          text-decoration: none;
+          color: #111111;
+        }
 
-      .container {
-        min-height: 900px;
-        justify-self: center;
-      }
-      .container__main {
-        width: 1400px;
-        margin-top: 2rem;
-      }
-      .text__right {
-        text-align: right;
-      }
-      .p__small {
-        font-size: 0.8rem;
-        margin: 0;
-      }
-      .p__normal {
-        margin: 0;
-        margin-top: 0.5rem;
-      }
-      .container__product-image {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        padding: 1rem;
-        column-gap: 2.5rem;
-      }
-      .card__product-image {
-        width: 15rem;
-        height: 21rem;
-        padding-bottom: 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .product-image {
-        width: 15rem;
-        height: 15rem;
-        border: 1px solid #e1dfdf;
-      }
-      /* .button__top {
+        .container {
+          min-height: 900px;
+          justify-self: center;
+        }
+        .container__main {
+          width: 1400px;
+          margin-top: 2rem;
+        }
+        .text__right {
+          text-align: right;
+        }
+        .p__small {
+          font-size: 0.8rem;
+          margin: 0;
+        }
+        .p__normal {
+          margin: 0;
+          margin-top: 0.5rem;
+        }
+        .container__product-image {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          padding: 1rem;
+          column-gap: 2.5rem;
+        }
+        .card__product-image {
+          width: 15rem;
+          height: 21rem;
+          padding-bottom: 0.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .product-image {
+          width: 15rem;
+          height: 15rem;
+          border: 1px solid #e1dfdf;
+        }
+        /* .button__top {
+            position: fixed;
+            right: 2rem;
+            bottom: 3rem;
+          } */
+        .search-name {
+          font-size: 2rem;
+        }
+        .sort-product {
+          display: flex;
+          justify-content: space-between;
+          margin: 1rem;
+        }
+        li {
+          list-style: none;
+        }
+        .pagination {
+          margin: 1rem;
+          display: flex;
+          justify-content: center;
+        }
+
+        .pagination .page-item {
+          margin: 0 5px;
+        }
+
+        .pagination .page-link {
+          color: #ff84f4;
+          border-radius: 8px;
+          padding: 8px 12px;
+          transition: all 0.2s ease-in-out;
+        }
+
+        .pagination .page-link:hover {
+          background-color: #ffddfc;
+          color: white;
+        }
+
+        .pagination .active .page-link {
+          background-color: #fec3fa;
+          color: white;
+          border: none;
+        }
+
+        .pagination .disabled .page-link {
+          color: #ccc;
+          pointer-events: none;
+          background-color: #f8f9fa;
+        }
+        .container__sort {
+          display: flex;
+          gap: 1rem;
+        }
+        .pageNav {
+          margin: 50px;
+        }
+        #topBtn {
+          width: 90px;
+    height: 90px;
           position: fixed;
-          right: 2rem;
-          bottom: 3rem;
-        } */
-      .search-name {
-        font-size: 2rem;
-      }
-      .sort-product {
-        display: flex;
-        justify-content: space-between;
-        margin: 1rem;
-      }
-      li {
-        list-style: none;
-      }
-      .pagination {
-        margin: 1rem;
-        display: flex;
-        justify-content: center;
-      }
-
-      .pagination .page-item {
-        margin: 0 5px;
-      }
-
-      .pagination .page-link {
-        color: #ff84f4;
-        border-radius: 8px;
-        padding: 8px 12px;
-        transition: all 0.2s ease-in-out;
-      }
-
-      .pagination .page-link:hover {
-        background-color: #ffddfc;
-        color: white;
-      }
-
-      .pagination .active .page-link {
-        background-color: #fec3fa;
-        color: white;
-        border: none;
-      }
-
-      .pagination .disabled .page-link {
-        color: #ccc;
-        pointer-events: none;
-        background-color: #f8f9fa;
-      }
-      .container__sort {
-        display: flex;
-        gap: 1rem;
-      }
-      .pageNav {
-        margin: 50px;
-      }
-      #topBtn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 10px 15px;
-        font-size: 18px;
-        cursor: pointer;
-        display: none;
-        /* 기본적으로 버튼 숨김 */
-      }
-      .noProduct {
-        text-align: center;
-      }
-      .noProductImage {
-        height: 50rem;
-      }
-      .product-info {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        flex-grow: 1;
-        justify-content: space-between;
-      }
-      .text__red {
-        color: #ff1c1c;
-      }
+          bottom: 20px;
+          right: 20px;
+          border: none;
+          padding: 10px 15px;
+          cursor: pointer;
+          display: none;
+          /* 기본적으로 버튼 숨김 */
+        }
+        .noProduct {
+          text-align: center;
+        }
+        .noProductImage {
+          height: 50rem;
+        }
+        .product-info {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          flex-grow: 1;
+          justify-content: space-between;
+        }
+        .text__red {
+          color: #ff1c1c;
+        }
     </style>
-  </head>
-  <body>
-    <header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
-    <!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
-    <main class="container container__main">
-      <div class="search-name">전체상품</div>
-      <hr />
-      <div th:if="${page.totalElements == 0}" class="noProduct">
-        <img src="/images/notProductSearch.png" class="noProductImage" />
-      </div>
-      <div class="sort-product">
+</head>
+<body>
+<header th:replace="~{/fragments/memberHeader::memberHeader}"></header>
+<!--        <nav th:replace="~{/fragments/memberNav::memberNav}"></nav>-->
+<main class="container container__main">
+    <div class="search-name">전체상품</div>
+    <hr/>
+    <div th:if="${page.totalElements == 0}" class="noProduct">
+        <img src="/images/notProductSearch.png" class="noProductImage"/>
+    </div>
+    <div class="sort-product">
         <div class="container__sort">
-          <select name="sizeSelect" id="sizeSelect" onchange="">
-            <option value="5" th:selected="${size==5}">5개</option>
-            <option value="10" th:selected="${size==10}">10개</option>
-            <option value="15" th:selected="${size==15}">15개</option>
-          </select>
+            <select name="sizeSelect" id="sizeSelect" onchange="">
+                <option value="5" th:selected="${size==5}">5개</option>
+                <option value="10" th:selected="${size==10}">10개</option>
+                <option value="15" th:selected="${size==15}">15개</option>
+            </select>
 
-          <select name="sortSelect" id="sortSelect" onchange="">
-            <option value="default" th:selected="${sortSelect == 'default'}">
-              최신순
-            </option>
-            <option
-              value="price_asc"
-              th:selected="${sortSelect == 'price_asc'}">
-              가격낮은순
-            </option>
-            <option
-              value="price_desc"
-              th:selected="${sortSelect == 'price_desc'}">
-              가격높은순
-            </option>
-          </select>
+            <select name="sortSelect" id="sortSelect" onchange="">
+                <option value="default" th:selected="${sortSelect == 'default'}">
+                    최신순
+                </option>
+                <option
+                        value="price_asc"
+                        th:selected="${sortSelect == 'price_asc'}">
+                    가격낮은순
+                </option>
+                <option
+                        value="price_desc"
+                        th:selected="${sortSelect == 'price_desc'}">
+                    가격높은순
+                </option>
+            </select>
         </div>
         <span class="text__right">
           <span th:text="${page.totalElements + '건의 상품 / '}"></span>
           <span
-            th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
+                  th:text="${(page.number + 1) + (page.number * size) - page.totalPages + (page.totalPages - page.number)}"></span>
           -
           <span
-            th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
+                  th:text="${(page.number * size) + #lists.size(page.content) + '건'}"></span>
         </span>
-      </div>
+    </div>
 
-      <!-- product card -->
-      <div class="container__product-image">
+    <!-- product card -->
+    <div class="container__product-image">
         <div th:each="productList : ${productList}">
-          <a th:href="@{/product/details/{id}(id=${productList.id})}">
-            <div class="card__product-image">
-              <img
-                class="product-image"
-                th:src="${productList.mainImagePath}" />
-              <div class="product-info">
-                <p th:text="${productList.name}" class="p__normal"></p>
-                <div>
-                  <span th:text="${productList.price}" class="p__small"></span>
-                  <span
-                    th:unless="${productList.count > 5}"
-                    class="p__small text__red"
-                    >품절 임박!!</span
-                  >
+            <a th:href="@{/product/details/{id}(id=${productList.id})}">
+                <div class="card__product-image">
+                    <img
+                            class="product-image"
+                            th:src="${productList.mainImagePath}"/>
+                    <div class="product-info">
+                        <p th:text="${productList.name}" class="p__normal"></p>
+                        <div>
+                            <span th:text="${productList.price}" class="p__small"></span>
+                            <span
+                                    th:unless="${productList.count > 5}"
+                                    class="p__small text__red"
+                            >품절 임박!!</span
+                            >
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </a>
+            </a>
         </div>
-      </div>
+    </div>
 
-      <!-- 페이지네이션 -->
-      <nav
-        class="pageNav"
-        aria-label="Page navigation"
-        th:if="${page.totalElements > 3}">
+    <!-- 페이지네이션 -->
+    <nav
+            class="pageNav"
+            aria-label="Page navigation"
+            th:if="${page.totalElements > 3}">
         <ul class="pagination">
-          <!-- 첫 페이지 버튼 -->
-          <li
-            class="page-item"
-            th:classappend="${page.first} ? 'disabled' : ''">
-            <a
-              class="page-link"
-              th:href="@{/product/list(page=0, size=${size})}"
-              aria-label="First">
-              <span>&laquo;</span>
-            </a>
-          </li>
+            <!-- 첫 페이지 버튼 -->
+            <li
+                    class="page-item"
+                    th:classappend="${page.first} ? 'disabled' : ''">
+                <a
+                        class="page-link"
+                        th:href="@{/product/list(page=0, size=${size})}"
+                        aria-label="First">
+                    <span>&laquo;</span>
+                </a>
+            </li>
 
-          <!-- 이전 버튼 -->
-          <li
-            class="page-item"
-            th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
-            <a
-              class="page-link"
-              th:href="@{/product/list(page=${currentPage - 1}, size=${size})}"
-              aria-label="Previous">
-              <span>&lt;</span>
-            </a>
-          </li>
+            <!-- 이전 버튼 -->
+            <li
+                    class="page-item"
+                    th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
+                <a
+                        class="page-link"
+                        th:href="@{/product/list(page=${currentPage - 1}, size=${size})}"
+                        aria-label="Previous">
+                    <span>&lt;</span>
+                </a>
+            </li>
 
-          <!-- 페이지 번호 -->
-          <li
-            class="page-item"
-            th:each="pageNum : ${#numbers.sequence(currentPage - 3 > 0 ? currentPage - 3 : 0,
+            <!-- 페이지 번호 -->
+            <li
+                    class="page-item"
+                    th:each="pageNum : ${#numbers.sequence(currentPage - 3 > 0 ? currentPage - 3 : 0,
                                                  currentPage + 3 < page.totalPages - 1 ? currentPage + 3 : page.totalPages - 1)}"
-            th:classappend="${pageNum == currentPage} ? 'active' : ''">
-            <a
-              class="page-link"
-              th:href="@{/product/list(page=${pageNum}, size=${size})}"
-              th:text="${pageNum + 1}"></a>
-          </li>
+                    th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                <a
+                        class="page-link"
+                        th:href="@{/product/list(page=${pageNum}, size=${size})}"
+                        th:text="${pageNum + 1}"></a>
+            </li>
 
-          <!-- 다음 버튼 -->
-          <li
-            class="page-item"
-            th:classappend="${page.hasNext()} ? '' : 'disabled'">
-            <a
-              class="page-link"
-              th:href="@{/product/list(page=${currentPage + 1}, size=${size})}"
-              aria-label="Next">
-              <span>&gt;</span>
-            </a>
-          </li>
+            <!-- 다음 버튼 -->
+            <li
+                    class="page-item"
+                    th:classappend="${page.hasNext()} ? '' : 'disabled'">
+                <a
+                        class="page-link"
+                        th:href="@{/product/list(page=${currentPage + 1}, size=${size})}"
+                        aria-label="Next">
+                    <span>&gt;</span>
+                </a>
+            </li>
 
-          <!-- 마지막 페이지 버튼 -->
-          <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
-            <a
-              class="page-link"
-              th:href="@{/product/list(page=${page.totalPages - 1}, size=${size})}"
-              aria-label="Last">
-              <span>&raquo;</span>
-            </a>
-          </li>
+            <!-- 마지막 페이지 버튼 -->
+            <li class="page-item" th:classappend="${page.last} ? 'disabled' : ''">
+                <a
+                        class="page-link"
+                        th:href="@{/product/list(page=${page.totalPages - 1}, size=${size})}"
+                        aria-label="Last">
+                    <span>&raquo;</span>
+                </a>
+            </li>
         </ul>
-      </nav>
+    </nav>
 
-      <!-- /product card -->
-    </main>
-    <aside>
-      <button id="topBtn" title="Go to top">▲</button>
-    </aside>
-    <footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
-  </body>
-  <script>
+    <!-- /product card -->
+</main>
+<aside>
+    <img th:src="@{/images/upArrow1.svg}" id="topBtn">
+</aside>
+<footer th:replace="~{fragments/memberFooter::memberFooter}"></footer>
+</body>
+<script>
     // 검색 단어기준 상품개수 정렬
     const sizeSelect = document.getElementById("sizeSelect");
     const sortSelect = document.getElementById("sortSelect");
@@ -317,5 +315,5 @@
     document.getElementById("topBtn").onclick = function () {
       window.scrollTo({ top: 0, behavior: "smooth" }); // 부드러운 스크롤로 맨 위로 이동
     };
-  </script>
+</script>
 </html>
