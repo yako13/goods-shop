@@ -16,39 +16,39 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
     List<Checkout> findAllByMemberId(Long memberId);
 
     //공백 구분 없이 주문자 이름 검색
-    @Query("SELECT c FROM Checkout c WHERE REPLACE(c.member.name, ' ', '') LIKE %:withoutSpaceSearchText%")
+    @Query("SELECT c FROM Checkout c WHERE LOWER(REPLACE(c.member.name, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%'))")
     Page<Checkout> findByMemberNameContainingWithoutSpace(@Param("withoutSpaceSearchText") String name, Pageable pageable);
 
     //공백 구분 없이 받는 분 이름 검색
-    @Query("SELECT c FROM Checkout c WHERE REPLACE(c.checkoutName, ' ', '') LIKE %:withoutSpaceSearchText%")
+    @Query("SELECT c FROM Checkout c WHERE LOWER(REPLACE(c.checkoutName, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%'))")
     Page<Checkout> findByCheckoutNameContainingWithoutSpace(@Param("withoutSpaceSearchText") String name, Pageable pageable);
 
     //공백 구분 없이 상품명 검색
     @Query("SELECT DISTINCT c FROM Checkout c " +
             "JOIN c.checkoutDetailsList d " +
             "JOIN d.product p " +
-            "WHERE REPLACE(p.name, ' ', '') LIKE %:withoutSpaceSearchText%")
+            "WHERE LOWER(REPLACE(p.name, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%'))")
     Page<Checkout> findByProductNameContainingWithoutSpace(
             @Param("withoutSpaceSearchText") String productName,
             Pageable pageable
     );
 
     //공백 구분 없이 주문자 이름 검색 + 주문상태
-    @Query("SELECT c FROM Checkout c WHERE REPLACE(c.member.name, ' ', '') LIKE %:withoutSpaceSearchText% AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep")
+    @Query("SELECT c FROM Checkout c WHERE LOWER(REPLACE(c.member.name, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%')) AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep")
     Page<Checkout> findByMemberNameContainingWithoutSpaceAndCheckoutStep(@Param("withoutSpaceSearchText") String name, Pageable pageable, @Param("checkoutState") CheckoutState checkoutState);
 
     //공백 구분 없이 받는 분 이름 검색 + 주문상태
-    @Query("SELECT c FROM Checkout c WHERE REPLACE(c.checkoutName, ' ', '') LIKE %:withoutSpaceSearchText% AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep")
+    @Query("SELECT c FROM Checkout c WHERE LOWER(REPLACE(c.checkoutName, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%')) AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep")
     Page<Checkout> findByCheckoutNameContainingWithoutSpaceAndCheckoutStep(@Param("withoutSpaceSearchText") String name, Pageable pageable, @Param("checkoutState") CheckoutState checkoutState);
 
     //공백 구분 없이 상품명 검색 + 주문상태
     @Query("SELECT DISTINCT c FROM Checkout c " +
             "JOIN c.checkoutDetailsList d " +
             "JOIN d.product p " +
-            "WHERE REPLACE(p.name, ' ', '') LIKE %:withoutSpaceSearchText% AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep" )
+            "WHERE LOWER(REPLACE(p.name, ' ', '')) LIKE LOWER(CONCAT('%', REPLACE(:withoutSpaceSearchText, ' ', ''), '%')) AND c.checkoutStep = :checkoutState ORDER BY c.checkoutStep")
     Page<Checkout> findByProductNameContainingWithoutSpaceAndCheckoutStep(
             @Param("withoutSpaceSearchText") String productName,
-            Pageable pageable,@Param("checkoutState") CheckoutState checkoutState
+            Pageable pageable, @Param("checkoutState") CheckoutState checkoutState
     );
 
     //주문 상태

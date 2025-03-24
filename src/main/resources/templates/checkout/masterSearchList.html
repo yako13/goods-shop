@@ -245,7 +245,7 @@
             th:classappend="${paging.first} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=0, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=0, size=${size}, sort=${sortSelect}, search=${searchSelect}, checkoutState=${checkoutState})}"
               aria-label="First">
               <span>&laquo;</span>
             </a>
@@ -257,7 +257,7 @@
             th:classappend="${paging.hasPrevious()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage - 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage - 1}, size=${size}, sort=${sortSelect}, search=${searchSelect}, checkoutState=${checkoutState})}"
               aria-label="Previous">
               <span>&lt;</span>
             </a>
@@ -271,7 +271,7 @@
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${pageNum}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${pageNum}, size=${size}, sort=${sortSelect}, search=${searchSelect}, checkoutState=${checkoutState})}"
               th:text="${pageNum + 1}"></a>
           </li>
 
@@ -281,7 +281,7 @@
             th:classappend="${paging.hasNext()} ? '' : 'disabled'">
             <a
               class="page-link"
-              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage + 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${currentPage + 1}, size=${size}, sort=${sortSelect}, search=${searchSelect}, checkoutState=${checkoutState})}"
               aria-label="Next">
               <span>&gt;</span>
             </a>
@@ -293,7 +293,7 @@
             th:classappend="${paging.last} ? 'disabled' : ''">
             <a
               class="page-link"
-              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${paging.totalPages - 1}, size=${size}, sort=${sortSelect}, checkoutState=${checkoutState})}"
+              th:href="@{/master/checkout/search/index(keyword=${keywordQuery},page=${paging.totalPages - 1}, size=${size}, sort=${sortSelect}, search=${searchSelect}, checkoutState=${checkoutState})}"
               aria-label="Last">
               <span>&raquo;</span>
             </a>
