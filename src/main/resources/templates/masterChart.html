@@ -348,33 +348,60 @@
       options: commonOptions
     });
 
-    // 월별 차트
-    new Chart(document.getElementById('monthChart'), {
-      type: 'bar',
-      data: {
-        labels: monthLabels,
-        datasets: [{
-          label: '월별 매출',
-          data: monthData,
-          backgroundColor: 'rgba(153, 102, 255, 0.6)'
-        }]
+     // 월별 차트
+new Chart(document.getElementById('monthChart'), {
+  type: 'bar',
+  data: {
+    labels: monthLabels,
+    datasets: [{
+      label: '월별 매출',
+      data: monthData,
+      backgroundColor: 'rgba(153, 102, 255, 0.6)',
+      categoryPercentage: 0.5, // ✅ 카테고리 영역에서 막대 비율
+      barPercentage: 0.9       // ✅ 막대 자체 너비 비율
+    }]
+  },
+  options: {
+    ...commonOptions,
+    scales: {
+      x: {
+        offset: true, // ✅ 막대 가장자리 잘림 방지
+        grid: {
+          display: false
+        }
       },
-      options: commonOptions
-    });
+      y: commonOptions.scales.y
+    }
+  }
+});
 
-    // 연도별 차트
-    new Chart(document.getElementById('yearChart'), {
-      type: 'bar',
-      data: {
-        labels: yearLabels,
-        datasets: [{
-          label: '연도별 매출',
-          data: yearData,
-          backgroundColor: 'rgba(255, 159, 64, 0.6)'
-        }]
+// 연도별 차트
+new Chart(document.getElementById('yearChart'), {
+  type: 'bar',
+  data: {
+    labels: yearLabels,
+    datasets: [{
+      label: '연도별 매출',
+      data: yearData,
+      backgroundColor: 'rgba(255, 159, 64, 0.6)',
+      categoryPercentage: 0.5, // 카테고리 영역 중 막대가 차지하는 비율
+      barPercentage: 0.9       // 개별 막대의 너비 비율
+    }]
+  },
+  options: {
+    ...commonOptions,
+    scales: {
+      x: {
+        offset: true, // 가장자리 막대 절반 표시 방지
+        grid: {
+          display: false
+        }
       },
-      options: commonOptions
-    });
+      y: commonOptions.scales.y
+    }
+  }
+});
+
 
     /*]]>*/
   </script>
