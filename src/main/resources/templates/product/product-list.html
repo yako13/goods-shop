@@ -197,9 +197,14 @@
                 <div>
                   <span th:text="${productList.price}" class="p__small"></span>
                   <span
-                    th:unless="${productList.count > 5}"
+                    th:unless="${productList.count == 0 ||productList.count > 5}"
                     class="p__small text__red"
                     >품절 임박!!</span
+                  >
+                  <span
+                    th:if="${productList.count == 0}"
+                    class="p__small text__red"
+                    >상품이 품절되었습니다</span
                   >
                 </div>
               </div>

@@ -412,6 +412,7 @@ public class ProductService {
                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                     .mainImagePath(productMainImagePath)
                     .sort(index)
+                    .count(product.getCount())
                     .build();
 
             productListResponseDtoList.add(productListResponseDto);
@@ -445,6 +446,7 @@ public class ProductService {
                     .price(Formatter.changeBigDecimalFormat(product.getPrice()))
                     .mainImagePath(productMainImagePath)
                     .sort(index)
+                    .count(product.getCount())
                     .build();
 
             productListResponseDtoList.add(productListResponseDto);
